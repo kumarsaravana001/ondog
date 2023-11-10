@@ -1,17 +1,18 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
-import '../../../config/app_textstyle.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_vertical_scroll_card.dart';
 
-class Events extends StatefulWidget {
-  const Events({Key? key});
+class EventsScreen extends StatefulWidget {
+  const EventsScreen({Key? key});
 
   @override
-  State<Events> createState() => _EventsState();
+  State<EventsScreen> createState() => _EventsScreenState();
 }
 
-class _EventsState extends State<Events> {
+class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,20 +36,24 @@ class _EventsState extends State<Events> {
                   style: AppTestStyle.headingBai(fontSize: 28.sp),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 100.sp),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15.0,
-                    mainAxisSpacing: 15.0,
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 15.0,
+                            mainAxisSpacing: 15.0,
+                            mainAxisExtent: 190),
+                    itemCount: 11,
+                    itemBuilder: (BuildContext context, int index) {
+                      return const AppVerticalScrollCard();
+                    },
                   ),
-                  itemCount: 11,
-                  itemBuilder: (BuildContext context, int index) {
-                    return const AppVerticalScrollCard();
-                  },
                 ),
               ),
+              SizedBox(height: 4.h),
             ],
           ),
         ],

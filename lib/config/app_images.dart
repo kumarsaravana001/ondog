@@ -9,4 +9,13 @@ class AppImages {
       // fit: BoxFit.cover,
     );
   }
+
+  static Widget dummyimage({double? height, double? width, BoxFit? fit}) {
+    return Image.asset(
+      "assets/images/dummy.png",
+      width: width,
+      height: height,
+      fit: fit,
+    );
+  }
 }

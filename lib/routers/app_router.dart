@@ -4,7 +4,7 @@ import 'package:ondgo_flutter/utilities/index.dart';
 import '../view/view_index.dart';
 
 final router = GoRouter(
-  initialLocation: "/Navbar",
+  initialLocation: "/",
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
     GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
@@ -17,7 +17,7 @@ final router = GoRouter(
         path: '/profile', builder: (context, state) => const ProfileScreen()),
     GoRoute(
         path: '/playlist', builder: (context, state) => const PlayListScreen()),
-    GoRoute(path: '/events', builder: (context, state) => const Events()),
+    GoRoute(path: '/events', builder: (context, state) => const EventsScreen()),
     GoRoute(
         path: '/purchase', builder: (context, state) => const PurchaseScreen()),
     GoRoute(

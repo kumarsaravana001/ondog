@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ondgo_flutter/view/index.dart';
-
 import '../config/app_textstyle.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -9,6 +8,7 @@ class CustomElevatedButton extends StatelessWidget {
   final Color backgroundcolor;
   final Color labelcolor;
   final Color bordercolor;
+  final double fontsize;
 
   const CustomElevatedButton({
     Key? key,
@@ -17,6 +17,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.backgroundcolor,
     required this.labelcolor,
     required this.bordercolor,
+    required this.fontsize,
   }) : super(key: key);
 
   @override
@@ -38,7 +39,9 @@ class CustomElevatedButton extends StatelessWidget {
       child: Text(
         text,
         style: AppTestStyle.headingint(
-            fontSize: 18.sp, fontWeight: FontWeight.bold, color: labelcolor),
+            fontSize: fontsize.sp,
+            fontWeight: FontWeight.bold,
+            color: labelcolor),
       ),
     );
   }

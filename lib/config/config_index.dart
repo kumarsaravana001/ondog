@@ -1,4 +1,3 @@
-import 'config_index.dart';
 
 export './app_colors.dart';
 export './app_icons_widgets.dart';

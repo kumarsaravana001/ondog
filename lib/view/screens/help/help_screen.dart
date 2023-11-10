@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../config/app_textstyle.dart';
 import '../../../config/config_index.dart';
-import '../../../utilities/app_horizontal_scroll_card.dart';
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({super.key});

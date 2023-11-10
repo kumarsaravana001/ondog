@@ -82,4 +82,10 @@ class AppLocalisation {
   static const episodes = "Episodes";
   static const relatedvideos = "Related Videos";
   static const interactwithcreators = "Interact with creators";
+  static const takethenextquiz = "Take the next quiz!";
+  static const earnpointstoclaimexistingrewards =
+      "Earn points to clim existing rewards";
+  static const start = "start";
+  static const glossary = "Glossary";
+  static const glossarycontent = "Glossary";
 }

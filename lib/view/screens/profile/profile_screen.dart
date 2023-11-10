@@ -24,19 +24,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   IconAssets.profilebg,
                 ),
                 Positioned(
-                  // top: 80,
-                  // left: (MediaQuery.of(context).size.width - 155) / 2,
                   child: Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 40.sp),
+                      padding: EdgeInsets.only(top: 35.sp),
                       child: Column(
                         children: [
                           Container(
                             width: 120,
                             height: 150,
                             decoration: const BoxDecoration(
-                              color: Colors.red,
-                            ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15))),
+                            child: ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(12)),
+                                child: AppImages.dummyimage(fit: BoxFit.cover)),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 16.sp),
@@ -92,6 +94,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             buildClickableText(AppLocalisation.contact, () {
               context.push("/contact");
             }),
+            SizedBox(
+              height: 6.h,
+            ),
           ],
         ),
       ),

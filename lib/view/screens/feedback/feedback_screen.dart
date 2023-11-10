@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/app_textstyle.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/index.dart';
 
@@ -61,6 +60,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: CustomElevatedButton(
+                        fontsize: 18.sp,
                         labelcolor: AppColors.black,
                         backgroundcolor: AppColors.white,
                         bordercolor: AppColors.black,

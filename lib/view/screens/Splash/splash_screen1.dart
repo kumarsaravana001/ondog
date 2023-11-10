@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ondgo_flutter/view/view_index.dart';
 
 import '../../../config/config_index.dart';
 
@@ -10,6 +9,7 @@ class SplashScreen1 extends StatefulWidget {
   const SplashScreen1({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SplashScreen1State createState() => _SplashScreen1State();
 }
 

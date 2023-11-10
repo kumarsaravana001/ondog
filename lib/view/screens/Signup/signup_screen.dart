@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ondgo_flutter/view/screens/profile/profile_screen.dart';
 
 import '../../../config/config_index.dart';
 import '../../../utilities/index.dart';
@@ -92,6 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Padding(
                               padding: EdgeInsets.only(top: 1.5.h),
                               child: CustomElevatedButton(
+                                fontsize: 18.sp,
                                 bordercolor: AppColors.white,
                                 backgroundcolor: AppColors.black,
                                 labelcolor: AppColors.white,

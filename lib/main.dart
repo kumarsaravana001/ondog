@@ -10,10 +10,13 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  // runApp(
+  //   DevicePreview(
+  //     builder: (context) => const MyApp(),
+  //   ),
+  // );
   runApp(
-    DevicePreview(
-      builder: (context) => const MyApp(),
-    ),
+    const MyApp(),
   );
 }
 

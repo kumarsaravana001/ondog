@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../config/app_textstyle.dart';
 import '../config/config_index.dart';
 
 class AppVerticalScrollCard extends StatelessWidget {
@@ -8,58 +7,50 @@ class AppVerticalScrollCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      //width: 42.w,
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.black,
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-                color: AppColors.black,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 14.sp),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(AppLocalisation.finance,
                         style: AppTestStyle.headingint(
-                            color: AppColors.white,
                             fontSize: 16.sp,
+                            color: AppColors.white,
                             fontWeight: FontWeight.bold)),
                     Text(AppLocalisation.ddmm,
                         style: AppTestStyle.headingint(
-                            color: AppColors.white,
                             fontSize: 16.sp,
+                            color: AppColors.white,
                             fontWeight: FontWeight.bold))
                   ],
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(AppLocalisation.registernowex,
-                      style: AppTestStyle.headingint(
-                          color: AppColors.white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold)),
-                ),
+                Text(AppLocalisation.commingsoon,
+                    style: AppTestStyle.headingint(
+                        fontSize: 15.sp,
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold)),
               ],
             ),
           ),
-          Expanded(
+          Expanded(child: AppImages.dummyimage(fit: BoxFit.cover)),
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15)),
             child: Container(
-              color: Colors.red[200],
+              height: 10,
+              color: Colors.purple,
             ),
-          ),
-          Container(
-            height: 15.sp,
-            decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                )),
           )
         ],
       ),

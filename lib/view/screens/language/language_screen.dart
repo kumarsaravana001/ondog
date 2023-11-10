@@ -1,5 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/config/app_textstyle.dart';
 
 import '../../../config/config_index.dart';
 
@@ -17,6 +18,13 @@ class _CheckboxListState extends State<LanguageScreen> {
   bool isAudioFrench = false;
   bool isAudioGerman = false;
   bool isAudioItalian = false;
+
+  bool isSubtitleEnglish = false;
+  bool isSubtitleHindi = false;
+  bool isSubtitleSpanish = false;
+  bool isSubtitleFrench = false;
+  bool isSubtitleGerman = false;
+  bool isSubtitleItalian = false;
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +123,7 @@ class _CheckboxListState extends State<LanguageScreen> {
                   children: [
                     CheckboxRow(
                         text: AppLocalisation.english,
-                        isAudiochecked: isAudioEnglish,
+                        isAudiochecked: isSubtitleEnglish,
                         onChanged: (value) {
                           setState(() {
                             isAudioEnglish = value;
@@ -123,34 +131,34 @@ class _CheckboxListState extends State<LanguageScreen> {
                         }),
                     CheckboxRow(
                         text: AppLocalisation.french,
-                        isAudiochecked: isAudioFrench,
+                        isAudiochecked: isSubtitleFrench,
                         onChanged: (value) {
                           setState(() {
-                            isAudioFrench = value;
+                            isSubtitleFrench = value;
                           });
                         }),
                     CheckboxRow(
                         text: AppLocalisation.hindi,
-                        isAudiochecked: isAudioHindi,
+                        isAudiochecked: isSubtitleHindi,
                         onChanged: (value) {
                           setState(() {
-                            isAudioHindi = value;
+                            isSubtitleHindi = value;
                           });
                         }),
                     CheckboxRow(
                         text: AppLocalisation.german,
-                        isAudiochecked: isAudioGerman,
+                        isAudiochecked: isSubtitleGerman,
                         onChanged: (value) {
                           setState(() {
-                            isAudioGerman = value;
+                            isSubtitleGerman = value;
                           });
                         }),
                     CheckboxRow(
                         text: AppLocalisation.spanish,
-                        isAudiochecked: isAudioSpanish,
+                        isAudiochecked: isSubtitleSpanish,
                         onChanged: (value) {
                           setState(() {
-                            isAudioSpanish = value;
+                            isSubtitleSpanish = value;
                           });
                         }),
                   ]),
@@ -165,6 +173,7 @@ class _CheckboxListState extends State<LanguageScreen> {
 class CheckboxRow extends StatelessWidget {
   final String text;
   final bool isAudiochecked;
+
   final Function(bool) onChanged;
 
   const CheckboxRow({
@@ -196,7 +205,7 @@ class CustomSquareCheckbox extends StatelessWidget {
   final bool checked;
   final Function(bool)? onChanged;
 
-  CustomSquareCheckbox(
+  const CustomSquareCheckbox(
       {super.key, required this.checked, required this.onChanged});
 
   @override

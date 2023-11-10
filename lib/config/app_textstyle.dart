@@ -20,6 +20,7 @@ class AppTestStyle {
     double fontSize = 20,
     FontWeight fontWeight = FontWeight.normal,
     bool underline = false,
+    bool italic = false,
   }) {
     return TextStyle(
         fontFamily: 'inter',
@@ -27,6 +28,7 @@ class AppTestStyle {
         fontSize: fontSize,
         fontWeight: fontWeight,
         decoration: underline ? TextDecoration.underline : TextDecoration.none,
+        fontStyle: italic ? FontStyle.italic : FontStyle.normal,
         decorationColor: AppColors.white);
   }
 
