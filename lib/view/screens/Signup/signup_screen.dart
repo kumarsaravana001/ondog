@@ -23,11 +23,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Align(
+            Align(
               alignment: Alignment.topCenter,
               child: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text(AppLocalisation.signuptext),
+                child: Text(
+                  AppLocalisation.signuptext,
+                  style: AppTestStyle.headingint(fontSize: 16.sp, italic: true),
+                ),
               ),
             ),
             const Spacer(),
@@ -45,8 +48,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fit: BoxFit.cover,
                 ),
                 Positioned(
-                  bottom: -25,
+                  bottom: -40,
                   left: -15,
+                  right: -10,
                   child: SvgPicture.asset(
                     IconAssets.signupscreenbgdesign,
                     // height: 19.h,
@@ -56,13 +60,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Positioned(
                   child: Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 14.h),
+                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(bottom: 2.5.h),
-                          child: const Text(AppLocalisation.startlearning,
-                              style: TextStyle(color: AppColors.white)),
+                          padding: EdgeInsets.only(bottom: 5.h),
+                          child: Text(
+                            AppLocalisation.startlearning,
+                            style: AppTestStyle.headingint(
+                                fontSize: 22.sp,
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
                         CustomTextField(
                           controller: emailController,
@@ -80,12 +89,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              AppLocalisation.registernow,
-                              style: TextStyle(
-                                color: AppColors.white,
-                                decoration: TextDecoration.underline,
-                                decorationColor: AppColors.white,
+                            Padding(
+                              padding: EdgeInsets.only(left: 20.sp),
+                              child: Text(
+                                AppLocalisation.registernow,
+                                style: AppTestStyle.headingint(
+                                    fontSize: 16.sp,
+                                    color: AppColors.white,
+                                    underline: true,
+                                    fontWeight: FontWeight.w400),
                               ),
                             ),
                             Padding(

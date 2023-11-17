@@ -14,90 +14,100 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                SvgPicture.asset(
-                  width: MediaQuery.of(context).size.width,
-                  IconAssets.profilebg,
-                ),
-                Positioned(
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 35.sp),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 120,
-                            height: 150,
-                            decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
-                            child: ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(12)),
-                                child: AppImages.dummyimage(fit: BoxFit.cover)),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 16.sp),
-                            child: Text(
-                              AppLocalisation.username,
-                              style: AppTestStyle.headingBai(
-                                  color: AppColors.white,
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.bold),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  SvgPicture.asset(
+                    width: MediaQuery.of(context).size.width,
+                    IconAssets.profilebg,
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 30,
+                    child: Row(
+                      children: [SvgPicture.asset(IconAssets.badgeclose)],
+                    ),
+                  ),
+                  Positioned(
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 35.sp),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 120,
+                              height: 150,
+                              decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))),
+                              child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(12)),
+                                  child:
+                                      AppImages.dummyimage(fit: BoxFit.cover)),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 10.sp),
-                            child: Text(
-                              AppLocalisation.useremail,
-                              style: AppTestStyle.headingint(
-                                  color: AppColors.white,
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.normal),
+                            Padding(
+                              padding: EdgeInsets.only(top: 16.sp),
+                              child: Text(
+                                AppLocalisation.username,
+                                style: AppTestStyle.headingBai(
+                                    color: AppColors.white,
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: EdgeInsets.only(top: 10.sp),
+                              child: Text(
+                                AppLocalisation.useremail,
+                                style: AppTestStyle.headingint(
+                                    color: AppColors.white,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 22.sp,
-            ),
-            buildClickableText(AppLocalisation.yourplaylist, () {
-              context.push("/playlist");
-            }),
-            buildClickableText(AppLocalisation.events, () {
-              context.push("/events");
-            }),
-            buildClickableText(AppLocalisation.purchase, () {
-              context.push("/purchase");
-            }),
-            buildClickableText(AppLocalisation.rewards, () {
-              context.push("/rewards");
-            }),
-            buildClickableText(AppLocalisation.language, () {
-              context.push("/language");
-            }),
-            buildClickableText(AppLocalisation.help, () {
-              context.push("/help");
-            }),
-            buildClickableText(AppLocalisation.feedback, () {
-              context.push("/feedback");
-            }),
-            buildClickableText(AppLocalisation.contact, () {
-              context.push("/contact");
-            }),
-            SizedBox(
-              height: 6.h,
-            ),
-          ],
+                ],
+              ),
+              SizedBox(
+                height: 22.sp,
+              ),
+              buildClickableText(AppLocalisation.yourplaylist, () {
+                context.push("/playlist");
+              }),
+              buildClickableText(AppLocalisation.events, () {
+                context.push("/events");
+              }),
+              buildClickableText(AppLocalisation.purchase, () {
+                context.push("/purchase");
+              }),
+              buildClickableText(AppLocalisation.rewards, () {
+                context.push("/rewards");
+              }),
+              buildClickableText(AppLocalisation.language, () {
+                context.push("/language");
+              }),
+              buildClickableText(AppLocalisation.help, () {
+                context.push("/help");
+              }),
+              buildClickableText(AppLocalisation.feedback, () {
+                context.push("/feedback");
+              }),
+              buildClickableText(AppLocalisation.contact, () {
+                context.push("/contact");
+              }),
+              SizedBox(
+                height: 6.h,
+              ),
+            ],
+          ),
         ),
       ),
     );

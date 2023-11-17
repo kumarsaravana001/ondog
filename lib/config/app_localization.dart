@@ -29,12 +29,14 @@ class AppLocalisation {
   static const username = "John Doe";
   static const useremail = "john.doe@gmail.com";
   static const yourplaylist = "Your Playlist";
+  static const yourlist = "Your list";
   static const events = "Events";
   static const purchase = "Purchases";
   static const rewards = "Rewards";
   static const language = "Languages";
   static const help = "Help";
   static const feedback = "Feedback";
+  static const popularpicks = "Popular picks";
   static const contact = "Contact";
 
   //::Horizondal/vertical scroll card
@@ -88,4 +90,6 @@ class AppLocalisation {
   static const start = "start";
   static const glossary = "Glossary";
   static const glossarycontent = "Glossary";
+
+  static const newepisodes = "New Episodes";
 }

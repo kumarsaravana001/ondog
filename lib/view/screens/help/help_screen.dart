@@ -11,30 +11,39 @@ class HelpScreen extends StatefulWidget {
 class _HelpScreenState extends State<HelpScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            bottom: -125,
-            left: -10,
-            right: 30,
-            child: SvgPicture.asset(IconAssets.bottombgdiamond),
-          ),
-          Column(
-            children: [
-              SvgPicture.asset(
-                  width: MediaQuery.of(context).size.width,
-                  IconAssets.profilescreenbgblack),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  AppLocalisation.help,
-                  style: AppTestStyle.headingBai(fontSize: 26.sp),
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Positioned(
+              bottom: -125,
+              left: -10,
+              right: 30,
+              child: SvgPicture.asset(IconAssets.bottombgdiamond),
+            ),
+            Column(
+              children: [
+                SvgPicture.asset(
+                    width: MediaQuery.of(context).size.width,
+                    IconAssets.profilescreenbgblack),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    AppLocalisation.help,
+                    style: AppTestStyle.headingBai(fontSize: 26.sp),
+                  ),
                 ),
+              ],
+            ),
+            Positioned(
+              top: 0,
+              right: 30,
+              child: Row(
+                children: [SvgPicture.asset(IconAssets.badgeclose)],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

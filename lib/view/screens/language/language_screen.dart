@@ -28,143 +28,152 @@ class _CheckboxListState extends State<LanguageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            bottom: -125,
-            left: -10,
-            right: 30,
-            child: SvgPicture.asset(IconAssets.bottombgdiamond),
-          ),
-          Column(
-            children: [
-              SvgPicture.asset(
-                  width: MediaQuery.of(context).size.width,
-                  IconAssets.profilescreenbgblack),
-              Align(
-                  alignment: Alignment.center,
-                  child: Text(AppLocalisation.language,
-                      style: AppTestStyle.headingBai(fontSize: 28.sp))),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                    padding:
-                        EdgeInsets.only(left: 30.sp, top: 20.sp, bottom: 15.sp),
-                    child: Text(AppLocalisation.audio,
-                        style: AppTestStyle.headingBai(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25))),
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Positioned(
+              bottom: -125,
+              left: -10,
+              right: 30,
+              child: SvgPicture.asset(IconAssets.bottombgdiamond),
+            ),
+            Column(
+              children: [
+                SvgPicture.asset(
+                    width: MediaQuery.of(context).size.width,
+                    IconAssets.profilescreenbgblack),
+                Align(
+                    alignment: Alignment.center,
+                    child: Text(AppLocalisation.language,
+                        style: AppTestStyle.headingBai(fontSize: 28.sp))),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          left: 30.sp, top: 20.sp, bottom: 15.sp),
+                      child: Text(AppLocalisation.audio,
+                          style: AppTestStyle.headingBai(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25))),
+                ),
+                GridView.count(
+                    childAspectRatio: 5,
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(left: 30.sp),
+                    children: [
+                      CheckboxRow(
+                          text: AppLocalisation.english,
+                          isAudiochecked: isAudioEnglish,
+                          onChanged: (value) {
+                            setState(() {
+                              isAudioEnglish = value;
+                            });
+                          }),
+                      CheckboxRow(
+                          text: AppLocalisation.french,
+                          isAudiochecked: isAudioFrench,
+                          onChanged: (value) {
+                            setState(() {
+                              isAudioFrench = value;
+                            });
+                          }),
+                      CheckboxRow(
+                          text: AppLocalisation.hindi,
+                          isAudiochecked: isAudioHindi,
+                          onChanged: (value) {
+                            setState(() {
+                              isAudioHindi = value;
+                            });
+                          }),
+                      CheckboxRow(
+                          text: AppLocalisation.german,
+                          isAudiochecked: isAudioGerman,
+                          onChanged: (value) {
+                            setState(() {
+                              isAudioGerman = value;
+                            });
+                          }),
+                      CheckboxRow(
+                          text: AppLocalisation.spanish,
+                          isAudiochecked: isAudioSpanish,
+                          onChanged: (value) {
+                            setState(() {
+                              isAudioSpanish = value;
+                            });
+                          }),
+                    ]),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          left: 30.sp, top: 20.sp, bottom: 15.sp),
+                      child: Text(AppLocalisation.subtitle,
+                          style: AppTestStyle.headingBai(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25))),
+                ),
+                GridView.count(
+                    childAspectRatio: 5,
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(left: 30.sp),
+                    children: [
+                      CheckboxRow(
+                          text: AppLocalisation.english,
+                          isAudiochecked: isSubtitleEnglish,
+                          onChanged: (value) {
+                            setState(() {
+                              isAudioEnglish = value;
+                            });
+                          }),
+                      CheckboxRow(
+                          text: AppLocalisation.french,
+                          isAudiochecked: isSubtitleFrench,
+                          onChanged: (value) {
+                            setState(() {
+                              isSubtitleFrench = value;
+                            });
+                          }),
+                      CheckboxRow(
+                          text: AppLocalisation.hindi,
+                          isAudiochecked: isSubtitleHindi,
+                          onChanged: (value) {
+                            setState(() {
+                              isSubtitleHindi = value;
+                            });
+                          }),
+                      CheckboxRow(
+                          text: AppLocalisation.german,
+                          isAudiochecked: isSubtitleGerman,
+                          onChanged: (value) {
+                            setState(() {
+                              isSubtitleGerman = value;
+                            });
+                          }),
+                      CheckboxRow(
+                          text: AppLocalisation.spanish,
+                          isAudiochecked: isSubtitleSpanish,
+                          onChanged: (value) {
+                            setState(() {
+                              isSubtitleSpanish = value;
+                            });
+                          }),
+                    ]),
+              ],
+            ),
+            Positioned(
+              top: 0,
+              right: 30,
+              child: Row(
+                children: [SvgPicture.asset(IconAssets.badgeclose)],
               ),
-              GridView.count(
-                  childAspectRatio: 5,
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(left: 30.sp),
-                  children: [
-                    CheckboxRow(
-                        text: AppLocalisation.english,
-                        isAudiochecked: isAudioEnglish,
-                        onChanged: (value) {
-                          setState(() {
-                            isAudioEnglish = value;
-                          });
-                        }),
-                    CheckboxRow(
-                        text: AppLocalisation.french,
-                        isAudiochecked: isAudioFrench,
-                        onChanged: (value) {
-                          setState(() {
-                            isAudioFrench = value;
-                          });
-                        }),
-                    CheckboxRow(
-                        text: AppLocalisation.hindi,
-                        isAudiochecked: isAudioHindi,
-                        onChanged: (value) {
-                          setState(() {
-                            isAudioHindi = value;
-                          });
-                        }),
-                    CheckboxRow(
-                        text: AppLocalisation.german,
-                        isAudiochecked: isAudioGerman,
-                        onChanged: (value) {
-                          setState(() {
-                            isAudioGerman = value;
-                          });
-                        }),
-                    CheckboxRow(
-                        text: AppLocalisation.spanish,
-                        isAudiochecked: isAudioSpanish,
-                        onChanged: (value) {
-                          setState(() {
-                            isAudioSpanish = value;
-                          });
-                        }),
-                  ]),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                    padding:
-                        EdgeInsets.only(left: 30.sp, top: 20.sp, bottom: 15.sp),
-                    child: Text(AppLocalisation.subtitle,
-                        style: AppTestStyle.headingBai(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25))),
-              ),
-              GridView.count(
-                  childAspectRatio: 5,
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(left: 30.sp),
-                  children: [
-                    CheckboxRow(
-                        text: AppLocalisation.english,
-                        isAudiochecked: isSubtitleEnglish,
-                        onChanged: (value) {
-                          setState(() {
-                            isAudioEnglish = value;
-                          });
-                        }),
-                    CheckboxRow(
-                        text: AppLocalisation.french,
-                        isAudiochecked: isSubtitleFrench,
-                        onChanged: (value) {
-                          setState(() {
-                            isSubtitleFrench = value;
-                          });
-                        }),
-                    CheckboxRow(
-                        text: AppLocalisation.hindi,
-                        isAudiochecked: isSubtitleHindi,
-                        onChanged: (value) {
-                          setState(() {
-                            isSubtitleHindi = value;
-                          });
-                        }),
-                    CheckboxRow(
-                        text: AppLocalisation.german,
-                        isAudiochecked: isSubtitleGerman,
-                        onChanged: (value) {
-                          setState(() {
-                            isSubtitleGerman = value;
-                          });
-                        }),
-                    CheckboxRow(
-                        text: AppLocalisation.spanish,
-                        isAudiochecked: isSubtitleSpanish,
-                        onChanged: (value) {
-                          setState(() {
-                            isSubtitleSpanish = value;
-                          });
-                        }),
-                  ]),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

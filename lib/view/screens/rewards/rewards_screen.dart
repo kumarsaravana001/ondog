@@ -12,47 +12,56 @@ class RewardsScreen extends StatefulWidget {
 class _RewardsScreenState extends State<RewardsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            bottom: -125,
-            left: -10,
-            right: 30,
-            child: SvgPicture.asset(IconAssets.bottombgdiamond),
-          ),
-          Column(
-            children: [
-              SvgPicture.asset(
-                  width: MediaQuery.of(context).size.width,
-                  IconAssets.profilescreenbgblack),
-              Align(
-                  alignment: Alignment.center,
-                  child: Text(AppLocalisation.purchase,
-                      style: AppTestStyle.headingBai(fontSize: 28.sp))),
-              Expanded(
-                child: ListView(
-                  children: [
-                    ElongatedCardWidget(
-                      sublabel: AppLocalisation.coffeewithcrypto,
-                      label: AppLocalisation.offer,
-                      amount: AppLocalisation.inramount,
-                      date: AppLocalisation.date,
-                      onPressed: () {},
-                    ),
-                    ElongatedCardWidget(
-                      sublabel: AppLocalisation.designhinking,
-                      label: AppLocalisation.freeentry,
-                      amount: AppLocalisation.inramount,
-                      date: AppLocalisation.date,
-                      onPressed: () {},
-                    ),
-                  ],
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Positioned(
+              bottom: -125,
+              left: -10,
+              right: 30,
+              child: SvgPicture.asset(IconAssets.bottombgdiamond),
+            ),
+            Column(
+              children: [
+                SvgPicture.asset(
+                    width: MediaQuery.of(context).size.width,
+                    IconAssets.profilescreenbgblack),
+                Align(
+                    alignment: Alignment.center,
+                    child: Text(AppLocalisation.purchase,
+                        style: AppTestStyle.headingBai(fontSize: 28.sp))),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      ElongatedCardWidget(
+                        sublabel: AppLocalisation.coffeewithcrypto,
+                        label: AppLocalisation.offer,
+                        amount: AppLocalisation.inramount,
+                        date: AppLocalisation.date,
+                        onPressed: () {},
+                      ),
+                      ElongatedCardWidget(
+                        sublabel: AppLocalisation.designhinking,
+                        label: AppLocalisation.freeentry,
+                        amount: AppLocalisation.inramount,
+                        date: AppLocalisation.date,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
                 ),
+              ],
+            ),
+            Positioned(
+              top: 0,
+              right: 30,
+              child: Row(
+                children: [SvgPicture.asset(IconAssets.badgeclose)],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

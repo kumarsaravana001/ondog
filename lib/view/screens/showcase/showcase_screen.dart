@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ondgo_flutter/utilities/app_horizontal_scroll_card.dart';
-
 import '../../../config/config_index.dart';
 import '../../../utilities/app_scrollable_elongated_card.dart';
 
@@ -62,28 +61,20 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                 color: AppColors.white,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5))),
-                            child: const Column(
+                            child: Column(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.favorite,
-                                      color: AppColors.black),
-                                ),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: AppIconsWidget.favourites()),
                                 Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child:
-                                      Icon(Icons.share, color: AppColors.black),
-                                ),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: AppIconsWidget.share()),
                                 Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.message,
-                                      color: AppColors.black),
-                                ),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: AppIconsWidget.message()),
                                 Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child:
-                                      Icon(Icons.save, color: AppColors.black),
-                                ),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: AppIconsWidget.addtoplaylist()),
                               ],
                             ),
                           ))
