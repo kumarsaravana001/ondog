@@ -92,4 +92,10 @@ class AppLocalisation {
   static const glossarycontent = "Glossary";
 
   static const newepisodes = "New Episodes";
+  static const nutritiondaily = "Nutrition Daily";
+  static const shareyourthoughts = "Share yout thoughts";
+  static const ashwini = "@ashwini";
+  static const glo4life = "@glo4life";
+  static const sotrue = " So true! will give it a try";
+  static const thanksforsharring = " Thanks for sharing, very useful info..";
 }

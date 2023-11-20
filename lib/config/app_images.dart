@@ -18,4 +18,13 @@ class AppImages {
       fit: fit,
     );
   }
+
+  static Widget reelsimage({double? height, double? width, BoxFit? fit}) {
+    return Image.asset(
+      "assets/images/reels_image.png",
+      width: width,
+      height: height,
+      fit: fit,
+    );
+  }
 }

@@ -6,18 +6,18 @@ import 'routers/app_router.dart';
 import 'utilities/index.dart';
 
 void main() {
-  // SystemChrome.setPreferredOrientations([
-  //   DeviceOrientation.portraitUp,
-  //   DeviceOrientation.portraitDown,
-  // ]);
-  // runApp(
-  //   DevicePreview(
-  //     builder: (context) => const MyApp(),
-  //   ),
-  // );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(
-    const MyApp(),
+    DevicePreview(
+      builder: (context) => const MyApp(),
+    ),
   );
+  // runApp(
+  //   const MyApp(),
+  // );
 }
 
 class MyApp extends StatelessWidget {

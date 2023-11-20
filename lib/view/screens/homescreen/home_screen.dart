@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   AppImages.dummyimage(
                       height: 45.h, fit: BoxFit.cover, width: double.infinity),
-                  Container(height: Adaptive.h(60)),
+                  Container(height: Adaptive.h(65)),
                   Stack(
                     children: [
                       Padding(
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Positioned(
-                        top: 230,
+                        top: 220,
                         left: 0,
                         right: 0,
                         child: Center(
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Positioned(
-                        bottom: 150,
+                        bottom: 110,
                         left: 30,
                         child: Container(
                             height: 200,

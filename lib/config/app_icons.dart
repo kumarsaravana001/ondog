@@ -24,4 +24,6 @@ class IconAssets {
   static const String share = "assets/icons/share.svg";
   static const String message = "assets/icons/message.svg";
   static const String addtoplaylist = "assets/icons/add_to_play_list.svg";
+  static const String reelsplaceholder = "assets/icons/reels_placeholder.svg";
+  static const String reelscolor = "assets/icons/reels_color.svg";
 }

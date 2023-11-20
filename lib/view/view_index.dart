@@ -12,3 +12,4 @@ export 'package:ondgo_flutter/view/screens/rewards/rewards_screen.dart';
 export 'package:ondgo_flutter/view/screens/homescreen/home_screen.dart';
 export 'package:ondgo_flutter/view/screens/events/events_screen.dart';
 export 'package:ondgo_flutter/view/screens/showcase/showcase_screen.dart';
+export 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
