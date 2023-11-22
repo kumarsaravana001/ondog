@@ -1,10 +1,11 @@
 import 'package:go_router/go_router.dart';
+import 'package:ondgo_flutter/test.dart';
 import 'package:ondgo_flutter/utilities/index.dart';
 
 import '../view/view_index.dart';
 
 final router = GoRouter(
-  initialLocation: "/Navbar",
+  initialLocation: "/playlist",
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
     GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
@@ -30,6 +31,7 @@ final router = GoRouter(
     GoRoute(
         path: '/contact', builder: (context, state) => const ContactUsScreen()),
     GoRoute(path: '/reels', builder: (context, state) => const ReelsScreen()),
+    GoRoute(path: '/test', builder: (context, state) => const testScreen()),
     // GoRoute(path: '/test', builder: (context, state) => const Navbardemo()),
   ],
 );

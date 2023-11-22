@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../../../config/config_index.dart';
-import '../../../utilities/index.dart';
-import 'dart:ui' as ui;
 
 class ReelsScreen extends StatefulWidget {
   const ReelsScreen({super.key});
@@ -28,32 +25,31 @@ class _ReelsScreenState extends State<ReelsScreen> {
                         fit: BoxFit.cover,
                         width: double.infinity),
                   ),
-                  // Positioned(
-                  //   bottom: 0,
-                  //   child: SvgPicture.asset(
-                  //     IconAssets.reelscolor,
-                  //     clipBehavior: Clip.antiAlias,
-                  //     fit: BoxFit.fill,
-                  //     color: AppColors.white,
-                  //     colorBlendMode: ui.BlendMode.dst,
-                  //   ),
-                  // ),
                   Positioned(
                     top: 10,
                     left: 30,
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(IconAssets.ondgoTextlogowhite,
-                            semanticsLabel: 'Ondgo Logo')
-                      ],
-                    ),
+                    child: SvgPicture.asset(IconAssets.ondgoTextlogowhite,
+                        semanticsLabel: 'Ondgo Logo'),
+                  ),
+                  Positioned(
+                    bottom: 130,
+                    left: 10,
+                    child: SvgPicture.asset(IconAssets.reelsleftindicator),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: MediaQuery.of(context).size.width / 2 - 20,
+                    child: SvgPicture.asset(IconAssets.reelscenterindicator),
+                  ),
+                  Positioned(
+                    bottom: 130,
+                    right: 10,
+                    child: SvgPicture.asset(IconAssets.reelsrightindicator),
                   ),
                   Positioned(
                     top: 0,
                     right: 30,
-                    child: Row(
-                      children: [SvgPicture.asset(IconAssets.badgeclose)],
-                    ),
+                    child: SvgPicture.asset(IconAssets.badgeclose),
                   ),
                 ],
               ),

@@ -30,9 +30,7 @@ class MyApp extends StatelessWidget {
         routerConfig: router,
         debugShowCheckedModeBanner: false,
         title: 'Ondgo',
-        theme: ThemeData(
-          useMaterial3: true,
-        ),
+        theme: ThemeData(useMaterial3: true),
       );
     });
   }

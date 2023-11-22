@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ondgo_flutter/utilities/app_elongated_card.dart';
 import '../../../config/config_index.dart';
 
@@ -58,6 +59,21 @@ class _RewardsScreenState extends State<RewardsScreen> {
               right: 30,
               child: Row(
                 children: [SvgPicture.asset(IconAssets.badgeclose)],
+              ),
+            ),
+            Positioned(
+              top: 10,
+              left: 20,
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Icon(Icons.arrow_back_outlined,
+                        color: AppColors.white, size: 30),
+                  )
+                ],
               ),
             ),
           ],

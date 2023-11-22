@@ -42,6 +42,21 @@ class _HelpScreenState extends State<HelpScreen> {
                 children: [SvgPicture.asset(IconAssets.badgeclose)],
               ),
             ),
+            Positioned(
+              top: 10,
+              left: 20,
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Icon(Icons.arrow_back_outlined,
+                        color: AppColors.white, size: 30),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
