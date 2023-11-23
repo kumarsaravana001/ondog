@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../config/config_index.dart';
 
 class ScrollableElongatedCardWidget extends StatelessWidget {
@@ -17,12 +18,12 @@ class ScrollableElongatedCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
-      // width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 3,
+        itemCount: horizontalCard2.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
+            width: 85.w,
             margin: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: Colors.purple,
@@ -32,7 +33,7 @@ class ScrollableElongatedCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.0),
               child: Stack(
                 children: [
-                  AppImages.dummyimage(height: 175),
+                  horizontalCard2[index],
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ondgo_flutter/utilities/app_elongated_card.dart';
 import '../../../config/config_index.dart';
 
@@ -33,23 +32,12 @@ class _RewardsScreenState extends State<RewardsScreen> {
                     child: Text(AppLocalisation.purchase,
                         style: AppTestStyle.headingBai(fontSize: 28.sp))),
                 Expanded(
-                  child: ListView(
-                    children: [
-                      ElongatedCardWidget(
-                        sublabel: AppLocalisation.coffeewithcrypto,
-                        label: AppLocalisation.offer,
-                        amount: AppLocalisation.inramount,
-                        date: AppLocalisation.date,
-                        onPressed: () {},
-                      ),
-                      ElongatedCardWidget(
-                        sublabel: AppLocalisation.designhinking,
-                        label: AppLocalisation.freeentry,
-                        amount: AppLocalisation.inramount,
-                        date: AppLocalisation.date,
-                        onPressed: () {},
-                      ),
-                    ],
+                  child: ElongatedCardWidget(
+                    sublabel: AppLocalisation.coffeewithcrypto,
+                    label: AppLocalisation.offer,
+                    amount: AppLocalisation.inramount,
+                    date: AppLocalisation.date,
+                    onPressed: () {},
                   ),
                 ),
               ],

@@ -41,6 +41,11 @@ class AppIconsWidget {
       SvgPicture.asset("assets/icons/add_to_play_list.svg",
           width: size, height: size, color: color);
 
+  static Widget horizontaldiamond(
+          {double size = _defaultSize, Color color = _defaultColor}) =>
+      SvgPicture.asset("assets/icons/horizontal_diamond.svg",
+          width: size, height: size, color: color);
+
   //profile
 
 //common

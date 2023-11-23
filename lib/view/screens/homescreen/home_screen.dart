@@ -38,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.w800),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 40),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20, top: 40),
                         child: HorizontalScrollableCard(),
                       ),
                     ],
@@ -156,10 +156,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      Positioned(
+                      const Positioned(
                         bottom: 110,
                         left: 30,
-                        child: Container(
+                        child: SizedBox(
                             height: 200,
                             width: 500,
                             child: HorizontalScrollableCard()),

@@ -26,6 +26,7 @@ class IconAssets {
   static const String addtoplaylist = "assets/icons/add_to_play_list.svg";
   static const String reelsplaceholder = "assets/icons/reels_placeholder.svg";
   static const String reelscolor = "assets/icons/reels_color.svg";
+  static const String horizontaldiamond = "assets/icons/horizontal_diamond.svg";
   static const String reelsleftindicator =
       "assets/icons/reels_left_indicator.svg";
   static const String reelsrightindicator =

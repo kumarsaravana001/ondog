@@ -34,7 +34,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     style: AppTestStyle.headingBai(fontSize: 26.sp),
                   ),
                 ),
-                HorizontalScrollableCard(),
+                const HorizontalScrollableCard(),
                 Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -42,7 +42,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     style: AppTestStyle.headingBai(fontSize: 26.sp),
                   ),
                 ),
-                HorizontalScrollableCard(),
+                const HorizontalScrollableCard(),
               ],
             ),
             Positioned(

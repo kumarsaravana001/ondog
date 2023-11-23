@@ -1,12 +1,9 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
-
 import '../../../config/config_index.dart';
 import '../../../utilities/app_vertical_scroll_card.dart';
 
 class EventsScreen extends StatefulWidget {
-  const EventsScreen({Key? key});
+  const EventsScreen({super.key});
 
   @override
   State<EventsScreen> createState() => _EventsScreenState();
@@ -39,22 +36,9 @@ class _EventsScreenState extends State<EventsScreen> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 15.0,
-                              mainAxisSpacing: 15.0,
-                              mainAxisExtent: 190),
-                      itemCount: 11,
-                      itemBuilder: (BuildContext context, int index) {
-                        return const AppVerticalScrollCard();
-                      },
-                    ),
-                  ),
+                      padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                      child: const AppVerticalScrollCard()),
                 ),
-                SizedBox(height: 4.h),
               ],
             ),
             Positioned(

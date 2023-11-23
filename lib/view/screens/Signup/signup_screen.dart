@@ -26,7 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   AppLocalisation.signuptext,
                   style: AppTestStyle.headingint(fontSize: 16.sp, italic: true),

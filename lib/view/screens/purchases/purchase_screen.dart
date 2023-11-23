@@ -35,23 +35,12 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                     child: Text(AppLocalisation.purchase,
                         style: AppTestStyle.headingBai(fontSize: 28.sp))),
                 Expanded(
-                  child: ListView(
-                    children: [
-                      ElongatedCardWidget(
-                        amount: AppLocalisation.inramount,
-                        date: AppLocalisation.date,
-                        sublabel: AppLocalisation.coffeewithcrypto,
-                        label: AppLocalisation.coffeesession,
-                        onPressed: () {},
-                      ),
-                      ElongatedCardWidget(
-                        amount: AppLocalisation.inramount,
-                        date: AppLocalisation.date,
-                        sublabel: AppLocalisation.coffeewithcrypto,
-                        label: AppLocalisation.coffeesession,
-                        onPressed: () {},
-                      ),
-                    ],
+                  child: ElongatedCardWidget(
+                    sublabel: AppLocalisation.coffeewithcrypto,
+                    label: AppLocalisation.offer,
+                    amount: AppLocalisation.inramount,
+                    date: AppLocalisation.date,
+                    onPressed: () {},
                   ),
                 ),
               ],
@@ -63,7 +52,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 children: [SvgPicture.asset(IconAssets.badgeclose)],
               ),
             ),
-              Positioned(
+            Positioned(
               top: 10,
               left: 20,
               child: Row(

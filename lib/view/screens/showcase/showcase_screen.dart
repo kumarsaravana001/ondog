@@ -158,7 +158,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 15.sp),
-                    child: HorizontalScrollableCard(),
+                    child: const HorizontalScrollableCard(),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 18.sp),
@@ -169,7 +169,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 15.sp),
-                    child: HorizontalScrollableCard(),
+                    child: const HorizontalScrollableCard(),
                   ),
                   SizedBox(height: 10.h),
                 ],

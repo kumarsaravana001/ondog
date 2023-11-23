@@ -1,37 +1,18 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
-
+import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../config/config_index.dart';
 
-List imagePaths = [
-  AppImages.dummyimage(fit: BoxFit.cover),
-  AppImages.business1(fit: BoxFit.cover),
-  AppImages.finance(),
-  AppImages.economy(),
-  AppImages.technology(),
-  AppImages.art(),
-  AppImages.spirituality(),
-  AppImages.healthcare(),
-  AppImages.sports(),
-  AppImages.wellness(),
-  AppImages.education(),
-  AppImages.impactandSustainability(),
-  AppImages.legal(),
-  AppImages.travel(),
-];
-
 class HorizontalScrollableCard extends StatelessWidget {
+  const HorizontalScrollableCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: imagePaths.length,
+        itemCount: playlistimagePaths.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             width: 150,
@@ -63,7 +44,8 @@ class HorizontalScrollableCard extends StatelessWidget {
                                   fontWeight: FontWeight.bold)),
                         ],
                       ),
-                      const Icon(Icons.diamond, color: AppColors.white),
+                      AppIconsWidget.horizontaldiamond(
+                          color: AppColors.white, size: 15),
                     ],
                   ),
                 ),
@@ -73,7 +55,7 @@ class HorizontalScrollableCard extends StatelessWidget {
                         bottomLeft: Radius.circular(15),
                         bottomRight: Radius.circular(15),
                       ),
-                      child: imagePaths[index]),
+                      child: playlistimagePaths[index]),
                 ),
               ],
             ),
