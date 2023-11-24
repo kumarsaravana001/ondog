@@ -40,7 +40,7 @@ class CustomElevatedButton extends StatelessWidget {
         text,
         style: AppTestStyle.headingint(
             fontSize: fontsize.sp,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             color: labelcolor),
       ),
     );

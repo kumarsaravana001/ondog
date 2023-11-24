@@ -30,7 +30,7 @@ class AppVerticalScrollCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(AppLocalisation.finance,
+                        Text(playlistcardnames[index],
                             style: AppTestStyle.headingint(
                                 fontSize: 16.sp,
                                 color: AppColors.white,
@@ -50,22 +50,7 @@ class AppVerticalScrollCard extends StatelessWidget {
                   ],
                 ),
               ),
-              LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return SizedBox(
-                    width: constraints.maxWidth,
-                    height:
-                        constraints.maxWidth, // Assuming you want square images
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15.0),
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: allimagePaths[index], // Your image here
-                      ),
-                    ),
-                  );
-                },
-              ),
+              Expanded(child: allimagePaths[index]),
               ClipRRect(
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(15),
@@ -74,7 +59,7 @@ class AppVerticalScrollCard extends StatelessWidget {
                   height: 10,
                   color: Colors.purple,
                 ),
-              )
+              ),
             ],
           ),
         );

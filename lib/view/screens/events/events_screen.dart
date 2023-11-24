@@ -39,6 +39,7 @@ class _EventsScreenState extends State<EventsScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 20.sp),
                       child: const AppVerticalScrollCard()),
                 ),
+                SizedBox(height: 4.h),
               ],
             ),
             Positioned(

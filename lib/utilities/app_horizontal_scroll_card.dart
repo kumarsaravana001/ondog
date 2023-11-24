@@ -32,7 +32,7 @@ class HorizontalScrollableCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(AppLocalisation.finance,
+                          Text(playlistcardnames[index],
                               style: AppTestStyle.headingint(
                                   fontSize: 16.sp,
                                   color: AppColors.white,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   AppImages.dummyimage(
                       height: 45.h, fit: BoxFit.cover, width: double.infinity),
-                  Container(height: Adaptive.h(65)),
+                  Container(height: 65.h),
                   Stack(
                     children: [
                       Padding(
@@ -30,17 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: SvgPicture.asset(IconAssets.appbackground),
                       ),
                       Center(
-                        child: Text(
-                          AppLocalisation.popularpicks,
-                          style: AppTestStyle.headingBai(
-                              fontSize: 22.sp,
-                              color: AppColors.black,
-                              fontWeight: FontWeight.w800),
-                        ),
+                        child: Text(AppLocalisation.popularpicks,
+                            style: AppTestStyle.headingBai(
+                                fontSize: 22.sp,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w800)),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20, top: 40),
-                        child: HorizontalScrollableCard(),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                        child: const HorizontalScrollableCard(),
                       ),
                     ],
                   ),
@@ -48,13 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Positioned(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 65.sp),
+                  padding: EdgeInsets.only(top: 60.sp),
                   child: Stack(
                     children: [
                       SvgPicture.asset(
-                        width: MediaQuery.of(context).size.width,
-                        IconAssets.homescreenblackbg,
-                      ),
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,
+                          IconAssets.homescreenblackbg),
                       Positioned(
                           top: 40,
                           left: 25,
@@ -101,69 +100,54 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Positioned(
-                        top: 195,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: Padding(
-                              padding: EdgeInsets.only(right: 40.sp),
-                              child: SvgPicture.asset(
-                                IconAssets.diamondstar,
-                                height: 14,
-                              )),
-                        ),
-                      ),
+                          top: 220,
+                          left: 0,
+                          right: 0,
+                          child: Center(
+                              child: Padding(
+                                  padding: EdgeInsets.only(right: 40.sp),
+                                  child: SvgPicture.asset(
+                                      IconAssets.diamondstar,
+                                      height: 14)))),
                       Positioned(
-                        top: 190,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 20.sp),
-                              child: SvgPicture.asset(
-                                IconAssets.diamondstar,
-                                height: 14,
-                              )),
-                        ),
-                      ),
+                          top: 215,
+                          left: 0,
+                          right: 0,
+                          child: Center(
+                              child: Padding(
+                                  padding: EdgeInsets.only(top: 20.sp),
+                                  child: SvgPicture.asset(
+                                    IconAssets.diamondstar,
+                                    height: 14,
+                                  )))),
                       Positioned(
-                        top: 195,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: Padding(
-                              padding: EdgeInsets.only(left: 40.sp),
-                              child: SvgPicture.asset(
-                                IconAssets.diamondstar,
-                                height: 14,
-                              )),
-                        ),
-                      ),
+                          top: 220,
+                          left: 0,
+                          right: 0,
+                          child: Center(
+                              child: Padding(
+                                  padding: EdgeInsets.only(left: 40.sp),
+                                  child: SvgPicture.asset(
+                                    IconAssets.diamondstar,
+                                    height: 14,
+                                  )))),
                       Positioned(
-                        top: 220,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 20.sp),
-                            child: Text(
-                              AppLocalisation.yourlist,
-                              style: AppTestStyle.headingBai(
-                                  fontSize: 22.sp,
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                          ),
-                        ),
-                      ),
+                          top: 260,
+                          left: 0,
+                          right: 0,
+                          child: Center(
+                              child: Padding(
+                                  padding: EdgeInsets.only(top: 20.sp),
+                                  child: Text(AppLocalisation.yourlist,
+                                      style: AppTestStyle.headingBai(
+                                          fontSize: 22.sp,
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.w700))))),
                       const Positioned(
-                        bottom: 110,
-                        left: 30,
-                        child: SizedBox(
-                            height: 200,
-                            width: 500,
-                            child: HorizontalScrollableCard()),
-                      )
+                          bottom: 110,
+                          left: 30,
+                          right: 30,
+                          child: HorizontalScrollableCard())
                     ],
                   ),
                 ),
@@ -171,18 +155,17 @@ class _HomeScreenState extends State<HomeScreen> {
               Positioned(
                 top: 10,
                 left: 30,
-                child: Row(
-                  children: [
-                    SvgPicture.asset(IconAssets.ondgoTextlogowhite,
-                        semanticsLabel: 'Ondgo Logo')
-                  ],
-                ),
+                child: SvgPicture.asset(IconAssets.ondgoTextlogowhite,
+                    semanticsLabel: 'Ondgo Logo'),
               ),
               Positioned(
                 top: 0,
                 right: 30,
-                child: Row(
-                  children: [SvgPicture.asset(IconAssets.badgeclose)],
+                child: InkWell(
+                  onTap: () {
+                    context.go("/reels");
+                  },
+                  child: SvgPicture.asset(IconAssets.badgeclose),
                 ),
               ),
             ],

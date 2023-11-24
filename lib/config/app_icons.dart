@@ -23,6 +23,7 @@ class IconAssets {
   static const String favourites = "assets/icons/favourites.svg";
   static const String share = "assets/icons/share.svg";
   static const String message = "assets/icons/message.svg";
+  static const String proflestandalonelevel = "assets/icons/profle_standalone_level.svg";
   static const String addtoplaylist = "assets/icons/add_to_play_list.svg";
   static const String reelsplaceholder = "assets/icons/reels_placeholder.svg";
   static const String reelscolor = "assets/icons/reels_color.svg";

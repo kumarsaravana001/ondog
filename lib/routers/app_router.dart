@@ -5,7 +5,7 @@ import 'package:ondgo_flutter/utilities/index.dart';
 import '../view/view_index.dart';
 
 final router = GoRouter(
-  initialLocation: "/Navbar",
+  initialLocation: "/",
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
     GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),

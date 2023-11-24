@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../config/config_index.dart';
 import '../../../utilities/index.dart';
 
@@ -45,7 +44,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 SvgPicture.asset(
                   IconAssets.signinbottom,
-                  fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.fill,
                 ),
                 Positioned(
                   bottom: -40,
@@ -53,7 +53,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   right: -10,
                   child: SvgPicture.asset(
                     IconAssets.signupscreenbgdesign,
-                    // height: 19.h,
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -103,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Padding(
                               padding: EdgeInsets.only(top: 1.5.h),
                               child: CustomElevatedButton(
-                                fontsize: 18.sp,
+                                fontsize: 16.sp,
                                 bordercolor: AppColors.white,
                                 backgroundcolor: AppColors.black,
                                 labelcolor: AppColors.white,

@@ -36,12 +36,8 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                   ),
                   Stack(
                     children: [
-                      Container(
-                        width: double.infinity,
-                        height: 30.h,
-                        decoration: const BoxDecoration(),
-                        child: AppImages.dummyimage(),
-                      ),
+                      AppImages.dummyimage(
+                          width: MediaQuery.of(context).size.width),
                       Positioned(
                         left: 10,
                         bottom: 20,

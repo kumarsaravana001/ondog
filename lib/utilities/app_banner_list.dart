@@ -41,6 +41,21 @@ List playlistimagePaths = [
   AppImages.travel(fit: BoxFit.cover, width: double.infinity),
 ];
 
+List playlistcardnames = [
+  AppLocalisation.finance,
+  AppLocalisation.ecoHabits,
+  AppLocalisation.technology,
+  AppLocalisation.arts,
+  AppLocalisation.spirituality,
+  AppLocalisation.healthcare,
+  AppLocalisation.sports,
+  AppLocalisation.wellness,
+  AppLocalisation.education,
+  AppLocalisation.legal,
+  AppLocalisation.travel,
+  AppLocalisation.finance,
+];
+
 List scrollableElongatedCardWidgetimagepath = [
   AppImages.legal(fit: BoxFit.cover, width: double.infinity),
   AppImages.travel(fit: BoxFit.cover, width: double.infinity),

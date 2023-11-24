@@ -15,96 +15,107 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              Stack(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset(
-                    width: MediaQuery.of(context).size.width,
-                    IconAssets.profilebg,
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 30,
-                    child: Row(
-                      children: [SvgPicture.asset(IconAssets.badgeclose)],
-                    ),
-                  ),
-                  Positioned(
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 35.sp),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 120,
-                              height: 150,
-                              decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15))),
-                              child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(12)),
-                                  child:
-                                      AppImages.dummyimage(fit: BoxFit.cover)),
+                  Stack(
+                    children: [
+                      SvgPicture.asset(
+                        width: MediaQuery.of(context).size.width,
+                        IconAssets.profilebg,
+                      ),
+                      Positioned(
+                          top: 0,
+                          right: 30,
+                          child: SvgPicture.asset(IconAssets.badgeclose)),
+                      Positioned(
+                          bottom: -10,
+                          left: 150,
+                          child: SvgPicture.asset(
+                              IconAssets.proflestandalonelevel)),
+                      Positioned(
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 35.sp),
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 120,
+                                  height: 150,
+                                  decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(15))),
+                                  child: ClipRRect(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(12)),
+                                      child: AppImages.dummyimage(
+                                          fit: BoxFit.cover)),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 16.sp),
+                                  child: Text(
+                                    AppLocalisation.username,
+                                    style: AppTestStyle.headingBai(
+                                        color: AppColors.white,
+                                        fontSize: 24.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 10.sp),
+                                  child: Text(
+                                    AppLocalisation.useremail,
+                                    style: AppTestStyle.headingint(
+                                        color: AppColors.white,
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 16.sp),
-                              child: Text(
-                                AppLocalisation.username,
-                                style: AppTestStyle.headingBai(
-                                    color: AppColors.white,
-                                    fontSize: 24.sp,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.sp),
-                              child: Text(
-                                AppLocalisation.useremail,
-                                style: AppTestStyle.headingint(
-                                    color: AppColors.white,
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
+                  SizedBox(height: 32.sp),
+                  buildClickableText(AppLocalisation.yourplaylist, () {
+                    context.push("/playlist");
+                  }),
+                  buildClickableText(AppLocalisation.events, () {
+                    context.push("/events");
+                  }),
+                  buildClickableText(AppLocalisation.purchase, () {
+                    context.push("/purchase");
+                  }),
+                  buildClickableText(AppLocalisation.rewards, () {
+                    context.push("/rewards");
+                  }),
+                  buildClickableText(AppLocalisation.language, () {
+                    context.push("/language");
+                  }),
+                  buildClickableText(AppLocalisation.help, () {
+                    context.push("/help");
+                  }),
+                  buildClickableText(AppLocalisation.feedback, () {
+                    context.push("/feedback");
+                  }),
+                  buildClickableText(AppLocalisation.contact, () {
+                    context.push("/contact");
+                  }),
+                  SizedBox(height: 8.h),
                 ],
               ),
-              SizedBox(
-                height: 22.sp,
-              ),
-              buildClickableText(AppLocalisation.yourplaylist, () {
-                context.push("/playlist");
-              }),
-              buildClickableText(AppLocalisation.events, () {
-                context.push("/events");
-              }),
-              buildClickableText(AppLocalisation.purchase, () {
-                context.push("/purchase");
-              }),
-              buildClickableText(AppLocalisation.rewards, () {
-                context.push("/rewards");
-              }),
-              buildClickableText(AppLocalisation.language, () {
-                context.push("/language");
-              }),
-              buildClickableText(AppLocalisation.help, () {
-                context.push("/help");
-              }),
-              buildClickableText(AppLocalisation.feedback, () {
-                context.push("/feedback");
-              }),
-              buildClickableText(AppLocalisation.contact, () {
-                context.push("/contact");
-              }),
-              SizedBox(
-                height: 6.h,
+              Positioned(
+                top: 320,
+                left: -10,
+                right: -10,
+                child: SvgPicture.asset(
+                    // width: MediaQuery.of(context).size.width,
+                    IconAssets.profilelevels,
+                    color: AppColors.black),
               ),
             ],
           ),
@@ -118,14 +129,8 @@ Widget buildClickableText(String text, VoidCallback onPressed) {
   return GestureDetector(
     onTap: onPressed,
     child: Padding(
-      padding: EdgeInsets.only(left: 25.sp, bottom: 15.sp),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 24,
-          color: AppColors.black,
-        ),
-      ),
+      padding: EdgeInsets.only(left: 25.sp, bottom: 10.sp),
+      child: Text(text, style: AppTestStyle.headingBai(fontSize: 22.sp)),
     ),
   );
 }

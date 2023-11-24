@@ -98,4 +98,15 @@ class AppLocalisation {
   static const glo4life = "@glo4life";
   static const sotrue = " So true! will give it a try";
   static const thanksforsharring = " Thanks for sharing, very useful info..";
+
+  //card
+  static const economy = "economy";
+  static const technology = "technology";
+  static const arts = "arts";
+  static const spirituality = "spirituality";
+  static const healthcare = "healthcare";
+  static const sports = "sports";
+  static const legal = "legal";
+  static const education = "education";
+  static const travel = "travel";
 }
