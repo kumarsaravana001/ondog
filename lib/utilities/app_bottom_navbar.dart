@@ -30,7 +30,6 @@ class _NavbarState extends State<Navbar> {
                 HomeScreen(),
                 ShowCaseScreen(),
                 ProfileScreen(),
-                //  ReelsScreen()
               ],
             ),
           ),

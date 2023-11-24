@@ -31,8 +31,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           right: 30,
                           child: SvgPicture.asset(IconAssets.badgeclose)),
                       Positioned(
-                          bottom: -10,
-                          left: 150,
+                          bottom: -20,
+                          left: MediaQuery.of(context).size.width * 0.5 - 30,
                           child: SvgPicture.asset(
                               IconAssets.proflestandalonelevel)),
                       Positioned(
@@ -42,8 +42,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Column(
                               children: [
                                 Container(
-                                  width: 120,
-                                  height: 150,
+                                  width: 40.w,
+                                  height: 20.h,
                                   decoration: const BoxDecoration(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(15))),
@@ -109,12 +109,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               Positioned(
-                top: 320,
+                top: MediaQuery.of(context).size.height * 0.5 - 80,
                 left: -10,
                 right: -10,
-                child: SvgPicture.asset(
-                    // width: MediaQuery.of(context).size.width,
-                    IconAssets.profilelevels,
+                child: SvgPicture.asset(IconAssets.profilelevels,
                     color: AppColors.black),
               ),
             ],

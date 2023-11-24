@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:ondgo_flutter/test.dart';
 import 'package:ondgo_flutter/utilities/index.dart';
-
 import '../view/view_index.dart';
 
 final router = GoRouter(
@@ -14,6 +13,7 @@ final router = GoRouter(
     GoRoute(path: '/signup', builder: (context, state) => const SignUpScreen()),
     GoRoute(path: '/Navbar', builder: (context, state) => const Navbar()),
     GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
+    // GoRoute(path: '/hometest', builder: (context, state) => const Home()),
     GoRoute(
         path: '/profile', builder: (context, state) => const ProfileScreen()),
     GoRoute(

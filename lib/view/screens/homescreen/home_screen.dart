@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   AppImages.dummyimage(
                       height: 45.h, fit: BoxFit.cover, width: double.infinity),
-                  Container(height: 65.h),
+                  Container(height: 62.h),
                   Stack(
                     children: [
                       Padding(
@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 14,
                                   )))),
                       Positioned(
-                          top: 260,
+                          top: MediaQuery.of(context).size.height * 0.3,
                           left: 0,
                           right: 0,
                           child: Center(
@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: AppColors.white,
                                           fontWeight: FontWeight.w700))))),
                       const Positioned(
-                          bottom: 110,
+                          bottom: 100,
                           left: 30,
                           right: 30,
                           child: HorizontalScrollableCard())
