@@ -5,21 +5,21 @@ import 'package:go_router/go_router.dart';
 
 import '../../../config/config_index.dart';
 
-class SplashScreen1 extends StatefulWidget {
-  const SplashScreen1({Key? key}) : super(key: key);
+class SplashScreenone extends StatefulWidget {
+  const SplashScreenone({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _SplashScreen1State createState() => _SplashScreen1State();
+  _SplashScreenoneState createState() => _SplashScreenoneState();
 }
 
-class _SplashScreen1State extends State<SplashScreen1> {
+class _SplashScreenoneState extends State<SplashScreenone> {
   @override
   void initState() {
     super.initState();
 
     Timer(const Duration(seconds: 2), () {
-      GoRouter.of(context).go("/signup");
+      GoRouter.of(context).go("/splash2");
     });
   }
 

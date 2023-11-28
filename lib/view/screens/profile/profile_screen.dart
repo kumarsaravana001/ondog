@@ -113,6 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 left: -10,
                 right: -10,
                 child: SvgPicture.asset(IconAssets.profilelevels,
+                    // ignore: deprecated_member_use
                     color: AppColors.black),
               ),
             ],

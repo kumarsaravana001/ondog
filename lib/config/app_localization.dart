@@ -18,7 +18,7 @@ class AppLocalisation {
   static const continues = "continue";
 
   //SignupScreen
-  static const signuptext = "A Global Premiere Video Streaming Platform";
+  static const signuptext = "The Ultimate App to Learn, Grow & Thrive";
   static const startlearning = "Start Learning";
   static const email = "Email";
   static const password = "Password";

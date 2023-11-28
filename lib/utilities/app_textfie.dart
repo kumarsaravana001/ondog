@@ -13,6 +13,8 @@ class CustomTextField extends StatelessWidget {
   final Color hintColor;
   final double borderRadius;
   final EdgeInsetsGeometry contentPadding;
+  final IconData? suffixIcon;
+  final VoidCallback? onSuffixIconPressed;
 
   const CustomTextField({
     Key? key,
@@ -28,6 +30,8 @@ class CustomTextField extends StatelessWidget {
     this.borderRadius = 30,
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+    this.suffixIcon,
+    this.onSuffixIconPressed,
   }) : super(key: key);
 
   @override
@@ -38,22 +42,36 @@ class CustomTextField extends StatelessWidget {
         color: AppColors.white,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        keyboardType: inputType,
-        enabled: enabled,
-        textAlign: textAlign,
-        style: TextStyle(color: textColor),
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyle(
-            color: hintColor,
-            fontStyle: FontStyle.italic,
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: controller,
+              obscureText: obscureText,
+              keyboardType: inputType,
+              enabled: enabled,
+              textAlign: textAlign,
+              style: TextStyle(color: textColor),
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: TextStyle(
+                  color: hintColor,
+                  fontStyle: FontStyle.italic,
+                ),
+                border: InputBorder.none,
+                contentPadding: contentPadding,
+              ),
+            ),
           ),
-          border: InputBorder.none,
-          contentPadding: contentPadding,
-        ),
+          if (suffixIcon != null)
+            InkWell(
+              onTap: onSuffixIconPressed,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(suffixIcon),
+              ),
+            ),
+        ],
       ),
     );
   }

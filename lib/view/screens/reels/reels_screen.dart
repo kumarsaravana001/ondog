@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../config/config_index.dart';
 
 class ReelsScreen extends StatefulWidget {
@@ -16,42 +17,45 @@ class _ReelsScreenState extends State<ReelsScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Stack(
-                children: [
-                  ClipPath(
-                    clipper: TriangularClipper(),
-                    child: AppImages.dummyimage(
-                        height: 60.h,
-                        fit: BoxFit.cover,
-                        width: double.infinity),
-                  ),
-                  Positioned(
-                    top: 10,
-                    left: 30,
-                    child: SvgPicture.asset(IconAssets.ondgoTextlogowhite,
-                        semanticsLabel: 'Ondgo Logo'),
-                  ),
-                  Positioned(
-                    bottom: 130,
-                    left: 10,
-                    child: SvgPicture.asset(IconAssets.reelsleftindicator),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: MediaQuery.of(context).size.width / 2 - 20,
-                    child: SvgPicture.asset(IconAssets.reelscenterindicator),
-                  ),
-                  Positioned(
-                    bottom: 130,
-                    right: 10,
-                    child: SvgPicture.asset(IconAssets.reelsrightindicator),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 30,
-                    child: SvgPicture.asset(IconAssets.badgeclose),
-                  ),
-                ],
+              GestureDetector(
+                onTap: () {
+                  const imageAsset = 'assets/images/dummy.png';
+                  GoRouter.of(context).go('/fullScreenImage/$imageAsset');
+                },
+                child: Stack(
+                  children: [
+                    ClipPath(
+                        clipper: TriangularClipper(),
+                        child: AppImages.dummyimage(
+                            height: 60.h,
+                            fit: BoxFit.cover,
+                            width: double.infinity)),
+                    Positioned(
+                        top: 10,
+                        left: 30,
+                        child: SvgPicture.asset(IconAssets.ondgoTextlogowhite,
+                            semanticsLabel: 'Ondgo Logo')),
+                    Positioned(
+                        bottom: 130,
+                        left: 10,
+                        child: SvgPicture.asset(IconAssets.reelsleftindicator)),
+                    Positioned(
+                        bottom: 10,
+                        left: MediaQuery.of(context).size.width / 2 - 20,
+                        child:
+                            SvgPicture.asset(IconAssets.reelscenterindicator)),
+                    Positioned(
+                        bottom: 130,
+                        right: 10,
+                        child:
+                            SvgPicture.asset(IconAssets.reelsrightindicator)),
+                    Positioned(
+                      top: 0,
+                      right: 30,
+                      child: SvgPicture.asset(IconAssets.badgeclose),
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding:

@@ -29,7 +29,8 @@ class _NavbarState extends State<Navbar> {
               children: const [
                 HomeScreen(),
                 ShowCaseScreen(),
-                ProfileScreen(),
+                // ProfileScreen(),
+                ReelsScreen()
               ],
             ),
           ),

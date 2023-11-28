@@ -1,19 +1,21 @@
 import 'package:go_router/go_router.dart';
 import 'package:ondgo_flutter/test.dart';
 import 'package:ondgo_flutter/utilities/index.dart';
+import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
 import '../view/view_index.dart';
 
 final router = GoRouter(
   initialLocation: "/",
   routes: [
-    GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
-    GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
+    GoRoute(path: '/', builder: (context, state) => const SplashScreenone()),
     GoRoute(
-        path: '/splash1', builder: (context, state) => const SplashScreen1()),
+        path: '/splash2', builder: (context, state) => const SplashScreentwo()),
     GoRoute(path: '/signup', builder: (context, state) => const SignUpScreen()),
     GoRoute(path: '/Navbar', builder: (context, state) => const Navbar()),
     GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-    // GoRoute(path: '/hometest', builder: (context, state) => const Home()),
+    GoRoute(
+        path: '/search',
+        builder: (context, state) => const SearchandLibraryScreen()),
     GoRoute(
         path: '/profile', builder: (context, state) => const ProfileScreen()),
     GoRoute(
@@ -31,8 +33,10 @@ final router = GoRouter(
     GoRoute(
         path: '/contact', builder: (context, state) => const ContactUsScreen()),
     GoRoute(path: '/reels', builder: (context, state) => const ReelsScreen()),
+    GoRoute(
+        path: '/fullScreenImage',
+        builder: (context, state) => const ReelsFullScreen()),
     GoRoute(path: '/test', builder: (context, state) => const TestScreen()),
-    // GoRoute(path: '/test', builder: (context, state) => const Navbardemo()),
   ],
 );
 

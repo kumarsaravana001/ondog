@@ -25,12 +25,16 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 20.sp, vertical: 10.sp),
+                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.asset(IconAssets.ondgoTextlogo,
-                            semanticsLabel: 'Ondgo Logo')
+                        Padding(
+                          padding: EdgeInsets.only(top: 8.sp),
+                          child: SvgPicture.asset(IconAssets.ondgoTextlogo,
+                              semanticsLabel: 'Ondgo Logo'),
+                        ),
+                        SvgPicture.asset(IconAssets.badgecloseblack),
                       ],
                     ),
                   ),

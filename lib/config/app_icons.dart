@@ -18,12 +18,17 @@ class IconAssets {
   static const String navbaricon2 = "assets/icons/navbar_icon2.svg";
   static const String navbaricon3 = "assets/icons/navbar_icon3.svg";
   static const String badgeopen = "assets/icons/badge_open.svg";
+  static const String badgecloseblack = "assets/icons/badgecloseblack.svg";
   static const String badgeclose = "assets/icons/badge_close.svg";
   static const String diamondstar = "assets/icons/diamond_star.svg";
   static const String favourites = "assets/icons/favourites.svg";
   static const String share = "assets/icons/share.svg";
   static const String message = "assets/icons/message.svg";
-  static const String proflestandalonelevel = "assets/icons/profle_standalone_level.svg";
+  static const String spotlightbgframe1 = "assets/icons/spotlight_bgframe1.svg";
+  static const String spotlightbgframe2 = "assets/icons/spotlight_bgframe2.svg";
+  static const String spotlightbgframe3 = "assets/icons/spotlight_bgframe3.svg";
+  static const String proflestandalonelevel =
+      "assets/icons/profle_standalone_level.svg";
   static const String addtoplaylist = "assets/icons/add_to_play_list.svg";
   static const String reelsplaceholder = "assets/icons/reels_placeholder.svg";
   static const String reelscolor = "assets/icons/reels_color.svg";
