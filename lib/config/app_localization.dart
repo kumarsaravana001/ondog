@@ -85,9 +85,13 @@ class AppLocalisation {
   static const relatedvideos = "Related Videos";
   static const interactwithcreators = "Interact with creators";
   static const takethenextquiz = "Take the next quiz!";
+  static const greatwork = "Great Work";
+  static const claimnextreward = "Claim next reward at the 15th quiz";
   static const earnpointstoclaimexistingrewards =
       "Earn points to clim existing rewards";
   static const start = "start";
+  static const finish = "finish";
+  static const end = "end";
   static const glossary = "Glossary";
   static const glossarycontent = "Glossary";
 
@@ -109,4 +113,14 @@ class AppLocalisation {
   static const legal = "legal";
   static const education = "education";
   static const travel = "travel";
+
+  //showcase
+  static const queno = "1/10";
+  static const balancesheet = "Balance sheet";
+  static const incomestatement = "Income Statement";
+  static const cashflowstatement = "Cashflow statement";
+  static const statementofretained = "Statement of retainer earnings";
+  static const checkyourprogress = "Check Your Progress";
+  static const question =
+      "What financial statement lists assets from current to long term?";
 }

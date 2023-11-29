@@ -19,8 +19,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  const imageAsset = 'assets/images/dummy.png';
-                  GoRouter.of(context).go('/fullScreenImage/$imageAsset');
+                  GoRouter.of(context).push('/fullScreenImage');
                 },
                 child: Stack(
                   children: [

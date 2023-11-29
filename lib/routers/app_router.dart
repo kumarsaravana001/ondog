@@ -14,6 +14,8 @@ final router = GoRouter(
     GoRoute(path: '/Navbar', builder: (context, state) => const Navbar()),
     GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
     GoRoute(
+        path: '/showcase', builder: (context, state) => const ShowCaseScreen()),
+    GoRoute(
         path: '/search',
         builder: (context, state) => const SearchandLibraryScreen()),
     GoRoute(

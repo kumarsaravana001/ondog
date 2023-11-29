@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             right: 30,
                             child: InkWell(
                               onTap: () {
-                                context.go("/reels");
+                                context.push("/profile");
                               },
                               child:
                                   SvgPicture.asset(IconAssets.badgecloseblack),
