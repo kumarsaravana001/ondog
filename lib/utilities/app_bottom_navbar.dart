@@ -28,8 +28,8 @@ class _NavbarState extends State<Navbar> {
               index: _selectedIndex,
               children: const [
                 HomeScreen(),
-                ShowCaseScreen(),
                 ReelsScreen(),
+                ShowCaseScreen(),
               ],
             ),
           ),

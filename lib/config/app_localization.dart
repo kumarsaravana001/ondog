@@ -41,6 +41,7 @@ class AppLocalisation {
 
   //::Horizondal/vertical scroll card
   static const ecoHabits = "EcoHabits";
+  static const episode1 = "Episode 1";
   static const videos = "Videos";
   static const ratingcount = "100+ ratings";
   static const commingsoon = "Comming Soon...";
@@ -51,6 +52,8 @@ class AppLocalisation {
   static const tba = "TBA";
   static const ddmm = "12 Jan";
   static const coffeewithcrypto = "Coffee with crypto";
+  static const cryptoBeans = "Crypto Beans";
+  static const ashowabout = "A Show about Crypto - Coffee & a lot more";
   static const coffeesession = "Coffee Session";
   static const online = "Online";
   static const date = "5th January 2023";

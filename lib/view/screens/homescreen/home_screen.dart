@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                        child: const HorizontalScrollableCard(),
+                        child:  HorizontalScrollableCard(),
                       ),
                     ],
                   ),
@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontSize: 22.sp,
                                           color: AppColors.white,
                                           fontWeight: FontWeight.w700))))),
-                      const Positioned(
+                       Positioned(
                           bottom: 100,
                           left: 30,
                           right: 30,

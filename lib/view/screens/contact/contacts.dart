@@ -84,7 +84,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               top: 0,
               right: 30,
               child: Row(
-                children: [SvgPicture.asset(IconAssets.badgeclose)],
+                children: [SvgPicture.asset(IconAssets.badgeopen)],
               ),
             ),
             Positioned(

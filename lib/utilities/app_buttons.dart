@@ -9,6 +9,7 @@ class CustomElevatedButton extends StatelessWidget {
   final Color labelcolor;
   final Color bordercolor;
   final double fontsize;
+  final FontWeight fontWeight;
 
   const CustomElevatedButton({
     Key? key,
@@ -18,6 +19,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.labelcolor,
     required this.bordercolor,
     required this.fontsize,
+    this.fontWeight=FontWeight.w600,
   }) : super(key: key);
 
   @override

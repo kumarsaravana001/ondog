@@ -34,7 +34,9 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     style: AppTestStyle.headingBai(fontSize: 26.sp),
                   ),
                 ),
-                const HorizontalScrollableCard(),
+                HorizontalScrollableCard(
+                    textColor: AppColors.white,
+                    subtitle: AppLocalisation.ratingcount),
                 Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -42,14 +44,16 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     style: AppTestStyle.headingBai(fontSize: 26.sp),
                   ),
                 ),
-                const HorizontalScrollableCard(),
+                HorizontalScrollableCard(
+                    textColor: AppColors.white,
+                    subtitle: AppLocalisation.ratingcount),
               ],
             ),
             Positioned(
               top: 0,
               right: 30,
               child: Row(
-                children: [SvgPicture.asset(IconAssets.badgeclose)],
+                children: [SvgPicture.asset(IconAssets.badgeopen)],
               ),
             ),
             Positioned(

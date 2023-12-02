@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ondgo_flutter/utilities/app_horizontal_scroll_card.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_scrollable_elongated_card.dart';
@@ -39,7 +40,12 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                           child: SvgPicture.asset(IconAssets.ondgoTextlogo,
                               semanticsLabel: 'Ondgo Logo'),
                         ),
-                        SvgPicture.asset(IconAssets.badgecloseblack),
+                        InkWell(
+                            onTap: () {
+                              context.push("/profile");
+                            },
+                            child:
+                                SvgPicture.asset(IconAssets.badgecloseblack)),
                       ],
                     ),
                   ),
@@ -152,6 +158,30 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                           ],
                         ),
                   Padding(
+                    padding: EdgeInsets.only(top: 10.sp, left: 15.sp),
+                    child: Text(
+                      AppLocalisation.cryptoBeans,
+                      style: AppTestStyle.headingBai(
+                        fontSize: 22.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 10.sp, left: 15.sp, bottom: 8.sp),
+                    child: Text(
+                      AppLocalisation.ashowabout,
+                      style: AppTestStyle.headingint(
+                        fontSize: 17.sp,
+                        italic: true,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: 18.sp, vertical: 15.sp),
                     child: Container(
@@ -228,6 +258,17 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                     style: AppTestStyle.headingBai(
                                         fontSize: 26.sp))),
                             Padding(
+                                padding: EdgeInsets.only(left: 15.sp),
+                                child: HorizontalScrollableCard(
+                                  textColor: AppColors.white,
+                                  subtitle: AppLocalisation.episode1,
+                                )),
+                            Padding(
+                                padding: EdgeInsets.only(left: 18.sp),
+                                child: Text(AppLocalisation.events,
+                                    style: AppTestStyle.headingBai(
+                                        fontSize: 26.sp))),
+                            Padding(
                               padding: EdgeInsets.only(left: 15.sp),
                               child: ScrollableElongatedCardWidget(
                                 label: AppLocalisation.coffeesession,
@@ -236,22 +277,145 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                 onPressed: () {},
                               ),
                             ),
+                            // Padding(
+                            //     padding: EdgeInsets.only(left: 18.sp),
+                            //     child: Text(AppLocalisation.events,
+                            //         style: AppTestStyle.headingBai(
+                            //             fontSize: 26.sp))),
+                            // Padding(
+                            //     padding: EdgeInsets.only(left: 15.sp),
+                            //     child: HorizontalScrollableCard()),
+
                             Padding(
-                                padding: EdgeInsets.only(left: 18.sp),
-                                child: Text(AppLocalisation.events,
-                                    style: AppTestStyle.headingBai(
-                                        fontSize: 26.sp))),
+                              padding: EdgeInsets.only(left: 15.sp, top: 20.sp),
+                              child: Text(
+                                AppLocalisation.shareyourthoughts,
+                                style: AppTestStyle.headingint(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
                             Padding(
-                                padding: EdgeInsets.only(left: 15.sp),
-                                child: const HorizontalScrollableCard()),
+                              padding:
+                                  EdgeInsets.fromLTRB(20.sp, 15.sp, 0, 10.sp),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: AppColors.black),
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: RichText(
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text: AppLocalisation.ashwini,
+                                            style: AppTestStyle.headingint(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w800,
+                                                color: AppColors.white),
+                                          ),
+                                          TextSpan(
+                                            text: AppLocalisation.sotrue,
+                                            style: AppTestStyle.headingint(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.white),
+                                          )
+                                        ]),
+                                      )),
+                                ),
+                              ),
+                            ),
                             Padding(
-                                padding: EdgeInsets.only(left: 18.sp),
-                                child: Text(AppLocalisation.relatedvideos,
-                                    style: AppTestStyle.headingBai(
-                                        fontSize: 26.sp))),
+                              padding:
+                                  EdgeInsets.fromLTRB(20.sp, 15.sp, 0, 10.sp),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: AppColors.black),
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: RichText(
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text: AppLocalisation.glo4life,
+                                            style: AppTestStyle.headingint(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w800,
+                                                color: AppColors.white),
+                                          ),
+                                          TextSpan(
+                                            text: AppLocalisation
+                                                .thanksforsharring,
+                                            style: AppTestStyle.headingint(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.white),
+                                          )
+                                        ]),
+                                      )),
+                                ),
+                              ),
+                            ),
                             Padding(
-                                padding: EdgeInsets.only(left: 15.sp),
-                                child: const HorizontalScrollableCard()),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.sp, vertical: 15.sp),
+                              child: Container(
+                                height: 6.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(color: AppColors.black),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .spaceBetween, // Adjust alignment
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: const TextField(
+                                          decoration: InputDecoration(
+                                            hintText: 'Comment',
+                                            border: InputBorder.none,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 6.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        border:
+                                            Border.all(color: AppColors.black),
+                                        color:
+                                            AppColors.black, // Background color
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {},
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20.sp),
+                                          child: Center(
+                                            child: Text(
+                                              "Send",
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
+                                                color: AppColors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         )
                       : Padding(
@@ -416,17 +580,17 @@ class _QuizSectionState extends State<QuizSection> {
                   fontSize: 21.sp,
                   fontWeight: FontWeight.w800),
             ),
-            const Spacer(),
-            TextButton(
-              onPressed: widget.onNextPressed,
-              child: Text(
-                "Next",
-                style: AppTestStyle.headingint(
-                    color: AppColors.black,
-                    fontSize: 21.sp,
-                    fontWeight: FontWeight.w800),
-              ),
-            ),
+            // const Spacer(),
+            // TextButton(
+            //   onPressed: widget.onNextPressed,
+            //   child: Text(
+            //     "Next",
+            //     style: AppTestStyle.headingint(
+            //         color: AppColors.black,
+            //         fontSize: 21.sp,
+            //         fontWeight: FontWeight.w800),
+            //   ),
+            // ),
           ],
         ),
         Text(

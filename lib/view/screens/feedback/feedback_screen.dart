@@ -61,13 +61,17 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       ),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: CustomElevatedButton(
-                          fontsize: 18.sp,
-                          labelcolor: AppColors.black,
-                          backgroundcolor: AppColors.white,
-                          bordercolor: AppColors.black,
-                          text: 'Send',
-                          onPressed: () {},
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 25.sp),
+                          child: CustomElevatedButton(
+                            fontsize: 16.sp,
+                            fontWeight: FontWeight.w800,
+                            labelcolor: AppColors.black,
+                            backgroundcolor: AppColors.white,
+                            bordercolor: AppColors.black,
+                            text: 'Send',
+                            onPressed: () {},
+                          ),
                         ),
                       )
                     ],
@@ -79,7 +83,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               top: 0,
               right: 30,
               child: Row(
-                children: [SvgPicture.asset(IconAssets.badgeclose)],
+                children: [SvgPicture.asset(IconAssets.badgeopen)],
               ),
             ),
             Positioned(

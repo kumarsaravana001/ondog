@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../config/config_index.dart';
 
+// ignore: must_be_immutable
 class HorizontalScrollableCard extends StatelessWidget {
-  const HorizontalScrollableCard({super.key});
+  String subtitle;
+  Color cardbackgroundcolor;
+  Color textColor;
+  HorizontalScrollableCard({
+    Key? key,
+    this.subtitle = '',
+    this.cardbackgroundcolor = AppColors.black,
+    this.textColor = AppColors.black,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,37 +24,37 @@ class HorizontalScrollableCard extends StatelessWidget {
         itemCount: playlistimagePaths.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            width: 150,
-            margin: const EdgeInsets.all(8.0),
+            width: 42.w,
+            margin: EdgeInsets.all(12.sp),
             decoration: BoxDecoration(
-              color: AppColors.black,
-              borderRadius: BorderRadius.circular(15.0),
-            ),
+                color: cardbackgroundcolor,
+                borderRadius: BorderRadius.circular(15.0)),
             child: Column(
               children: [
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(vertical: 10.sp, horizontal: 14.sp),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      EdgeInsets.symmetric(vertical: 12.sp, horizontal: 14.sp),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(playlistcardnames[index],
                               style: AppTestStyle.headingint(
                                   fontSize: 16.sp,
-                                  color: AppColors.white,
+                                  color: textColor,
                                   fontWeight: FontWeight.bold)),
-                          Text(AppLocalisation.ratingcount,
-                              style: AppTestStyle.headingint(
-                                  fontSize: 15.sp,
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.bold)),
+                          AppIconsWidget.horizontaldiamond(
+                              color: Colors.amber, size: 15),
                         ],
                       ),
-                      AppIconsWidget.horizontaldiamond(
-                          color: AppColors.white, size: 15),
+                      if (subtitle.isNotEmpty)
+                        Text(subtitle,
+                            style: AppTestStyle.headingint(
+                                fontSize: 15.sp,
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),

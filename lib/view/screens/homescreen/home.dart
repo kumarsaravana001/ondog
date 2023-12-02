@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Stack(
                 children: [
                   ClipPath(
-                    clipper: StackHometopshape(),
+                    clipper: Hometopshape(),
                     child: Container(
                       height: 122.h,
                       color: AppColors.black,
@@ -49,8 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Positioned(
                     bottom: 50.sp,
                     left: 20.sp,
-                    right: 20.sp,
-                    child: const HorizontalScrollableCard(),
+                    right: 8.sp,
+                    child: HorizontalScrollableCard(
+                        cardbackgroundcolor: AppColors.white),
                   ),
                   Positioned(
                     child: ClipPath(
@@ -58,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Stack(
                         children: [
                           AppImages.dummyimage(
-                              height: 70.h,
+                              height: 68.h,
                               fit: BoxFit.cover,
                               width: double.infinity),
                           Positioned(
@@ -156,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Stack(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(bottom: 45.sp),
+                    padding: EdgeInsets.only(bottom: 22.sp),
                     child: SvgPicture.asset(IconAssets.appbackground),
                   ),
                   Center(
@@ -168,7 +169,51 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                    child: const HorizontalScrollableCard(),
+                    child: HorizontalScrollableCard(
+                      textColor: AppColors.white,
+                    ),
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 22.sp),
+                    child: SvgPicture.asset(IconAssets.appbackground),
+                  ),
+                  Center(
+                    child: Text(AppLocalisation.events,
+                        style: AppTestStyle.headingBai(
+                            fontSize: 22.sp,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w800)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                    child: HorizontalScrollableCard(
+                      textColor: AppColors.white,
+                    ),
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 45.sp),
+                    child: SvgPicture.asset(IconAssets.appbackground),
+                  ),
+                  Center(
+                    child: Text(AppLocalisation.arts,
+                        style: AppTestStyle.headingBai(
+                            fontSize: 22.sp,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w800)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                    child: HorizontalScrollableCard(
+                      textColor: AppColors.white,
+                    ),
                   ),
                 ],
               ),
@@ -184,12 +229,12 @@ class Hometopshape extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path_0 = Path();
-    path_0.moveTo(size.width * -0.0016667, size.height * -0.0014286);
-    path_0.lineTo(size.width * 1.0016667, size.height * -0.0028571);
-    path_0.lineTo(size.width * 1.0008333, size.height * 0.8600000);
-    path_0.lineTo(size.width * 0.5008333, size.height * 1.0057143);
-    path_0.lineTo(size.width * -0.0008333, size.height * 0.8600000);
-    path_0.lineTo(size.width * -0.0016667, size.height * -0.0014286);
+    path_0.moveTo(size.width * -0.0008333, size.height * 0.0014286);
+    path_0.lineTo(size.width * 1.0008333, size.height * -0.0028571);
+    path_0.lineTo(size.width * 1.0008333, size.height * 0.8571429);
+    path_0.lineTo(size.width * 0.5000000, size.height);
+    path_0.lineTo(size.width * -0.0008333, size.height * 0.8571429);
+    path_0.lineTo(size.width * -0.0008333, size.height * 0.0014286);
     path_0.close();
     return path_0;
   }

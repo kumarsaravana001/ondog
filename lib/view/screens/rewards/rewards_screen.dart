@@ -29,7 +29,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                     IconAssets.profilescreenbgblack),
                 Align(
                     alignment: Alignment.center,
-                    child: Text(AppLocalisation.purchase,
+                    child: Text(AppLocalisation.rewards,
                         style: AppTestStyle.headingBai(fontSize: 28.sp))),
                 Expanded(
                   child: ElongatedCardWidget(
@@ -46,7 +46,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
               top: 0,
               right: 30,
               child: Row(
-                children: [SvgPicture.asset(IconAssets.badgeclose)],
+                children: [SvgPicture.asset(IconAssets.badgeopen)],
               ),
             ),
             Positioned(

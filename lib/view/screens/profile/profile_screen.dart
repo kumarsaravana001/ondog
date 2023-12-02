@@ -29,9 +29,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Positioned(
                           top: 0,
                           right: 30,
-                          child: SvgPicture.asset(IconAssets.badgeclose)),
+                          child: SvgPicture.asset(IconAssets.badgeopen)),
                       Positioned(
-                          bottom: -20,
+                          bottom: -15.sp,
                           left: MediaQuery.of(context).size.width * 0.5 - 30,
                           child: SvgPicture.asset(
                               IconAssets.proflestandalonelevel)),
@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.5 - 80,
+                top: MediaQuery.of(context).size.height * 0.5 - 40.sp,
                 left: -10,
                 right: -10,
                 child: SvgPicture.asset(IconAssets.profilelevels,
