@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentCarouselIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,10 +60,34 @@ class _HomeScreenState extends State<HomeScreen> {
                       clipper: StackHometopshape(),
                       child: Stack(
                         children: [
-                          AppImages.dummyimage(
+                          CarouselSlider(
+                            items: [
+                              AppImages.arts(),
+                              AppImages.artshowbanner(),
+                              AppImages.education(),
+                              // AppImages.artshowbanner(
+                              //     height: 68.h,
+                              //     fit: BoxFit.cover,
+                              //     width: double.infinity),
+                              // AppImages.artshowbanner(
+                              //     height: 68.h,
+                              //     fit: BoxFit.cover,
+                              //     width: double.infinity),
+                            ],
+                            options: CarouselOptions(
+                              //  autoPlay: true,
+                              autoPlayCurve: Curves.decelerate,
+                              autoPlayInterval: const Duration(seconds: 5),
                               height: 68.h,
-                              fit: BoxFit.cover,
-                              width: double.infinity),
+                              viewportFraction: 1,
+                              initialPage: 0,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _currentCarouselIndex = index;
+                                });
+                              },
+                            ),
+                          ),
                           Positioned(
                             top: 10,
                             left: 30,
@@ -134,20 +160,38 @@ class _HomeScreenState extends State<HomeScreen> {
                               bottom: 10,
                               right: 60,
                               left: 60,
-                              child: SvgPicture.asset(IconAssets.diamondstar,
-                                  height: 14)),
+                              child: SvgPicture.asset(
+                                IconAssets.diamondstar,
+                                height: 14,
+                                // ignore: deprecated_member_use
+                                color: _currentCarouselIndex == 0
+                                    ? Colors.white
+                                    : Colors.grey,
+                              )),
                           Positioned(
                               bottom: 20,
                               right: 1,
                               left: 60,
-                              child: SvgPicture.asset(IconAssets.diamondstar,
-                                  height: 14)),
+                              child: SvgPicture.asset(
+                                IconAssets.diamondstar,
+                                height: 14,
+                                // ignore: deprecated_member_use
+                                color: _currentCarouselIndex == 1
+                                    ? Colors.white
+                                    : Colors.grey,
+                              )),
                           Positioned(
                               bottom: 20,
                               right: 60,
                               left: 1,
-                              child: SvgPicture.asset(IconAssets.diamondstar,
-                                  height: 14)),
+                              child: SvgPicture.asset(
+                                IconAssets.diamondstar,
+                                height: 14,
+                                // ignore: deprecated_member_use
+                                color: _currentCarouselIndex == 2
+                                    ? Colors.white
+                                    : Colors.grey,
+                              )),
                         ],
                       ),
                     ),
