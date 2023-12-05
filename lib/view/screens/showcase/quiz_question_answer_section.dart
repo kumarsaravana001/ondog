@@ -5,7 +5,7 @@ import '../../../config/config_index.dart';
 class QuizQuestionSection extends StatefulWidget {
   final String number;
   final String question;
- // final VoidCallback onNextPressed;
+  // final VoidCallback onNextPressed;
   const QuizQuestionSection({
     super.key,
     required this.number,
@@ -111,7 +111,8 @@ class _GridQuestionsState extends State<GridQuestions> {
           onChanged: (newValue) {
             setState(() {
               isSelected = newValue ?? false;
-              widget.onSelectionChanged(isSelected); // Notify the parent about selection
+              widget.onSelectionChanged(
+                  isSelected); // Notify the parent about selection
             });
           },
         ),
