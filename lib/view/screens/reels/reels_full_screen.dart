@@ -98,7 +98,7 @@ class _ReelsFullScreenState extends State<ReelsFullScreen> {
 
   @override
   Widget build(BuildContext context) {
-    void _nextImage() {
+    void nextImage() {
       if (_currentIndex < imagePaths.length - 1) {
         setState(() {
           _currentIndex++;
@@ -106,7 +106,7 @@ class _ReelsFullScreenState extends State<ReelsFullScreen> {
       }
     }
 
-    void _previousImage() {
+    void previousImage() {
       if (_currentIndex > 0) {
         setState(() {
           _currentIndex--;
@@ -116,29 +116,15 @@ class _ReelsFullScreenState extends State<ReelsFullScreen> {
 
     return Scaffold(
       body: GestureDetector(
-        // onVerticalDragUpdate: (details) {
-        //   // Sensitivity value for swipe detection
-        //   const double sensitivity = 5;
-
-        //   // Detect upwards swipe
-        //   if (details.delta.dy < -sensitivity) {
-        //     _nextImage();
-        //   }
-
-        //   // Detect downwards swipe
-        //   if (details.delta.dy > sensitivity) {
-        //     _previousImage();
-        //   }
-        // },
-        onVerticalDragEnd: (details) {
-          const double velocityThreshold = 300; // Adjust this value as needed
+        onHorizontalDragEnd: (details) {
+          const double velocityThreshold = 1000;
 
           if (details.primaryVelocity != null &&
               details.primaryVelocity! < -velocityThreshold) {
-            _nextImage();
+            nextImage(); // Swipe right to left
           } else if (details.primaryVelocity != null &&
               details.primaryVelocity! > velocityThreshold) {
-            _previousImage();
+            previousImage(); // Swipe left to right
           }
         },
         child: Stack(

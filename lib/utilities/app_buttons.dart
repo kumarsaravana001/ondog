@@ -4,7 +4,7 @@ import '../config/app_textstyle.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color backgroundcolor;
   final Color labelcolor;
   final Color bordercolor;
@@ -14,7 +14,7 @@ class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     Key? key,
     required this.text,
-    required this.onPressed,
+     this.onPressed,
     required this.backgroundcolor,
     required this.labelcolor,
     required this.bordercolor,
