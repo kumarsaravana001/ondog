@@ -104,65 +104,14 @@ class AppImages {
         width: double.infinity, height: height, fit: BoxFit.cover);
   }
 
-  //////////////////////////////////////////
-  static Widget aibanner({double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/ai_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget aishowbanner({double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/ai_show_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
+  //banner
   static Widget artbanner({double? height, double? width, BoxFit? fit}) {
     return Image.asset("assets/images/art_banner.png",
         width: double.infinity, height: height, fit: BoxFit.cover);
   }
 
-  static Widget artshowbanner({BoxFit? fit}) {
-    return Image.asset("assets/images/art_show_banner.png", fit: BoxFit.cover);
-  }
-
-  static Widget businesstodaybanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/business_today_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget educationshowbanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/education_show_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget financialfreedaybanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/financial_freeday_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget financialfreedayshowbanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/financial_freeday_show_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget financialfridaybanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/financial_friday_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget futureworldaibanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/future_world_ai_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget globalfinancebanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/global_finance_banner.png",
+  static Widget businessbanner({double? height, double? width, BoxFit? fit}) {
+    return Image.asset("assets/images/business_banner.png",
         width: double.infinity, height: height, fit: BoxFit.cover);
   }
 
@@ -171,71 +120,30 @@ class AppImages {
         width: double.infinity, height: height, fit: BoxFit.cover);
   }
 
-  static Widget healthcareforallbanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/health_care_for_all_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget healthmattersbanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/health_matters_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
   static Widget healthcareshowbanner(
       {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/healthcare_show_banner.png",
+    return Image.asset("assets/images/health_care_show_banner.png",
         width: double.infinity, height: height, fit: BoxFit.cover);
   }
 
-  static Widget legalshowbanner({double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/legal_show_banner.png",
+  static Widget musicshowbanner({double? height, double? width, BoxFit? fit}) {
+    return Image.asset("assets/images/music_show_banner.png",
         width: double.infinity, height: height, fit: BoxFit.cover);
   }
 
-  static Widget middleclassbanner(
+  static Widget podcasrbanner({double? height, double? width, BoxFit? fit}) {
+    return Image.asset("assets/images/podcasr_banner.png",
+        width: double.infinity, height: height, fit: BoxFit.cover);
+  }
+
+  static Widget sportsbanner({double? height, double? width, BoxFit? fit}) {
+    return Image.asset("assets/images/sports_banner.png",
+        width: double.infinity, height: height, fit: BoxFit.cover);
+  }
+
+  static Widget spritualityshowbanner(
       {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/middle_class_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget mushishowbanner({double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/mushi_show_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget pediatricclincbanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/pediatric_clinc_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget sportshowbanner({double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/sport_show_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget spritualsaturdaybanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/spritual_saturday_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget spritualsaturdayshowbanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/spritual_saturday_show_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget spritualshowbanner(
-      {double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/spritual_show_banner.png",
-        width: double.infinity, height: height, fit: BoxFit.cover);
-  }
-
-  static Widget travellbanner({double? height, double? width, BoxFit? fit}) {
-    return Image.asset("assets/images/travell_banner.png",
+    return Image.asset("assets/images/sprituality_show_banner.png",
         width: double.infinity, height: height, fit: BoxFit.cover);
   }
 }

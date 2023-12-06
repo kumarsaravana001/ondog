@@ -62,20 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           CarouselSlider(
                             items: [
-                              AppImages.arts(),
-                              AppImages.artshowbanner(),
-                              AppImages.education(),
-                              // AppImages.artshowbanner(
-                              //     height: 68.h,
-                              //     fit: BoxFit.cover,
-                              //     width: double.infinity),
-                              // AppImages.artshowbanner(
-                              //     height: 68.h,
-                              //     fit: BoxFit.cover,
-                              //     width: double.infinity),
+                              AppImages.artbanner(),
+                              AppImages.businessbanner(),
+                              AppImages.healthcarebanner(),
                             ],
                             options: CarouselOptions(
-                              //  autoPlay: true,
+                              autoPlay: true,
                               autoPlayCurve: Curves.decelerate,
                               autoPlayInterval: const Duration(seconds: 5),
                               height: 68.h,

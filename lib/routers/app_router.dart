@@ -5,7 +5,7 @@ import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
 import '../view/view_index.dart';
 
 final router = GoRouter(
-  initialLocation: "/",
+  initialLocation: "/showcase",
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashScreenone()),
     GoRoute(

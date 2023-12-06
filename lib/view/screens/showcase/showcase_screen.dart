@@ -295,12 +295,10 @@ class QuizQuestionAnswerSection extends StatelessWidget {
 
     return Column(
       children: [
-        // Display the current question
         QuizQuestionSection(
           number: '${currentQuestionIndex + 1} / 10 ',
           question: currentQuestion['question'],
         ),
-
         GridView.count(
           childAspectRatio: 3,
           crossAxisCount: 2,
