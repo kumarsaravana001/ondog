@@ -84,14 +84,9 @@ class ReelsFullScreen extends StatefulWidget {
 class _ReelsFullScreenState extends State<ReelsFullScreen> {
   int _currentIndex = 0;
   final List<String> imagePaths = [
-    'assets/images/dummy.png',
-    'assets/images/Economy.png',
-    'assets/images/Education.png',
-    'assets/images/Finance.png',
-    'assets/images/Healthcare.png',
-    'assets/images/dummy.png',
-    'assets/images/Economy.png',
-    'assets/images/Education.png',
+    'assets/images/art_banner.png',
+    'assets/images/business_banner.png',
+    'assets/images/health_care_banner.png',
     'assets/images/Finance.png',
     'assets/images/Healthcare.png',
   ];

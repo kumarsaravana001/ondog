@@ -146,4 +146,19 @@ class AppImages {
     return Image.asset("assets/images/sprituality_show_banner.png",
         width: double.infinity, height: height, fit: BoxFit.cover);
   }
+
+  String artBannerImagePath() {
+    // Logic to retrieve the image path for art banner
+    return 'assets/images/art_banner.png';
+  }
+
+  String businessBannerImagePath() {
+    // Logic to retrieve the image path for business banner
+    return 'assets/images/business_banner.png';
+  }
+
+  String healthcareBannerImagePath() {
+    // Logic to retrieve the image path for healthcare banner
+    return 'assets/images/healthcare_banner.png';
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../config/config_index.dart';
@@ -10,6 +11,8 @@ class ReelsScreen extends StatefulWidget {
 }
 
 class _ReelsScreenState extends State<ReelsScreen> {
+  int _currentCarouselIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,28 +27,49 @@ class _ReelsScreenState extends State<ReelsScreen> {
                 child: Stack(
                   children: [
                     ClipPath(
-                        clipper: TriangularClipper(),
-                        child: AppImages.dummyimage(
-                            height: 60.h,
-                            fit: BoxFit.cover,
-                            width: double.infinity)),
+                      clipper: TriangularClipper(),
+                      child: CarouselSlider(
+                        items: [
+                          AppImages.artbanner(),
+                          AppImages.businessbanner(),
+                          AppImages.healthcarebanner(),
+                        ],
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          autoPlayCurve: Curves.decelerate,
+                          autoPlayInterval: const Duration(seconds: 5),
+                          height: 68.h,
+                          viewportFraction: 1,
+                          initialPage: 0,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _currentCarouselIndex = index;
+                            });
+                          },
+                        ),
+                      ),
+                      //  AppImages.dummyimage(
+                      //     height: 60.h,
+                      //     fit: BoxFit.cover,
+                      //     width: double.infinity),
+                    ),
                     Positioned(
                         top: 10,
                         left: 30,
                         child: SvgPicture.asset(IconAssets.ondgoTextlogowhite,
                             semanticsLabel: 'Ondgo Logo')),
                     Positioned(
-                        bottom: 130,
-                        left: 10,
+                        bottom: 50.sp,
+                        left: 15.sp,
                         child: SvgPicture.asset(IconAssets.reelsleftindicator)),
                     Positioned(
-                        bottom: 10,
+                        bottom: 15.sp,
                         left: MediaQuery.of(context).size.width / 2 - 20,
                         child:
                             SvgPicture.asset(IconAssets.reelscenterindicator)),
                     Positioned(
-                        bottom: 130,
-                        right: 10,
+                        bottom: 50.sp,
+                        right: 15.sp,
                         child:
                             SvgPicture.asset(IconAssets.reelsrightindicator)),
                     Positioned(

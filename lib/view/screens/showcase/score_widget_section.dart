@@ -5,8 +5,12 @@ import '../../../config/config_index.dart';
 class ScoreWidget extends StatelessWidget {
   final int totalQuestions;
   final int correctAnswers;
+  final VoidCallback onFinishPressed;
   const ScoreWidget(
-      {super.key, required this.totalQuestions, required this.correctAnswers});
+      {super.key,
+      required this.totalQuestions,
+      required this.correctAnswers,
+      required this.onFinishPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +58,7 @@ class ScoreWidget extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.sp, vertical: 10.sp),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: onFinishPressed,
                           child: Text(AppLocalisation.finish,
                               style: AppTestStyle.headingint(
                                   color: AppColors.white, fontSize: 16.sp)),
