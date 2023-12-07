@@ -14,7 +14,7 @@ class _MediaSectionState extends State<MediaSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 36.h,
+      height: 35.h,
       decoration: BoxDecoration(
           color: AppColors.black, borderRadius: BorderRadius.circular(20)),
       child: Column(
