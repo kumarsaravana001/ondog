@@ -281,7 +281,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
   }
 }
 
-class QuizQuestionAnswerSection extends StatelessWidget {
+class QuizQuestionAnswerSection extends StatefulWidget {
   final int currentQuestionIndex;
   final List<Map<String, dynamic>> quizData;
   final Function(int) handleOptionTap;
@@ -294,14 +294,22 @@ class QuizQuestionAnswerSection extends StatelessWidget {
   });
 
   @override
+  State<QuizQuestionAnswerSection> createState() =>
+      _QuizQuestionAnswerSectionState();
+}
+
+class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
+  late int _selectedOptionIndex = -1;
+  @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> currentQuestion = quizData[currentQuestionIndex];
+    Map<String, dynamic> currentQuestion =
+        widget.quizData[widget.currentQuestionIndex];
     List<String> options = currentQuestion['options'];
 
     return Column(
       children: [
         QuizQuestionSection(
-          number: '${currentQuestionIndex + 1} / 10 ',
+          number: '${widget.currentQuestionIndex + 1} / 10 ',
           question: currentQuestion['question'],
         ),
         GridView.count(
@@ -310,19 +318,36 @@ class QuizQuestionAnswerSection extends StatelessWidget {
           shrinkWrap: true,
           children: List.generate(
             options.length,
-            (index) => GestureDetector(
-              onTap: () => handleOptionTap(index),
-              child: GridQuestions(
-                label: options[index],
-                onSelectionChanged: (isSelected) {
-                  if (isSelected) {
-                    handleOptionTap(index);
-                  }
-                },
-              ),
+            (index) => RadioListTile<int>(
+              activeColor: AppColors.black,
+              contentPadding: EdgeInsets.zero,
+              dense: true,
+              
+              title: Text(options[index]),
+              value: index,
+              groupValue: _selectedOptionIndex,
+              onChanged: (int? value) {
+                if (value != null) {
+                  widget.handleOptionTap(value);
+                  setState(() {
+                    _selectedOptionIndex = value;
+                  });
+                }
+              },
             ),
           ),
-        )
+          // GestureDetector(
+          //   onTap: () => handleOptionTap(index),
+          //   child: GridQuestions(
+          //     label: options[index],
+          //     onSelectionChanged: (isSelected) {
+          //       if (isSelected) {
+          //         handleOptionTap(index);
+          //       }
+          //     },
+          //   ),
+          // ),
+        ),
       ],
     );
   }
