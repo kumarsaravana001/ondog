@@ -10,6 +10,7 @@ import '../../../utilities/app_custombar.dart';
 bool showWatchedContent = false;
 bool showQuizContent = false;
 bool showScoreContent = false;
+int score = 0;
 
 class ShowCaseScreen extends StatefulWidget {
   const ShowCaseScreen({super.key});
@@ -128,20 +129,49 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
       'correctAnswerIndex': 1,
     },
   ];
+  int totalQuestions = 0;
+  int correctAnswers = 0;
+
+  // void handleOptionTap(int optionIndex) {
+  //   if (optionIndex == quizData[currentQuestionIndex]['correctAnswerIndex']) {
+  //     if (currentQuestionIndex < quizData.length - 1) {
+  //       setState(() {
+  //         currentQuestionIndex++;
+  //       });
+  //     } else {
+  //       setState(() {
+  //         totalQuestions = quizData.length;
+  //         showScoreContent = true;
+  //       });
+  //     }
+  //   } else {
+  //     // Handle incorrect answer logic if needed
+  //   }
+  // }
+  late int _selectedOptionIndex = -1;
+
   void handleOptionTap(int optionIndex) {
-    if (optionIndex == quizData[currentQuestionIndex]['correctAnswerIndex']) {
-      if (currentQuestionIndex < quizData.length - 1) {
-        setState(() {
-          currentQuestionIndex++;
-        });
-      } else {
-        setState(() {
-          showScoreContent = true;
-        });
+    // Record the selected answer
+    setState(() {
+      // Save the selected option
+      _selectedOptionIndex = optionIndex;
+
+      // Increment the correct answer count if the selected option is correct
+      if (optionIndex == quizData[currentQuestionIndex]['correctAnswerIndex']) {
+        correctAnswers++;
       }
-    } else {
-      // Handle incorrect answer logic if needed
-    }
+
+      // Move to the next question
+      if (currentQuestionIndex < quizData.length - 1) {
+        currentQuestionIndex++;
+        _selectedOptionIndex =
+            -1; // Reset the selected option for the new question
+      } else {
+        // All questions have been answered, set the total questions and show the score
+        totalQuestions = quizData.length;
+        showScoreContent = true;
+      }
+    });
   }
 
   @override
@@ -263,7 +293,10 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                       : Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.sp),
                           child: showScoreContent
-                              ? const ScoreWidget()
+                              ? ScoreWidget(
+                                  totalQuestions: totalQuestions,
+                                  correctAnswers: correctAnswers,
+                                )
                               : QuizQuestionAnswerSection(
                                   currentQuestionIndex: currentQuestionIndex,
                                   quizData: quizData,
@@ -322,7 +355,6 @@ class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
               activeColor: AppColors.black,
               contentPadding: EdgeInsets.zero,
               dense: true,
-              
               title: Text(options[index]),
               value: index,
               groupValue: _selectedOptionIndex,

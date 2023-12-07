@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../config/config_index.dart';
 
-class ScoreWidget extends StatefulWidget {
-  const ScoreWidget({super.key});
+class ScoreWidget extends StatelessWidget {
+  final int totalQuestions;
+  final int correctAnswers;
+  const ScoreWidget(
+      {super.key, required this.totalQuestions, required this.correctAnswers});
 
-  @override
-  State<ScoreWidget> createState() => _ScoreWidgetState();
-}
-
-class _ScoreWidgetState extends State<ScoreWidget> {
   @override
   Widget build(BuildContext context) {
+    double percentage = (correctAnswers / totalQuestions) * 100;
+
     return Column(
       children: [
         SizedBox(
@@ -62,7 +62,25 @@ class _ScoreWidgetState extends State<ScoreWidget> {
                       ),
                     ),
                   ],
-                )
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'Total Questions: $totalQuestions',
+                  style:
+                      const TextStyle(fontSize: 18.0, color: AppColors.white),
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'Correct Answers: $correctAnswers',
+                  style:
+                      const TextStyle(fontSize: 18.0, color: AppColors.white),
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'Percentage: ${percentage.toStringAsFixed(2)}%',
+                  style:
+                      const TextStyle(fontSize: 18.0, color: AppColors.white),
+                ),
               ],
             ),
           ),
