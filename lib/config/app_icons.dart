@@ -42,4 +42,30 @@ class IconAssets {
       "assets/icons/reels_right_indicator.svg";
   static const String reelscenterindicator =
       "assets/icons/reels_center_indicator.svg";
+
+  static const String cyberfridaycard = "assets/icons/cyber_friday_card.svg";
+  static const String gamedencard = "assets/icons/game_den_card.svg";
+  static const String impactbusinesscard =
+      "assets/icons/impact_business_card.svg";
+  static const String startupwednesdaycard =
+      "assets/icons/startup_wednesday_card.svg";
+
+  static const String illegalshowcard = "assets/icons/illegal_show_card.svg";
+  static const String immegrationcard = "assets/icons/immegration_card.svg";
+  static const String immegrationstorycard =
+      "assets/icons/immegration_story_card.svg";
+  static const String impactbusinesscard1 =
+      "assets/icons/impact_business_card.svg";
+  static const String internationalcourtcard =
+      "assets/icons/international_court_card.svg";
+  static const String internationallawcard =
+      "assets/icons/international_law_card.svg";
+  static const String lawercard = "assets/icons/lawer_card.svg";
+  static const String legalshowcard = "assets/icons/legal_show_card.svg";
+
+  static const String legalshowcard = "assets/icons/legal_show_card.svg";
+  static const String legalshowcard = "assets/icons/legal_show_card.svg";
+  static const String legalshowcard = "assets/icons/legal_show_card.svg";
+  static const String legalshowcard = "assets/icons/legal_show_card.svg";
+
 }
