@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ondgo_flutter/view/screens/showcase/media_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/quiz_content.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_question_answer_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/show_case_card_section.dart';
@@ -21,133 +22,10 @@ class ShowCaseScreen extends StatefulWidget {
 
 class _ShowCaseScreenState extends State<ShowCaseScreen> {
   int currentQuestionIndex = 0;
-  List<Map<String, dynamic>> quizData = [
-    {
-      'question': 'What does ROI stand for in finance?',
-      'options': [
-        'Return on Investment',
-        'Rate of Income',
-        'Risk of Inflation',
-        'Revenue of Interest'
-      ],
-      'correctAnswerIndex': 0,
-    },
-    {
-      'question':
-          'Which market index is often used as a barometer for the performance of the U.S. stock market?',
-      'options': [
-        'Nikkei Index',
-        'Nikkei Index',
-        'FTSE 100 Index',
-        'S&P 500 Index',
-      ],
-      'correctAnswerIndex': 3,
-    },
-    {
-      'question': 'What is the primary function of a central bank?',
-      'options': [
-        'Regulating commercial banks',
-        'Issuing currency',
-        'Managing monetary policy',
-        'All of the above',
-      ],
-      'correctAnswerIndex': 2,
-    },
-    {
-      'question': 'What does the term "Bull Market" refer to in finance?',
-      'options': [
-        'A market characterized by falling prices',
-        'A market characterized by stagnation',
-        'A market characterized by rising prices',
-        'A market characterized by high volatility',
-      ],
-      'correctAnswerIndex': 2,
-    },
-    {
-      'question':
-          'What is the primary function of red blood cells in the human body?',
-      'options': [
-        'Transportation of oxygen',
-        'Fighting infections',
-        'Digesting nutrients',
-        'Storing energy',
-      ],
-      'correctAnswerIndex': 0,
-    },
-    {
-      'question':
-          'Which organ is responsible for filtering and detoxifying blood in the human body?',
-      'options': [
-        'Kidneys',
-        'Liver',
-        'Heart',
-        'Lungs',
-      ],
-      'correctAnswerIndex': 0,
-    },
-    {
-      'question':
-          'What is the recommended daily intake of water for the average adult?',
-      'options': [
-        '1 liter',
-        '2 liters',
-        '3 liters',
-        '4 liters',
-      ],
-      'correctAnswerIndex': 1,
-    },
-    {
-      'question':
-          'Which vitamin is essential for the absorption of calcium in the body?',
-      'options': [
-        'Vitamin A',
-        'Vitamin B12',
-        'Vitamin D',
-        'Vitamin C',
-      ],
-      'correctAnswerIndex': 2,
-    },
-    {
-      'question':
-          'What is the purpose of the respiratory system in the human body?',
-      'options': [
-        'Pumping blood',
-        'Digesting food',
-        'Exchanging gasses',
-        'Filtering toxins',
-      ],
-      'correctAnswerIndex': 2,
-    },
-    {
-      'question': 'In which country did the sport of archery originate?',
-      'options': [
-        'Greece',
-        'China ',
-        'Egypt',
-        'Brazil',
-      ],
-      'correctAnswerIndex': 1,
-    },
-  ];
+
   int totalQuestions = 0;
   int correctAnswers = 0;
 
-  // void handleOptionTap(int optionIndex) {
-  //   if (optionIndex == quizData[currentQuestionIndex]['correctAnswerIndex']) {
-  //     if (currentQuestionIndex < quizData.length - 1) {
-  //       setState(() {
-  //         currentQuestionIndex++;
-  //       });
-  //     } else {
-  //       setState(() {
-  //         totalQuestions = quizData.length;
-  //         showScoreContent = true;
-  //       });
-  //     }
-  //   } else {
-  //     // Handle incorrect answer logic if needed
-  //   }
-  // }
   late int _selectedOptionIndex = -1;
 
   void handleOptionTap(int optionIndex) {
@@ -193,7 +71,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                   ),
                   showWatchedContent == false
                       ? Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: EdgeInsets.all(18.sp),
                           child: MediaSection(
                             onWatchNowPressed: () {
                               setState(() {
@@ -203,27 +81,31 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                           ))
                       : const MediaWatchSection(),
                   Padding(
-                    padding: EdgeInsets.only(top: 10.sp, left: 15.sp),
-                    child: Text(
-                      AppLocalisation.cryptoBeans,
-                      style: AppTestStyle.headingBai(
-                        fontSize: 22.sp,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: 10.sp, left: 15.sp, bottom: 8.sp),
-                    child: Text(
-                      AppLocalisation.ashowabout,
-                      style: AppTestStyle.headingint(
-                        fontSize: 17.sp,
-                        italic: true,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    padding: EdgeInsets.only(top: 10.sp, left: 18.sp),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalisation.cryptoBeans,
+                          style: AppTestStyle.headingBai(
+                            fontSize: 22.sp,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.sp),
+                          child: Text(
+                            AppLocalisation.ashowabout,
+                            style: AppTestStyle.headingint(
+                              fontSize: 17.sp,
+                              italic: true,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
@@ -232,7 +114,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                     child: Visibility(
                       visible: !showQuizContent,
                       child: Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: EdgeInsets.all(15.sp),
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             color: AppColors.black),

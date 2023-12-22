@@ -1,5 +1,7 @@
 class IconAssets {
   static const String ondgoTextlogo = "assets/icons/text_logo.svg";
+  static const String ondgoTextlogoblackcovered =
+      "assets/icons/logo_black_covered.svg";
   static const String ondgoTextlogowhite = "assets/icons/text_logo_white.svg";
   static const String ondgoLogo = "assets/icons/logo.svg";
   static const String signinbottom = "assets/icons/signin_bottom.svg";

@@ -28,17 +28,15 @@ List purchadeimagePaths = [
 ];
 
 List playlistimagePaths = [
-  AppImages.finance(fit: BoxFit.cover, width: double.infinity),
-  AppImages.economy(fit: BoxFit.cover, width: double.infinity),
-  AppImages.technology(fit: BoxFit.cover, width: double.infinity),
-  AppImages.arts(fit: BoxFit.cover, width: double.infinity),
-  AppImages.spirituality(fit: BoxFit.cover, width: double.infinity),
-  AppImages.healthcare(fit: BoxFit.cover, width: double.infinity),
-  AppImages.sports(fit: BoxFit.cover, width: double.infinity),
-  AppImages.wellness(fit: BoxFit.cover, width: double.infinity),
-  AppImages.education(fit: BoxFit.cover, width: double.infinity),
-  AppImages.legal(fit: BoxFit.cover, width: double.infinity),
-  AppImages.travel(fit: BoxFit.cover, width: double.infinity),
+  AppImages.financialshowcard(fit: BoxFit.cover, width: double.infinity),
+  AppImages.ecohabitcard(fit: BoxFit.cover, width: double.infinity),
+  AppImages.technologycard(fit: BoxFit.cover, width: double.infinity),
+  AppImages.artscard(fit: BoxFit.cover, width: double.infinity),
+  AppImages.spritualitycard(fit: BoxFit.cover, width: double.infinity),
+  AppImages.healthcard(fit: BoxFit.cover, width: double.infinity),
+  AppImages.sportscard(fit: BoxFit.cover, width: double.infinity),
+  AppImages.wellnesscard(fit: BoxFit.cover, width: double.infinity),
+  AppImages.educationcard(fit: BoxFit.cover, width: double.infinity),
 ];
 
 List playlistcardnames = [

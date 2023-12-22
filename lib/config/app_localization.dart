@@ -108,13 +108,13 @@ class AppLocalisation {
 
   //card
   static const economy = "economy";
-  static const technology = "technology";
-  static const arts = "arts";
-  static const spirituality = "spirituality";
-  static const healthcare = "healthcare";
-  static const sports = "sports";
+  static const technology = "Technology";
+  static const arts = "Arts";
+  static const spirituality = "Spirituality";
+  static const healthcare = "Healthcare";
+  static const sports = "Sports";
   static const legal = "legal";
-  static const education = "education";
+  static const education = "Education";
   static const travel = "travel";
 
   //showcase

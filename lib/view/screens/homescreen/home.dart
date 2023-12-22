@@ -62,15 +62,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           CarouselSlider(
                             items: [
-                              AppImages.artbanner(),
-                              AppImages.businessbanner(),
-                              AppImages.healthcarebanner(),
+                              AppImages.educationcard(),
+                              AppImages.artscard(),
+                              AppImages.wellnesscard(),
                             ],
                             options: CarouselOptions(
-                              autoPlay: true,
+                              autoPlay: false,
                               autoPlayCurve: Curves.decelerate,
                               autoPlayInterval: const Duration(seconds: 5),
-                              height: 68.h,
+                              height: 71.h,
                               viewportFraction: 1,
                               initialPage: 0,
                               onPageChanged: (index, reason) {
@@ -81,10 +81,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Positioned(
-                            top: 10,
+                            top: 8,
                             left: 30,
                             child: SvgPicture.asset(
-                                IconAssets.ondgoTextlogowhite,
+                                IconAssets.ondgoTextlogoblackcovered,
+                                height: 24.sp,
                                 semanticsLabel: 'Ondgo Logo'),
                           ),
                           Positioned(
@@ -115,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontsize: 13,
                                           labelcolor: AppColors.white,
                                           onPressed: () {},
-                                          text: 'Stream now'),
+                                          text: 'streaming soon'),
                                       SizedBox(width: 50.w),
                                       Container(
                                           decoration: BoxDecoration(
@@ -128,20 +129,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                               color: AppColors.white))
                                     ],
                                   ),
-                                  Text(
-                                    AppLocalisation.coffeewithcrypto,
-                                    style: AppTestStyle.headingBai(
-                                      fontSize: 24.sp,
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  Text(
-                                    AppLocalisation.newepisodes,
-                                    style: AppTestStyle.headingint(
-                                      fontSize: 18.sp,
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.w600,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.white60),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10.sp),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            AppLocalisation.coffeewithcrypto,
+                                            style: AppTestStyle.headingBai(
+                                              fontSize: 24.sp,
+                                              color: AppColors.black,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          Text(
+                                            AppLocalisation.newepisodes,
+                                            style: AppTestStyle.headingint(
+                                              fontSize: 18.sp,
+                                              color: AppColors.black,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -285,12 +300,12 @@ class StackHometopshape extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path_0 = Path();
-    path_0.moveTo(size.width * -0.0016667, size.height * -0.0028571);
-    path_0.lineTo(size.width, size.height * -0.0028571);
-    path_0.lineTo(size.width * 1.0008333, size.height * 0.8585714);
-    path_0.lineTo(size.width * 0.5000000, size.height * 1.0028571);
-    path_0.lineTo(size.width * -0.0016667, size.height * 0.8585714);
-    path_0.lineTo(size.width * -0.0016667, size.height * -0.0028571);
+    path_0.moveTo(size.width * 0.0008333, size.height * 0.0014286);
+    path_0.lineTo(size.width * 0.9991667, size.height * -0.0014286);
+    path_0.lineTo(size.width * 0.9991667, size.height * 0.8585714);
+    path_0.lineTo(size.width * 0.5008333, size.height * 1.0014286);
+    path_0.lineTo(size.width * -0.0008333, size.height * 0.8600000);
+    path_0.lineTo(size.width * 0.0008333, size.height * 0.0014286);
     path_0.close();
     return path_0;
   }
@@ -300,3 +315,23 @@ class StackHometopshape extends CustomClipper<Path> {
     return false;
   }
 }
+
+// class StackHometopshape extends CustomClipper<Path> {
+//   @override
+//   Path getClip(Size size) {
+//     Path path_0 = Path();
+//     path_0.moveTo(size.width * -0.0041667, 0);
+//     path_0.lineTo(size.width * 1.0016667, size.height * -0.0042857);
+//     path_0.lineTo(size.width * 1.0016667, size.height * 0.7157143);
+//     path_0.lineTo(size.width * 0.5008333, size.height * 1.0042857);
+//     path_0.lineTo(size.width * -0.0025000, size.height * 0.7157143);
+//     path_0.lineTo(size.width * -0.0041667, 0);
+//     path_0.close();
+//     return path_0;
+//   }
+
+//   @override
+//   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+//     return false;
+//   }
+// }

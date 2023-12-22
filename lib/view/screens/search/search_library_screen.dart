@@ -80,7 +80,9 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                           AppLocalisation.spotlight,
                           style: AppTestStyle.headingBai(fontSize: 26.sp),
                         ),
-                         HorizontalScrollableCard(),
+                        HorizontalScrollableCard(
+                            textColor: AppColors.white,
+                            subtitle: AppLocalisation.ratingcount),
                       ],
                     ),
                   ),
@@ -100,7 +102,9 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                           AppLocalisation.artanddesign,
                           style: AppTestStyle.headingBai(fontSize: 26.sp),
                         ),
-                         HorizontalScrollableCard(),
+                        HorizontalScrollableCard(
+                            textColor: AppColors.white,
+                            subtitle: AppLocalisation.ratingcount),
                       ],
                     ),
                   ),
@@ -123,7 +127,9 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                           AppLocalisation.wellness,
                           style: AppTestStyle.headingBai(fontSize: 26.sp),
                         ),
-                         HorizontalScrollableCard(),
+                        HorizontalScrollableCard(
+                            textColor: AppColors.white,
+                            subtitle: AppLocalisation.ratingcount),
                       ],
                     ),
                   ),

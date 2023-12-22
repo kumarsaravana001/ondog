@@ -127,7 +127,7 @@ class _CheckboxListState extends State<LanguageScreen> {
                           isAudiochecked: isSubtitleEnglish,
                           onChanged: (value) {
                             setState(() {
-                              isAudioEnglish = value;
+                              isSubtitleEnglish = value;
                             });
                           }),
                       CheckboxRow(

@@ -4,6 +4,7 @@ import 'package:ondgo_flutter/utilities/index.dart';
 import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
 import '../view/view_index.dart';
 
+// todo Routs and subrouts to be implemented
 final router = GoRouter(
   initialLocation: "/",
   routes: [
