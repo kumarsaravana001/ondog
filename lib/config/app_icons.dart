@@ -63,9 +63,21 @@ class IconAssets {
   static const String lawercard = "assets/icons/lawer_card.svg";
   static const String legalshowcard = "assets/icons/legal_show_card.svg";
 
-  static const String economicsmondaycard = "assets/icons/economics_monday_card.svg";
+  static const String economicsmondaycard =
+      "assets/icons/economics_monday_card.svg";
   static const String globalecocard = "assets/icons/global_eco_card.svg";
-  static const String middleclasseconomy = "assets/icons/middleclass_economy.svg";
-  static const String thursdaypodcastcard = "assets/icons/thursday_podcast_card.svg";
+  static const String middleclasseconomy =
+      "assets/icons/middleclass_economy.svg";
+  static const String thursdaypodcastcard =
+      "assets/icons/thursday_podcast_card.svg";
 
+  static const String doctortalkscard = "assets/icons/doctor_talks_card.svg";
+  static const String medfridaycard = "assets/icons/med_friday_card.svg";
+  static const String mountainlifecard = "assets/icons/mountain_life_card.svg";
+
+  static const String sustainableecosystemcard =
+      "assets/icons/sustainable_ecosystem_card.svg";
+  static const String sustainablelifestylecard =
+      "assets/icons/sustainable_lifestyle_card.svg";
+  static const String healthcard1 = "assets/icons/health_card1.svg";
 }

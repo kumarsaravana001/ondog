@@ -1,5 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
+
 import '../config/config_index.dart';
 
 // ignore: must_be_immutable
@@ -7,11 +10,13 @@ class HorizontalScrollableCard extends StatelessWidget {
   String subtitle;
   Color cardbackgroundcolor;
   Color textColor;
+  Image cardimages;
   HorizontalScrollableCard({
     Key? key,
     this.subtitle = '',
     this.cardbackgroundcolor = AppColors.black,
     this.textColor = AppColors.black,
+    required this.cardimages,
   }) : super(key: key);
 
   @override
@@ -64,7 +69,7 @@ class HorizontalScrollableCard extends StatelessWidget {
                         bottomLeft: Radius.circular(15),
                         bottomRight: Radius.circular(15),
                       ),
-                      child: playlistimagePaths[index]),
+                      child: cardimages),
                 ),
               ],
             ),
