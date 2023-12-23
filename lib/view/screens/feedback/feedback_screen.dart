@@ -39,9 +39,15 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomTextField(controller: nameController),
+                      CustomTextField(
+                        controller: nameController,
+                        hintText: "Enter Name",
+                      ),
                       SizedBox(height: 1.5.h),
-                      CustomTextField(controller: emailController),
+                      CustomTextField(
+                        controller: emailController,
+                        hintText: "Enter Email",
+                      ),
                       SizedBox(height: 1.5.h),
                       Container(
                         height: 70.sp,
@@ -51,7 +57,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         ),
                         child: const TextField(
                           decoration: InputDecoration(
-                            hintText: 'Comments',
+                            hintText: 'Enter Comments',
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontStyle: FontStyle.italic,
+                            ),
                             border: InputBorder.none,
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 15),

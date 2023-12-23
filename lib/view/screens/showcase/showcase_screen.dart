@@ -258,17 +258,6 @@ class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
               },
             ),
           ),
-          // GestureDetector(
-          //   onTap: () => handleOptionTap(index),
-          //   child: GridQuestions(
-          //     label: options[index],
-          //     onSelectionChanged: (isSelected) {
-          //       if (isSelected) {
-          //         handleOptionTap(index);
-          //       }
-          //     },
-          //   ),
-          // ),
         ),
       ],
     );

@@ -116,6 +116,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     // ignore: deprecated_member_use
                     color: AppColors.black),
               ),
+              Positioned(
+                top: 10,
+                left: 20,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Icon(Icons.arrow_back_outlined,
+                          color: AppColors.white, size: 30),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),

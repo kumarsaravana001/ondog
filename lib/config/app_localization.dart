@@ -4,7 +4,8 @@ class AppLocalisation {
   //cards topic
   static const spotlight = "Spotlight";
   static const artanddesign = "Art & Design";
-  static const sprituality = "Sprituality";
+  static const sprituality = "Sprituality ";
+  static const spritualitysaturday = "Sprituality saturday";
   static const wellness = "Wellness";
   static const startup = "Startup";
 
@@ -117,7 +118,7 @@ class AppLocalisation {
   static const spirituality = "Spirituality";
   static const healthcare = "Healthcare";
   static const sports = "Sports";
-  static const legal = "legal";
+  static const legal = "Legal";
   static const education = "Education";
   static const travel = "travel";
 
@@ -131,6 +132,6 @@ class AppLocalisation {
   static const question =
       "What financial statement lists assets from current to long term?";
 
-  static const immegration = "Immegration";
-  static const middleclasseconomy = "Middleclass economy";
+  static const immegration = "Immigration stories";
+  static const middleclasseconomy = "Middle class Economy";
 }

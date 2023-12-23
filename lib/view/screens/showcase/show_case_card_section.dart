@@ -36,7 +36,9 @@ class ShowCaseCardSections extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: 15.sp),
           child: ScrollableElongatedCardWidget(
-            label: AppLocalisation.coffeesession,
+            cardlength: eventsImagepath.length,
+            imageList: eventsImagepath,
+            label: eventimagepathtitle,
             sublabel: AppLocalisation.registernowex,
             sublabel1: AppLocalisation.interactwithcreators,
             onPressed: () {},

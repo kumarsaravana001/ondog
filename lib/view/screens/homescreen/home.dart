@@ -150,7 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Text(
                                             _currentCarouselIndex == 0
-                                                ? AppLocalisation.sprituality
+                                                ? AppLocalisation
+                                                    .spritualitysaturday
                                                 : _currentCarouselIndex == 1
                                                     ? AppLocalisation
                                                         .immegration

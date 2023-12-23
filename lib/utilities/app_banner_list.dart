@@ -63,6 +63,14 @@ List<Image> yourlistImagepath = [
   Image.asset("assets/images/education_card.png",
       fit: BoxFit.cover, width: double.infinity),
 ];
+List<Image> eventsImagepath = [
+  Image.asset("assets/images/events_card1.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/events_card2.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/events_card3.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
 
 // List<Image> artsImagepath = [
 //   Image.asset("assets/images/financial_show_card.png",
@@ -198,8 +206,8 @@ List<Image> healthcareImagepath = [
       fit: BoxFit.cover, width: double.infinity),
   Image.asset("assets/images/Healthcare.png",
       fit: BoxFit.cover, width: double.infinity),
-  Image.asset("assets/images/health_care_banner.png",
-      fit: BoxFit.cover, width: double.infinity),
+  // Image.asset("assets/images/health_care_banner.png",
+  //     fit: BoxFit.cover, width: double.infinity),
   Image.asset("assets/images/health_care_show_banner.png",
       fit: BoxFit.cover, width: double.infinity),
   Image.asset("assets/images/health_card1.png",
@@ -222,30 +230,35 @@ List<Image> legalImagepath = [
   Image.asset("assets/images/immegration_card.png",
       fit: BoxFit.cover, width: double.infinity),
 ];
+
+List<String> eventimagepathtitle = [
+  "Culture Summit",
+  "World Summit",
+  "Young leader summit",
+];
 List<String> businessimagepathtitle = [
-  "World today",
+  "Today",
   "Impact",
   "Masters",
-  "Family Business",
-  "Google Business",
+  "Family",
+  "Google",
   "SMEs",
   "Trade",
 ];
 List<String> healthCareimagepathtitle = [
-  "Health Matters",
-  "Bio science",
+  "Health",
+  "science",
   "Checkup",
-  "Show",
-  "Healthy living",
+  "Healthy",
 ];
 List<String> legalimagepathtitle = [
-  "Legal today",
+  "Legal",
   "Law",
   "Justice",
   "Illegal",
-  "Google Business",
-  "International law",
-  "Immeg stories",
+  "Google",
+  "International",
+  "Immigration",
 ];
 List<String> startupimagepathtitle = [
   "Google startup",
@@ -254,7 +267,7 @@ List<String> startupimagepathtitle = [
 ];
 List<String> spritualityimagepathtitle = [
   "Meditation",
-  "Spritual classes",
+  "Spritual",
   // "Justice",
   // "Illegal",
   // "Google Business",
@@ -262,17 +275,17 @@ List<String> spritualityimagepathtitle = [
   // "Immeg stories",
 ];
 List<String> financeimagepathtitle = [
-  "Financial friday",
-  "Financial show",
+  "friday",
+  "show",
   "Economy",
   "Financial ",
 ];
 List<String> technologyimagepathtitle = [
-  "Neuro Tech",
+  "Artificial",
   "AI",
-  "AI Powered",
-  "Cyber Tech",
-  "Game Tech",
+  "Programminf",
+  "Cyber",
+  "Game",
   "Startup",
 ];
 List<Image> businessImagepath = [

@@ -80,61 +80,67 @@ class _ReelsFullScreenState extends State<ReelsFullScreen> {
             }
           }
         },
-        child: AspectRatio(
-          aspectRatio: _controller.value.aspectRatio,
-          child: Stack(
-            // fit: StackFit.expand,
-            children: [
-              VideoPlayer(_controller),
-              Positioned(
-                bottom: 60.sp,
-                left: 20.sp,
-                child: SvgPicture.asset(IconAssets.reelsleftindicator),
-              ),
-              Positioned(
-                bottom: 50.sp,
-                left: MediaQuery.of(context).size.width / 2 - 20,
-                child: SvgPicture.asset(IconAssets.reelscenterindicator),
-              ),
-              Positioned(
-                bottom: 60.sp,
-                right: 20.sp,
-                child: SvgPicture.asset(IconAssets.reelsrightindicator),
-              ),
-              Positioned(
-                bottom: 35.sp,
-                left: 20.sp,
-                child: AppIconsWidget.favourites(color: AppColors.white),
-              ),
-              Positioned(
-                bottom: 33.sp,
-                left: MediaQuery.of(context).size.width * 2 / 7,
-                child: Text(
-                  AppLocalisation.nutritiondaily,
-                  style: AppTestStyle.headingBai(
-                    fontSize: 24,
-                    color: AppColors.white,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: AspectRatio(
+            aspectRatio: _controller.value.aspectRatio,
+            child: Stack(
+              // fit: StackFit.expand,
+              children: [
+                _controller.value.isInitialized
+                    ? VideoPlayer(_controller)
+                    : Container(),
+                Positioned(
+                  bottom: 60.sp,
+                  left: 20.sp,
+                  child: SvgPicture.asset(IconAssets.reelsleftindicator),
+                ),
+                Positioned(
+                  bottom: 50.sp,
+                  left: MediaQuery.of(context).size.width / 2 - 20,
+                  child: SvgPicture.asset(IconAssets.reelscenterindicator),
+                ),
+                Positioned(
+                  bottom: 60.sp,
+                  right: 20.sp,
+                  child: SvgPicture.asset(IconAssets.reelsrightindicator),
+                ),
+                Positioned(
+                  bottom: 35.sp,
+                  left: 20.sp,
+                  child: AppIconsWidget.favourites(color: AppColors.white),
+                ),
+                Positioned(
+                  bottom: 33.sp,
+                  left: MediaQuery.of(context).size.width * 2 / 7,
+                  child: Text(
+                    AppLocalisation.nutritiondaily,
+                    style: AppTestStyle.headingBai(
+                      fontSize: 24,
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                bottom: 35.sp,
-                right: 20.sp,
-                child: AppIconsWidget.share(color: AppColors.white),
-              ),
-              Positioned(
-                bottom: 20.sp,
-                left: MediaQuery.of(context).size.width * 2 / 6,
-                child: Text(
-                  AppLocalisation.newepisodes,
-                  style: AppTestStyle.headingint(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.white,
+                Positioned(
+                  bottom: 35.sp,
+                  right: 20.sp,
+                  child: AppIconsWidget.share(color: AppColors.white),
+                ),
+                Positioned(
+                  bottom: 20.sp,
+                  left: MediaQuery.of(context).size.width * 2 / 6,
+                  child: Text(
+                    AppLocalisation.newepisodes,
+                    style: AppTestStyle.headingint(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -14,7 +14,7 @@ class _MediaSectionState extends State<MediaSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35.h,
+      height: 30.h,
       decoration: BoxDecoration(
           color: AppColors.black, borderRadius: BorderRadius.circular(20)),
       child: Column(
@@ -42,7 +42,7 @@ class _MediaSectionState extends State<MediaSection> {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                AppImages.dummyimage(),
+                AppImages.coffeebanner(fit: BoxFit.fitHeight),
                 Positioned(
                   bottom: 12.sp,
                   right: 12.sp,

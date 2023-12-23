@@ -13,7 +13,7 @@ class AppVerticalScrollCard extends StatelessWidget {
           crossAxisSpacing: 10.0,
           mainAxisSpacing: 10.0,
           mainAxisExtent: 200),
-      itemCount: allimagePaths.length,
+      itemCount: eventimagepathtitle.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
           decoration: BoxDecoration(
@@ -30,9 +30,9 @@ class AppVerticalScrollCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(playlistcardnames[index],
+                        Text(eventimagepathtitle[index],
                             style: AppTestStyle.headingint(
-                                fontSize: 16.sp,
+                                fontSize: 13.sp,
                                 color: AppColors.white,
                                 fontWeight: FontWeight.bold)),
                         Text(AppLocalisation.ddmm,
@@ -50,7 +50,7 @@ class AppVerticalScrollCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(child: allimagePaths[index]),
+              Expanded(child: eventsImagepath[index]),
               ClipRRect(
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(15),

@@ -18,6 +18,14 @@ class AppImages {
       fit: fit,
     );
   }
+  static Widget coffeebanner({double? height, double? width, BoxFit? fit}) {
+    return Image.asset(
+      "assets/images/coffee_with_crypto.png",
+      width: width,
+      height: height,
+      fit: fit,
+    );
+  }
 
   static Widget reelsimage({double? height, double? width, BoxFit? fit}) {
     return Image.asset(
@@ -299,6 +307,7 @@ class AppImages {
   }
 
   static const String cyberfridaycard = "assets/icons/cyber_friday_card.png";
+  // static const String coffeebanner = "assets/icons/coffee_with_crypto.png";
   static const String gamedencard = "assets/icons/game_den_card.png";
   static const String impactbusinesscard =
       "assets/icons/impact_business_card.png";
