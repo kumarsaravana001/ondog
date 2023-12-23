@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
+import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 
 class PlayListScreen extends StatefulWidget {
@@ -34,9 +35,12 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     style: AppTestStyle.headingBai(fontSize: 26.sp),
                   ),
                 ),
-                HorizontalScrollableCard(
-                    textColor: AppColors.white,
-                    subtitle: AppLocalisation.ratingcount),
+                HorizontalScrollableCard1(
+                  cardStatusColor: Colors.indigo,
+                  imageListCount: playlistcardnames.length,
+                  imageList: yourlistImagepath,
+                  cardbackgroundcolor: AppColors.white,
+                ),
                 Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -44,9 +48,12 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     style: AppTestStyle.headingBai(fontSize: 26.sp),
                   ),
                 ),
-                HorizontalScrollableCard(
-                    textColor: AppColors.white,
-                    subtitle: AppLocalisation.ratingcount),
+                HorizontalScrollableCard1(
+                  cardStatusColor: Colors.indigo,
+                  imageListCount: playlistcardnames.length,
+                  imageList: yourlistImagepath,
+                  cardbackgroundcolor: AppColors.white,
+                )
               ],
             ),
             Positioned(

@@ -7,7 +7,9 @@ class ElongatedCardWidget extends StatelessWidget {
   final String sublabel;
   final String date;
   final String amount;
+  final int cardlength;
   final VoidCallback onPressed;
+  final List<Image> imageList;
 
   const ElongatedCardWidget({
     Key? key,
@@ -16,6 +18,8 @@ class ElongatedCardWidget extends StatelessWidget {
     required this.date,
     required this.amount,
     required this.onPressed,
+    required this.imageList,
+    required this.cardlength,
   }) : super(key: key);
 
   @override
@@ -24,7 +28,7 @@ class ElongatedCardWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.sp),
       child: SizedBox(
         child: ListView.builder(
-          itemCount: purchadeimagePaths.length,
+          itemCount: cardlength,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: EdgeInsets.only(bottom: 10.sp),
@@ -42,7 +46,7 @@ class ElongatedCardWidget extends StatelessWidget {
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15),
                         ),
-                        child: purchadeimagePaths[index]),
+                        child: imageList[index]),
                     Column(
                       children: [
                         Padding(
@@ -130,31 +134,32 @@ class ElongatedCardWidget extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class ElongatedCardWidgetList extends StatelessWidget {
-  List imagePaths = [
-    AppImages.education(),
-    AppImages.impactandSustainability(),
-    AppImages.legal(),
-    AppImages.travel(),
-  ];
+// class ElongatedCardWidgetList extends StatelessWidget {
+//   List imagePaths = [
+//     AppImages.education(),
+//     AppImages.impactandSustainability(),
+//     AppImages.legal(),
+//     AppImages.travel(),
+//   ];
 
-  ElongatedCardWidgetList({
-    Key? key,
-  }) : super(key: key);
+//   ElongatedCardWidgetList({
+//     Key? key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: imagePaths.length,
-      itemBuilder: (context, index) {
-        return ElongatedCardWidget(
-          label: AppLocalisation.freeentry,
-          sublabel: AppLocalisation.designhinking,
-          date: AppLocalisation.date,
-          amount: AppLocalisation.inramount,
-          onPressed: () {},
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListView.builder(
+//       itemCount: imagePaths.length,
+//       itemBuilder: (context, index) {
+//         return ElongatedCardWidget(
+//           imageList: [],
+//           label: AppLocalisation.freeentry,
+//           sublabel: AppLocalisation.designhinking,
+//           date: AppLocalisation.date,
+//           amount: AppLocalisation.inramount,
+//           onPressed: () {},
+//         );
+//       },
+//     );
+//   }
+// }

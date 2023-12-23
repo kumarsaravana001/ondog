@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
@@ -64,30 +65,32 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                   ],
                 ),
               ),
-              Stack(
-                children: [
-                  SvgPicture.asset(
-                    IconAssets.spotlightbgframe1,
-                    fit: BoxFit.cover,
-                    height: 35.h,
-                  ),
-                  Positioned(
-                    left: 20.sp,
-                    right: 05.sp,
-                    child: Column(
-                      children: [
-                        Text(
-                          AppLocalisation.spotlight,
-                          style: AppTestStyle.headingBai(fontSize: 26.sp),
-                        ),
-                        HorizontalScrollableCard(
-                            textColor: AppColors.white,
-                            subtitle: AppLocalisation.ratingcount),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              // Stack(
+              //   children: [
+              //     SvgPicture.asset(
+              //       IconAssets.spotlightbgframe1,
+              //       fit: BoxFit.cover,
+              //       height: 35.h,
+              //     ),
+              //     Positioned(
+              //       left: 20.sp,
+              //       right: 05.sp,
+              //       child: Column(
+              //         children: [
+              //           Text(
+              //             AppLocalisation.spotlight,
+              //             style: AppTestStyle.headingBai(fontSize: 26.sp),
+              //           ),
+              //           HorizontalScrollableCard(
+              //               imageListCount: spotlightImagepath.length,
+              //               imageList: spotlightImagepath,
+              //               textColor: AppColors.white,
+              //               subtitle: AppLocalisation.ratingcount),
+              //         ],
+              //       ),
+              //     ),
+              //   ],
+              // ),
               // SizedBox(height: 7.h),
               Stack(
                 children: [
@@ -99,10 +102,39 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                     child: Column(
                       children: [
                         Text(
-                          AppLocalisation.artanddesign,
+                          AppLocalisation.sprituality,
                           style: AppTestStyle.headingBai(fontSize: 26.sp),
                         ),
                         HorizontalScrollableCard(
+                            cardStatusColor: Colors.yellow[300]!,
+                            titlecard:spritualityimagepathtitle,
+                            imageListCount: sritualityImagepath.length,
+                            imageList: sritualityImagepath,
+                            textColor: AppColors.white,
+                            subtitle: AppLocalisation.ratingcount),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  SvgPicture.asset(IconAssets.spotlightbgframe2,
+                      height: 35.h, fit: BoxFit.cover),
+                  Positioned(
+                    left: 20.sp,
+                    right: 05.sp,
+                    child: Column(
+                      children: [
+                        Text(
+                          AppLocalisation.finance,
+                          style: AppTestStyle.headingBai(fontSize: 26.sp),
+                        ),
+                        HorizontalScrollableCard(
+                            cardStatusColor: Colors.indigo[300]!,
+                            titlecard: financeimagepathtitle,
+                            imageListCount: financeImagepath.length,
+                            imageList: financeImagepath,
                             textColor: AppColors.white,
                             subtitle: AppLocalisation.ratingcount),
                       ],
@@ -124,10 +156,14 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                     child: Column(
                       children: [
                         Text(
-                          AppLocalisation.wellness,
+                          AppLocalisation.startup,
                           style: AppTestStyle.headingBai(fontSize: 26.sp),
                         ),
                         HorizontalScrollableCard(
+                            cardStatusColor: Colors.green[300]!,
+                            titlecard: startupimagepathtitle,
+                            imageListCount: startupImagepath.length,
+                            imageList: startupImagepath,
                             textColor: AppColors.white,
                             subtitle: AppLocalisation.ratingcount),
                       ],

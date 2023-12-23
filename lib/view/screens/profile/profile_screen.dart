@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.5 - 40.sp,
+                top: MediaQuery.of(context).size.height * 0.5 - 35.sp,
                 left: -10,
                 right: -10,
                 child: SvgPicture.asset(IconAssets.profilelevels,

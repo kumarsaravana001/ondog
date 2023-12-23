@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/utilities/app_elongated_card.dart';
 import '../../../config/config_index.dart';
 
@@ -33,6 +34,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
                         style: AppTestStyle.headingBai(fontSize: 28.sp))),
                 Expanded(
                   child: ElongatedCardWidget(
+                    cardlength: rewardsimagePaths.length,
+                    imageList: rewardsimagePaths,
                     sublabel: AppLocalisation.coffeewithcrypto,
                     label: AppLocalisation.offer,
                     amount: AppLocalisation.inramount,
@@ -46,7 +49,9 @@ class _RewardsScreenState extends State<RewardsScreen> {
               top: 0,
               right: 30,
               child: Row(
-                children: [SvgPicture.asset(IconAssets.badgeopen)],
+                children: [
+                  SvgPicture.asset(IconAssets.badgeopen),
+                ],
               ),
             ),
             Positioned(

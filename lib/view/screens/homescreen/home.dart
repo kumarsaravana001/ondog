@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
+import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+//trends
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -42,8 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Positioned(
                       bottom: 80.sp,
-                      right: 48.sp,
-                      child: Text(AppLocalisation.yourlist,
+                      right: 46.sp,
+                      child: Text(AppLocalisation.spotlight,
                           style: AppTestStyle.headingBai(
                               fontSize: 22.sp,
                               color: AppColors.white,
@@ -52,8 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     bottom: 50.sp,
                     left: 20.sp,
                     right: 8.sp,
-                    child: HorizontalScrollableCard(
-                        cardbackgroundcolor: AppColors.white),
+                    child: SizedBox(
+                        height: 200,
+                        child: HorizontalScrollableCard1(
+                          cardStatusColor: Colors.indigo,
+                          imageListCount: playlistcardnames.length,
+                          imageList: yourlistImagepath,
+                          cardbackgroundcolor: AppColors.white,
+                        )),
                   ),
                   Positioned(
                     child: ClipPath(
@@ -62,9 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           CarouselSlider(
                             items: [
-                              AppImages.educationcard(),
-                              AppImages.artscard(),
-                              AppImages.wellnesscard(),
+                              AppImages.spritualsaturdaybanner(),
+                              AppImages.immegrationbanner(),
+                              AppImages.middleclassbanner(),
                             ],
                             options: CarouselOptions(
                               autoPlay: false,
@@ -140,7 +149,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            AppLocalisation.coffeewithcrypto,
+                                            _currentCarouselIndex == 0
+                                                ? AppLocalisation.sprituality
+                                                : _currentCarouselIndex == 1
+                                                    ? AppLocalisation
+                                                        .immegration
+                                                    : AppLocalisation
+                                                        .middleclasseconomy,
                                             style: AppTestStyle.headingBai(
                                               fontSize: 24.sp,
                                               color: AppColors.black,
@@ -168,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               right: 60,
                               left: 60,
                               child: SvgPicture.asset(
-                                IconAssets.diamondstar,
+                                IconAssets.diamondstar, //do later
                                 height: 14,
                                 // ignore: deprecated_member_use
                                 color: _currentCarouselIndex == 0
@@ -221,6 +236,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
                     child: HorizontalScrollableCard(
+                      cardStatusColor: Colors.indigoAccent,
+                      titlecard: businessimagepathtitle,
+                      imageListCount: businessImagepath.length,
+                      imageList: businessImagepath,
                       textColor: AppColors.white,
                     ),
                   ),
@@ -233,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: SvgPicture.asset(IconAssets.appbackground),
                   ),
                   Center(
-                    child: Text(AppLocalisation.events,
+                    child: Text(AppLocalisation.healthCare,
                         style: AppTestStyle.headingBai(
                             fontSize: 22.sp,
                             color: AppColors.black,
@@ -242,6 +261,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
                     child: HorizontalScrollableCard(
+                      cardStatusColor: Colors.blue,
+                      titlecard: healthCareimagepathtitle,
+                      imageListCount: healthcareImagepath.length,
+                      imageList: healthcareImagepath,
+                      textColor: AppColors.white,
+                    ),
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 22.sp),
+                    child: SvgPicture.asset(IconAssets.appbackground),
+                  ),
+                  Center(
+                    child: Text(AppLocalisation.legal,
+                        style: AppTestStyle.headingBai(
+                            fontSize: 22.sp,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w800)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                    child: HorizontalScrollableCard(
+                      cardStatusColor: Colors.brown,
+                      titlecard: legalimagepathtitle,
+                      imageListCount: legalImagepath.length,
+                      imageList: legalImagepath,
                       textColor: AppColors.white,
                     ),
                   ),
@@ -254,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: SvgPicture.asset(IconAssets.appbackground),
                   ),
                   Center(
-                    child: Text(AppLocalisation.arts,
+                    child: Text(AppLocalisation.technology,
                         style: AppTestStyle.headingBai(
                             fontSize: 22.sp,
                             color: AppColors.black,
@@ -263,6 +311,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
                     child: HorizontalScrollableCard(
+                      cardStatusColor: Colors.blue[300]!,
+                      titlecard: technologyimagepathtitle,
+                      imageListCount: technologiesImagepath.length,
+                      imageList: technologiesImagepath,
                       textColor: AppColors.white,
                     ),
                   ),

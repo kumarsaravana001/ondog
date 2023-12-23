@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 
 import '../../../config/config_index.dart';
 import '../../../utilities/app_elongated_card.dart';
@@ -36,6 +37,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                         style: AppTestStyle.headingBai(fontSize: 28.sp))),
                 Expanded(
                   child: ElongatedCardWidget(
+                    cardlength: purchadeimagePaths.length,
+                    imageList: purchadeimagePaths,
                     sublabel: AppLocalisation.coffeewithcrypto,
                     label: AppLocalisation.offer,
                     amount: AppLocalisation.inramount,

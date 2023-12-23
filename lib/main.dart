@@ -11,9 +11,9 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
   // runApp(
-  //   DevicePreview(
-  //     builder: (context) => const MyApp(),
-  //   ),
+  // DevicePreview(
+  //   builder: (context) => const MyApp(),
+  // ),
   // );
   runApp(
     const MyApp(),

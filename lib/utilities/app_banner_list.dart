@@ -22,21 +22,274 @@ List horizontalCard = [
   AppImages.economy(fit: BoxFit.cover, width: double.infinity),
   AppImages.education(fit: BoxFit.cover, width: double.infinity),
 ];
-List purchadeimagePaths = [
-  AppImages.finance(fit: BoxFit.cover, width: double.infinity),
-  AppImages.economy(fit: BoxFit.cover, width: double.infinity),
+List<Image> purchadeimagePaths = [
+  // AppImages.purchasecard1(fit: BoxFit.cover, width: double.infinity),
+  // AppImages.purchasecard2(fit: BoxFit.cover, width: double.infinity),
+
+  Image.asset("assets/images/purchase_card1.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/purchase_card2.png",
+      fit: BoxFit.cover, width: double.infinity),
 ];
 
-List playlistimagePaths = [
-  AppImages.financialshowcard(fit: BoxFit.cover, width: double.infinity),
-  AppImages.ecohabitcard(fit: BoxFit.cover, width: double.infinity),
-  AppImages.technologycard(fit: BoxFit.cover, width: double.infinity),
-  AppImages.artscard(fit: BoxFit.cover, width: double.infinity),
-  AppImages.spritualitycard(fit: BoxFit.cover, width: double.infinity),
-  AppImages.healthcard(fit: BoxFit.cover, width: double.infinity),
-  AppImages.sportscard(fit: BoxFit.cover, width: double.infinity),
-  AppImages.wellnesscard(fit: BoxFit.cover, width: double.infinity),
-  AppImages.educationcard(fit: BoxFit.cover, width: double.infinity),
+List<Image> rewardsimagePaths = [
+  Image.asset("assets/images/rewards_card1.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/rewards_card2.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/rewards_card3.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/rewards_card4.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+
+List<Image> yourlistImagepath = [
+  Image.asset("assets/images/financial_show_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/ecohabit_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/technology_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/arts_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/sprituality_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/health_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/sports_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/wellness_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/education_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+
+// List<Image> artsImagepath = [
+//   Image.asset("assets/images/financial_show_card.png",
+//       fit: BoxFit.cover, width: double.infinity),
+//   Image.asset("assets/images/ecohabit_card.png",
+//       fit: BoxFit.cover, width: double.infinity),
+//   Image.asset("assets/images/technology_card.png",
+//       fit: BoxFit.cover, width: double.infinity),
+//   Image.asset("assets/images/arts_card.png",
+//       fit: BoxFit.cover, width: double.infinity),
+//   Image.asset("assets/images/sprituality_card.png",
+//       fit: BoxFit.cover, width: double.infinity),
+//   Image.asset("assets/images/health_card.png",
+//       fit: BoxFit.cover, width: double.infinity),
+//   Image.asset("assets/images/sports_card.png",
+//       fit: BoxFit.cover, width: double.infinity),
+//   Image.asset("assets/images/wellness_card.png",
+//       fit: BoxFit.cover, width: double.infinity),
+//   Image.asset("assets/images/education_card.png",
+//       fit: BoxFit.cover, width: double.infinity),
+// ];
+List<Image> technologiesImagepath = [
+  Image.asset("assets/images/ai_brain_banner.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/ai_banner.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/ai_banner1.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/cyber_friday_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/game_den_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/startup_wednesday_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+
+List<Image> episodesImagepath = [
+  Image.asset("assets/images/financial_show_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/ecohabit_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/technology_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/arts_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/sprituality_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/health_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/sports_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/wellness_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/education_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+List<Image> spotlightImagepath = [
+  Image.asset("assets/images/financial_show_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/ecohabit_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/technology_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/arts_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/sprituality_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/health_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/sports_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/wellness_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/education_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+
+List<Image> wellnessImagepath = [
+  Image.asset("assets/images/financial_show_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/ecohabit_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/technology_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/arts_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/sprituality_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/health_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/sports_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/wellness_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/education_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+
+////
+///
+///
+List<Image> startupImagepath = [
+  Image.asset("assets/images/startup_card1.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/startup_card2.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/startup_card3.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+
+List<Image> financeImagepath = [
+  Image.asset("assets/images/finance_card1.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/finance_card2.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/finance_card3.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/financial_show_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+
+List<Image> sritualityImagepath = [
+  Image.asset("assets/images/sprituality_show_banner.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/sprituality_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  // Image.asset("assets/images/startup_card3.png",
+  //     fit: BoxFit.cover, width: double.infinity),
+];
+
+List<Image> healthcareImagepath = [
+  Image.asset("assets/images/health_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/Healthcare.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/health_care_banner.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/health_care_show_banner.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/health_card1.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+
+List<Image> legalImagepath = [
+  Image.asset("assets/images/legal_show_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/lawer_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/international_law_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  // Image.asset("assets/images/immegration_story_card.png",
+  //     fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/illegal_show_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/international_court_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/immegration_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+];
+List<String> businessimagepathtitle = [
+  "World today",
+  "Impact",
+  "Masters",
+  "Family Business",
+  "Google Business",
+  "SMEs",
+  "Trade",
+];
+List<String> healthCareimagepathtitle = [
+  "Health Matters",
+  "Bio science",
+  "Checkup",
+  "Show",
+  "Healthy living",
+];
+List<String> legalimagepathtitle = [
+  "Legal today",
+  "Law",
+  "Justice",
+  "Illegal",
+  "Google Business",
+  "International law",
+  "Immeg stories",
+];
+List<String> startupimagepathtitle = [
+  "Google startup",
+  "Startup",
+  "New jobs",
+];
+List<String> spritualityimagepathtitle = [
+  "Meditation",
+  "Spritual classes",
+  // "Justice",
+  // "Illegal",
+  // "Google Business",
+  // "International law",
+  // "Immeg stories",
+];
+List<String> financeimagepathtitle = [
+  "Financial friday",
+  "Financial show",
+  "Economy",
+  "Financial ",
+];
+List<String> technologyimagepathtitle = [
+  "Neuro Tech",
+  "AI",
+  "AI Powered",
+  "Cyber Tech",
+  "Game Tech",
+  "Startup",
+];
+List<Image> businessImagepath = [
+  Image.asset("assets/images/business_show.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/impact_business_card.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/business_card2.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/business_card3.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/business_card4.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/business_card5.png",
+      fit: BoxFit.cover, width: double.infinity),
+  Image.asset("assets/images/business_card1.png",
+      fit: BoxFit.cover, width: double.infinity),
 ];
 
 List playlistcardnames = [
@@ -49,9 +302,9 @@ List playlistcardnames = [
   AppLocalisation.sports,
   AppLocalisation.wellness,
   AppLocalisation.education,
-  AppLocalisation.legal,
-  AppLocalisation.travel,
-  AppLocalisation.finance,
+  // AppLocalisation.legal,
+  // AppLocalisation.travel,
+  // AppLocalisation.finance,
 ];
 
 List scrollableElongatedCardWidgetimagepath = [

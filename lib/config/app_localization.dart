@@ -4,7 +4,9 @@ class AppLocalisation {
   //cards topic
   static const spotlight = "Spotlight";
   static const artanddesign = "Art & Design";
+  static const sprituality = "Sprituality";
   static const wellness = "Wellness";
+  static const startup = "Startup";
 
   //cards
   static const finance = "Finance";
@@ -31,6 +33,7 @@ class AppLocalisation {
   static const yourplaylist = "Your Playlist";
   static const yourlist = "Your list";
   static const events = "Events";
+  static const healthCare = "Health Care";
   static const purchase = "Purchases";
   static const rewards = "Rewards";
   static const language = "Languages";
@@ -110,6 +113,7 @@ class AppLocalisation {
   static const economy = "economy";
   static const technology = "Technology";
   static const arts = "Arts";
+  static const trends = "Trends";
   static const spirituality = "Spirituality";
   static const healthcare = "Healthcare";
   static const sports = "Sports";
@@ -126,4 +130,7 @@ class AppLocalisation {
   static const checkyourprogress = "Check Your Progress";
   static const question =
       "What financial statement lists assets from current to long term?";
+
+  static const immegration = "Immegration";
+  static const middleclasseconomy = "Middleclass economy";
 }

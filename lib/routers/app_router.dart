@@ -39,7 +39,7 @@ final router = GoRouter(
     GoRoute(
         path: '/fullScreenImage',
         builder: (context, state) => const ReelsFullScreen()),
-    GoRoute(path: '/test', builder: (context, state) => const TestScreen()),
+    // GoRoute(path: '/test', builder: (context, state) => const TestScreen()),
   ],
 );
 

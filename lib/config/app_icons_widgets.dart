@@ -58,4 +58,5 @@ class AppIconsWidget {
         color: color,
         fit: BoxFit.fitWidth,
       );
+
 }
