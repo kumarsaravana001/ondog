@@ -5,13 +5,13 @@ class AppLocalisation {
   static const spotlight = "Spotlight";
   static const artanddesign = "Art & Design";
   static const sprituality = "Sprituality ";
-  static const spritualitysaturday = "Sprituality saturday";
+  static const spritualitysaturday = "Sprituality Saturday";
   static const wellness = "Wellness";
   static const startup = "Startup";
 
   //cards
   static const finance = "Finance";
-  static const ecohabits = "EcoHabits";
+  static const ecohabits = "Ecohabits";
   static const innovation = "Innovation";
   static const cmf = "CMF";
   static const yoga = "Yoga";
@@ -44,7 +44,7 @@ class AppLocalisation {
   static const contact = "Contact";
 
   //::Horizondal/vertical scroll card
-  static const ecoHabits = "EcoHabits";
+  static const ecoHabits = "Ecohabits";
   static const episode1 = "Episode 1";
   static const videos = "Videos";
   static const ratingcount = "100+ ratings";
@@ -55,7 +55,7 @@ class AppLocalisation {
   static const digitalarts = "Digital Arts";
   static const tba = "TBA";
   static const ddmm = "12 Jan";
-  static const coffeewithcrypto = "Coffee with crypto";
+  static const coffeewithcrypto = "Coffee with Crypto";
   static const cryptoBeans = "Crypto Beans";
   static const ashowabout = "A Show about Crypto - Coffee & a lot more";
   static const coffeesession = "Coffee Session";
@@ -83,6 +83,7 @@ class AppLocalisation {
   static const infoondgolive = "info@ondgo.live";
   static const socials = "Socials";
   static const instagram = "Instagram";
+  static const youtube = "Youtube";
   static const facebook = "Facebook";
   static const twitter = "Twitter";
   static const linkedin = "Linkedin";
@@ -132,6 +133,6 @@ class AppLocalisation {
   static const question =
       "What financial statement lists assets from current to long term?";
 
-  static const immegration = "Immigration stories";
-  static const middleclasseconomy = "Middle class Economy";
+  static const immegration = "Immigration Stories";
+  static const middleclasseconomy = "Middle Class Economy";
 }

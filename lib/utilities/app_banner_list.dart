@@ -93,8 +93,8 @@ List<Image> eventsImagepath = [
 //       fit: BoxFit.cover, width: double.infinity),
 // ];
 List<Image> technologiesImagepath = [
-  Image.asset("assets/images/ai_brain_banner.png",
-      fit: BoxFit.cover, width: double.infinity),
+  // Image.asset("assets/images/ai_brain_banner.png",
+  //     fit: BoxFit.cover, width: double.infinity),
   Image.asset("assets/images/ai_banner.png",
       fit: BoxFit.cover, width: double.infinity),
   Image.asset("assets/images/ai_banner1.png",
@@ -237,7 +237,7 @@ List<String> eventimagepathtitle = [
   "Young leader summit",
 ];
 List<String> businessimagepathtitle = [
-  "Today",
+  "World Today",
   "Impact",
   "Masters",
   "Family",
@@ -247,7 +247,7 @@ List<String> businessimagepathtitle = [
 ];
 List<String> healthCareimagepathtitle = [
   "Health",
-  "science",
+  "Science",
   "Checkup",
   "Healthy",
 ];
@@ -256,14 +256,14 @@ List<String> legalimagepathtitle = [
   "Law",
   "Justice",
   "Illegal",
-  "Google",
-  "International",
+  "geopolitics",
+  // "International",
   "Immigration",
 ];
 List<String> startupimagepathtitle = [
-  "Google startup",
-  "Startup",
-  "New jobs",
+  "startup",
+  "Bootstraped",
+  "jobs",
 ];
 List<String> spritualityimagepathtitle = [
   "Meditation",
@@ -275,15 +275,15 @@ List<String> spritualityimagepathtitle = [
   // "Immeg stories",
 ];
 List<String> financeimagepathtitle = [
-  "friday",
-  "show",
+  "Friday",
+  "Show",
   "Economy",
   "Financial ",
 ];
 List<String> technologyimagepathtitle = [
-  "Artificial",
+  // "Artificial",
   "AI",
-  "Programminf",
+  "Programming",
   "Cyber",
   "Game",
   "Startup",

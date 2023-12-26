@@ -38,62 +38,62 @@ class ScrollableElongatedCardWidget extends StatelessWidget {
               child: Stack(
                 children: [
                   imageList[index],
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.black54,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: Text(
-                              AppLocalisation.registernowex,
-                              style: AppTestStyle.headingint(
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.black54,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: Text(
-                              label[index],
-                              style: AppTestStyle.headingBai(
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 0.8.h),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.black54,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: Text(
-                              AppLocalisation.interactwithcreators,
-                              style: AppTestStyle.headingint(
-                                  color: AppColors.white,
-                                  italic: true,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Container(
+                  //         decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(5),
+                  //           color: Colors.black54,
+                  //         ),
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.all(5),
+                  //           child: Text(
+                  //             AppLocalisation.registernowex,
+                  //             style: AppTestStyle.headingint(
+                  //                 color: AppColors.white,
+                  //                 fontWeight: FontWeight.w500),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       const Spacer(),
+                  //       Container(
+                  //         decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(5),
+                  //           color: Colors.black54,
+                  //         ),
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.all(5),
+                  //           child: Text(
+                  //             label[index],
+                  //             style: AppTestStyle.headingBai(
+                  //                 color: AppColors.white,
+                  //                 fontWeight: FontWeight.w800),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       SizedBox(height: 0.8.h),
+                  //       Container(
+                  //         decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(5),
+                  //           color: Colors.black54,
+                  //         ),
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.all(5),
+                  //           child: Text(
+                  //             AppLocalisation.interactwithcreators,
+                  //             style: AppTestStyle.headingint(
+                  //                 color: AppColors.white,
+                  //                 italic: true,
+                  //                 fontWeight: FontWeight.w400),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
