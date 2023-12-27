@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/index.dart';
 
@@ -50,29 +50,56 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       ),
                       SizedBox(height: 1.5.h),
                       Container(
-                        height: 70.sp,
+                        height: 50.sp,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: const TextField(
                           decoration: InputDecoration(
-                            hintText: 'Enter Comments',
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                              fontStyle: FontStyle.italic,
-                            ),
-                            border: InputBorder.none,
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 15),
-                          ),
+                              hintText: 'Enter Comments',
+                              hintStyle: TextStyle(
+                                color: Colors.grey,
+                                fontStyle: FontStyle.italic,
+                              ),
+                              border: InputBorder.none,
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 15)),
                           maxLines: null,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.sp, vertical: 20.sp),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Rating",
+                              style: AppTestStyle.headingint(
+                                  fontSize: 20.sp,
+                                  italic: true,
+                                  color: Colors.grey),
+                            ),
+                            SizedBox(width: 2.w),
+                            RatingBar.builder(
+                              initialRating: 3,
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemPadding:
+                                  EdgeInsets.symmetric(horizontal: 3.sp),
+                              itemBuilder: (context, _) =>
+                                  const Icon(Icons.star, color: Colors.amber),
+                              onRatingUpdate: (rating) {},
+                            ),
+                          ],
                         ),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 25.sp),
+                          padding: EdgeInsets.only(top: 20.sp),
                           child: CustomElevatedButton(
                             fontsize: 16.sp,
                             fontWeight: FontWeight.w800,

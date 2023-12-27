@@ -39,6 +39,7 @@ class AppLocalisation {
   static const rewards = "Rewards";
   static const language = "Languages";
   static const help = "Help";
+  static const faq = "FAQ";
   static const feedback = "Feedback";
   static const popularpicks = "Popular picks";
   static const contact = "Contact";
@@ -105,7 +106,7 @@ class AppLocalisation {
 
   static const newepisodes = "New Episodes";
   static const nutritiondaily = "Nutrition Daily";
-  static const shareyourthoughts = "Share yout thoughts";
+  static const shareyourthoughts = "Share your thoughts";
   static const ashwini = "@ashwini";
   static const glo4life = "@glo4life";
   static const sotrue = " So true! will give it a try";
@@ -135,4 +136,22 @@ class AppLocalisation {
 
   static const immegration = "Immigration Stories";
   static const middleclasseconomy = "Middle Class Economy";
+
+  static const faqQues1 = "1. How do I access the courses on the platform?";
+  static const faqQues2 =
+      "2. Are there any prerequisites for taking specific courses?";
+  static const faqQues3 = "3. Can I access course materials offline?";
+  static const faqQues4 = "4. How can I track my progress in a course?";
+  static const faqQues5 = "5. Are there certifications upon course completion?";
+
+  static const faqAns1 =
+      "Simply sign in, browse courses in the catalog, and enroll or start the course you prefer.";
+  static const faqAns2 =
+      "Prerequisites vary; check the course descriptions in the catalog for any recommended skills or knowledge.";
+  static const faqAns3 =
+      "Yes, download course content while online to access it offline anytime, anywhere.";
+  static const faqAns4 =
+      "Your progress is automatically tracked as you complete modules and assessments.";
+  static const faqAns5 =
+      "Absolutely, receive a certificate upon successfully finishing a course, downloadable and shareable.";
 }

@@ -39,7 +39,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                   cardStatusColor: Colors.indigo,
                   imageListCount: playlistcardnames.length,
                   imageList: yourlistImagepath,
-                  cardbackgroundcolor: AppColors.white,
+                  cardbackgroundcolor: AppColors.black,
+                  textColor: AppColors.white,
                 ),
                 Align(
                   alignment: Alignment.center,
@@ -52,7 +53,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                   cardStatusColor: Colors.indigo,
                   imageListCount: playlistcardnames.length,
                   imageList: yourlistImagepath,
-                  cardbackgroundcolor: AppColors.white,
+                  cardbackgroundcolor: AppColors.black,
+                  textColor: AppColors.white,
                 )
               ],
             ),

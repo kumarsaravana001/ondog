@@ -42,6 +42,9 @@ class IconAssets {
       "assets/icons/reels_right_indicator.svg";
   static const String reelscenterindicator =
       "assets/icons/reels_center_indicator.svg";
-
-  
+  static const String youtubeicon = "assets/icons/youtube_icon.svg";
+  static const String instagramicon = "assets/icons/instagram_icon.svg";
+  static const String facebookicon = "assets/icons/facebook_icon.svg";
+  static const String twittericon = "assets/icons/twitter_icon.svg";
+  static const String linkedinicon = "assets/icons/linkedin_icon.svg";
 }

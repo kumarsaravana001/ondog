@@ -18,6 +18,7 @@ class AppImages {
       fit: fit,
     );
   }
+
   static Widget coffeebanner({double? height, double? width, BoxFit? fit}) {
     return Image.asset(
       "assets/images/coffee_with_crypto.png",
@@ -140,6 +141,11 @@ class AppImages {
 
   static Widget healthcare({double? height, double? width, BoxFit? fit}) {
     return Image.asset("assets/images/Healthcare.png",
+        width: double.infinity, height: height, fit: BoxFit.cover);
+  }
+
+  static Widget helpbanner({double? height, double? width, BoxFit? fit}) {
+    return Image.asset("assets/images/help_banner.png",
         width: double.infinity, height: height, fit: BoxFit.cover);
   }
 
