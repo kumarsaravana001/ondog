@@ -79,7 +79,7 @@ class AppLocalisation {
 
   //Contacts
   static const checkourwebsit = "Check out our website";
-  static const websitlink = "https://www.ondgo.live";
+  static const websitlink = "www.ondgo.app";
   static const reachouttouson = "Reach out to us on";
   static const infoondgolive = "info@ondgo.live";
   static const socials = "Socials";

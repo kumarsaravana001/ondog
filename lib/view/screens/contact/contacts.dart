@@ -62,32 +62,44 @@ class ContactUsScreen extends StatelessWidget {
                     SizedBox(height: 2.5.h),
                     Text(AppLocalisation.reachouttouson,
                         style: AppTestStyle.headingint(fontSize: 20.sp)),
-                    Text(AppLocalisation.infoondgolive,
-                        style: AppTestStyle.headingint(
-                            fontSize: 20.sp, fontWeight: FontWeight.bold)),
+                    _buildSocialText(
+                      text: AppLocalisation.infoondgolive,
+                      url: 'https://www.ondgo.live/',
+                    ),
+                    // Text(AppLocalisation.infoondgolive,
+                    //     style: AppTestStyle.headingint(
+                    //         fontSize: 20.sp, fontWeight: FontWeight.bold)),
                     SizedBox(height: 5.5.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _buildSocialIcon(
-                          icon: IconAssets.youtubeicon,
+                          icon: Image.asset("assets/images/youtube_icon.png",
+                              height: 40, width: 40),
                           url: 'https://www.youtube.com/@ondgolive',
                         ),
                         _buildSocialIcon(
-                          icon: IconAssets.instagramicon,
+                          icon: Image.asset("assets/images/instagram_icon.png",
+                              height: 50, width: 50),
                           url: 'https://www.instagram.com/ondgo.app/',
                         ),
                         _buildSocialIcon(
-                          icon: IconAssets.facebookicon,
+                          icon: Image.asset("assets/images/facebook_icon.png",
+                              height: 40, width: 40),
                           url: 'https://www.facebook.com/ondgolive/',
                         ),
                         _buildSocialIcon(
-                          icon: IconAssets.twittericon,
+                          icon: Image.asset("assets/images/twitter_icon.png",
+                              height: 40, width: 40),
                           url: 'https://twitter.com/ondgolive',
                         ),
-                        _buildSocialIcon(
-                          icon: IconAssets.linkedinicon,
-                          url: 'https://www.linkedin.com/company/ondgolive/',
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 8.0),
+                          child: _buildSocialIcon(
+                            icon: Image.asset("assets/images/linkedin_icon.png",
+                                height: 50, width: 50),
+                            url: 'https://www.linkedin.com/company/ondgolive/',
+                          ),
                         ),
                       ],
                     ),
@@ -126,13 +138,13 @@ class ContactUsScreen extends StatelessWidget {
   Widget _buildSocialIcon({
     // required String text,
     required String url,
-    required String icon,
+    required Widget icon,
   }) {
     return GestureDetector(
       onTap: () {
         _launchURL(url);
       },
-      child: SvgPicture.asset(icon),
+      child: icon,
     );
   }
 

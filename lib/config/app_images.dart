@@ -362,4 +362,9 @@ class AppImages {
   static const String businesscard3 = "assets/icons/business_card3.png";
   static const String businesscard4 = "assets/icons/business_card4.png";
   static const String businesscard5 = "assets/icons/business_card5.png";
+  static const String youtubeicon = "assets/icons/youtube_icon.png";
+  static const String twittericon = "assets/icons/twitter_icon.png";
+  static const String linkedinicon = "assets/icons/linkedin_icon.png";
+  static const String instagramicon = "assets/icons/instagram_icon.png";
+  static const String facebookicon = "assets/icons/facebook_icon.png";
 }

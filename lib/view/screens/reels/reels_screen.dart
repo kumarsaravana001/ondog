@@ -35,7 +35,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                           AppImages.healthcarebanner(),
                         ],
                         options: CarouselOptions(
-                          autoPlay: true,
+                          // autoPlay: true,
                           autoPlayCurve: Curves.decelerate,
                           autoPlayInterval: const Duration(seconds: 5),
                           height: 68.h,
@@ -77,7 +77,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                       right: 30,
                       child: InkWell(
                         onTap: () {
-                          context.go("/profile");
+                          context.push("/profile");
                         },
                         child: SvgPicture.asset(IconAssets.badgecloseblack),
                       ),
