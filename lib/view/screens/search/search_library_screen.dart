@@ -32,7 +32,9 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                       top: 0,
                       right: 30,
                       child: Row(
-                        children: [SvgPicture.asset(IconAssets.badgeclose)],
+                        children: [
+                          SvgPicture.asset(IconAssets.badgecloseblack)
+                        ],
                       ),
                     ),
                     Positioned(
@@ -107,7 +109,7 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                         ),
                         HorizontalScrollableCard(
                             cardStatusColor: Colors.yellow[300]!,
-                            titlecard:spritualityimagepathtitle,
+                            titlecard: spritualityimagepathtitle,
                             imageListCount: sritualityImagepath.length,
                             imageList: sritualityImagepath,
                             textColor: AppColors.white,

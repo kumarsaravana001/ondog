@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
 import 'package:ondgo_flutter/view/view_index.dart';
 import '../../../config/config_index.dart';
 
@@ -28,8 +29,10 @@ class _NavbarState extends State<Navbar> {
               index: _selectedIndex,
               children: const [
                 HomeScreen(),
+                SearchandLibraryScreen(),
                 ReelsScreen(),
                 ShowCaseScreen(),
+                ProfileScreen(),
               ],
             ),
           ),
@@ -51,11 +54,24 @@ class _NavbarState extends State<Navbar> {
                     label: '',
                   ),
                   BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      IconAssets.horizontaldiamond,
+                      height: 20,
+                      color: AppColors.white,
+                    ),
+                    label: '',
+                  ),
+                  BottomNavigationBarItem(
                     icon: SvgPicture.asset(IconAssets.navbaricon2, height: 25),
                     label: '',
                   ),
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset(IconAssets.navbaricon3, height: 25),
+                    label: '',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: SvgPicture.asset(IconAssets.badgecloseblack,
+                        height: 48),
                     label: '',
                   ),
                 ],
@@ -71,59 +87,3 @@ class _NavbarState extends State<Navbar> {
     );
   }
 }
-
-// class NavBar extends StatefulWidget {
-//   const NavBar({super.key});
-
-//   @override
-//   State<NavBar> createState() => _NavBarState();
-// }
-
-// class _NavBarState extends State<NavBar> {
-//   int _selectedIndex = 0;
-//   final List<Widget> _pages = [
-//     const HomeScreen(),
-//     const ProfileScreen(),
-//     const HomeScreen(),
-//   ];
-
-//   void _onItemTapped(int index) {
-//     setState(() {
-//       _selectedIndex = index;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: _pages[_selectedIndex],
-//       bottomNavigationBar: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Container(
-//           child: BottomNavigationBar(
-//             backgroundColor: AppColors.black,
-//             type: BottomNavigationBarType.fixed,
-//             items: <BottomNavigationBarItem>[
-//               BottomNavigationBarItem(
-//                 icon: SvgPicture.asset(IconAssets.navbaricon1, height: 25),
-//                 label: '',
-//               ),
-//               BottomNavigationBarItem(
-//                 icon: SvgPicture.asset(IconAssets.navbaricon2, height: 25),
-//                 label: '',
-//               ),
-//               BottomNavigationBarItem(
-//                 icon: SvgPicture.asset(IconAssets.navbaricon3, height: 25),
-//                 label: '',
-//               ),
-//             ],
-//             currentIndex: _selectedIndex,
-//             selectedFontSize: 0,
-//             unselectedFontSize: 0,
-//             onTap: _onItemTapped,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

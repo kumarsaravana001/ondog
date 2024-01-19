@@ -21,16 +21,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: Padding(
-          padding: EdgeInsets.only(bottom: 40.sp),
-          child: FloatingActionButton(
-            onPressed: () {
-              context.push("/search");
-            },
-            backgroundColor: AppColors.black,
-            child: const Icon(Icons.search, color: AppColors.white),
-          ),
-        ),
+        // floatingActionButton: Padding(
+        //   padding: EdgeInsets.only(bottom: 40.sp),
+        //   child: FloatingActionButton(
+        //     onPressed: () {
+        //       context.push("/search");
+        //     },
+        //     backgroundColor: AppColors.black,
+        //     child: const Icon(Icons.search, color: AppColors.white),
+        //   ),
+        // ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             right: 30,
                             child: InkWell(
                               onTap: () {
-                                context.push("/home");
+                                // context.push("/home");
                               },
                               child:
                                   SvgPicture.asset(IconAssets.badgecloseblack),

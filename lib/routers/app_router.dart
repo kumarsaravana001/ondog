@@ -6,7 +6,7 @@ import '../view/view_index.dart';
 
 // todo Routs and subrouts to be implemented
 final router = GoRouter(
-  initialLocation: "/",
+  initialLocation: "/Navbar",
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashScreenone()),
     GoRoute(

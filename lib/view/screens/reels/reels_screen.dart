@@ -77,7 +77,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                       right: 30,
                       child: InkWell(
                         onTap: () {
-                          context.push("/profile");
+                          // context.push("/profile");
                         },
                         child: SvgPicture.asset(IconAssets.badgecloseblack),
                       ),
