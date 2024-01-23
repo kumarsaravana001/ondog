@@ -1,18 +1,20 @@
 import 'package:go_router/go_router.dart';
-import 'package:ondgo_flutter/test.dart';
 import 'package:ondgo_flutter/utilities/index.dart';
+import 'package:ondgo_flutter/view/screens/Signup/signup_screen.dart';
 import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
 import '../view/view_index.dart';
 
 // todo Routs and subrouts to be implemented
 final router = GoRouter(
-  initialLocation: "/Navbar",
+  initialLocation: "/",
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashScreenone()),
     GoRoute(
         path: '/splash2', builder: (context, state) => const SplashScreentwo()),
-    GoRoute(path: '/signup', builder: (context, state) => const SignUpScreen()),
-    GoRoute(path: '/Navbar', builder: (context, state) => const Navbar()),
+    GoRoute(path: '/signup', builder: (context, state) => const SignupScreen()),
+
+    GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
+    GoRoute(path: '/navbar', builder: (context, state) => const Navbar()),
     GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
     GoRoute(
         path: '/showcase', builder: (context, state) => const ShowCaseScreen()),
