@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_event.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_state.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_bloc.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_event.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_state.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
+import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
+import 'package:ondgo_flutter/models/homescreen_model/banner_model.dart';
+import 'package:ondgo_flutter/models/homescreen_model/category_list_model.dart';
+import 'package:ondgo_flutter/models/homescreen_model/popular_picks_model.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
+import 'package:ondgo_flutter/utilities/app_bg.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -16,194 +29,246 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<String> popularPicks = [];
+  List<String> showNames = [];
+  List<String> categoryList = [];
+
   int _currentCarouselIndex = 0;
+
+  HorizontalScrollableCard popularPicksWidget(
+      List<PopularpicksData> popularpicks) {
+    List<String> imageUrls = [];
+    List<String> showNames = [];
+    for (var pick in popularpicks) {
+      String imageUrl = pick.thumbnail != null && pick.thumbnail!.isNotEmpty
+          ? pick.thumbnail!.first
+          : 'default_image_url';
+      imageUrls.add(imageUrl);
+      showNames.add(pick.showName ?? 'Default Show Name');
+    }
+
+    List<Image> imageWidgets = imageUrls.map((url) {
+      return Image.network(url);
+    }).toList();
+
+    return HorizontalScrollableCard(
+      cardStatusColor: Colors.indigoAccent,
+      titlecard: showNames,
+      imageListCount: popularpicks.length,
+      imageList: imageWidgets,
+      textColor: AppColors.white,
+    );
+  }
+
+  Widget buildBannerCarousel(List<Data> banners) {
+    List<Widget> bannerWidgets = banners.map((banner) {
+      String imageUrl = banner.thumbnail != null && banner.thumbnail!.isNotEmpty
+          ? banner.thumbnail!.last
+          : 'assets/images/coffee_with_crypto.png';
+
+      return Image.network(imageUrl, fit: BoxFit.cover);
+    }).toList();
+    return CarouselSlider(
+      items: bannerWidgets,
+      options: CarouselOptions(
+        autoPlay: true,
+        autoPlayCurve: Curves.decelerate,
+        autoPlayInterval: const Duration(seconds: 5),
+        height: 71.h,
+        viewportFraction: 1.0,
+        onPageChanged: (index, reason) {
+          setState(() {
+            _currentCarouselIndex = index;
+          });
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    final loginBloc = BlocProvider.of<LoginBloc>(context);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeScreenBannerBloc>(
+            create: (context) =>
+                HomeScreenBannerBloc(loginBloc)..add(FetchBanners())),
+        BlocProvider<PopularPicksBloc>(
+            create: (context) =>
+                PopularPicksBloc(loginBloc)..add(FetchPopularPicks())),
+        BlocProvider<CategoryListBloc>(
+          create: (context) =>
+              CategoryListBloc(loginBloc)..add(FetchCategoryList()),
+        ),
+      ],
       child: Scaffold(
-        // floatingActionButton: Padding(
-        //   padding: EdgeInsets.only(bottom: 40.sp),
-        //   child: FloatingActionButton(
-        //     onPressed: () {
-        //       context.push("/search");
-        //     },
-        //     backgroundColor: AppColors.black,
-        //     child: const Icon(Icons.search, color: AppColors.white),
-        //   ),
-        // ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  ClipPath(
-                    clipper: Hometopshape(),
-                    child: Container(
-                      height: 122.h,
-                      color: AppColors.black,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    ClipPath(
+                      clipper: Hometopshape(),
+                      child: Container(
+                        height: 122.h,
+                        color: AppColors.black,
+                      ),
                     ),
-                  ),
-                  Positioned(
-                      bottom: 80.sp,
-                      right: 46.sp,
-                      child: Text(AppLocalisation.spotlight,
-                          style: AppTestStyle.headingBai(
-                              fontSize: 22.sp,
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w700))),
-                  Positioned(
-                    bottom: 50.sp,
-                    left: 20.sp,
-                    right: 8.sp,
-                    child: SizedBox(
+                    Positioned(
+                        bottom: 80.sp,
+                        right: 46.sp,
+                        child: Text(AppLocalisation.spotlight,
+                            style: AppTestStyle.headingBai(
+                                fontSize: 22.sp,
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w700))),
+                    Positioned(
+                      bottom: 50.sp,
+                      left: 20.sp,
+                      right: 8.sp,
+                      child: SizedBox(
                         height: 200,
                         child: HorizontalScrollableCard1(
                           cardStatusColor: Colors.indigo,
                           imageListCount: playlistcardnames.length,
                           imageList: yourlistImagepath,
                           cardbackgroundcolor: AppColors.white,
-                        )),
-                  ),
-                  Positioned(
-                    child: ClipPath(
-                      clipper: StackHometopshape(),
-                      child: Stack(
-                        children: [
-                          CarouselSlider(
-                            items: [
-                              AppImages.spritualsaturdaybanner(),
-                              AppImages.immegrationbanner(),
-                              AppImages.middleclassbanner(),
-                            ],
-                            options: CarouselOptions(
-                              autoPlay: false,
-                              autoPlayCurve: Curves.decelerate,
-                              autoPlayInterval: const Duration(seconds: 5),
-                              height: 71.h,
-                              viewportFraction: 1,
-                              initialPage: 0,
-                              onPageChanged: (index, reason) {
-                                setState(() {
-                                  _currentCarouselIndex = index;
-                                });
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      child: ClipPath(
+                        clipper: StackHometopshape(),
+                        child: Stack(
+                          children: [
+                            BlocBuilder<HomeScreenBannerBloc,
+                                HomeScreenBannerState>(
+                              builder: (context, state) {
+                                if (state is HomeScreenBannerLoaded) {
+                                  return buildBannerCarousel(state.banners);
+                                } else if (state is HomeScreenBannerLoading) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else {
+                                  return const Center(
+                                      child: Text('Error loading banners'));
+                                }
                               },
                             ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            left: 30,
-                            child: SvgPicture.asset(
-                                IconAssets.ondgoTextlogoblackcovered,
-                                height: 24.sp,
-                                semanticsLabel: 'Ondgo Logo'),
-                          ),
-                          Positioned(
-                            top: 0,
-                            right: 30,
-                            child: InkWell(
-                              onTap: () {
-                                // context.push("/home");
-                              },
-                              child:
-                                  SvgPicture.asset(IconAssets.badgecloseblack),
+                            Positioned(
+                              top: 8,
+                              left: 30,
+                              child: SvgPicture.asset(
+                                  IconAssets.ondgoTextlogoblackcovered,
+                                  height: 24.sp,
+                                  semanticsLabel: 'Ondgo Logo'),
                             ),
-                          ),
-                          Positioned(
-                            top: 75.sp,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      CustomElevatedButton(
-                                          backgroundcolor: AppColors.black,
-                                          bordercolor: AppColors.white,
-                                          fontsize: 13,
-                                          labelcolor: AppColors.white,
-                                          onPressed: () {},
-                                          text: 'streaming soon'),
-                                      SizedBox(width: 50.w),
-                                      Container(
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: AppColors.black,
-                                            border: Border.all(
-                                                color: AppColors.white),
-                                          ),
-                                          child: const Icon(Icons.add,
-                                              color: AppColors.white))
-                                    ],
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Colors.white60),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10.sp),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            _currentCarouselIndex == 0
-                                                ? AppLocalisation
-                                                    .spritualitysaturday
-                                                : _currentCarouselIndex == 1
-                                                    ? AppLocalisation
-                                                        .immegration
-                                                    : AppLocalisation
-                                                        .middleclasseconomy,
-                                            style: AppTestStyle.headingBai(
-                                              fontSize: 24.sp,
-                                              color: AppColors.black,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          Text(
-                                            AppLocalisation.newepisodes,
-                                            style: AppTestStyle.headingint(
-                                              fontSize: 18.sp,
-                                              color: AppColors.black,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                            Positioned(
+                              top: 0,
+                              right: 30,
+                              child: InkWell(
+                                onTap: () {
+                                  // context.push("/home");
+                                },
+                                child: SvgPicture.asset(
+                                    IconAssets.badgecloseblack),
                               ),
                             ),
-                          ),
-                          Positioned(
-                              bottom: 10,
-                              right: 60,
-                              left: 60,
-                              child: SvgPicture.asset(
-                                IconAssets.diamondstar, //do later
-                                height: 14,
-                                // ignore: deprecated_member_use
-                                color: _currentCarouselIndex == 0
-                                    ? Colors.white
-                                    : Colors.grey,
-                              )),
-                          Positioned(
-                              bottom: 20,
-                              right: 1,
-                              left: 60,
-                              child: SvgPicture.asset(
-                                IconAssets.diamondstar,
-                                height: 14,
-                                // ignore: deprecated_member_use
-                                color: _currentCarouselIndex == 1
-                                    ? Colors.white
-                                    : Colors.grey,
-                              )),
-                          Positioned(
+                            Positioned(
+                              top: 75.sp,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 20.sp),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CustomElevatedButton(
+                                            backgroundcolor: AppColors.black,
+                                            bordercolor: AppColors.white,
+                                            fontsize: 13,
+                                            labelcolor: AppColors.white,
+                                            onPressed: () {},
+                                            text: 'streaming soon'),
+                                        SizedBox(width: 50.w),
+                                        Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppColors.black,
+                                              border: Border.all(
+                                                  color: AppColors.white),
+                                            ),
+                                            child: const Icon(Icons.add,
+                                                color: AppColors.white))
+                                      ],
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.white60),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(10.sp),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              _currentCarouselIndex <
+                                                      showNames.length
+                                                  ? showNames[
+                                                      _currentCarouselIndex]
+                                                  : 'Show',
+                                              style: AppTestStyle.headingBai(
+                                                fontSize: 24.sp,
+                                                color: AppColors.black,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            Text(
+                                              AppLocalisation.newepisodes,
+                                              style: AppTestStyle.headingint(
+                                                fontSize: 18.sp,
+                                                color: AppColors.black,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                                bottom: 10,
+                                right: 60,
+                                left: 60,
+                                child: SvgPicture.asset(
+                                    IconAssets.diamondstar, //do later
+                                    height: 14,
+                                    // ignore: deprecated_member_use
+                                    color: _currentCarouselIndex == 0
+                                        ? Colors.white
+                                        : Colors.grey)),
+                            Positioned(
+                                bottom: 20,
+                                right: 1,
+                                left: 60,
+                                child: SvgPicture.asset(
+                                  IconAssets.diamondstar,
+                                  height: 14,
+                                  // ignore: deprecated_member_use
+                                  color: _currentCarouselIndex == 1
+                                      ? Colors.white
+                                      : Colors.grey,
+                                )),
+                            Positioned(
                               bottom: 20,
                               right: 60,
                               left: 1,
@@ -214,177 +279,176 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: _currentCarouselIndex == 2
                                     ? Colors.white
                                     : Colors.grey,
-                              )),
-                        ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 22.sp),
-                    child: SvgPicture.asset(IconAssets.appbackground),
-                  ),
-                  Center(
-                    child: Text(AppLocalisation.popularpicks,
+                  ],
+                ),
+                Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 22.sp),
+                      child: SvgPicture.asset(IconAssets.appbackground),
+                    ),
+                    Center(
+                      child: Text(
+                        AppLocalisation.popularpicks,
                         style: AppTestStyle.headingBai(
                             fontSize: 22.sp,
                             color: AppColors.black,
-                            fontWeight: FontWeight.w800)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                    child: HorizontalScrollableCard(
-                      cardStatusColor: Colors.indigoAccent,
-                      titlecard: businessimagepathtitle,
-                      imageListCount: businessImagepath.length,
-                      imageList: businessImagepath,
-                      textColor: AppColors.white,
+                            fontWeight: FontWeight.w800),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 22.sp),
-                    child: SvgPicture.asset(IconAssets.appbackground),
-                  ),
-                  Center(
-                    child: Text(AppLocalisation.healthCare,
-                        style: AppTestStyle.headingBai(
-                            fontSize: 22.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w800)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                    child: HorizontalScrollableCard(
-                      cardStatusColor: Colors.blue,
-                      titlecard: healthCareimagepathtitle,
-                      imageListCount: healthcareImagepath.length,
-                      imageList: healthcareImagepath,
-                      textColor: AppColors.white,
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      child: BlocBuilder<PopularPicksBloc, PopularPicksState>(
+                        builder: (context, state) {
+                          if (state is PopularPicksLoaded) {
+                            return popularPicksWidget(state.popularPicks);
+                          } else if (state is PopularPicksLoading) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else {
+                            return const Center(
+                                child: Text('Error loading banners'));
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 22.sp),
-                    child: SvgPicture.asset(IconAssets.appbackground),
-                  ),
-                  Center(
-                    child: Text(AppLocalisation.legal,
-                        style: AppTestStyle.headingBai(
-                            fontSize: 22.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w800)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                    child: HorizontalScrollableCard(
-                      cardStatusColor: Colors.brown,
-                      titlecard: legalimagepathtitle,
-                      imageListCount: legalImagepath.length,
-                      imageList: legalImagepath,
-                      textColor: AppColors.white,
+                  ],
+                ),
+                Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 22.sp),
+                      child: SvgPicture.asset(IconAssets.appbackground),
                     ),
-                  ),
-                ],
-              ),
-              Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 45.sp),
-                    child: SvgPicture.asset(IconAssets.appbackground),
-                  ),
-                  Center(
-                    child: Text(AppLocalisation.technology,
-                        style: AppTestStyle.headingBai(
-                            fontSize: 22.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w800)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                    child: HorizontalScrollableCard(
-                      cardStatusColor: Colors.blue[300]!,
-                      titlecard: technologyimagepathtitle,
-                      imageListCount: technologiesImagepath.length,
-                      imageList: technologiesImagepath,
-                      textColor: AppColors.white,
+                    BlocBuilder<CategoryListBloc, CategoryListState>(
+                      builder: (context, state) {
+                        if (state is CategoryListLoading) {
+                          return CircularProgressIndicator();
+                        } else if (state is CategoryListLoaded) {
+                          return buildCategoryList(state.categories);
+                        } else if (state is CategoryListError) {
+                          return Text('Error: ${state.message}');
+                        } else {
+                          return Text('Uninitialized State');
+                        }
+                      },
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Center(
+                      child: BlocBuilder<CategoryListBloc, CategoryListState>(
+                        builder: (context, state) {
+                          if (state is CategoryListLoaded &&
+                              state.categories.isNotEmpty) {
+                            return Text(
+                              state.categories[0].categoryName ??
+                                  'Default Category Name', // Access the first item's categoryName
+                              style: AppTestStyle.headingBai(
+                                  fontSize: 22.sp,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w800),
+                            );
+                          } else {
+                            return Text('Loading');
+                          }
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      child: HorizontalScrollableCard(
+                        cardStatusColor: Colors.blue,
+                        titlecard: healthCareimagepathtitle,
+                        imageListCount: healthcareImagepath.length,
+                        imageList: healthcareImagepath,
+                        textColor: AppColors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 22.sp),
+                      child: SvgPicture.asset(IconAssets.appbackground),
+                    ),
+                    Center(
+                      child: BlocBuilder<CategoryListBloc, CategoryListState>(
+                        builder: (context, state) {
+                          if (state is CategoryListLoaded &&
+                              state.categories.isNotEmpty) {
+                            return Text(
+                              state.categories[1].categoryName ??
+                                  'Default Category Name', // Access the first item's categoryName
+                              style: AppTestStyle.headingBai(
+                                  fontSize: 22.sp,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w800),
+                            );
+                          } else {
+                            return Text('Loading');
+                          }
+                        },
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                        child: HorizontalScrollableCard(
+                            cardStatusColor: Colors.brown,
+                            titlecard: legalimagepathtitle,
+                            imageListCount: legalImagepath.length,
+                            imageList: legalImagepath,
+                            textColor: AppColors.white))
+                  ],
+                ),
+                Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 45.sp),
+                      child: SvgPicture.asset(IconAssets.appbackground),
+                    ),
+                    Center(
+                      child: Text(AppLocalisation.technology,
+                          style: AppTestStyle.headingBai(
+                              fontSize: 22.sp,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w800)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      child: HorizontalScrollableCard(
+                        cardStatusColor: Colors.blue[300]!,
+                        titlecard: technologyimagepathtitle,
+                        imageListCount: technologiesImagepath.length,
+                        imageList: technologiesImagepath,
+                        textColor: AppColors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-class Hometopshape extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path_0 = Path();
-    path_0.moveTo(size.width * -0.0008333, size.height * 0.0014286);
-    path_0.lineTo(size.width * 1.0008333, size.height * -0.0028571);
-    path_0.lineTo(size.width * 1.0008333, size.height * 0.8571429);
-    path_0.lineTo(size.width * 0.5000000, size.height);
-    path_0.lineTo(size.width * -0.0008333, size.height * 0.8571429);
-    path_0.lineTo(size.width * -0.0008333, size.height * 0.0014286);
-    path_0.close();
-    return path_0;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
+  Widget buildCategoryList(List<CategoryListData> categories) {
+    return ListView.builder(
+      shrinkWrap: true, // to make it work inside a Column
+      physics: NeverScrollableScrollPhysics(), // to prevent inner scroll
+      itemCount: categories.length,
+      itemBuilder: (context, index) {
+        var category = categories[index];
+        return ListTile(
+          title: Text(category.categoryName ?? 'No Name'),
+        );
+      },
+    );
   }
 }
-
-class StackHometopshape extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path_0 = Path();
-    path_0.moveTo(size.width * 0.0008333, size.height * 0.0014286);
-    path_0.lineTo(size.width * 0.9991667, size.height * -0.0014286);
-    path_0.lineTo(size.width * 0.9991667, size.height * 0.8585714);
-    path_0.lineTo(size.width * 0.5008333, size.height * 1.0014286);
-    path_0.lineTo(size.width * -0.0008333, size.height * 0.8600000);
-    path_0.lineTo(size.width * 0.0008333, size.height * 0.0014286);
-    path_0.close();
-    return path_0;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-// class StackHometopshape extends CustomClipper<Path> {
-//   @override
-//   Path getClip(Size size) {
-//     Path path_0 = Path();
-//     path_0.moveTo(size.width * -0.0041667, 0);
-//     path_0.lineTo(size.width * 1.0016667, size.height * -0.0042857);
-//     path_0.lineTo(size.width * 1.0016667, size.height * 0.7157143);
-//     path_0.lineTo(size.width * 0.5008333, size.height * 1.0042857);
-//     path_0.lineTo(size.width * -0.0025000, size.height * 0.7157143);
-//     path_0.lineTo(size.width * -0.0041667, 0);
-//     path_0.close();
-//     return path_0;
-//   }
-
-//   @override
-//   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-//     return false;
-//   }
-// }

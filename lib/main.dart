@@ -1,72 +1,49 @@
-import 'dart:async';
-
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:device_preview/device_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'routers/app_router.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'utilities/index.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  var box = await Hive.openBox('loginBox');
+  String? authToken = box.get('authToken');
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  // runApp(
-  // DevicePreview(
-  //   builder: (context) => const MyApp(),
-  // ),
-  // );
+  String initialRoute = authToken != null ? '/navbar' : '/login';
+  print('Retrieved Auth Token: $authToken');
   runApp(
-    MyApp(),
-  );
+      //DevicePreview(
+      //builder: (context) => MyApp(
+      //authToken: authToken,
+      //),
+      //));
+      MyApp(initialRoute: initialRoute));
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key});
+  final String initialRoute;
 
+  const MyApp({
+    Key? key,
+    required this.initialRoute,
+  }) : super(key: key);
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  final Connectivity _connectivity = Connectivity();
-
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-
-  @override
-  void initState() {
-    super.initState();
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-  }
-
-  Future<void> _initConnectivity() async {
-    ConnectivityResult result = await _connectivity.checkConnectivity();
-    _updateConnectionStatus(result);
-  }
-
-  void _updateConnectionStatus(ConnectivityResult result) {
-    if (result == ConnectivityResult.none) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No Internet Connection'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _connectivitySubscription.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return ResponsiveSizer(builder: (context, orientation, screenType) {
@@ -84,4 +61,16 @@ class _MyAppState extends State<MyApp> {
       );
     });
   }
+}
+
+Future<void> storeLoginToken(String token) async {
+  var box = Hive.box('loginBox');
+  await box.put('authToken', token);
+  print('Stored Auth Token: $token'); // Debug print
+}
+
+Future<void> clearLoginToken() async {
+  var box = Hive.box('loginBox');
+  await box.delete('authToken');
+  print('Cleared Auth Token'); // Debug print
 }

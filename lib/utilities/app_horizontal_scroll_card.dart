@@ -98,8 +98,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
   final List<Image> imageList;
 
   final int imageListCount;
-  // final String titlecard;
-  // Image cardimages;
+
   const HorizontalScrollableCard1({
     Key? key,
     this.subtitle = '',

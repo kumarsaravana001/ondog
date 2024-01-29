@@ -1,12 +1,13 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:ondgo_flutter/bloc/login_bloc/login_event.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  String? authToken;
+  String? userId;
   LoginBloc() : super(LoginInitial()) {
     on<LoginWithEmailPassword>((event, emit) async {
       emit(LoginLoading());
@@ -45,9 +46,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
-      print('Full response: ${response.body}');
-      return data['status'] == true;
-      // ['status'] == true;
+
+      if (data['status'] == true) {
+        authToken = data['authToken'];
+        userId = data['user_details']['user_id'];
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('authToken', authToken!);
+        await prefs.setString('userId', userId!);
+
+        return true;
+      }
+      return false;
+      //return data['status'] == true;
     } else {
       Exception(
           'Failed to sign in user with status code: ${response.statusCode}');

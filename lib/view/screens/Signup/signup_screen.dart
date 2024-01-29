@@ -7,6 +7,8 @@ import 'package:ondgo_flutter/bloc/signin_bloc/signin_state.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/utilities/index.dart';
 
+import '../../../utilities/app_validator.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -18,15 +20,14 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
-
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
 
-  FocusNode emailFocusNode = FocusNode();
-  FocusNode passwordFocusNode = FocusNode();
-  FocusNode mobilenumberFocusNode = FocusNode();
-  FocusNode firstNameFocusNode = FocusNode();
-  FocusNode lastNameFocusNode = FocusNode();
+  // FocusNode emailFocusNode = FocusNode();
+  // FocusNode passwordFocusNode = FocusNode();
+  // FocusNode mobilenumberFocusNode = FocusNode();
+  // FocusNode firstNameFocusNode = FocusNode();
+  // FocusNode lastNameFocusNode = FocusNode();
 
   ScrollController scrollController = ScrollController();
   bool isPasswordVisible = false;
@@ -54,7 +55,6 @@ class _SignupScreenState extends State<SignupScreen> {
       body: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if (state is SignInFailure) {
-            // print('Sign in failed: ${state.errorMessage}');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.errorMessage)),
             );
@@ -120,50 +120,39 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                               CustomTextField(
                                 controller: firstNameController,
-                                focusnode: firstNameFocusNode,
                                 hintText: "First Name",
                                 borderColor: AppColors.white,
                                 textColor: AppColors.black,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'First Name is required';
-                                  }
-                                  return null;
-                                },
+                                validator: (value) =>
+                                    ValidationUtil.validateName(value),
                               ),
                               SizedBox(height: 3.h),
                               CustomTextField(
                                 controller: lastNameController,
-                                focusnode: lastNameFocusNode,
                                 hintText: "Last Name",
                                 borderColor: AppColors.white,
                                 textColor: AppColors.black,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Last Name is required';
-                                  }
-                                  return null;
-                                },
+                                validator: (value) =>
+                                    ValidationUtil.validateName(value),
                               ),
                               SizedBox(height: 3.h),
                               CustomTextField(
                                 controller: mobileController,
-                                focusnode: mobilenumberFocusNode,
+                                showCountryCodePicker: true,
                                 hintText: "Mobile Number",
-                                borderColor: AppColors.white,
-                                textColor: AppColors.black,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Mobile Number is required';
+                                  } else if (!RegExp(r'^[0-9]{10}$')
+                                      .hasMatch(value)) {
+                                    return 'Enter a valid 10 digit mobile number';
                                   }
-                                  // You can add regex for validating phone number format
                                   return null;
                                 },
                               ),
                               SizedBox(height: 3.h),
                               CustomTextField(
                                 controller: emailController,
-                                focusnode: emailFocusNode,
                                 hintText: "Email",
                                 borderColor: AppColors.white,
                                 textColor: AppColors.black,
@@ -180,7 +169,6 @@ class _SignupScreenState extends State<SignupScreen> {
                               SizedBox(height: 3.h),
                               CustomTextField(
                                 controller: passwordController,
-                                focusnode: passwordFocusNode,
                                 hintText: "Password",
                                 isPassword: true,
                                 isPasswordVisible: isPasswordVisible,

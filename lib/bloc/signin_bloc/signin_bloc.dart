@@ -52,12 +52,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
     var response =
         await http.post(url, headers: headers, body: json.encode(userData));
-    print('Status Code: ${response.statusCode}');
-    print('Response Body: ${response.body}');
+    // print('Status Code: ${response.statusCode}');
+    // print('Response Body: ${response.body}');
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
-      print('Response: $responseBody'); // Pri
-      print('responce body: ${responseBody['message']}');
+      // print('Response: $responseBody'); // Pri
+      // print('responce body: ${responseBody['message']}');
       return responseBody;
     } else {
       throw Exception(
