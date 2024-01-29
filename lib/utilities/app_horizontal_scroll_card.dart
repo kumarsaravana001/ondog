@@ -11,7 +11,7 @@ class HorizontalScrollableCard extends StatelessWidget {
   final Color cardbackgroundcolor;
   final Color textColor;
   final Color cardStatusColor;
-  final List<Image> imageList;
+  final List<Widget> imageList;
 
   final int imageListCount;
   final List<String> titlecard;

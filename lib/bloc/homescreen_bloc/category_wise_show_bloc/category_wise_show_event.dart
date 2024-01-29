@@ -1,8 +1,10 @@
-abstract class ShowEvent {}
+abstract class CategoryWiseShowEvent {}
 
-class FetchShows extends ShowEvent {
-  final String userId;
-  final int categoryId;
+class FetchCategoryWiseShows extends CategoryWiseShowEvent {
+  // final String userId;
+  // final int categoryId;
 
-  FetchShows(this.userId, this.categoryId);
+  FetchCategoryWiseShows(
+    // this.userId, this.categoryId
+    );
 }

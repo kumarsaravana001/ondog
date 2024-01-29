@@ -1,19 +1,19 @@
 import 'package:ondgo_flutter/models/homescreen_model/category_list_wise_model.dart';
 
-abstract class ShowState {}
+abstract class CategoryWiseShowState {}
 
-class ShowInitial extends ShowState {}
+class CategoryWiseShowInitial extends CategoryWiseShowState {}
 
-class ShowLoading extends ShowState {}
+class CategoryWiseShowLoading extends CategoryWiseShowState {}
 
-class ShowLoaded extends ShowState {
+class CategoryWiseShowLoaded extends CategoryWiseShowState {
   final List<CategoryWiseListData> shows;
 
-  ShowLoaded(this.shows);
+  CategoryWiseShowLoaded(this.shows);
 }
 
-class ShowError extends ShowState {
+class CategoryWiseShowError extends CategoryWiseShowState {
   final String message;
 
-  ShowError(this.message);
+  CategoryWiseShowError(this.message);
 }

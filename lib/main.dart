@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 // import 'package:device_preview/device_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_bloc.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'routers/app_router.dart';
@@ -50,6 +52,10 @@ class _MyAppState extends State<MyApp> {
       return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => LoginBloc()),
+          BlocProvider<HomeScreenBannerBloc>(
+            create: (context) =>
+                HomeScreenBannerBloc(BlocProvider.of<LoginBloc>(context)),
+          ),
           BlocProvider(create: (context) => SignInBloc()),
         ],
         child: MaterialApp.router(

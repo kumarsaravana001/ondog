@@ -6,6 +6,7 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_state.dart';
+import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
@@ -16,6 +17,8 @@ import 'package:ondgo_flutter/models/homescreen_model/category_list_model.dart';
 import 'package:ondgo_flutter/models/homescreen_model/popular_picks_model.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
+import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
+import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -66,6 +69,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ? banner.thumbnail!.last
           : 'assets/images/coffee_with_crypto.png';
 
+      showNames.add(banner.categoryName ?? 'Default Banner');
+
       return Image.network(imageUrl, fit: BoxFit.cover);
     }).toList();
     return CarouselSlider(
@@ -88,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final loginBloc = BlocProvider.of<LoginBloc>(context);
+    final homeScreenBannerBloc = BlocProvider.of<HomeScreenBannerBloc>(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeScreenBannerBloc>(
@@ -99,6 +105,10 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider<CategoryListBloc>(
           create: (context) =>
               CategoryListBloc(loginBloc)..add(FetchCategoryList()),
+        ),
+        BlocProvider<CategoryWiseShowBloc>(
+          create: (context) =>
+              CategoryWiseShowBloc(loginBloc)..add(FetchCategoryWiseShows()),
         ),
       ],
       child: Scaffold(
@@ -146,6 +156,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 HomeScreenBannerState>(
                               builder: (context, state) {
                                 if (state is HomeScreenBannerLoaded) {
+                                  print(
+                                      "Current index: $_currentCarouselIndex");
+                                  print("Show names: $showNames");
+
                                   return buildBannerCarousel(state.banners);
                                 } else if (state is HomeScreenBannerLoading) {
                                   return const Center(
@@ -326,19 +340,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: EdgeInsets.only(bottom: 22.sp),
                       child: SvgPicture.asset(IconAssets.appbackground),
                     ),
-                    BlocBuilder<CategoryListBloc, CategoryListState>(
-                      builder: (context, state) {
-                        if (state is CategoryListLoading) {
-                          return CircularProgressIndicator();
-                        } else if (state is CategoryListLoaded) {
-                          return buildCategoryList(state.categories);
-                        } else if (state is CategoryListError) {
-                          return Text('Error: ${state.message}');
-                        } else {
-                          return Text('Uninitialized State');
-                        }
-                      },
-                    ),
                     Center(
                       child: BlocBuilder<CategoryListBloc, CategoryListState>(
                         builder: (context, state) {
@@ -353,20 +354,64 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.w800),
                             );
                           } else {
-                            return Text('Loading');
+                            return const Text('Loading');
                           }
                         },
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                      child: HorizontalScrollableCard(
-                        cardStatusColor: Colors.blue,
-                        titlecard: healthCareimagepathtitle,
-                        imageListCount: healthcareImagepath.length,
-                        imageList: healthcareImagepath,
-                        textColor: AppColors.white,
-                      ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                    //   child: HorizontalScrollableCard(
+                    //     cardStatusColor: Colors.blue,
+                    //     titlecard: healthCareimagepathtitle,
+                    //     imageListCount: healthcareImagepath.length,
+                    //     imageList: healthcareImagepath,
+                    //     textColor: AppColors.white,
+                    //   ),
+                    // ),
+
+                    BlocBuilder<CategoryWiseShowBloc, CategoryWiseShowState>(
+                      builder: (context, state) {
+                        if (state is CategoryWiseShowLoading) {
+                          return CircularProgressIndicator();
+                        } else if (state is CategoryWiseShowLoaded) {
+                          List<String> showNames = state.shows
+                              .map((show) => show.showName ?? 'No Show Name')
+                              .toList();
+                          List<Widget> imageWidgets = state.shows.map((show) {
+                            String imageUrl = show.thumbnail!.isNotEmpty
+                                ? show.thumbnail!.first
+                                : 'default_image_url';
+                            return Image.network(imageUrl, fit: BoxFit.cover);
+                          }).toList();
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: HorizontalScrollableCard(
+                              cardStatusColor: Colors.blue,
+                              titlecard: showNames,
+                              imageListCount: state.shows.length,
+                              imageList: imageWidgets,
+                              textColor: AppColors.white,
+                            ),
+                          );
+                          // ListView.builder(
+                          //   shrinkWrap: true,
+                          //   itemCount: state.shows.length,
+                          //   itemBuilder: (context, index) {
+                          //     final show = state.shows[index];
+                          //     return ListTile(
+                          //       title: Text(show.categoryName!),
+                          //       subtitle: Text(show.categoryName!),
+                          //     );
+                          //   },
+                          // );
+                        } else if (state is CategoryWiseShowError) {
+                          return Center(child: Text('Error: ${state.message}'));
+                        } else {
+                          return Center(
+                              child: Text('Please select a category.'));
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -390,7 +435,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.w800),
                             );
                           } else {
-                            return Text('Loading');
+                            return const Text('Loading');
                           }
                         },
                       ),
@@ -438,17 +483,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buildCategoryList(List<CategoryListData> categories) {
-    return ListView.builder(
-      shrinkWrap: true, // to make it work inside a Column
-      physics: NeverScrollableScrollPhysics(), // to prevent inner scroll
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        var category = categories[index];
-        return ListTile(
-          title: Text(category.categoryName ?? 'No Name'),
-        );
-      },
-    );
-  }
+  // Widget buildCategoryList(List<CategoryListData> categories) {
+  //   return ListView.builder(
+  //     shrinkWrap: true, // to make it work inside a Column
+  //     physics: const NeverScrollableScrollPhysics(), // to prevent inner scroll
+  //     itemCount: categories.length,
+  //     itemBuilder: (context, index) {
+  //       var category = categories[index];
+  //       return ListTile(
+  //         title: Text(category.categoryName ?? 'No Name'),
+  //       );
+  //     },
+  //   );
+  // }
 }
