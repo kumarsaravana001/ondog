@@ -13,7 +13,6 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_pi
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/models/homescreen_model/banner_model.dart';
-import 'package:ondgo_flutter/models/homescreen_model/category_list_model.dart';
 import 'package:ondgo_flutter/models/homescreen_model/popular_picks_model.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
@@ -51,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     List<Image> imageWidgets = imageUrls.map((url) {
-      return Image.network(url);
+      return Image.network(url, fit: BoxFit.cover);
     }).toList();
 
     return HorizontalScrollableCard(
@@ -93,7 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final loginBloc = BlocProvider.of<LoginBloc>(context);
-    final homeScreenBannerBloc = BlocProvider.of<HomeScreenBannerBloc>(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeScreenBannerBloc>(
@@ -156,10 +154,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 HomeScreenBannerState>(
                               builder: (context, state) {
                                 if (state is HomeScreenBannerLoaded) {
-                                  print(
-                                      "Current index: $_currentCarouselIndex");
-                                  print("Show names: $showNames");
-
                                   return buildBannerCarousel(state.banners);
                                 } else if (state is HomeScreenBannerLoading) {
                                   return const Center(
@@ -359,21 +353,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                    //   child: HorizontalScrollableCard(
-                    //     cardStatusColor: Colors.blue,
-                    //     titlecard: healthCareimagepathtitle,
-                    //     imageListCount: healthcareImagepath.length,
-                    //     imageList: healthcareImagepath,
-                    //     textColor: AppColors.white,
-                    //   ),
-                    // ),
-
                     BlocBuilder<CategoryWiseShowBloc, CategoryWiseShowState>(
                       builder: (context, state) {
                         if (state is CategoryWiseShowLoading) {
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                         } else if (state is CategoryWiseShowLoaded) {
                           List<String> showNames = state.shows
                               .map((show) => show.showName ?? 'No Show Name')
@@ -394,21 +377,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               textColor: AppColors.white,
                             ),
                           );
-                          // ListView.builder(
-                          //   shrinkWrap: true,
-                          //   itemCount: state.shows.length,
-                          //   itemBuilder: (context, index) {
-                          //     final show = state.shows[index];
-                          //     return ListTile(
-                          //       title: Text(show.categoryName!),
-                          //       subtitle: Text(show.categoryName!),
-                          //     );
-                          //   },
-                          // );
                         } else if (state is CategoryWiseShowError) {
                           return Center(child: Text('Error: ${state.message}'));
                         } else {
-                          return Center(
+                          return const Center(
                               child: Text('Please select a category.'));
                         }
                       },
@@ -440,14 +412,48 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                        child: HorizontalScrollableCard(
-                            cardStatusColor: Colors.brown,
-                            titlecard: legalimagepathtitle,
-                            imageListCount: legalImagepath.length,
-                            imageList: legalImagepath,
-                            textColor: AppColors.white))
+                    BlocBuilder<CategoryWiseShowBloc, CategoryWiseShowState>(
+                      builder: (context, state) {
+                        if (state is CategoryWiseShowLoading) {
+                          return const CircularProgressIndicator();
+                        } else if (state is CategoryWiseShowLoaded) {
+                          List<String> showNames = state.shows
+                              .map((show) => show.showName ?? 'No Show Name')
+                              .toList();
+                          List<Widget> imageWidgets = state.shows.map((show) {
+                            String imageUrl = show.thumbnail!.isNotEmpty
+                                ? show.thumbnail!.first
+                                : 'default_image_url';
+                            return Image.network(imageUrl, fit: BoxFit.cover);
+                          }).toList();
+                         
+
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: HorizontalScrollableCard(
+                                cardStatusColor: Colors.brown,
+                                titlecard: legalimagepathtitle,
+                                imageListCount: legalImagepath.length,
+                                imageList: legalImagepath,
+                                textColor: AppColors.white),
+                          );
+                        } else if (state is CategoryWiseShowError) {
+                          return Center(child: Text('Error: ${state.message}'));
+                        } else {
+                          return const Center(
+                              child: Text('Please select a category.'));
+                        }
+                      },
+                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                    //   child: HorizontalScrollableCard(
+                    //       cardStatusColor: Colors.brown,
+                    //       titlecard: legalimagepathtitle,
+                    //       imageListCount: legalImagepath.length,
+                    //       imageList: legalImagepath,
+                    //       textColor: AppColors.white),
+                    // )
                   ],
                 ),
                 Stack(
@@ -482,18 +488,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  // Widget buildCategoryList(List<CategoryListData> categories) {
-  //   return ListView.builder(
-  //     shrinkWrap: true, // to make it work inside a Column
-  //     physics: const NeverScrollableScrollPhysics(), // to prevent inner scroll
-  //     itemCount: categories.length,
-  //     itemBuilder: (context, index) {
-  //       var category = categories[index];
-  //       return ListTile(
-  //         title: Text(category.categoryName ?? 'No Name'),
-  //       );
-  //     },
-  //   );
-  // }
 }

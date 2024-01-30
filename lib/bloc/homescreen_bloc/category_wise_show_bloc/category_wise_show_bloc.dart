@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
@@ -9,33 +8,15 @@ import 'package:ondgo_flutter/models/homescreen_model/category_list_wise_model.d
 
 class CategoryWiseShowBloc
     extends Bloc<CategoryWiseShowEvent, CategoryWiseShowState> {
-  final LoginBloc loginBloc;
-  // final HomeScreenBannerBloc homeScreenBannerBloc;
-
-  int categoryId = 1;
-  // String userId = "U588583";
-
   CategoryWiseShowBloc(this.loginBloc) : super(CategoryWiseShowInitial()) {
     on<FetchCategoryWiseShows>(_onFetchCategoryWiseShows);
   }
 
-  void _onFetchCategoryWiseShows(
-      FetchCategoryWiseShows event, Emitter<CategoryWiseShowState> emit) async {
-    try {
-      emit(CategoryWiseShowLoading());
-      final shows = await fetchShows();
-      emit(CategoryWiseShowLoaded(shows));
-    } catch (e) {
-      emit(CategoryWiseShowError(e.toString()));
-    }
-  }
+  int categoryId = 3;
+  final LoginBloc loginBloc;
 
   Future<List<CategoryWiseListData>> fetchShows() async {
     String? userId = loginBloc.userId;
-    // String? categoryId = homeScreenBannerBloc.categoryId;
-    print("Debug: Retrieved userId is $userId");
-
-    print('User_id & Category_id 1 ${userId} , ${categoryId}');
 
     final url = Uri.parse('https://ondgo.in/api/user-category-wise-show.php');
 
@@ -43,8 +24,8 @@ class CategoryWiseShowBloc
       'user_id': userId,
       'category_id': categoryId,
     });
-    print('jsonbody ${body}');
-    print('User_id & Category_id 2 ${userId} , ${categoryId}');
+    // print('jsonbody ${body}');
+    // print('User_id & Category_id 2 ${userId} , ${categoryId}');
     try {
       final response = await http.post(
         url,
@@ -55,8 +36,7 @@ class CategoryWiseShowBloc
         },
         body: body,
       );
-      print('Banner Response Status: ${response.statusCode}');
-      print('Banner Response Body: ${response.body}');
+
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);
         if (responseData['status'] == true) {
@@ -74,6 +54,17 @@ class CategoryWiseShowBloc
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  void _onFetchCategoryWiseShows(
+      FetchCategoryWiseShows event, Emitter<CategoryWiseShowState> emit) async {
+    try {
+      emit(CategoryWiseShowLoading());
+      final shows = await fetchShows();
+      emit(CategoryWiseShowLoaded(shows));
+    } catch (e) {
+      emit(CategoryWiseShowError(e.toString()));
     }
   }
 }

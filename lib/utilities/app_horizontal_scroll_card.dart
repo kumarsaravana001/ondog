@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 
@@ -54,7 +55,6 @@ class HorizontalScrollableCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(titlecard[index],
-                              //playlistcardnames[index],
                               style: AppTestStyle.headingint(
                                   fontSize: 16.sp,
                                   color: textColor,
@@ -72,12 +72,13 @@ class HorizontalScrollableCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    ),
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: 16 / 15.7,
                     child: imageList[index],
                   ),
                 ),
