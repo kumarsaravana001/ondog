@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,9 +33,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String? userId;
-  bool isOnline = true;
+  List<String> categoryList = [];
   late StreamSubscription connectivitySubscription;
+  bool isOnline = true;
+  List<String> popularPicks = [];
+  int? selectedCategoryId;
+  List<String> showNames = [];
+  String? userId;
+
+  int _currentCarouselIndex = 0;
+
+  @override
+  void dispose() {
+    connectivitySubscription.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserId();
+    monitorNetworkStatus();
+    if (isOnline) {
+      _loadData();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No Internet Connection')),
+      );
+    }
+  }
 
   void monitorNetworkStatus() {
     connectivitySubscription = Connectivity()
@@ -59,31 +84,69 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  HorizontalScrollableCard popularPicksWidget(
+      List<PopularpicksData> popularpicks) {
+    List<String> imageUrls = [];
+    List<String> showNames = [];
+    for (var pick in popularpicks) {
+      String imageUrl = pick.thumbnail != null && pick.thumbnail!.isNotEmpty
+          ? pick.thumbnail!.first
+          : 'default_image_url';
+      imageUrls.add(imageUrl);
+      showNames.add(pick.showName ?? 'Default Show Name');
+    }
+
+    List<Image> imageWidgets = imageUrls.map((url) {
+      return Image.network(url, fit: BoxFit.cover);
+    }).toList();
+
+    return HorizontalScrollableCard(
+      cardStatusColor: Colors.indigoAccent,
+      titlecard: showNames,
+      imageListCount: popularpicks.length,
+      imageList: imageWidgets,
+      textColor: AppColors.white,
+    );
+  }
+
+  Widget buildBannerCarousel(List<Data> banners) {
+    List<Widget> bannerWidgets = banners.expand((banner) {
+      List<String> imageUrls =
+          banner.thumbnail != null && banner.thumbnail!.isNotEmpty
+              ? banner.thumbnail!
+              : ['assets/images/middleclass_banner.png'];
+
+      showNames.add(banner.categoryName ?? 'Default Banner');
+
+      return imageUrls.map((imageUrl) {
+        return Image.network(imageUrl, fit: BoxFit.cover);
+      });
+    }).toList();
+    return SizedBox(
+      height: 71.h,
+      child: CarouselSlider(
+        items: bannerWidgets,
+        options: CarouselOptions(
+          autoPlay: true,
+          autoPlayCurve: Curves.decelerate,
+          autoPlayInterval: const Duration(seconds: 5),
+          height: 71.h,
+          viewportFraction: 1.0,
+          onPageChanged: (index, reason) {
+            setState(() {
+              _currentCarouselIndex = index;
+            });
+          },
+        ),
+      ),
+    );
+  }
+
   Future<void> _loadData() async {
     BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
     BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
     BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
     // Add other necessary data fetching calls
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserId();
-    monitorNetworkStatus();
-    if (isOnline) {
-      _loadData();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No Internet Connection')),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    connectivitySubscription.cancel();
-    super.dispose();
   }
 
   void _loadUserId() async {
@@ -95,12 +158,6 @@ class _HomeScreenState extends State<HomeScreen> {
       // Make your API calls using userId
     }
   }
-
-  List<String> popularPicks = [];
-  List<String> showNames = [];
-  List<String> categoryList = [];
-
-  int _currentCarouselIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -114,9 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
           create: (context) => CategoryListBloc()..add(FetchCategoryList()),
         ),
         BlocProvider<CategoryWiseShowBloc>(
-          create: (context) =>
-              CategoryWiseShowBloc()..add(FetchCategoryWiseShows()),
-        ),
+            create: (context) => CategoryWiseShowBloc()),
       ],
       child: Scaffold(
         body: SafeArea(
@@ -339,8 +394,94 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context, state) {
                           if (state is CategoryListLoaded &&
                               state.categories.isNotEmpty) {
+                            List<int> categoryIds =
+                                state.categories.map((category) {
+                              return int.parse(category.categoryId!);
+                            }).toList();
+                            // categoryIds.forEach((id) {
+                            //   print("Category ID 123[]: $id");
+                            // });
+                            for (var id in categoryIds) {
+                              BlocProvider.of<CategoryWiseShowBloc>(context)
+                                  .add(FetchCategoryWiseShows(categoryId: id));
+                            }
                             return Text(
                               state.categories[0].categoryName ??
+                                  'Default Category Name',
+                              style: AppTestStyle.headingBai(
+                                  fontSize: 22.sp,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w800),
+                            );
+                          } else {
+                            return buildTextShimmerEffect();
+                          }
+                        },
+                      ),
+                    ),
+                    BlocBuilder<CategoryWiseShowBloc, CategoryWiseShowState>(
+                      builder: (context, state) {
+                        // if (state is CategoryWiseShowLoading) {
+                        //   return const CircularProgressIndicator();
+                        // } else
+                        if (state is CategoryWiseShowLoaded &&
+                            state.shows.any((show) => show.categoryId == "1")) {
+                          var filteredShows = state.shows
+                              .where((show) => show.categoryId == "1")
+                              .toList();
+
+                          print(
+                              'Filtered shows count: ${filteredShows.length}');
+                          print(
+                              'Filtered shows count: ${filteredShows.length}');
+
+                          List<String> showNames = /*state.shows*/ filteredShows
+                              .map((show) => show.showName ?? 'No Show Name')
+                              .toList();
+                          List<Widget> imageWidgets = /*state.shows*/
+                              filteredShows.map((show) {
+                            String imageUrl = show.thumbnail!.isNotEmpty
+                                ? show.thumbnail![0]
+                                : 'default_image_url';
+
+                            print('image from [1] ${imageUrl}');
+                            return Image.network(imageUrl, fit: BoxFit.cover);
+                          }).toList();
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: HorizontalScrollableCard(
+                              cardStatusColor: Colors.blue,
+                              titlecard: showNames,
+                              imageListCount: filteredShows.length,
+                              imageList: imageWidgets,
+                              textColor: AppColors.white,
+                            ),
+                          );
+                        } else if (state is CategoryWiseShowError) {
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: horizontalCardShimmerWidget(),
+                          );
+                        } else {
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: horizontalCardShimmerWidget(),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                Stack(
+                  children: [
+                    SvgPicture.asset(IconAssets.appbackground),
+                    Center(
+                      child: BlocBuilder<CategoryListBloc, CategoryListState>(
+                        builder: (context, state) {
+                          if (state is CategoryListLoaded &&
+                              state.categories.isNotEmpty) {
+                            return Text(
+                              state.categories[1].categoryName ??
                                   'Default Category Name',
                               style: AppTestStyle.headingBai(
                                   fontSize: 22.sp,
@@ -363,71 +504,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               .toList();
                           List<Widget> imageWidgets = state.shows.map((show) {
                             String imageUrl = show.thumbnail!.isNotEmpty
-                                ? show.thumbnail!.first
-                                : 'default_image_url';
-                            return Image.network(imageUrl, fit: BoxFit.cover);
-                          }).toList();
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: HorizontalScrollableCard(
-                              cardStatusColor: Colors.blue,
-                              titlecard: showNames,
-                              imageListCount: state.shows.length,
-                              imageList: imageWidgets,
-                              textColor: AppColors.white,
-                            ),
-                          );
-                        } else if (state is CategoryWiseShowError) {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: horizontalCardShimmerWidget(),
-                          );
-                          //Center(child: Text('Error: ${state.message}'));
-                        } else {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: horizontalCardShimmerWidget(),
-                          );
-                          //  Center(
-                          //     child: Text('Please select a category.'));
-                        }
-                      },
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    SvgPicture.asset(IconAssets.appbackground),
-                    Center(
-                      child: BlocBuilder<CategoryListBloc, CategoryListState>(
-                        builder: (context, state) {
-                          if (state is CategoryListLoaded &&
-                              state.categories.isNotEmpty) {
-                            return Text(
-                              state.categories[1].categoryName ??
-                                  'Default Category Name', // Access the first item's categoryName
-                              style: AppTestStyle.headingBai(
-                                  fontSize: 22.sp,
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.w800),
-                            );
-                          } else {
-                            return buildTextShimmerEffect();
-                          }
-                        },
-                      ),
-                    ),
-                    BlocBuilder<CategoryWiseShowBloc, CategoryWiseShowState>(
-                      builder: (context, state) {
-                        if (state is CategoryWiseShowLoading) {
-                          return const CircularProgressIndicator();
-                        } else if (state is CategoryWiseShowLoaded) {
-                          List<String> showNames = state.shows
-                              .map((show) => show.showName ?? 'No Show Name')
-                              .toList();
-                          List<Widget> imageWidgets = state.shows.map((show) {
-                            String imageUrl = show.thumbnail!.isNotEmpty
-                                ? show.thumbnail!.first
+                                ? show.thumbnail![0]
                                 : 'default_image_url';
                             return Image.network(imageUrl, fit: BoxFit.cover);
                           }).toList();
@@ -446,14 +523,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
                             child: horizontalCardShimmerWidget(),
                           );
-                          // Center(child: Text('Error: ${state.message}'));
                         } else {
                           return Padding(
                             padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
                             child: horizontalCardShimmerWidget(),
                           );
-                          //  Center(
-                          //     child: Text('Please select a category.'));
                         }
                       },
                     ),
@@ -469,7 +543,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Center(
                             child: Text(
                               state.categories[2].categoryName ??
-                                  'Default Category Name', // Access the first item's categoryName
+                                  'Default Category Name',
                               style: AppTestStyle.headingBai(
                                   fontSize: 22.sp,
                                   color: AppColors.black,
@@ -491,7 +565,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               .toList();
                           List<Widget> imageWidgets = state.shows.map((show) {
                             String imageUrl = show.thumbnail!.isNotEmpty
-                                ? show.thumbnail!.first
+                                ? show.thumbnail![0]
                                 : 'default_image_url';
                             return Image.network(imageUrl, fit: BoxFit.cover);
                           }).toList();
@@ -516,8 +590,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
                             child: horizontalCardShimmerWidget(),
                           );
-                          //  Center(
-                          //     child: Text('Please select a category.'));
                         }
                       },
                     ),
@@ -527,64 +599,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  HorizontalScrollableCard popularPicksWidget(
-      List<PopularpicksData> popularpicks) {
-    List<String> imageUrls = [];
-    List<String> showNames = [];
-    for (var pick in popularpicks) {
-      String imageUrl = pick.thumbnail != null && pick.thumbnail!.isNotEmpty
-          ? pick.thumbnail!.first
-          : 'default_image_url';
-      imageUrls.add(imageUrl);
-      showNames.add(pick.showName ?? 'Default Show Name');
-    }
-
-    List<Image> imageWidgets = imageUrls.map((url) {
-      return Image.network(url, fit: BoxFit.cover);
-    }).toList();
-
-    return HorizontalScrollableCard(
-      cardStatusColor: Colors.indigoAccent,
-      titlecard: showNames,
-      imageListCount: popularpicks.length,
-      imageList: imageWidgets,
-      textColor: AppColors.white,
-    );
-  }
-
-  Widget buildBannerCarousel(List<Data> banners) {
-    List<Widget> bannerWidgets = banners.expand((banner) {
-      List<String> imageUrls =
-          banner.thumbnail != null && banner.thumbnail!.isNotEmpty
-              ? banner.thumbnail!
-              : ['assets/images/middleclass_banner.png'];
-
-      showNames.add(banner.categoryName ?? 'Default Banner');
-
-      return imageUrls.map((imageUrl) {
-        return Image.network(imageUrl, fit: BoxFit.cover);
-      });
-    }).toList();
-    return SizedBox(
-      height: 71.h,
-      child: CarouselSlider(
-        items: bannerWidgets,
-        options: CarouselOptions(
-          autoPlay: true,
-          autoPlayCurve: Curves.decelerate,
-          autoPlayInterval: const Duration(seconds: 5),
-          height: 71.h,
-          viewportFraction: 1.0,
-          onPageChanged: (index, reason) {
-            setState(() {
-              _currentCarouselIndex = index;
-            });
-          },
         ),
       ),
     );

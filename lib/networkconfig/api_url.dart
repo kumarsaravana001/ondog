@@ -1,11 +1,17 @@
-// ignore_for_file: constant_identifier_names
+import 'package:hive_flutter/hive_flutter.dart';
+
+class Utils {
+  static Future<String?> getUserId() async {
+    var box = Hive.box('sessionBox');
+    return box.get('userId');
+  }
+}
 
 class ApiUrl {
-  static const String _BASE_URL = 'https://ondgo.in/api';
-  static const String _VERSION = '$_BASE_URL/api/v1';
-  static const String _APIKEY =
+  static const String apiKey =
       'e5228f82365890808f9aa2301101e76970100ff6a4cd836e9c97b0ffe7f84e06';
 
-  static const String REGISTER = '$_VERSION/user-register.php';
-  static const String LOGIN = '$_VERSION/account/register';
+  ////
+  static const String baseUrl = 'https://ondgo.in/api/';
+  static const String usershowdetails = 'user-show-details.php';
 }

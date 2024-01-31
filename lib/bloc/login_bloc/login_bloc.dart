@@ -1,13 +1,11 @@
 import 'dart:convert';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:ondgo_flutter/bloc/login_bloc/login_event.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_state.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class NoInternetException implements Exception {}
+// class NoInternetException implements Exception {}
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   String? authToken;
@@ -23,19 +21,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           emit(LoginFailure('Invalid email or password'));
         }
       } catch (e) {
-        if (e is NoInternetException) {
-          emit(LoginNoInternet());
-        } else {
-          emit(LoginFailure(e.toString()));
-        }
+        // if (e is NoInternetException) {
+        //   emit(LoginNoInternet());
+        // }
+        //  else {
+        emit(LoginFailure(e.toString()));
       }
     });
   }
   Future<bool> login(String email, String password) async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      throw NoInternetException();
-    }
+    // var connectivityResult = await (Connectivity().checkConnectivity());
+    // if (connectivityResult == ConnectivityResult.none) {
+    // throw NoInternetException();
+    // }
     if (email.isEmpty || password.isEmpty) {
       return false;
     }
@@ -71,7 +69,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } else {
       Exception(
           'Failed to sign in user with status code: ${response.statusCode}');
-      print('Error response: ${response.body}');
       return false;
     }
   }

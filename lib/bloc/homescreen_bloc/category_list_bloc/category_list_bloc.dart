@@ -4,7 +4,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_state.dart';
-import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/models/homescreen_model/category_list_model.dart';
 
 class CategoryListBloc extends Bloc<CategoryListEvent, CategoryListState> {
@@ -12,10 +11,7 @@ class CategoryListBloc extends Bloc<CategoryListEvent, CategoryListState> {
     on<FetchCategoryList>(_onFetchCategoryList);
   }
 
-  // final LoginBloc loginBloc;
-
   Future<List<CategoryListData>> fetchCategoryList() async {
-    // String? userId = loginBloc.userId;
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
     final url = Uri.parse('https://ondgo.in/api/user-home-category-list.php');
@@ -50,6 +46,8 @@ class CategoryListBloc extends Bloc<CategoryListEvent, CategoryListState> {
           responseData['data'].forEach((item) {
             var dataCat = CategoryListData.fromJson(item);
             // print('Datacar Print +++ ${dataCat.toJson()}');
+            print(
+                'Datacat Category ID: ${dataCat.categoryId}, Category Name: ${dataCat.categoryName}');
             categories.add(dataCat);
           });
 
@@ -78,3 +76,18 @@ class CategoryListBloc extends Bloc<CategoryListEvent, CategoryListState> {
     }
   }
 }
+
+// class CategoryListDataDemo {
+//   final String categorysIdList;
+//   final String categorysNameList;
+
+//   CategoryListDataDemo(
+//       {required this.categorysIdList, required this.categorysNameList});
+
+//   factory CategoryListDataDemo.fromJson(Map<String, dynamic> json) {
+//     return CategoryListDataDemo(
+//       categorysIdList: json['category_id'].toString(),
+//       categorysNameList: json['category_name'],
+//     );
+//   }
+// }

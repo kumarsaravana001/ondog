@@ -4,8 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
-import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/models/homescreen_model/category_list_wise_model.dart';
+
+import '../../../networkconfig/api_url.dart';
 
 class CategoryWiseShowBloc
     extends Bloc<CategoryWiseShowEvent, CategoryWiseShowState> {
@@ -13,9 +14,7 @@ class CategoryWiseShowBloc
     on<FetchCategoryWiseShows>(_onFetchCategoryWiseShows);
   }
 
-  int categoryId = 3;
-
-  Future<List<CategoryWiseListData>> fetchShows() async {
+  Future<List<CategoryWiseListData>> fetchShows(int categoryId) async {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
     final url = Uri.parse('https://ondgo.in/api/user-category-wise-show.php');
@@ -24,14 +23,12 @@ class CategoryWiseShowBloc
       'user_id': userId,
       'category_id': categoryId,
     });
-
     try {
       final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/json',
-          'API_KEY':
-              'e5228f82365890808f9aa2301101e76970100ff6a4cd836e9c97b0ffe7f84e06',
+          'API_KEY': ApiUrl.apiKey,
         },
         body: body,
       );
@@ -60,7 +57,7 @@ class CategoryWiseShowBloc
       FetchCategoryWiseShows event, Emitter<CategoryWiseShowState> emit) async {
     try {
       emit(CategoryWiseShowLoading());
-      final shows = await fetchShows();
+      final shows = await fetchShows(event.categoryId);
       emit(CategoryWiseShowLoaded(shows));
     } catch (e) {
       emit(CategoryWiseShowError(e.toString()));
