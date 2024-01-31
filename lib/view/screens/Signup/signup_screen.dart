@@ -5,8 +5,8 @@ import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_event.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_state.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
+import 'package:ondgo_flutter/utilities/app_bg.dart';
 import 'package:ondgo_flutter/utilities/index.dart';
-
 import '../../../utilities/app_validator.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -18,35 +18,13 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController mobileController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-
-  // FocusNode emailFocusNode = FocusNode();
-  // FocusNode passwordFocusNode = FocusNode();
-  // FocusNode mobilenumberFocusNode = FocusNode();
-  // FocusNode firstNameFocusNode = FocusNode();
-  // FocusNode lastNameFocusNode = FocusNode();
-
-  ScrollController scrollController = ScrollController();
   bool isPasswordVisible = false;
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
-  void submitForm() {
-    if (_formKey.currentState!.validate()) {
-      context.read<SignInBloc>().add(
-            SignInRequested(
-              firstName: firstNameController.text,
-              lastName: lastNameController.text,
-              email: emailController.text,
-              password: passwordController.text,
-              mobileNumber: mobileController.text,
-            ),
-          );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +67,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Stack(
                     children: [
                       ClipPath(
-                        clipper: Hometopshape(),
+                        clipper: signupshape(),
                         child: Container(
                             height: 93.h,
                             width: double.infinity,
@@ -191,18 +169,18 @@ class _SignupScreenState extends State<SignupScreen> {
                                   Padding(
                                     padding: EdgeInsets.only(
                                         left: 15.sp, top: 22.sp),
-                                    child: InkWell(
-                                      onTap: () {
-                                        context.go("/login");
-                                      },
+                                    child: TextButton(
                                       child: Text(
-                                        AppLocalisation.alreadyhaveanaccount,
+                                        AppLocalisation.registernow,
                                         style: AppTestStyle.headingint(
                                             fontSize: 16.sp,
                                             color: AppColors.white,
                                             underline: true,
                                             fontWeight: FontWeight.w400),
                                       ),
+                                      onPressed: () {
+                                        context.go("/login");
+                                      },
                                     ),
                                   ),
                                   Padding(
@@ -247,26 +225,5 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
-  }
-}
-
-class Hometopshape extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path_0 = Path();
-    path_0.moveTo(size.width * -0.0050000, size.height * 1.0100000);
-    path_0.lineTo(size.width * 1.0041667, size.height * 1.0028571);
-    path_0.lineTo(size.width, size.height * 0.2200000);
-    path_0.lineTo(size.width * 0.5016667, size.height * 0.0028571);
-    path_0.lineTo(size.width * -0.0016667, size.height * 0.2142857);
-    path_0.lineTo(size.width * -0.0108333, size.height * 1.0142857);
-
-    path_0.close();
-    return path_0;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
   }
 }

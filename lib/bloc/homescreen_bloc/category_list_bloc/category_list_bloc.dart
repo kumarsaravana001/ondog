@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_state.dart';
@@ -7,15 +8,16 @@ import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/models/homescreen_model/category_list_model.dart';
 
 class CategoryListBloc extends Bloc<CategoryListEvent, CategoryListState> {
-  CategoryListBloc(this.loginBloc) : super(CategoryListInitial()) {
+  CategoryListBloc() : super(CategoryListInitial()) {
     on<FetchCategoryList>(_onFetchCategoryList);
   }
 
-  final LoginBloc loginBloc;
+  // final LoginBloc loginBloc;
 
   Future<List<CategoryListData>> fetchCategoryList() async {
-    String? userId = loginBloc.userId;
-
+    // String? userId = loginBloc.userId;
+    var box = Hive.box('sessionBox');
+    String? userId = box.get('userId');
     final url = Uri.parse('https://ondgo.in/api/user-home-category-list.php');
 
     if (userId == null) {

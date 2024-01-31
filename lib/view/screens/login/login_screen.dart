@@ -18,11 +18,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
+  bool isPasswordVisible = false;
   TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
-  bool isPasswordVisible = false;
 
   void _onLoginButtonPressed() {
     if (_formKey.currentState!.validate()) {
@@ -57,9 +56,12 @@ class _LoginScreenState extends State<LoginScreen> {
               content: Text('Login successful'),
             ));
 
-            Future.delayed(const Duration(milliseconds: 50), () {
+            Future.delayed(const Duration(microseconds: 1), () {
               GoRouter.of(context).go('/navbar');
             });
+          } else if (state is LoginNoInternet) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('No Internet Connection')));
           }
         },
         child: SafeArea(
@@ -127,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter your password';
                                   }
-                                  // Add more password validation logic if needed
+
                                   return null;
                                 },
                               ),
@@ -138,22 +140,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    InkWell(
-                                      onTap: () {
-                                        context.go("/signup");
-                                      },
-                                      child: Padding(
+                                    Padding(
                                         padding: EdgeInsets.only(top: 15.sp),
-                                        child: Text(
-                                          AppLocalisation.registernow,
-                                          style: AppTestStyle.headingint(
-                                              fontSize: 16.sp,
-                                              color: AppColors.white,
-                                              underline: true,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ),
-                                    ),
+                                        child: TextButton(
+                                          child: Text(
+                                            AppLocalisation.registernow,
+                                            style: AppTestStyle.headingint(
+                                                fontSize: 16.sp,
+                                                color: AppColors.white,
+                                                underline: true,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          onPressed: () {
+                                            context.go("/signup");
+                                          },
+                                        )),
                                     Padding(
                                       padding: EdgeInsets.only(top: 1.5.h),
                                       child: CustomElevatedButton(

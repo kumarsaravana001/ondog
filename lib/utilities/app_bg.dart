@@ -103,3 +103,23 @@ class Hometopshapelogin extends CustomClipper<Path> {
     return false;
   }
 }
+class signupshape extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path_0 = Path();
+    path_0.moveTo(size.width * -0.0050000, size.height * 1.0100000);
+    path_0.lineTo(size.width * 1.0041667, size.height * 1.0028571);
+    path_0.lineTo(size.width, size.height * 0.2200000);
+    path_0.lineTo(size.width * 0.5016667, size.height * 0.0028571);
+    path_0.lineTo(size.width * -0.0016667, size.height * 0.2142857);
+    path_0.lineTo(size.width * -0.0108333, size.height * 1.0142857);
+
+    path_0.close();
+    return path_0;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}

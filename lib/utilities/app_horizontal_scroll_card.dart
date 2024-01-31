@@ -54,11 +54,14 @@ class HorizontalScrollableCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(titlecard[index],
-                              style: AppTestStyle.headingint(
-                                  fontSize: 16.sp,
-                                  color: textColor,
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            _truncateTitle(titlecard[index]),
+                            style: AppTestStyle.headingint(
+                              fontSize: 16.sp,
+                              color: textColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           AppIconsWidget.horizontaldiamond(
                               color: cardStatusColor, size: 15),
                         ],
@@ -88,6 +91,14 @@ class HorizontalScrollableCard extends StatelessWidget {
         },
       ),
     );
+  }
+  String _truncateTitle(String title) {
+    List<String> words = title.split(' ');
+    if (words.length > 1) {
+      return '${words[0]} ...';
+    } else {
+      return title;
+    }
   }
 }
 

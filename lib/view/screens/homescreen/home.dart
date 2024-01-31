@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'dart:io';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_state.dart';
@@ -10,19 +14,18 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/categ
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
-import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/models/homescreen_model/banner_model.dart';
 import 'package:ondgo_flutter/models/homescreen_model/popular_picks_model.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
+import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-//trends
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -31,82 +34,88 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String? userId;
+  bool isOnline = true;
+  late StreamSubscription connectivitySubscription;
+
+  void monitorNetworkStatus() {
+    connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      bool previousStatus = isOnline;
+      setState(() {
+        isOnline = (result != ConnectivityResult.none);
+      });
+
+      if (!isOnline && previousStatus) {
+        // Internet was disconnected
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No Internet Connection')),
+        );
+      } else if (isOnline && !previousStatus) {
+        // Internet was reconnected
+        _loadData();
+      }
+    });
+  }
+
+  Future<void> _loadData() async {
+    BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
+    BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
+    BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
+    // Add other necessary data fetching calls
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserId();
+    monitorNetworkStatus();
+    if (isOnline) {
+      _loadData();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No Internet Connection')),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    connectivitySubscription.cancel();
+    super.dispose();
+  }
+
+  void _loadUserId() async {
+    var box = Hive.box('sessionBox');
+    userId = box.get('userId');
+    if (userId == null) {
+      // Handle user not found scenario, maybe navigate to login screen
+    } else {
+      // Make your API calls using userId
+    }
+  }
+
   List<String> popularPicks = [];
   List<String> showNames = [];
   List<String> categoryList = [];
 
   int _currentCarouselIndex = 0;
 
-  HorizontalScrollableCard popularPicksWidget(
-      List<PopularpicksData> popularpicks) {
-    List<String> imageUrls = [];
-    List<String> showNames = [];
-    for (var pick in popularpicks) {
-      String imageUrl = pick.thumbnail != null && pick.thumbnail!.isNotEmpty
-          ? pick.thumbnail!.first
-          : 'default_image_url';
-      imageUrls.add(imageUrl);
-      showNames.add(pick.showName ?? 'Default Show Name');
-    }
-
-    List<Image> imageWidgets = imageUrls.map((url) {
-      return Image.network(url, fit: BoxFit.cover);
-    }).toList();
-
-    return HorizontalScrollableCard(
-      cardStatusColor: Colors.indigoAccent,
-      titlecard: showNames,
-      imageListCount: popularpicks.length,
-      imageList: imageWidgets,
-      textColor: AppColors.white,
-    );
-  }
-
-  Widget buildBannerCarousel(List<Data> banners) {
-    List<Widget> bannerWidgets = banners.map((banner) {
-      String imageUrl = banner.thumbnail != null && banner.thumbnail!.isNotEmpty
-          ? banner.thumbnail!.last
-          : 'assets/images/coffee_with_crypto.png';
-
-      showNames.add(banner.categoryName ?? 'Default Banner');
-
-      return Image.network(imageUrl, fit: BoxFit.cover);
-    }).toList();
-    return CarouselSlider(
-      items: bannerWidgets,
-      options: CarouselOptions(
-        autoPlay: true,
-        autoPlayCurve: Curves.decelerate,
-        autoPlayInterval: const Duration(seconds: 5),
-        height: 71.h,
-        viewportFraction: 1.0,
-        onPageChanged: (index, reason) {
-          setState(() {
-            _currentCarouselIndex = index;
-          });
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final loginBloc = BlocProvider.of<LoginBloc>(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeScreenBannerBloc>(
-            create: (context) =>
-                HomeScreenBannerBloc(loginBloc)..add(FetchBanners())),
+            create: (context) => HomeScreenBannerBloc()..add(FetchBanners())),
         BlocProvider<PopularPicksBloc>(
-            create: (context) =>
-                PopularPicksBloc(loginBloc)..add(FetchPopularPicks())),
+            create: (context) => PopularPicksBloc()..add(FetchPopularPicks())),
         BlocProvider<CategoryListBloc>(
-          create: (context) =>
-              CategoryListBloc(loginBloc)..add(FetchCategoryList()),
+          create: (context) => CategoryListBloc()..add(FetchCategoryList()),
         ),
         BlocProvider<CategoryWiseShowBloc>(
           create: (context) =>
-              CategoryWiseShowBloc(loginBloc)..add(FetchCategoryWiseShows()),
+              CategoryWiseShowBloc()..add(FetchCategoryWiseShows()),
         ),
       ],
       child: Scaffold(
@@ -120,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       clipper: Hometopshape(),
                       child: Container(
                         height: 122.h,
-                        color: AppColors.black,
+                        color: Colors.black,
                       ),
                     ),
                     Positioned(
@@ -156,11 +165,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 if (state is HomeScreenBannerLoaded) {
                                   return buildBannerCarousel(state.banners);
                                 } else if (state is HomeScreenBannerLoading) {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
+                                  return buildbannerShimmerEffect();
                                 } else {
-                                  return const Center(
-                                      child: Text('Error loading banners'));
+                                  return buildbannerShimmerEffect();
                                 }
                               },
                             ),
@@ -176,9 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               top: 0,
                               right: 30,
                               child: InkWell(
-                                onTap: () {
-                                  // context.push("/home");
-                                },
+                                onTap: () {},
                                 child: SvgPicture.asset(
                                     IconAssets.badgecloseblack),
                               ),
@@ -298,17 +303,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 Stack(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 22.sp),
-                      child: SvgPicture.asset(IconAssets.appbackground),
-                    ),
+                        padding: EdgeInsets.only(bottom: 22.sp),
+                        child: SvgPicture.asset(IconAssets.appbackground)),
                     Center(
-                      child: Text(
-                        AppLocalisation.popularpicks,
-                        style: AppTestStyle.headingBai(
-                            fontSize: 22.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w800),
-                      ),
+                      child: Text(AppLocalisation.popularpicks,
+                          style: AppTestStyle.headingBai(
+                              fontSize: 22.sp,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w800)),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
@@ -317,11 +319,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (state is PopularPicksLoaded) {
                             return popularPicksWidget(state.popularPicks);
                           } else if (state is PopularPicksLoading) {
-                            return const Center(
-                                child: CircularProgressIndicator());
+                            return horizontalCardShimmerWidget();
                           } else {
-                            return const Center(
-                                child: Text('Error loading banners'));
+                            return horizontalCardShimmerWidget();
                           }
                         },
                       ),
@@ -341,14 +341,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               state.categories.isNotEmpty) {
                             return Text(
                               state.categories[0].categoryName ??
-                                  'Default Category Name', // Access the first item's categoryName
+                                  'Default Category Name',
                               style: AppTestStyle.headingBai(
                                   fontSize: 22.sp,
                                   color: AppColors.black,
                                   fontWeight: FontWeight.w800),
                             );
                           } else {
-                            return const Text('Loading');
+                            return buildTextShimmerEffect();
                           }
                         },
                       ),
@@ -378,10 +378,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           );
                         } else if (state is CategoryWiseShowError) {
-                          return Center(child: Text('Error: ${state.message}'));
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: horizontalCardShimmerWidget(),
+                          );
+                          //Center(child: Text('Error: ${state.message}'));
                         } else {
-                          return const Center(
-                              child: Text('Please select a category.'));
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: horizontalCardShimmerWidget(),
+                          );
+                          //  Center(
+                          //     child: Text('Please select a category.'));
                         }
                       },
                     ),
@@ -389,10 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Stack(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 22.sp),
-                      child: SvgPicture.asset(IconAssets.appbackground),
-                    ),
+                    SvgPicture.asset(IconAssets.appbackground),
                     Center(
                       child: BlocBuilder<CategoryListBloc, CategoryListState>(
                         builder: (context, state) {
@@ -407,7 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.w800),
                             );
                           } else {
-                            return const Text('Loading');
+                            return buildTextShimmerEffect();
                           }
                         },
                       ),
@@ -426,64 +431,160 @@ class _HomeScreenState extends State<HomeScreen> {
                                 : 'default_image_url';
                             return Image.network(imageUrl, fit: BoxFit.cover);
                           }).toList();
-                         
 
                           return Padding(
                             padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
                             child: HorizontalScrollableCard(
                                 cardStatusColor: Colors.brown,
-                                titlecard: legalimagepathtitle,
-                                imageListCount: legalImagepath.length,
-                                imageList: legalImagepath,
+                                titlecard: showNames,
+                                imageListCount: state.shows.length,
+                                imageList: imageWidgets,
                                 textColor: AppColors.white),
                           );
                         } else if (state is CategoryWiseShowError) {
-                          return Center(child: Text('Error: ${state.message}'));
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: horizontalCardShimmerWidget(),
+                          );
+                          // Center(child: Text('Error: ${state.message}'));
                         } else {
-                          return const Center(
-                              child: Text('Please select a category.'));
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: horizontalCardShimmerWidget(),
+                          );
+                          //  Center(
+                          //     child: Text('Please select a category.'));
                         }
                       },
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                    //   child: HorizontalScrollableCard(
-                    //       cardStatusColor: Colors.brown,
-                    //       titlecard: legalimagepathtitle,
-                    //       imageListCount: legalImagepath.length,
-                    //       imageList: legalImagepath,
-                    //       textColor: AppColors.white),
-                    // )
                   ],
                 ),
                 Stack(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 45.sp),
-                      child: SvgPicture.asset(IconAssets.appbackground),
+                    SvgPicture.asset(IconAssets.appbackground),
+                    BlocBuilder<CategoryListBloc, CategoryListState>(
+                      builder: (context, state) {
+                        if (state is CategoryListLoaded &&
+                            state.categories.isNotEmpty) {
+                          return Center(
+                            child: Text(
+                              state.categories[2].categoryName ??
+                                  'Default Category Name', // Access the first item's categoryName
+                              style: AppTestStyle.headingBai(
+                                  fontSize: 22.sp,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                          );
+                        } else {
+                          return Center(child: buildTextShimmerEffect());
+                        }
+                      },
                     ),
-                    Center(
-                      child: Text(AppLocalisation.technology,
-                          style: AppTestStyle.headingBai(
-                              fontSize: 22.sp,
-                              color: AppColors.black,
-                              fontWeight: FontWeight.w800)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                      child: HorizontalScrollableCard(
-                        cardStatusColor: Colors.blue[300]!,
-                        titlecard: technologyimagepathtitle,
-                        imageListCount: technologiesImagepath.length,
-                        imageList: technologiesImagepath,
-                        textColor: AppColors.white,
-                      ),
+                    BlocBuilder<CategoryWiseShowBloc, CategoryWiseShowState>(
+                      builder: (context, state) {
+                        if (state is CategoryWiseShowLoading) {
+                          return const CircularProgressIndicator();
+                        } else if (state is CategoryWiseShowLoaded) {
+                          List<String> showNames = state.shows
+                              .map((show) => show.showName ?? 'No Show Name')
+                              .toList();
+                          List<Widget> imageWidgets = state.shows.map((show) {
+                            String imageUrl = show.thumbnail!.isNotEmpty
+                                ? show.thumbnail!.first
+                                : 'default_image_url';
+                            return Image.network(imageUrl, fit: BoxFit.cover);
+                          }).toList();
+
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: HorizontalScrollableCard(
+                                cardStatusColor: Colors.brown,
+                                titlecard: showNames,
+                                imageListCount: state.shows.length,
+                                imageList: imageWidgets,
+                                textColor: AppColors.white),
+                          );
+                        } else if (state is CategoryWiseShowError) {
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: horizontalCardShimmerWidget(),
+                          );
+                          // Center(child: Text('Error: ${state.message}'));
+                        } else {
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                            child: horizontalCardShimmerWidget(),
+                          );
+                          //  Center(
+                          //     child: Text('Please select a category.'));
+                        }
+                      },
                     ),
                   ],
                 ),
+                SizedBox(height: 12.h)
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  HorizontalScrollableCard popularPicksWidget(
+      List<PopularpicksData> popularpicks) {
+    List<String> imageUrls = [];
+    List<String> showNames = [];
+    for (var pick in popularpicks) {
+      String imageUrl = pick.thumbnail != null && pick.thumbnail!.isNotEmpty
+          ? pick.thumbnail!.first
+          : 'default_image_url';
+      imageUrls.add(imageUrl);
+      showNames.add(pick.showName ?? 'Default Show Name');
+    }
+
+    List<Image> imageWidgets = imageUrls.map((url) {
+      return Image.network(url, fit: BoxFit.cover);
+    }).toList();
+
+    return HorizontalScrollableCard(
+      cardStatusColor: Colors.indigoAccent,
+      titlecard: showNames,
+      imageListCount: popularpicks.length,
+      imageList: imageWidgets,
+      textColor: AppColors.white,
+    );
+  }
+
+  Widget buildBannerCarousel(List<Data> banners) {
+    List<Widget> bannerWidgets = banners.expand((banner) {
+      List<String> imageUrls =
+          banner.thumbnail != null && banner.thumbnail!.isNotEmpty
+              ? banner.thumbnail!
+              : ['assets/images/middleclass_banner.png'];
+
+      showNames.add(banner.categoryName ?? 'Default Banner');
+
+      return imageUrls.map((imageUrl) {
+        return Image.network(imageUrl, fit: BoxFit.cover);
+      });
+    }).toList();
+    return SizedBox(
+      height: 71.h,
+      child: CarouselSlider(
+        items: bannerWidgets,
+        options: CarouselOptions(
+          autoPlay: true,
+          autoPlayCurve: Curves.decelerate,
+          autoPlayInterval: const Duration(seconds: 5),
+          height: 71.h,
+          viewportFraction: 1.0,
+          onPageChanged: (index, reason) {
+            setState(() {
+              _currentCarouselIndex = index;
+            });
+          },
         ),
       ),
     );

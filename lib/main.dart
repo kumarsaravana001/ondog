@@ -1,30 +1,27 @@
 import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:device_preview/device_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
-import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_bloc.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
-import 'routers/app_router.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'utilities/index.dart';
+import 'package:ondgo_flutter/view/screens/Signup/signup_screen.dart';
+import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
+import '../view/view_index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  var box = await Hive.openBox('loginBox');
-  String? authToken = box.get('authToken');
+  await Hive.openBox('sessionBox');
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  String initialRoute = authToken != null ? '/navbar' : '/login';
-  print('Retrieved Auth Token: $authToken');
+  String initialRoute = determineInitialRoute();
   runApp(
       //DevicePreview(
       //builder: (context) => MyApp(
@@ -34,28 +31,102 @@ void main() async {
       MyApp(initialRoute: initialRoute));
 }
 
-class MyApp extends StatefulWidget {
-  final String initialRoute;
+String determineInitialRoute() {
+  var box = Hive.box('sessionBox');
+  String? userId = box.get('userId');
+  return userId != null ? '/navbar' : '/login';
+}
 
+class MyApp extends StatefulWidget {
   const MyApp({
     Key? key,
     required this.initialRoute,
   }) : super(key: key);
+
+  final String initialRoute;
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  String initialRoute = '/login';
+
+  @override
+  void initState() {
+    super.initState();
+    _checkUserSession();
+  }
+
+  void _checkUserSession() {
+    var box = Hive.box('sessionBox');
+    String? userId = box.get('userId');
+    if (userId != null) {
+      initialRoute = '/navbar';
+    } else {
+      initialRoute = '/signup';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final router = GoRouter(
+      initialLocation: widget.initialRoute,
+      routes: [
+        GoRoute(
+            path: '/', builder: (context, state) => const SplashScreenone()),
+        GoRoute(
+            path: '/splash2',
+            builder: (context, state) => const SplashScreentwo()),
+        GoRoute(
+            path: '/signup', builder: (context, state) => const SignupScreen()),
+
+        GoRoute(
+            path: '/login', builder: (context, state) => const LoginScreen()),
+        GoRoute(path: '/navbar', builder: (context, state) => const Navbar()),
+        GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
+        GoRoute(
+            path: '/showcase',
+            builder: (context, state) => const ShowCaseScreen()),
+        GoRoute(
+            path: '/search',
+            builder: (context, state) => const SearchandLibraryScreen()),
+        GoRoute(
+            path: '/profile',
+            builder: (context, state) => const ProfileScreen()),
+        GoRoute(
+            path: '/playlist',
+            builder: (context, state) => const PlayListScreen()),
+        GoRoute(
+            path: '/events', builder: (context, state) => const EventsScreen()),
+        GoRoute(
+            path: '/purchase',
+            builder: (context, state) => const PurchaseScreen()),
+        GoRoute(
+            path: '/rewards',
+            builder: (context, state) => const RewardsScreen()),
+        GoRoute(
+            path: '/language',
+            builder: (context, state) => const LanguageScreen()),
+        GoRoute(path: '/help', builder: (context, state) => const HelpScreen()),
+        GoRoute(
+            path: '/feedback',
+            builder: (context, state) => const FeedbackScreen()),
+        GoRoute(
+            path: '/contact',
+            builder: (context, state) => const ContactUsScreen()),
+        GoRoute(
+            path: '/reels', builder: (context, state) => const ReelsScreen()),
+        GoRoute(
+            path: '/fullScreenImage',
+            builder: (context, state) => const ReelsFullScreen()),
+        // GoRoute(path: '/test', builder: (context, state) => const TestScreen()),
+      ],
+    );
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => LoginBloc()),
-          BlocProvider<HomeScreenBannerBloc>(
-            create: (context) =>
-                HomeScreenBannerBloc(BlocProvider.of<LoginBloc>(context)),
-          ),
           BlocProvider(create: (context) => SignInBloc()),
         ],
         child: MaterialApp.router(
@@ -67,16 +138,4 @@ class _MyAppState extends State<MyApp> {
       );
     });
   }
-}
-
-Future<void> storeLoginToken(String token) async {
-  var box = Hive.box('loginBox');
-  await box.put('authToken', token);
-  print('Stored Auth Token: $token'); // Debug print
-}
-
-Future<void> clearLoginToken() async {
-  var box = Hive.box('loginBox');
-  await box.delete('authToken');
-  print('Cleared Auth Token'); // Debug print
 }

@@ -25,3 +25,5 @@ Future<void> saveLoginState(String token) async {
   await prefs.setString(
       'login_token', token); // Use a key like 'login_token' to store the token
 }
+
+class LoginNoInternet extends LoginState {}

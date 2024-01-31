@@ -1,15 +1,15 @@
 import 'dart:convert';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_state.dart';
-import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/models/homescreen_model/banner_model.dart';
 
 class HomeScreenBannerBloc
     extends Bloc<HomeScreenBannerEvent, HomeScreenBannerState> {
-  final LoginBloc loginBloc;
-  HomeScreenBannerBloc(this.loginBloc) : super(HomeScreenBannerInitial()) {
+  // final LoginBloc loginBloc;
+  HomeScreenBannerBloc() : super(HomeScreenBannerInitial()) {
     on<FetchBanners>(_onFetchBanners);
   }
 
@@ -21,22 +21,24 @@ class HomeScreenBannerBloc
       emit(HomeScreenBannerLoaded(banners));
     } catch (e) {
       emit(HomeScreenBannerError(e.toString()));
-      // print('Error occurred in _onFetchBanners: $e');
     }
   }
 
   Future<List<Data>> fetchBanners() async {
-    String? userId = loginBloc.userId;
+    // String? userId = loginBloc.userId;
+    var box = Hive.box('sessionBox');
+    String? userId = box.get('userId');
 
     final url = Uri.parse('https://ondgo.in/api/user-home-screen-banner.php');
 
     if (userId == null) {
-      throw Exception('User ID is null');
+      throw Exception('User ID is null home');
     }
 
     final body = json.encode({
       'user_id': userId,
     });
+    print('userid: ${userId}');
 
     try {
       final response = await http.post(
@@ -49,8 +51,8 @@ class HomeScreenBannerBloc
         body: body,
       );
 
-      // print('Banner Response Status: ${response.statusCode}');
-      // print('Banner Response Body: ${response.body}');
+      print('Banner Response Status: ${response.statusCode}');
+      print('Banner Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);

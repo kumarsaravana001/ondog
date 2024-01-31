@@ -21,6 +21,8 @@
 //     });
 //   }
 
+// ignore_for_file: library_private_types_in_public_api, deprecated_member_use
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(

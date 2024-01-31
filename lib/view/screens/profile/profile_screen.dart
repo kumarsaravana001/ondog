@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -7,6 +8,11 @@ class ProfileScreen extends StatefulWidget {
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+Future<void> logout() async {
+  var box = Hive.box('sessionBox');
+  await box.delete('userId');
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
@@ -104,6 +110,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   }),
                   buildClickableText(AppLocalisation.contact, () {
                     context.push("/contact");
+                  }),
+                  buildClickableText(AppLocalisation.logout, () {
+                    logout();
+                    context.push("/splash2");
                   }),
                   SizedBox(height: 8.h),
                 ],

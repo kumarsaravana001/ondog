@@ -28,6 +28,7 @@ class AppLocalisation {
   static const registernow = "Register now";
   static const alreadyhaveanaccount = "Already have an account";
   static const login = "log in";
+  static const logout = "log Out";
   static const signup = "Signup";
 
   //Profile

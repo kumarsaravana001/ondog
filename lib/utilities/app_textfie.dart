@@ -1,27 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 
 class CustomTextField extends StatefulWidget {
-  final String hintText;
-  final TextEditingController controller;
-  final TextInputType inputType;
-  final bool enabled;
-  final TextAlign textAlign;
-  final Color borderColor;
-  final Color textColor;
-  final Color hintColor;
-  final double borderRadius;
-  final EdgeInsetsGeometry contentPadding;
-  final IconData? suffixIcon;
-  final VoidCallback? onSuffixIconPressed;
-  final FocusNode? focusnode;
-  final Function(String?)? onSaved;
-  final bool isPassword;
-  final bool isPasswordVisible;
-  final FormFieldValidator<String>? validator;
-  final int? maxLines;
-  final bool showCountryCodePicker;
-
   const CustomTextField({
     Key? key,
     this.hintText = 'Enter text',
@@ -46,19 +27,37 @@ class CustomTextField extends StatefulWidget {
     this.showCountryCodePicker = false,
   }) : super(key: key);
 
+  final Function(String?)? onSaved;
+  final Color borderColor;
+  final double borderRadius;
+  final EdgeInsetsGeometry contentPadding;
+  final TextEditingController controller;
+  final bool enabled;
+  final FocusNode? focusnode;
+  final Color hintColor;
+  final String hintText;
+  final TextInputType inputType;
+  final bool isPassword;
+  final bool isPasswordVisible;
+  final int? maxLines;
+  final VoidCallback? onSuffixIconPressed;
+  final bool showCountryCodePicker;
+  final IconData? suffixIcon;
+  final TextAlign textAlign;
+  final Color textColor;
+  final FormFieldValidator<String>? validator;
+
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late bool _isPasswordVisible;
-  String? _phoneNumberError;
 
   @override
   void initState() {
     super.initState();
     _isPasswordVisible = widget.isPasswordVisible;
-    _phoneNumberError = null;
   }
 
   void _togglePasswordVisibility() {
@@ -67,55 +66,60 @@ class _CustomTextFieldState extends State<CustomTextField> {
     });
   }
 
-  void _validatePhoneNumber(String? phone) {
-    if (phone == null || phone.isEmpty) {
-      _phoneNumberError = 'Mobile Number is required';
-    } else if (!RegExp(r'^\+?[0-9]{10,}$').hasMatch(phone)) {
-      _phoneNumberError = 'Enter a valid mobile number';
-    } else {
-      _phoneNumberError = null;
-    }
-    setState(() {}); // Update the UI to display the error message
-  }
+  // String? phoneInputValidator(PhoneNumber? phone) {
+  //   if (phone == null || phone.completeNumber.isEmpty) {
+  //     return 'Mobile Number is required';
+  //   } else if (!RegExp(r'^[0-9]{10}$').hasMatch(phone.number)) {
+  //     return 'Enter a valid 10 digit mobile number';
+  //   }
+  //   return null;
+  // }
 
-  void validatePhoneNumber() {
-    _validatePhoneNumber(widget.controller.text);
+  String? phoneInputValidator(PhoneNumber? phone) {
+    if (phone == null || phone.completeNumber.isEmpty) {
+      return 'Mobile Number is required';
+    }
+    try {
+      var phoneNumber =
+          int.parse(phone.number); // Parse the phone number to int
+      if (phone.number.length != 10) {
+        return 'Enter a valid 10 digit mobile number';
+      }
+    } catch (e) {
+      return 'Enter a valid mobile number'; // In case of non-numeric characters
+    }
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
     return (widget.showCountryCodePicker)
         ? IntlPhoneField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             disableLengthCheck: true,
             decoration: InputDecoration(
-              errorText: _phoneNumberError,
               floatingLabelBehavior: FloatingLabelBehavior.never,
               filled: true,
               fillColor: Colors.white,
               hintText: widget.hintText,
               hintStyle: TextStyle(
-                color: widget.hintColor,
-                fontStyle: FontStyle.italic,
-              ),
+                  color: widget.hintColor, fontStyle: FontStyle.italic),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide.none,
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide.none),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: widget.borderColor),
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: widget.borderColor)),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: widget.borderColor),
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: widget.borderColor)),
               contentPadding: widget.contentPadding,
             ),
             initialCountryCode: 'IN',
             onChanged: (phone) {
               widget.controller.text = phone.completeNumber;
-              _validatePhoneNumber(phone.completeNumber);
             },
+            validator: phoneInputValidator,
           )
         : TextFormField(
             focusNode: widget.focusnode,
@@ -123,32 +127,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
             controller: widget.controller,
             obscureText: widget.isPassword ? !_isPasswordVisible : false,
             keyboardType: widget.inputType,
-            // maxLines: widget.maxLines,
             enabled: widget.enabled,
             textAlign: widget.textAlign,
             style: TextStyle(color: widget.textColor),
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white, // Background color
+              fillColor: Colors.white,
               hintText: widget.hintText,
               hintStyle: TextStyle(
-                color: widget.hintColor,
-                fontStyle: FontStyle.italic,
-              ),
+                  color: widget.hintColor, fontStyle: FontStyle.italic),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide.none,
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide.none),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: widget.borderColor),
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: widget.borderColor)),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: widget.borderColor),
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: widget.borderColor)),
               contentPadding: widget.contentPadding,
-
               suffixIcon: widget.isPassword
                   ? IconButton(
                       icon: Icon(

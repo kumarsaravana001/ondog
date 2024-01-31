@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
@@ -7,9 +8,9 @@ import 'package:ondgo_flutter/models/homescreen_model/popular_picks_model.dart';
 import 'package:http/http.dart' as http;
 
 class PopularPicksBloc extends Bloc<PopularPicksEvent, PopularPicksState> {
-  final LoginBloc loginBloc;
+  // final LoginBloc loginBloc;
 
-  PopularPicksBloc(this.loginBloc) : super(PopularPicksInitial()) {
+  PopularPicksBloc() : super(PopularPicksInitial()) {
     on<FetchPopularPicks>(_onFetchPopularPicks);
   }
 
@@ -26,8 +27,9 @@ class PopularPicksBloc extends Bloc<PopularPicksEvent, PopularPicksState> {
   }
 
   Future<List<PopularpicksData>> fetchPopularPicks() async {
-    String? userId = loginBloc.userId;
-
+    // String? userId = loginBloc.userId;
+    var box = Hive.box('sessionBox');
+    String? userId = box.get('userId');
     final url = Uri.parse('https://ondgo.in/api/user-home-popular-pickup.php');
 
     if (userId == null) {

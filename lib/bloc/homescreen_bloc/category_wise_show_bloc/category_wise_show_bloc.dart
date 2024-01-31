@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_event.dart';
@@ -8,24 +9,22 @@ import 'package:ondgo_flutter/models/homescreen_model/category_list_wise_model.d
 
 class CategoryWiseShowBloc
     extends Bloc<CategoryWiseShowEvent, CategoryWiseShowState> {
-  CategoryWiseShowBloc(this.loginBloc) : super(CategoryWiseShowInitial()) {
+  CategoryWiseShowBloc() : super(CategoryWiseShowInitial()) {
     on<FetchCategoryWiseShows>(_onFetchCategoryWiseShows);
   }
 
   int categoryId = 3;
-  final LoginBloc loginBloc;
 
   Future<List<CategoryWiseListData>> fetchShows() async {
-    String? userId = loginBloc.userId;
-
+    var box = Hive.box('sessionBox');
+    String? userId = box.get('userId');
     final url = Uri.parse('https://ondgo.in/api/user-category-wise-show.php');
 
     final body = json.encode({
       'user_id': userId,
       'category_id': categoryId,
     });
-    // print('jsonbody ${body}');
-    // print('User_id & Category_id 2 ${userId} , ${categoryId}');
+
     try {
       final response = await http.post(
         url,

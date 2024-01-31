@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../config/config_index.dart';
 
 class SplashScreenone extends StatefulWidget {
@@ -18,7 +16,7 @@ class _SplashScreenoneState extends State<SplashScreenone> {
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(microseconds: 2), () {
       GoRouter.of(context).go("/splash2");
     });
   }
