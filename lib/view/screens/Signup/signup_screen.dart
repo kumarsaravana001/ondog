@@ -38,7 +38,13 @@ class _SignupScreenState extends State<SignupScreen> {
             );
           }
           if (state is SignInSuccess) {
-            GoRouter.of(context).go('/navbar');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Registration successful")),
+            );
+            // Delay navigation to allow the user to see the SnackBar message
+            Future.delayed(Duration(seconds: 2), () {
+              GoRouter.of(context).go('/login'); // Navigate to the login screen
+            });
           }
         },
         child: SafeArea(
@@ -69,7 +75,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ClipPath(
                         clipper: signupshape(),
                         child: Container(
-                            height: 93.h,
+                            height: 95.h,
                             width: double.infinity,
                             color: AppColors.black),
                       ),
@@ -134,15 +140,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 hintText: "Email",
                                 borderColor: AppColors.white,
                                 textColor: AppColors.black,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Email is required';
-                                  } else if (!RegExp(r'\S+@\S+\.\S+')
-                                      .hasMatch(value)) {
-                                    return 'Enter a valid Email';
-                                  }
-                                  return null;
-                                },
+                                validator: (value) =>
+                                    ValidationUtil.validateEmail(value),
                               ),
                               SizedBox(height: 3.h),
                               CustomTextField(
@@ -166,23 +165,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 15.sp, top: 22.sp),
-                                    child: TextButton(
-                                      child: Text(
-                                        AppLocalisation.registernow,
-                                        style: AppTestStyle.headingint(
-                                            fontSize: 16.sp,
-                                            color: AppColors.white,
-                                            underline: true,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      onPressed: () {
-                                        context.go("/login");
-                                      },
-                                    ),
-                                  ),
+                                  Container(),
                                   Padding(
                                     padding: EdgeInsets.only(
                                         top: 3.5.h, right: 10.sp),

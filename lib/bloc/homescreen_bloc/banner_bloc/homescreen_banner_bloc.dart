@@ -38,7 +38,7 @@ class HomeScreenBannerBloc
     final body = json.encode({
       'user_id': userId,
     });
-    print('userid: ${userId}');
+    // print('userid: ${userId}');
 
     try {
       final response = await http.post(
@@ -51,8 +51,8 @@ class HomeScreenBannerBloc
         body: body,
       );
 
-      print('Banner Response Status: ${response.statusCode}');
-      print('Banner Response Body: ${response.body}');
+      // print('Banner Response Status: ${response.statusCode}');
+      // print('Banner Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);

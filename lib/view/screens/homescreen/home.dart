@@ -40,14 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int? selectedCategoryId;
   List<String> showNames = [];
   String? userId;
+  Timer? connectivityCheckTimer;
 
   int _currentCarouselIndex = 0;
-
-  @override
-  void dispose() {
-    connectivitySubscription.cancel();
-    super.dispose();
-  }
 
   @override
   void initState() {
@@ -55,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _loadUserId();
     monitorNetworkStatus();
     if (isOnline) {
-      _loadData();
+      // _loadData();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('No Internet Connection')),
@@ -72,16 +67,41 @@ class _HomeScreenState extends State<HomeScreen> {
         isOnline = (result != ConnectivityResult.none);
       });
 
-      if (!isOnline && previousStatus) {
-        // Internet was disconnected
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('No Internet Connection')),
-        );
-      } else if (isOnline && !previousStatus) {
+      if (isOnline && !previousStatus) {
         // Internet was reconnected
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Internet Connection Restored')));
         _loadData();
+        connectivityCheckTimer?.cancel(); // Stop checking for connectivity
+      } else if (!isOnline && previousStatus) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('No Internet Connection')));
+        startConnectivityCheck(); // Start periodic check for connectivity
       }
     });
+  }
+
+  void startConnectivityCheck() {
+    connectivityCheckTimer?.cancel(); // Cancel any existing timer
+    connectivityCheckTimer =
+        Timer.periodic(const Duration(seconds: 10), (timer) async {
+      var connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult != ConnectivityResult.none) {
+        isOnline = true;
+        _loadData();
+        connectivityCheckTimer?.cancel(); // Stop the timer as internet is back
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Internet Connection Restored')));
+      }
+    });
+  }
+
+  void _loadData() {
+    // Triggering the fetching of data for each relevant BLoC
+    BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
+    BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
+    BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
+    // Add other BLoC fetch events here as needed
   }
 
   HorizontalScrollableCard popularPicksWidget(
@@ -142,13 +162,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> _loadData() async {
-    BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
-    BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
-    BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
-    // Add other necessary data fetching calls
-  }
-
   void _loadUserId() async {
     var box = Hive.box('sessionBox');
     userId = box.get('userId');
@@ -157,6 +170,13 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       // Make your API calls using userId
     }
+  }
+
+  @override
+  void dispose() {
+    connectivitySubscription.cancel();
+    connectivityCheckTimer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -172,6 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BlocProvider<CategoryWiseShowBloc>(
             create: (context) => CategoryWiseShowBloc()),
+        BlocProvider<CategoryWiseShowBloc1>(
+            create: (context) => CategoryWiseShowBloc1()),
+        BlocProvider<CategoryWiseShowBloc2>(
+            create: (context) => CategoryWiseShowBloc2()),
       ],
       child: Scaffold(
         body: SafeArea(
@@ -390,209 +414,280 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: SvgPicture.asset(IconAssets.appbackground),
                     ),
                     Center(
-                      child: BlocBuilder<CategoryListBloc, CategoryListState>(
-                        builder: (context, state) {
+                      child: BlocListener<CategoryListBloc, CategoryListState>(
+                        listener: (context, state) {
                           if (state is CategoryListLoaded &&
                               state.categories.isNotEmpty) {
-                            List<int> categoryIds =
-                                state.categories.map((category) {
-                              return int.parse(category.categoryId!);
+                            int categoryId =
+                                int.parse(state.categories[0].categoryId!);
+                            BlocProvider.of<CategoryWiseShowBloc>(context).add(
+                                FetchCategoryWiseShows(categoryId: categoryId));
+
+                            print("inside bloclistner 1 ${categoryId}");
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 13.sp),
+                          child: Center(
+                            child: BlocBuilder<CategoryListBloc,
+                                CategoryListState>(
+                              builder: (context, state) {
+                                if (state is CategoryListLoaded &&
+                                    state.categories.isNotEmpty) {
+                                  return Text(
+                                    state.categories[0].categoryName ??
+                                        'Default Category Name',
+                                    style: AppTestStyle.headingBai(
+                                        fontSize: 22.sp,
+                                        color: AppColors.black,
+                                        fontWeight: FontWeight.w800),
+                                  );
+                                } else {
+                                  return buildTextShimmerEffect();
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      child: BlocBuilder<CategoryWiseShowBloc,
+                          CategoryWiseShowState>(
+                        builder: (context, state) {
+                          if (state is CategoryWiseShowLoading) {
+                            return const CircularProgressIndicator();
+                          } else if (state is CategoryWiseShowLoaded &&
+                              state.shows.isNotEmpty) {
+                            List<String> showNames = state.shows
+                                .map((show) => show.showName ?? 'No Show Name')
+                                .toList();
+                            // print(
+                            //     "inside blocBuilder Showwise 1  ${showNames}");
+                            List<Widget> imageWidgets = state.shows.map((show) {
+                              String imageUrl = show.thumbnail!.isNotEmpty
+                                  ? show.thumbnail![0]
+                                  : 'default_image_url';
+                              // print(
+                              //     "inside blocBuilder Showwise 1 ${imageUrl}");
+                              return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();
-                            // categoryIds.forEach((id) {
-                            //   print("Category ID 123[]: $id");
-                            // });
-                            for (var id in categoryIds) {
-                              BlocProvider.of<CategoryWiseShowBloc>(context)
-                                  .add(FetchCategoryWiseShows(categoryId: id));
-                            }
-                            return Text(
-                              state.categories[0].categoryName ??
-                                  'Default Category Name',
-                              style: AppTestStyle.headingBai(
-                                  fontSize: 22.sp,
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.w800),
+
+                            return HorizontalScrollableCard(
+                              cardStatusColor: Colors.brown,
+                              titlecard: showNames,
+                              imageListCount: state.shows.length,
+                              imageList: imageWidgets,
+                              textColor: AppColors.white,
                             );
+                          } else if (state is CategoryWiseShowError) {
+                            return Text('Error: ${state.message}');
                           } else {
-                            return buildTextShimmerEffect();
+                            return horizontalCardShimmerWidget(); // Or handle other states as needed
                           }
                         },
                       ),
-                    ),
-                    BlocBuilder<CategoryWiseShowBloc, CategoryWiseShowState>(
-                      builder: (context, state) {
-                        // if (state is CategoryWiseShowLoading) {
-                        //   return const CircularProgressIndicator();
-                        // } else
-                        if (state is CategoryWiseShowLoaded &&
-                            state.shows.any((show) => show.categoryId == "1")) {
-                          var filteredShows = state.shows
-                              .where((show) => show.categoryId == "1")
-                              .toList();
-
-                          print(
-                              'Filtered shows count: ${filteredShows.length}');
-                          print(
-                              'Filtered shows count: ${filteredShows.length}');
-
-                          List<String> showNames = /*state.shows*/ filteredShows
-                              .map((show) => show.showName ?? 'No Show Name')
-                              .toList();
-                          List<Widget> imageWidgets = /*state.shows*/
-                              filteredShows.map((show) {
-                            String imageUrl = show.thumbnail!.isNotEmpty
-                                ? show.thumbnail![0]
-                                : 'default_image_url';
-
-                            print('image from [1] ${imageUrl}');
-                            return Image.network(imageUrl, fit: BoxFit.cover);
-                          }).toList();
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: HorizontalScrollableCard(
-                              cardStatusColor: Colors.blue,
-                              titlecard: showNames,
-                              imageListCount: filteredShows.length,
-                              imageList: imageWidgets,
-                              textColor: AppColors.white,
-                            ),
-                          );
-                        } else if (state is CategoryWiseShowError) {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: horizontalCardShimmerWidget(),
-                          );
-                        } else {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: horizontalCardShimmerWidget(),
-                          );
-                        }
-                      },
-                    ),
+                    )
                   ],
                 ),
                 Stack(
                   children: [
                     SvgPicture.asset(IconAssets.appbackground),
                     Center(
-                      child: BlocBuilder<CategoryListBloc, CategoryListState>(
-                        builder: (context, state) {
+                      child: BlocListener<CategoryListBloc, CategoryListState>(
+                        listener: (context, state) {
                           if (state is CategoryListLoaded &&
                               state.categories.isNotEmpty) {
-                            return Text(
-                              state.categories[1].categoryName ??
-                                  'Default Category Name',
-                              style: AppTestStyle.headingBai(
-                                  fontSize: 22.sp,
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.w800),
+                            int categoryIdd =
+                                int.parse(state.categories[1].categoryId!);
+                            BlocProvider.of<CategoryWiseShowBloc1>(context).add(
+                                FetchCategoryWiseShows1(
+                                    categoryIdd: categoryIdd));
+
+                            print("inside bloclistner 2 ${categoryIdd}");
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 13.sp),
+                          child: Center(
+                            child: BlocBuilder<CategoryListBloc,
+                                CategoryListState>(
+                              builder: (context, state) {
+                                if (state is CategoryListLoaded &&
+                                    state.categories.isNotEmpty) {
+                                  return Text(
+                                    state.categories[1].categoryName ??
+                                        'Default Category Name',
+                                    style: AppTestStyle.headingBai(
+                                        fontSize: 22.sp,
+                                        color: AppColors.black,
+                                        fontWeight: FontWeight.w800),
+                                  );
+                                } else {
+                                  return buildTextShimmerEffect();
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      child: BlocBuilder<CategoryWiseShowBloc1,
+                          CategoryWiseShow1State>(
+                        builder: (context, state) {
+                          if (state is CategoryWiseShow1Loading) {
+                            return const CircularProgressIndicator(); // Show loading indicator while data is being fetched
+                          } else if (state is CategoryWiseShow1Loaded &&
+                              state.shows.isNotEmpty) {
+                            // Extracting show names and thumbnails from the loaded shows
+                            List<String> showNames = state.shows
+                                .map((show) => show.showName ?? 'No Show Name')
+                                .toList();
+                            print(
+                                "inside blocBuilder Showwise 2  ${showNames}");
+                            List<Widget> imageWidgets = state.shows.map((show) {
+                              String imageUrl = show.thumbnail!.isNotEmpty
+                                  ? show.thumbnail![0]
+                                  : 'default_image_url';
+                              print(
+                                  "inside blocBuilder Showwise 1 ${imageUrl}");
+                              return Image.network(imageUrl, fit: BoxFit.cover);
+                            }).toList();
+
+                            return HorizontalScrollableCard(
+                              cardStatusColor: Colors.brown,
+                              titlecard: showNames,
+                              imageListCount: state.shows.length,
+                              imageList: imageWidgets,
+                              textColor: AppColors.white,
                             );
+                          } else if (state is CategoryWiseShow1Error) {
+                            return Text('Error: ${state.messages}');
                           } else {
-                            return buildTextShimmerEffect();
+                            return horizontalCardShimmerWidget(); // Or handle other states as needed
                           }
                         },
                       ),
-                    ),
-                    BlocBuilder<CategoryWiseShowBloc, CategoryWiseShowState>(
-                      builder: (context, state) {
-                        if (state is CategoryWiseShowLoading) {
-                          return const CircularProgressIndicator();
-                        } else if (state is CategoryWiseShowLoaded) {
-                          List<String> showNames = state.shows
-                              .map((show) => show.showName ?? 'No Show Name')
-                              .toList();
-                          List<Widget> imageWidgets = state.shows.map((show) {
-                            String imageUrl = show.thumbnail!.isNotEmpty
-                                ? show.thumbnail![0]
-                                : 'default_image_url';
-                            return Image.network(imageUrl, fit: BoxFit.cover);
-                          }).toList();
-
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: HorizontalScrollableCard(
-                                cardStatusColor: Colors.brown,
-                                titlecard: showNames,
-                                imageListCount: state.shows.length,
-                                imageList: imageWidgets,
-                                textColor: AppColors.white),
-                          );
-                        } else if (state is CategoryWiseShowError) {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: horizontalCardShimmerWidget(),
-                          );
-                        } else {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: horizontalCardShimmerWidget(),
-                          );
-                        }
-                      },
-                    ),
+                    )
                   ],
                 ),
+                // Stack(
+                //   children: [
+                //     SvgPicture.asset(IconAssets.appbackground),
+                //     BlocBuilder<CategoryListBloc, CategoryListState>(
+                //       builder: (context, state) {
+                //         if (state is CategoryListLoaded &&
+                //             state.categories.isNotEmpty) {
+                //           return Center(
+                //             child: Text(
+                //               state.categories[2].categoryName ??
+                //                   'Default Category Name',
+                //               style: AppTestStyle.headingBai(
+                //                   fontSize: 22.sp,
+                //                   color: AppColors.black,
+                //                   fontWeight: FontWeight.w800),
+                //             ),
+                //           );
+                //         } else {
+                //           return Center(child: buildTextShimmerEffect());
+                //         }
+                //       },
+                //     ),
+                //     Padding(
+                //       padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                //       child: HorizontalScrollableCard(
+                //           cardStatusColor: Colors.brown,
+                //           titlecard: technologyimagepathtitle,
+                //           imageListCount: technologiesImagepath.length,
+                //           imageList: technologiesImagepath,
+                //           textColor: AppColors.white),
+                //     )
+                //   ],
+                // ),
                 Stack(
                   children: [
                     SvgPicture.asset(IconAssets.appbackground),
-                    BlocBuilder<CategoryListBloc, CategoryListState>(
-                      builder: (context, state) {
-                        if (state is CategoryListLoaded &&
-                            state.categories.isNotEmpty) {
-                          return Center(
-                            child: Text(
-                              state.categories[2].categoryName ??
-                                  'Default Category Name',
-                              style: AppTestStyle.headingBai(
-                                  fontSize: 22.sp,
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                          );
-                        } else {
-                          return Center(child: buildTextShimmerEffect());
-                        }
-                      },
-                    ),
-                    BlocBuilder<CategoryWiseShowBloc, CategoryWiseShowState>(
-                      builder: (context, state) {
-                        if (state is CategoryWiseShowLoading) {
-                          return const CircularProgressIndicator();
-                        } else if (state is CategoryWiseShowLoaded) {
-                          List<String> showNames = state.shows
-                              .map((show) => show.showName ?? 'No Show Name')
-                              .toList();
-                          List<Widget> imageWidgets = state.shows.map((show) {
-                            String imageUrl = show.thumbnail!.isNotEmpty
-                                ? show.thumbnail![0]
-                                : 'default_image_url';
-                            return Image.network(imageUrl, fit: BoxFit.cover);
-                          }).toList();
+                    Center(
+                      child: BlocListener<CategoryListBloc, CategoryListState>(
+                        listener: (context, state) {
+                          if (state is CategoryListLoaded &&
+                              state.categories.isNotEmpty) {
+                            int categoryIddd =
+                                int.parse(state.categories[2].categoryId!);
+                            BlocProvider.of<CategoryWiseShowBloc2>(context).add(
+                                FetchCategoryWiseShows2(
+                                    categoryIddd: categoryIddd));
 
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: HorizontalScrollableCard(
-                                cardStatusColor: Colors.brown,
-                                titlecard: showNames,
-                                imageListCount: state.shows.length,
-                                imageList: imageWidgets,
-                                textColor: AppColors.white),
-                          );
-                        } else if (state is CategoryWiseShowError) {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: horizontalCardShimmerWidget(),
-                          );
-                          // Center(child: Text('Error: ${state.message}'));
-                        } else {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                            child: horizontalCardShimmerWidget(),
-                          );
-                        }
-                      },
+                            print("inside bloclistner 2 ${categoryIddd}");
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 13.sp),
+                          child: Center(
+                            child: BlocBuilder<CategoryListBloc,
+                                CategoryListState>(
+                              builder: (context, state) {
+                                if (state is CategoryListLoaded &&
+                                    state.categories.isNotEmpty) {
+                                  return Text(
+                                    state.categories[2].categoryName ??
+                                        'Default Category Name',
+                                    style: AppTestStyle.headingBai(
+                                        fontSize: 22.sp,
+                                        color: AppColors.black,
+                                        fontWeight: FontWeight.w800),
+                                  );
+                                } else {
+                                  return buildTextShimmerEffect();
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      child: BlocBuilder<CategoryWiseShowBloc2,
+                          CategoryWiseShow2State>(
+                        builder: (context, state) {
+                          if (state is CategoryWiseShow2Loading) {
+                            return const CircularProgressIndicator(); // Show loading indicator while data is being fetched
+                          } else if (state is CategoryWiseShow2Loaded &&
+                              state.shows.isNotEmpty) {
+                            // Extracting show names and thumbnails from the loaded shows
+                            List<String> showNames = state.shows
+                                .map((show) => show.showName ?? 'No Show Name')
+                                .toList();
+                            print(
+                                "inside blocBuilder Showwise 2  ${showNames}");
+                            List<Widget> imageWidgets = state.shows.map((show) {
+                              String imageUrl = show.thumbnail!.isNotEmpty
+                                  ? show.thumbnail![0]
+                                  : 'default_image_url';
+                              print(
+                                  "inside blocBuilder Showwise 1 ${imageUrl}");
+                              return Image.network(imageUrl, fit: BoxFit.cover);
+                            }).toList();
+
+                            return HorizontalScrollableCard(
+                              cardStatusColor: Colors.brown,
+                              titlecard: showNames,
+                              imageListCount: state.shows.length,
+                              imageList: imageWidgets,
+                              textColor: AppColors.white,
+                            );
+                          } else if (state is CategoryWiseShow2Error) {
+                            return Text('Error: ${state.messages}');
+                          } else {
+                            return horizontalCardShimmerWidget(); // Or handle other states as needed
+                          }
+                        },
+                      ),
+                    )
                   ],
                 ),
                 SizedBox(height: 12.h)

@@ -66,15 +66,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
     });
   }
 
-  // String? phoneInputValidator(PhoneNumber? phone) {
-  //   if (phone == null || phone.completeNumber.isEmpty) {
-  //     return 'Mobile Number is required';
-  //   } else if (!RegExp(r'^[0-9]{10}$').hasMatch(phone.number)) {
-  //     return 'Enter a valid 10 digit mobile number';
-  //   }
-  //   return null;
-  // }
-
   String? phoneInputValidator(PhoneNumber? phone) {
     if (phone == null || phone.completeNumber.isEmpty) {
       return 'Mobile Number is required';
@@ -98,7 +89,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             disableLengthCheck: true,
             decoration: InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.never,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
               filled: true,
               fillColor: Colors.white,
               hintText: widget.hintText,

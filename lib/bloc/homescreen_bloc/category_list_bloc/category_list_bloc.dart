@@ -46,8 +46,8 @@ class CategoryListBloc extends Bloc<CategoryListEvent, CategoryListState> {
           responseData['data'].forEach((item) {
             var dataCat = CategoryListData.fromJson(item);
             // print('Datacar Print +++ ${dataCat.toJson()}');
-            print(
-                'Datacat Category ID: ${dataCat.categoryId}, Category Name: ${dataCat.categoryName}');
+            // print(
+            //     'Datacat Category ID: ${dataCat.categoryId}, Category Name: ${dataCat.categoryName}');
             categories.add(dataCat);
           });
 

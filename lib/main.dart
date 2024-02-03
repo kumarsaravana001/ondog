@@ -8,6 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
+import 'package:ondgo_flutter/config/app_colors.dart';
 import 'utilities/index.dart';
 import 'package:ondgo_flutter/view/screens/Signup/signup_screen.dart';
 import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
@@ -133,7 +134,10 @@ class _MyAppState extends State<MyApp> {
           routerConfig: router,
           debugShowCheckedModeBanner: false,
           title: 'Ondgo',
-          theme: ThemeData(useMaterial3: true),
+          theme: ThemeData(
+            useMaterial3: true,
+            dialogBackgroundColor: AppColors.white,
+          ),
         ),
       );
     });
