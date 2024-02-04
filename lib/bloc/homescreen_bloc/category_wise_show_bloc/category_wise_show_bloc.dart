@@ -24,7 +24,7 @@ class CategoryWiseShowBloc
       'category_id': categoryId,
     });
 
-    print('Categorywise id ${categoryId}');
+    // print('Categorywise id ${categoryId}');
     try {
       final response = await http.post(
         url,
@@ -83,7 +83,7 @@ class CategoryWiseShowBloc1
       'category_id': categoryIdd,
     });
 
-    print('Categorywise id ${categoryIdd}');
+    // print('Categorywise id ${categoryIdd}');
     try {
       final response = await http.post(
         url,
@@ -142,7 +142,7 @@ class CategoryWiseShowBloc2
       'category_id': categoryIddd,
     });
 
-    print('Categorywise id ${categoryIddd}');
+    // print('Categorywise id ${categoryIddd}');
     try {
       final response = await http.post(
         url,

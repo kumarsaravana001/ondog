@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_event.dart';
@@ -13,14 +14,18 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/categ
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
+
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/models/homescreen_model/banner_model.dart';
 import 'package:ondgo_flutter/models/homescreen_model/popular_picks_model.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
+import 'package:ondgo_flutter/view/screens/showcase/showcase_screen.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
+import '../../../bloc/showscreen_bloc/show_details_bloc.dart';
+import '../../../bloc/showscreen_bloc/show_details_event.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -74,8 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
         _loadData();
         connectivityCheckTimer?.cancel(); // Stop checking for connectivity
       } else if (!isOnline && previousStatus) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('No Internet Connection')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('No Internet Connection')));
         startConnectivityCheck(); // Start periodic check for connectivity
       }
     });
@@ -126,6 +131,8 @@ class _HomeScreenState extends State<HomeScreen> {
       imageListCount: popularpicks.length,
       imageList: imageWidgets,
       textColor: AppColors.white,
+      onTap: (String showId) {},
+      showIds: [],
     );
   }
 
@@ -196,6 +203,12 @@ class _HomeScreenState extends State<HomeScreen> {
             create: (context) => CategoryWiseShowBloc1()),
         BlocProvider<CategoryWiseShowBloc2>(
             create: (context) => CategoryWiseShowBloc2()),
+        BlocProvider<UserDetailBloc>(
+          create: (context) => UserDetailBloc(),
+        ),
+        // BlocProvider<NavigationBloc>(
+        //   create: (context) => NavigationBloc(navigatorKey),
+        // )
       ],
       child: Scaffold(
         body: SafeArea(
@@ -422,8 +435,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 int.parse(state.categories[0].categoryId!);
                             BlocProvider.of<CategoryWiseShowBloc>(context).add(
                                 FetchCategoryWiseShows(categoryId: categoryId));
-
-                            print("inside bloclistner 1 ${categoryId}");
                           }
                         },
                         child: Padding(
@@ -463,14 +474,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             List<String> showNames = state.shows
                                 .map((show) => show.showName ?? 'No Show Name')
                                 .toList();
-                            // print(
-                            //     "inside blocBuilder Showwise 1  ${showNames}");
+                            List<String> showIds = state.shows
+                                .map((show) => show.showId.toString())
+                                .toList();
                             List<Widget> imageWidgets = state.shows.map((show) {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
                                   : 'default_image_url';
-                              // print(
-                              //     "inside blocBuilder Showwise 1 ${imageUrl}");
+
                               return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();
 
@@ -479,12 +490,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               titlecard: showNames,
                               imageListCount: state.shows.length,
                               imageList: imageWidgets,
+                              showIds: showIds,
                               textColor: AppColors.white,
+                              onTap: (showId) {
+                                BlocProvider.of<UserDetailBloc>(context).add(
+                                    FetchUserDetail(showId: int.parse(showId)));
+                                print("showId = ${showId}");
+                              },
                             );
                           } else if (state is CategoryWiseShowError) {
                             return Text('Error: ${state.message}');
                           } else {
-                            return horizontalCardShimmerWidget(); // Or handle other states as needed
+                            return horizontalCardShimmerWidget();
                           }
                         },
                       ),
@@ -505,7 +522,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 FetchCategoryWiseShows1(
                                     categoryIdd: categoryIdd));
 
-                            print("inside bloclistner 2 ${categoryIdd}");
+                            // print("inside bloclistner 2 ${categoryIdd}");
                           }
                         },
                         child: Padding(
@@ -546,14 +563,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             List<String> showNames = state.shows
                                 .map((show) => show.showName ?? 'No Show Name')
                                 .toList();
-                            print(
-                                "inside blocBuilder Showwise 2  ${showNames}");
+                            // print(
+                            //     "inside blocBuilder Showwise 2  ${showNames}");
                             List<Widget> imageWidgets = state.shows.map((show) {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
                                   : 'default_image_url';
-                              print(
-                                  "inside blocBuilder Showwise 1 ${imageUrl}");
+                              // print(
+                              //     "inside blocBuilder Showwise 1 ${imageUrl}");
                               return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();
 
@@ -563,6 +580,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               imageListCount: state.shows.length,
                               imageList: imageWidgets,
                               textColor: AppColors.white,
+                              onTap: (String showId) {},
+                              showIds: [],
                             );
                           } else if (state is CategoryWiseShow1Error) {
                             return Text('Error: ${state.messages}');
@@ -621,7 +640,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 FetchCategoryWiseShows2(
                                     categoryIddd: categoryIddd));
 
-                            print("inside bloclistner 2 ${categoryIddd}");
+                            // print("inside bloclistner 2 ${categoryIddd}");
                           }
                         },
                         child: Padding(
@@ -662,14 +681,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             List<String> showNames = state.shows
                                 .map((show) => show.showName ?? 'No Show Name')
                                 .toList();
-                            print(
-                                "inside blocBuilder Showwise 2  ${showNames}");
+                            // print(
+                            //     "inside blocBuilder Showwise 2  ${showNames}");
                             List<Widget> imageWidgets = state.shows.map((show) {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
                                   : 'default_image_url';
-                              print(
-                                  "inside blocBuilder Showwise 1 ${imageUrl}");
+                              // print(
+                              //     "inside blocBuilder Showwise 1 ${imageUrl}");
                               return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();
 
@@ -679,6 +698,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               imageListCount: state.shows.length,
                               imageList: imageWidgets,
                               textColor: AppColors.white,
+                              onTap: (String showId) {},
+                              showIds: [],
                             );
                           } else if (state is CategoryWiseShow2Error) {
                             return Text('Error: ${state.messages}');

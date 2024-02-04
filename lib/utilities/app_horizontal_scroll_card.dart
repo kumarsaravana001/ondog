@@ -1,22 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
-
 import '../config/config_index.dart';
 
-// ignore: must_be_immutable
 class HorizontalScrollableCard extends StatelessWidget {
-  final String subtitle;
-  final Color cardbackgroundcolor;
-  final Color textColor;
-  final Color cardStatusColor;
-  final List<Widget> imageList;
-
-  final int imageListCount;
-  final List<String> titlecard;
-  // Image cardimages;
   const HorizontalScrollableCard({
     Key? key,
     this.subtitle = '',
@@ -24,9 +11,30 @@ class HorizontalScrollableCard extends StatelessWidget {
     this.textColor = AppColors.black,
     required this.cardStatusColor,
     required this.imageList,
+    this.showIds,
+    required this.onTap,
     required this.imageListCount,
     required this.titlecard,
   }) : super(key: key);
+
+  final Color cardStatusColor;
+  final Color cardbackgroundcolor;
+  final List<Widget> imageList;
+  final int imageListCount;
+  final Function(String showId) onTap;
+  final List<String>? showIds;
+  final String subtitle;
+  final Color textColor;
+  final List<String> titlecard;
+
+  String _truncateTitle(String title) {
+    List<String> words = title.split(' ');
+    if (words.length > 1) {
+      return '${words[0]} ...';
+    } else {
+      return title;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,80 +45,71 @@ class HorizontalScrollableCard extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: imageListCount,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            width: 42.w,
-            margin: EdgeInsets.all(12.sp),
-            decoration: BoxDecoration(
-                color: cardbackgroundcolor,
-                borderRadius: BorderRadius.circular(15.0)),
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 12.sp, horizontal: 14.sp),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            _truncateTitle(titlecard[index]),
-                            style: AppTestStyle.headingint(
-                              fontSize: 16.sp,
-                              color: textColor,
-                              fontWeight: FontWeight.bold,
+          return GestureDetector(
+            onTap: () {
+              if (showIds != null && index < showIds!.length) {
+                onTap(showIds![index]);
+              }
+            },
+            child: Container(
+              width: 42.w,
+              margin: EdgeInsets.all(12.sp),
+              decoration: BoxDecoration(
+                  color: cardbackgroundcolor,
+                  borderRadius: BorderRadius.circular(15.0)),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 12.sp, horizontal: 14.sp),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              _truncateTitle(titlecard[index]),
+                              style: AppTestStyle.headingint(
+                                fontSize: 16.sp,
+                                color: textColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          AppIconsWidget.horizontaldiamond(
-                              color: cardStatusColor, size: 15),
-                        ],
-                      ),
-                      if (subtitle.isNotEmpty)
-                        Text(subtitle,
-                            style: AppTestStyle.headingint(
-                                fontSize: 15.sp,
-                                color: AppColors.white,
-                                fontWeight: FontWeight.bold)),
-                    ],
+                            AppIconsWidget.horizontaldiamond(
+                                color: cardStatusColor, size: 15),
+                          ],
+                        ),
+                        if (subtitle.isNotEmpty)
+                          Text(subtitle,
+                              style: AppTestStyle.headingint(
+                                  fontSize: 15.sp,
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                   ),
-                ),
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 16 / 15.7,
+                      child: imageList[index],
+                    ),
                   ),
-                  child: AspectRatio(
-                    aspectRatio: 16 / 15.7,
-                    child: imageList[index],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
       ),
     );
   }
-  String _truncateTitle(String title) {
-    List<String> words = title.split(' ');
-    if (words.length > 1) {
-      return '${words[0]} ...';
-    } else {
-      return title;
-    }
-  }
 }
 
 class HorizontalScrollableCard1 extends StatelessWidget {
-  final String subtitle;
-  final Color cardbackgroundcolor;
-  final Color textColor;
-  final Color cardStatusColor;
-  final List<Image> imageList;
-
-  final int imageListCount;
-
   const HorizontalScrollableCard1({
     Key? key,
     this.subtitle = '',
@@ -121,6 +120,13 @@ class HorizontalScrollableCard1 extends StatelessWidget {
     required this.imageListCount,
     // required this.titlecard,
   }) : super(key: key);
+
+  final Color cardStatusColor;
+  final Color cardbackgroundcolor;
+  final List<Image> imageList;
+  final int imageListCount;
+  final String subtitle;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {

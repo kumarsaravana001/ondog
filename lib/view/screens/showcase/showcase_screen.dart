@@ -21,31 +21,30 @@ class ShowCaseScreen extends StatefulWidget {
 }
 
 class _ShowCaseScreenState extends State<ShowCaseScreen> {
-  int currentQuestionIndex = 0;
-
-  int totalQuestions = 0;
   int correctAnswers = 0;
+  int currentQuestionIndex = 0;
+  int totalQuestions = 0;
 
   late int _selectedOptionIndex = -1;
 
   void handleOptionTap(int optionIndex) {
-    // Record the selected answer
+    
     setState(() {
-      // Save the selected option
+     
       _selectedOptionIndex = optionIndex;
 
-      // Increment the correct answer count if the selected option is correct
+     
       if (optionIndex == quizData[currentQuestionIndex]['correctAnswerIndex']) {
         correctAnswers++;
       }
 
-      // Move to the next question
+      
       if (currentQuestionIndex < quizData.length - 1) {
         currentQuestionIndex++;
         _selectedOptionIndex =
-            -1; // Reset the selected option for the new question
+            -1; 
       } else {
-        // All questions have been answered, set the total questions and show the score
+       
         totalQuestions = quizData.length;
         showScoreContent = true;
       }
@@ -205,16 +204,16 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
 }
 
 class QuizQuestionAnswerSection extends StatefulWidget {
-  final int currentQuestionIndex;
-  final List<Map<String, dynamic>> quizData;
-  final Function(int) handleOptionTap;
-
   const QuizQuestionAnswerSection({
     super.key,
     required this.currentQuestionIndex,
     required this.quizData,
     required this.handleOptionTap,
   });
+
+  final int currentQuestionIndex;
+  final Function(int) handleOptionTap;
+  final List<Map<String, dynamic>> quizData;
 
   @override
   State<QuizQuestionAnswerSection> createState() =>
@@ -223,6 +222,7 @@ class QuizQuestionAnswerSection extends StatefulWidget {
 
 class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
   late int _selectedOptionIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> currentQuestion =
