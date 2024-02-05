@@ -14,6 +14,7 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/categ
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
+import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
 
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/models/homescreen_model/banner_model.dart';
@@ -493,6 +494,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               showIds: showIds,
                               textColor: AppColors.white,
                               onTap: (showId) {
+                                BlocProvider.of<NavigationCubit>(context)
+                                    .navigateToIndex(3);
                                 BlocProvider.of<UserDetailBloc>(context).add(
                                     FetchUserDetail(showId: int.parse(showId)));
                                 print("showId = ${showId}");

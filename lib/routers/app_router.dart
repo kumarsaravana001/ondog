@@ -13,7 +13,7 @@ final router = GoRouter(
     GoRoute(path: '/signup', builder: (context, state) => const SignupScreen()),
 
     GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
-    GoRoute(path: '/navbar', builder: (context, state) => const Navbar()),
+    GoRoute(path: '/navbar', builder: (context, state) => Navbar()),
     GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
     GoRoute(
         path: '/showcase', builder: (context, state) => const ShowCaseScreen()),
