@@ -1,13 +1,14 @@
+// ignore_for_file: unused_import
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:device_preview/device_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'package:ondgo_flutter/config/app_colors.dart';
 import 'utilities/index.dart';
@@ -131,6 +132,9 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => LoginBloc()),
           BlocProvider(create: (context) => SignInBloc()),
           BlocProvider(create: (context) => NavigationCubit()),
+          BlocProvider<UserShowDetailBloc>(
+            create: (context) => UserShowDetailBloc(),
+          )
         ],
         child: MaterialApp.router(
           routerConfig: router,

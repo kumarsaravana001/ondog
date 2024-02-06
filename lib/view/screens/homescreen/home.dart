@@ -204,8 +204,8 @@ class _HomeScreenState extends State<HomeScreen> {
             create: (context) => CategoryWiseShowBloc1()),
         BlocProvider<CategoryWiseShowBloc2>(
             create: (context) => CategoryWiseShowBloc2()),
-        BlocProvider<UserDetailBloc>(
-          create: (context) => UserDetailBloc(),
+        BlocProvider<UserShowDetailBloc>(
+          create: (context) => UserShowDetailBloc(),
         ),
         // BlocProvider<NavigationBloc>(
         //   create: (context) => NavigationBloc(navigatorKey),
@@ -496,8 +496,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: (showId) {
                                 BlocProvider.of<NavigationCubit>(context)
                                     .navigateToIndex(3);
-                                BlocProvider.of<UserDetailBloc>(context).add(
-                                    FetchUserDetail(showId: int.parse(showId)));
+                                BlocProvider.of<UserShowDetailBloc>(context).add(
+                                    FetchUserShowDetail(showId: int.parse(showId)));
                                 print("showId = ${showId}");
                               },
                             );

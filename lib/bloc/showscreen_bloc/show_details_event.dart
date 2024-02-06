@@ -1,10 +1,10 @@
-abstract class UserDetailEvent {}
+abstract class UserShowDetailEvent {}
 
-class FetchUserDetail extends UserDetailEvent {
+class FetchUserShowDetail extends UserShowDetailEvent {
   // final String userId;
   final int showId;
 
-  FetchUserDetail({
+  FetchUserShowDetail({
     // required this.userId,
     required this.showId,
   });

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_state.dart';
 import 'package:ondgo_flutter/view/screens/showcase/media_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_content.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_question_answer_section.dart';
@@ -23,32 +26,28 @@ class ShowCaseScreen extends StatefulWidget {
 class _ShowCaseScreenState extends State<ShowCaseScreen> {
   int correctAnswers = 0;
   int currentQuestionIndex = 0;
+  late int selectedOptionIndex = -1;
   int totalQuestions = 0;
 
-  late int _selectedOptionIndex = -1;
-
   void handleOptionTap(int optionIndex) {
-    
-    setState(() {
-     
-      _selectedOptionIndex = optionIndex;
+    setState(
+      () {
+        selectedOptionIndex = optionIndex;
 
-     
-      if (optionIndex == quizData[currentQuestionIndex]['correctAnswerIndex']) {
-        correctAnswers++;
-      }
+        if (optionIndex ==
+            quizData[currentQuestionIndex]['correctAnswerIndex']) {
+          correctAnswers++;
+        }
 
-      
-      if (currentQuestionIndex < quizData.length - 1) {
-        currentQuestionIndex++;
-        _selectedOptionIndex =
-            -1; 
-      } else {
-       
-        totalQuestions = quizData.length;
-        showScoreContent = true;
-      }
-    });
+        if (currentQuestionIndex < quizData.length - 1) {
+          currentQuestionIndex++;
+          selectedOptionIndex = -1;
+        } else {
+          totalQuestions = quizData.length;
+          showScoreContent = true;
+        }
+      },
+    );
   }
 
   @override
@@ -77,36 +76,58 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                 showWatchedContent = true;
                               });
                             },
-                          ))
+                          ),
+                        )
                       : const MediaWatchSection(),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10.sp, left: 18.sp),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalisation.cryptoBeans,
-                          style: AppTestStyle.headingBai(
-                            fontSize: 22.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.sp),
-                          child: Text(
-                            AppLocalisation.ashowabout,
-                            style: AppTestStyle.headingint(
-                              fontSize: 17.sp,
-                              italic: true,
-                              color: AppColors.black,
-                              fontWeight: FontWeight.w500,
+                  BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
+                      builder: (context, state) {
+                    if (state is UserShowDetailLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is UserShowDetailLoaded) {
+                      final showDetails = state.userShowDetails.isNotEmpty
+                          ? state.userShowDetails.first
+                          : null;
+                      final showName =
+                          showDetails?.showName ?? 'Show Name Not Available';
+                      final showDescription = showDetails?.description ??
+                          'Description Not Available';
+
+                      return Padding(
+                        padding: EdgeInsets.only(top: 10.sp, left: 18.sp),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              // AppLocalisation.cryptoBeans,
+                              showName,
+                              style: AppTestStyle.headingBai(
+                                fontSize: 22.sp,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 10.sp),
+                              child: Text(
+                                // AppLocalisation.cryptoBeans,
+                                showDescription,
+                                style: AppTestStyle.headingint(
+                                  fontSize: 17.sp,
+                                  italic: true,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
+                      );
+                    } else if (state is UserShowDetailError) {
+                      return Center(child: Text('Error: ${state.message}'));
+                    } else {
+                      return const Center(child: Text('Unexpected state'));
+                    }
+                  }),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: 18.sp, vertical: 15.sp),

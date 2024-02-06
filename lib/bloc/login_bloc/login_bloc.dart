@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, depend_on_referenced_packages
+
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';

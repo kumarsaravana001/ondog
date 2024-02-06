@@ -1,17 +1,17 @@
 import 'package:ondgo_flutter/models/showscreen_modules/showscreen_modules.dart';
 
-abstract class UserDetailState {}
+abstract class UserShowDetailState {}
 
-class UserDetailInitial extends UserDetailState {}
+class UserShowDetailInitial extends UserShowDetailState {}
 
-class UserDetailLoading extends UserDetailState {}
+class UserShowDetailLoading extends UserShowDetailState {}
 
-class UserDetailLoaded extends UserDetailState {
-  final List<ShowDetailsData> userDetails;
-  UserDetailLoaded(this.userDetails);
+class UserShowDetailLoaded extends UserShowDetailState {
+  final List<ShowDetailsData> userShowDetails;
+  UserShowDetailLoaded(this.userShowDetails);
 }
 
-class UserDetailError extends UserDetailState {
+class UserShowDetailError extends UserShowDetailState {
   final String message;
-  UserDetailError(this.message);
+  UserShowDetailError(this.message);
 }

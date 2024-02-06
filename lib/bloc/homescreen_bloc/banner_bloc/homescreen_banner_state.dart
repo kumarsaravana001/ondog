@@ -1,4 +1,3 @@
-import 'package:ondgo_flutter/models/homescreen_model/category_list_model.dart';
 
 import '../../../../models/homescreen_model/banner_model.dart';
 
