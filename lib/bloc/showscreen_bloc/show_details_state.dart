@@ -7,11 +7,14 @@ class UserShowDetailInitial extends UserShowDetailState {}
 class UserShowDetailLoading extends UserShowDetailState {}
 
 class UserShowDetailLoaded extends UserShowDetailState {
-  final List<ShowDetailsData> userShowDetails;
-  UserShowDetailLoaded(this.userShowDetails);
+  final List<ShowDetailsData> userDetails;
+  final int showId;
+
+  UserShowDetailLoaded(this.userDetails, {required this.showId});
 }
 
 class UserShowDetailError extends UserShowDetailState {
   final String message;
+
   UserShowDetailError(this.message);
 }

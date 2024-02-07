@@ -20,8 +20,7 @@ class UserShowDetailBloc
     try {
       emit(UserShowDetailLoading());
       final userDetails = await fetchUserShowDetails(event.showId);
-      print("Fetched userDetails: ${userDetails.length}");
-      emit(UserShowDetailLoaded(userDetails));
+      emit(UserShowDetailLoaded(userDetails, showId: event.showId));
     } catch (e) {
       print("Error fetching user details: $e");
       emit(UserShowDetailError(e.toString()));
@@ -31,14 +30,14 @@ class UserShowDetailBloc
   Future<List<ShowDetailsData>> fetchUserShowDetails(int showId) async {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
-    print("Fetching details for showId: $showId");
+    // print("Fetching details for showId: $showId");
 
     final url = Uri.parse('https://ondgo.in/api/user-show-details.php');
     final body = json.encode({
       'show_id': showId,
       'user_id': userId,
     });
-    print("show from Show Screen: ${showId}");
+    // print("show from Show Screen: ${showId}");
     try {
       final response = await http.post(
         url,
@@ -48,8 +47,8 @@ class UserShowDetailBloc
         },
         body: body,
       );
-      print("Response status show screen: ${response.statusCode}");
-      print("Response body show screen: ${response.body}");
+      // print("Response status show screen: ${response.statusCode}");
+      // print("Response body show screen: ${response.body}");
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);
         if (responseData['status'] == true) {

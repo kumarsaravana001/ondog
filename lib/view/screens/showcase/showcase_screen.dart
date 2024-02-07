@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_state.dart';
 import 'package:ondgo_flutter/view/screens/showcase/media_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_content.dart';
@@ -51,6 +52,12 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    context.read<UserShowDetailBloc>().add(FetchUserShowDetail(showId: 1));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -80,54 +87,58 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                         )
                       : const MediaWatchSection(),
                   BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
-                      builder: (context, state) {
-                    if (state is UserShowDetailLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is UserShowDetailLoaded) {
-                      final showDetails = state.userShowDetails.isNotEmpty
-                          ? state.userShowDetails.first
-                          : null;
-                      final showName =
-                          showDetails?.showName ?? 'Show Name Not Available';
-                      final showDescription = showDetails?.description ??
-                          'Description Not Available';
+                    builder: (context, state) {
+                      if (state is UserShowDetailLoading) {
+                        return const CircularProgressIndicator();
+                      } else if (state is UserShowDetailLoaded) {
+                        // Now you have access to state.showId here
+                        final showId = state.showId;
 
-                      return Padding(
-                        padding: EdgeInsets.only(top: 10.sp, left: 18.sp),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              // AppLocalisation.cryptoBeans,
-                              showName,
-                              style: AppTestStyle.headingBai(
-                                fontSize: 22.sp,
-                                color: AppColors.black,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10.sp),
-                              child: Text(
+                        final showDetails = state.userDetails.isNotEmpty
+                            ? state.userDetails.first
+                            : null;
+                        final showName =
+                            showDetails?.showName ?? 'Show Name Not Available';
+                        final showDescription = showDetails?.description ??
+                            'Description Not Available';
+
+                        return Padding(
+                          padding: EdgeInsets.only(top: 10.sp, left: 18.sp),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
                                 // AppLocalisation.cryptoBeans,
-                                showDescription,
-                                style: AppTestStyle.headingint(
-                                  fontSize: 17.sp,
-                                  italic: true,
+                                showName,
+                                style: AppTestStyle.headingBai(
+                                  fontSize: 22.sp,
                                   color: AppColors.black,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    } else if (state is UserShowDetailError) {
-                      return Center(child: Text('Error: ${state.message}'));
-                    } else {
-                      return const Center(child: Text('Unexpected state'));
-                    }
-                  }),
+                              Padding(
+                                padding: EdgeInsets.only(top: 10.sp),
+                                child: Text(
+                                  // AppLocalisation.cryptoBeans,
+                                  showDescription,
+                                  style: AppTestStyle.headingint(
+                                    fontSize: 17.sp,
+                                    italic: true,
+                                    color: AppColors.black,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (state is UserShowDetailError) {
+                        return Text('Error: ${state.message}');
+                      } else {
+                        return const Text('Unexpected state');
+                      }
+                    },
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: 18.sp, vertical: 15.sp),

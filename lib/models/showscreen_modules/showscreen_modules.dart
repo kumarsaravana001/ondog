@@ -45,26 +45,27 @@ class ShowDetailsData {
   String? categoryName;
   String? tags;
 
-  ShowDetailsData(
-      {this.showId,
-      this.showName,
-      this.description,
-      this.categoryId,
-      this.thumbnail,
-      this.showTeaser,
-      this.totalEpisodes,
-      this.totalDuration,
-      this.releaseDate,
-      this.language,
-      this.subtitle,
-      this.director,
-      this.producer,
-      this.actorArtist,
-      this.popularLink,
-      this.homepage,
-      this.submitted,
-      this.categoryName,
-      this.tags});
+  ShowDetailsData({
+    this.showId,
+    this.showName,
+    this.description,
+    this.categoryId,
+    this.thumbnail,
+    this.showTeaser,
+    this.totalEpisodes,
+    this.totalDuration,
+    this.releaseDate,
+    this.language,
+    this.subtitle,
+    this.director,
+    this.producer,
+    this.actorArtist,
+    this.popularLink,
+    this.homepage,
+    this.submitted,
+    this.categoryName,
+    this.tags,
+  });
 
   ShowDetailsData.fromJson(Map<String, dynamic> json) {
     showId = json['show_id'];
