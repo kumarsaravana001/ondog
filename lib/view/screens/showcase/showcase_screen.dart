@@ -4,6 +4,7 @@ import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_state.dart';
 import 'package:ondgo_flutter/models/showscreen_modules/showscreen_modules.dart';
+import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import 'package:ondgo_flutter/view/screens/showcase/media_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_content.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_question_answer_section.dart';
@@ -96,6 +97,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                             ),
                           )
                         : const MediaWatchSection(),
+
                     // BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
                     //   builder: (context, state) {
                     //     if (state is UserShowDetailLoading) {
@@ -152,7 +154,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                     BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
                       builder: (context, state) {
                         if (state is UserShowDetailLoading) {
-                          return CircularProgressIndicator();
+                          return buildTextShimmerEffect();
                         } else if (state is UserShowDetailLoaded) {
                           final showDetails = state.userDetails.isNotEmpty
                               ? state.userDetails.first
@@ -162,7 +164,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                         } else if (state is UserShowDetailError) {
                           return Text('Error: ${state.message}');
                         }
-                        return Text('Please select a show.');
+                        return const Text('Please select a show.');
                       },
                     ),
 
@@ -267,7 +269,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
 }
 
 Widget buildShowDetails(ShowDetailsData? showDetails) {
-  if (showDetails == null) return Text('No details available');
+  if (showDetails == null) return const Text('No details available');
   return Padding(
     padding: EdgeInsets.only(top: 10.sp, left: 18.sp),
     child: Column(
