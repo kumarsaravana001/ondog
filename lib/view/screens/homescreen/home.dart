@@ -15,6 +15,7 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_pi
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/models/homescreen_model/banner_model.dart';
@@ -207,9 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider<UserShowDetailBloc>(
           create: (context) => UserShowDetailBloc(),
         ),
-        // BlocProvider<NavigationBloc>(
-        //   create: (context) => NavigationBloc(navigatorKey),
-        // )
       ],
       child: Scaffold(
         body: SafeArea(
@@ -494,11 +492,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               showIds: showIds,
                               textColor: AppColors.white,
                               onTap: (showId) {
+                                final int parsedShowId =
+                                    int.tryParse(showId) ?? 0;
+                                context
+                                    .read<ShowIdCubit>()
+                                    .updateShowId(parsedShowId);
+
                                 BlocProvider.of<NavigationCubit>(context)
                                     .navigateToIndex(3);
-                                BlocProvider.of<UserShowDetailBloc>(context).add(
-                                    FetchUserShowDetail(showId: int.parse(showId)));
-                                print("showId = ${showId}");
+                                BlocProvider.of<UserShowDetailBloc>(context)
+                                    .add(FetchUserShowDetail(
+                                        showId: int.parse(showId)));
                               },
                             );
                           } else if (state is CategoryWiseShowError) {
