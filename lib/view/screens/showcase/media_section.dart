@@ -84,18 +84,19 @@ class MediaSection extends StatelessWidget {
     return BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
       builder: (context, state) {
         if (state is UserShowDetailLoading) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (state is UserShowDetailLoaded &&
             state.userDetails.isNotEmpty) {
           final showDetails = state.userDetails.first;
           final String showTitle = showDetails.showName ?? "Loading ...";
 
-          // Assuming `thumbnail` is of type String and using a fallback for the asset image.
-          final String thumbnailUrl =
-              showDetails.thumbnail ?? 'assets/images/health_care_banner.png';
+          final String thumbnailUrl = showDetails.thumbnail?.isNotEmpty == true
+              ? showDetails.thumbnail![0]
+              : 'assets/images/health_care_banner.png';
 
           final Widget imageWidget = thumbnailUrl.isNotEmpty
-              ? Image.network(thumbnailUrl, fit: BoxFit.cover, height: 200)
+              ? Image.network(thumbnailUrl,
+                  fit: BoxFit.cover, height: 180, width: double.infinity)
               : Image.asset('assets/images/default_image.png',
                   fit: BoxFit.cover, height: 200);
 
@@ -103,7 +104,7 @@ class MediaSection extends StatelessWidget {
         } else if (state is UserShowDetailError) {
           return Text('Error: ${state.message}');
         }
-        return Text("Please select a show.");
+        return const Text("Please select a show.");
       },
     );
   }
