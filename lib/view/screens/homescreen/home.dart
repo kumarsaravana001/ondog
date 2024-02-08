@@ -570,14 +570,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             List<String> showNames = state.shows
                                 .map((show) => show.showName ?? 'No Show Name')
                                 .toList();
-                            // print(
-                            //     "inside blocBuilder Showwise 2  ${showNames}");
+                            List<String> showIds = state.shows
+                                .map((show) => show.showId ?? 'No Show Name')
+                                .toList();
                             List<Widget> imageWidgets = state.shows.map((show) {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
                                   : 'default_image_url';
-                              // print(
-                              //     "inside blocBuilder Showwise 1 ${imageUrl}");
+
                               return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();
 
@@ -586,14 +586,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               titlecard: showNames,
                               imageListCount: state.shows.length,
                               imageList: imageWidgets,
+                              showIds: showIds,
                               textColor: AppColors.white,
-                              onTap: (String showId) {},
-                              showIds: [],
+                              onTap: (String showId) {
+                                final int parsedShowId =
+                                    int.tryParse(showId) ?? 0;
+                                context
+                                    .read<ShowIdCubit>()
+                                    .updateShowId(parsedShowId);
+
+                                BlocProvider.of<NavigationCubit>(context)
+                                    .navigateToIndex(3);
+                                BlocProvider.of<UserShowDetailBloc>(context)
+                                    .add(FetchUserShowDetail(
+                                        showId: int.parse(showId)));
+                              },
                             );
                           } else if (state is CategoryWiseShow1Error) {
                             return Text('Error: ${state.messages}');
                           } else {
-                            return horizontalCardShimmerWidget(); // Or handle other states as needed
+                            return horizontalCardShimmerWidget();
                           }
                         },
                       ),
@@ -646,8 +658,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             BlocProvider.of<CategoryWiseShowBloc2>(context).add(
                                 FetchCategoryWiseShows2(
                                     categoryIddd: categoryIddd));
-
-                            // print("inside bloclistner 2 ${categoryIddd}");
                           }
                         },
                         child: Padding(
@@ -688,8 +698,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             List<String> showNames = state.shows
                                 .map((show) => show.showName ?? 'No Show Name')
                                 .toList();
-                            // print(
-                            //     "inside blocBuilder Showwise 2  ${showNames}");
+                            List<String> showIds = state.shows
+                                .map((show) => show.showId ?? 'No Show Name')
+                                .toList();
                             List<Widget> imageWidgets = state.shows.map((show) {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
@@ -704,9 +715,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               titlecard: showNames,
                               imageListCount: state.shows.length,
                               imageList: imageWidgets,
+                              showIds: showIds,
                               textColor: AppColors.white,
-                              onTap: (String showId) {},
-                              showIds: [],
+                              onTap: (String showId) {
+                                final int parsedShowId =
+                                    int.tryParse(showId) ?? 0;
+                                context
+                                    .read<ShowIdCubit>()
+                                    .updateShowId(parsedShowId);
+
+                                BlocProvider.of<NavigationCubit>(context)
+                                    .navigateToIndex(3);
+                                BlocProvider.of<UserShowDetailBloc>(context)
+                                    .add(FetchUserShowDetail(
+                                        showId: int.parse(showId)));
+                              },
                             );
                           } else if (state is CategoryWiseShow2Error) {
                             return Text('Error: ${state.messages}');
