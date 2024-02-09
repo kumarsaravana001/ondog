@@ -43,9 +43,9 @@ String determineInitialRoute() {
 
 class MyApp extends StatefulWidget {
   const MyApp({
-    Key? key,
+    super.key,
     required this.initialRoute,
-  }) : super(key: key);
+  });
 
   final String initialRoute;
 
