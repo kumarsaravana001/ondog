@@ -37,7 +37,9 @@ HorizontalScrollableCard horizontalCardShimmerWidget() {
     titlecard: showNames,
     imageListCount: defaultItemCount,
     imageList: imageWidgets,
-    textColor: AppColors.white, onTap: (String showId) {  },
+    textColor: AppColors.white,
+    onTap: (String showId) {},
+    showIds: [],
   );
 }
 

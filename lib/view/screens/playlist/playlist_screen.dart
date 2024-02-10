@@ -35,12 +35,15 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     style: AppTestStyle.headingBai(fontSize: 26.sp),
                   ),
                 ),
-                HorizontalScrollableCard1(
+                HorizontalScrollableCard(
                   cardStatusColor: Colors.indigo,
                   imageListCount: playlistcardnames.length,
                   imageList: yourlistImagepath,
                   cardbackgroundcolor: AppColors.black,
                   textColor: AppColors.white,
+                  showIds: [],
+                  onTap: (String showId) {},
+                  titlecard: [],
                 ),
                 Align(
                   alignment: Alignment.center,
@@ -49,12 +52,15 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     style: AppTestStyle.headingBai(fontSize: 26.sp),
                   ),
                 ),
-                HorizontalScrollableCard1(
+                HorizontalScrollableCard(
                   cardStatusColor: Colors.indigo,
                   imageListCount: playlistcardnames.length,
                   imageList: yourlistImagepath,
                   cardbackgroundcolor: AppColors.black,
                   textColor: AppColors.white,
+                  showIds: [],
+                  onTap: (String showId) {},
+                  titlecard: [],
                 )
               ],
             ),

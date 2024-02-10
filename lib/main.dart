@@ -9,7 +9,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
-import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'package:ondgo_flutter/config/app_colors.dart';
 import 'utilities/index.dart';
@@ -134,6 +134,8 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => SignInBloc()),
           BlocProvider(create: (context) => NavigationCubit()),
           BlocProvider(create: (context) => UserShowDetailBloc()),
+          BlocProvider(create: (context) => UserShowDetailBloc()),
+          BlocProvider(create: (context) => ShowIdCubit()),
           BlocProvider(create: (context) => ShowIdCubit()),
         ],
         child: MaterialApp.router(

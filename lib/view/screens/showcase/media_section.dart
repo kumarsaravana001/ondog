@@ -69,8 +69,8 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../bloc/showscreen_bloc/show_details_bloc.dart';
-import '../../../bloc/showscreen_bloc/show_details_state.dart';
+import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
+import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/index.dart';
 

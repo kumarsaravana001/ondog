@@ -15,6 +15,8 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_pi
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 
 import 'package:ondgo_flutter/config/config_index.dart';
@@ -26,8 +28,8 @@ import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_screen.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
-import '../../../bloc/showscreen_bloc/show_details_bloc.dart';
-import '../../../bloc/showscreen_bloc/show_details_event.dart';
+import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
+import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -41,15 +43,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<String> categoryList = [];
+  Timer? connectivityCheckTimer;
   late StreamSubscription connectivitySubscription;
   bool isOnline = true;
   List<String> popularPicks = [];
   int? selectedCategoryId;
   List<String> showNames = [];
   String? userId;
-  Timer? connectivityCheckTimer;
 
   int _currentCarouselIndex = 0;
+
+  @override
+  void dispose() {
+    connectivitySubscription.cancel();
+    connectivityCheckTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -101,14 +110,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const SnackBar(content: Text('Internet Connection Restored')));
       }
     });
-  }
-
-  void _loadData() {
-    // Triggering the fetching of data for each relevant BLoC
-    BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
-    BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
-    BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
-    // Add other BLoC fetch events here as needed
   }
 
   HorizontalScrollableCard popularPicksWidget(
@@ -171,6 +172,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _loadData() {
+    // Triggering the fetching of data for each relevant BLoC
+    BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
+    BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
+    BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
+    // Add other BLoC fetch events here as needed
+  }
+
   void _loadUserId() async {
     var box = Hive.box('sessionBox');
     userId = box.get('userId');
@@ -182,13 +191,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  void dispose() {
-    connectivitySubscription.cancel();
-    connectivityCheckTimer?.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -197,8 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider<PopularPicksBloc>(
             create: (context) => PopularPicksBloc()..add(FetchPopularPicks())),
         BlocProvider<CategoryListBloc>(
-          create: (context) => CategoryListBloc()..add(FetchCategoryList()),
-        ),
+            create: (context) => CategoryListBloc()..add(FetchCategoryList())),
         BlocProvider<CategoryWiseShowBloc>(
             create: (context) => CategoryWiseShowBloc()),
         BlocProvider<CategoryWiseShowBloc1>(
@@ -206,8 +207,9 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider<CategoryWiseShowBloc2>(
             create: (context) => CategoryWiseShowBloc2()),
         BlocProvider<UserShowDetailBloc>(
-          create: (context) => UserShowDetailBloc(),
-        ),
+            create: (context) => UserShowDetailBloc()),
+        BlocProvider<UserEpisodeDetailBloc>(
+            create: (context) => UserEpisodeDetailBloc()),
       ],
       child: Scaffold(
         body: SafeArea(
@@ -231,20 +233,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontSize: 22.sp,
                                 color: AppColors.white,
                                 fontWeight: FontWeight.w700))),
-                    Positioned(
-                      bottom: 50.sp,
-                      left: 20.sp,
-                      right: 8.sp,
-                      child: SizedBox(
-                        height: 200,
-                        child: HorizontalScrollableCard1(
-                          cardStatusColor: Colors.indigo,
-                          imageListCount: playlistcardnames.length,
-                          imageList: yourlistImagepath,
-                          cardbackgroundcolor: AppColors.white,
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   bottom: 50.sp,
+                    //   left: 20.sp,
+                    //   right: 8.sp,
+                    //   child: SizedBox(
+                    //     height: 200,
+                    //     child: HorizontalScrollableCard(
+                    //       cardStatusColor: Colors.indigo,
+                    //       imageListCount: playlistcardnames.length,
+                    //       imageList: yourlistImagepath,
+                    //       cardbackgroundcolor: AppColors.white,
+                    //       showIds: [],
+                    //       onTap: (String showId) {},
+                    //       titlecard: [],
+                    //     ),
+                    //   ),
+                    // ),
                     Positioned(
                       child: ClipPath(
                         clipper: StackHometopshape(),
@@ -503,6 +508,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 BlocProvider.of<UserShowDetailBloc>(context)
                                     .add(FetchUserShowDetail(
                                         showId: int.parse(showId)));
+                                BlocProvider.of<UserEpisodeDetailBloc>(context)
+                                    .add(
+                                  FetchUserEpisodeDetail(
+                                      showId: int.parse(showId)),
+                                );
                               },
                             );
                           } else if (state is CategoryWiseShowError) {
@@ -599,6 +609,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .navigateToIndex(3);
                                 BlocProvider.of<UserShowDetailBloc>(context)
                                     .add(FetchUserShowDetail(
+                                        showId: int.parse(showId)));
+                                BlocProvider.of<UserEpisodeDetailBloc>(context)
+                                    .add(FetchUserEpisodeDetail(
                                         showId: int.parse(showId)));
                               },
                             );
@@ -705,8 +718,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
                                   : 'default_image_url';
-                              // print(
-                              //     "inside blocBuilder Showwise 1 ${imageUrl}");
+
                               return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();
 
@@ -728,6 +740,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .navigateToIndex(3);
                                 BlocProvider.of<UserShowDetailBloc>(context)
                                     .add(FetchUserShowDetail(
+                                        showId: int.parse(showId)));
+                                BlocProvider.of<UserEpisodeDetailBloc>(context)
+                                    .add(FetchUserEpisodeDetail(
                                         showId: int.parse(showId)));
                               },
                             );

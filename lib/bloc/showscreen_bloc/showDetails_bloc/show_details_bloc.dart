@@ -1,10 +1,8 @@
-// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
-
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_event.dart';
-import 'package:ondgo_flutter/bloc/showscreen_bloc/show_details_state.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
 import 'package:ondgo_flutter/models/showscreen_modules/showscreen_modules.dart';
 import 'package:ondgo_flutter/networkconfig/api_url.dart';
 import 'package:http/http.dart' as http;
@@ -35,7 +33,7 @@ class UserShowDetailBloc
       'show_id': showId,
       'user_id': userId,
     });
-    // print("show from Show Screen: ${showId}");
+    print("showid from UserShowDetailBloc : ${showId}");
     try {
       final response = await http.post(
         url,
@@ -45,8 +43,8 @@ class UserShowDetailBloc
         },
         body: body,
       );
-      print("Response status show screen: ${response.statusCode}");
-      print("Response body show screen: ${response.body}");
+      // print("Response status show screen: ${response.statusCode}");
+      // print("Response body show screen: ${response.body}");
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);
         if (responseData['status'] == true) {
