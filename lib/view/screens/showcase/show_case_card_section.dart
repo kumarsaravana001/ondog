@@ -70,20 +70,20 @@ class ShowCaseCardSections extends StatelessWidget {
                       return Image.network(imageUrl, fit: BoxFit.cover);
                     }).toList();
 
-                    return HorizontalScrollableCard(
+                    return HorizontalScrollableCard1(
                       cardStatusColor: Colors.red[300]!,
                       imageListCount: imageWidgets.length,
                       imageList: imageWidgets,
                       textColor: AppColors.white,
-                      subtitle: "Episode ${episodeNum.toString()}",
-                      onTap: (String showId) {},
+                      subtitle: episodeNum,
+                      onTap: (String showId, String episodeId) {},
                       titlecard: showNames,
                       showIds: showIds,
                     );
                   } else if (state is UserEpisodeDetailError) {
                     return Text('Error: ${state.message}');
                   } else {
-                    return horizontalCardShimmerWidget(); // Or handle other states as needed
+                    return horizontalCardShimmerWidget();
                   }
                 },
               ),
