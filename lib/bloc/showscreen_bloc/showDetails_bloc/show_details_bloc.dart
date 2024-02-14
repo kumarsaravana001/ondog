@@ -33,7 +33,6 @@ class UserShowDetailBloc
       'show_id': showId,
       'user_id': userId,
     });
-    print("showid from UserShowDetailBloc : ${showId}");
     try {
       final response = await http.post(
         url,

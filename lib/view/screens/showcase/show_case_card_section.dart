@@ -7,6 +7,7 @@ import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
+import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_state.dart';
@@ -15,11 +16,16 @@ import '../../../config/config_index.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/app_scrollable_elongated_card.dart';
 
-class ShowCaseCardSections extends StatelessWidget {
+class ShowCaseCardSections extends StatefulWidget {
   const ShowCaseCardSections({
     super.key,
   });
 
+  @override
+  State<ShowCaseCardSections> createState() => _ShowCaseCardSectionsState();
+}
+
+class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -59,14 +65,11 @@ class ShowCaseCardSections extends StatelessWidget {
                     List<String> episodeNum = state.episodeDetails
                         .map((show) => show.episodeId ?? 'No Show Name')
                         .toList();
-                    print("Episode no ${episodeNum}");
                     List<Widget> imageWidgets =
                         state.episodeDetails.map((show) {
                       String imageUrl = show.episodeBanner!.isNotEmpty
                           ? show.episodeBanner![0]
                           : 'default_image_url';
-                      String epiNum = show.episodeId.toString();
-                      print("epi num ${epiNum}");
                       return Image.network(imageUrl, fit: BoxFit.cover);
                     }).toList();
 
@@ -76,9 +79,14 @@ class ShowCaseCardSections extends StatelessWidget {
                       imageList: imageWidgets,
                       textColor: AppColors.white,
                       subtitle: episodeNum,
-                      onTap: (String showId, String episodeId) {},
                       titlecard: showNames,
                       showIds: showIds,
+                      onTap: (String showId, String episodeId) {
+                        context
+                            .read<QuizVisibilityCubit>()
+                            .toggleQuizVisibility();
+                        print("ontapped");
+                      },
                     );
                   } else if (state is UserEpisodeDetailError) {
                     return Text('Error: ${state.message}');

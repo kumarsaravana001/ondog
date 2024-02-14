@@ -121,6 +121,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
     required this.showIds,
     required this.onTap,
     required this.titlecard,
+    this.episodeId,
   });
 
   final Color cardStatusColor;
@@ -132,6 +133,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
   final List<String> titlecard;
   final Function(String showId, String episodeId) onTap;
   final List<String>? showIds;
+  final List<String>? episodeId;
 
   @override
   Widget build(BuildContext context) {
@@ -142,52 +144,62 @@ class HorizontalScrollableCard1 extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: imageListCount,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            width: 42.w,
-            margin: EdgeInsets.all(12.sp),
-            decoration: BoxDecoration(
-                color: cardbackgroundcolor,
-                borderRadius: BorderRadius.circular(15.0)),
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 12.sp, horizontal: 14.sp),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(playlistcardnames[index],
+          return GestureDetector(
+            onTap: () {
+              if (showIds != null &&
+                  episodeId != null &&
+                  index < showIds!.length &&
+                  index < episodeId!.length) {
+                onTap(showIds![index], episodeId![index]);
+              }
+            },
+            child: Container(
+              width: 42.w,
+              margin: EdgeInsets.all(12.sp),
+              decoration: BoxDecoration(
+                  color: cardbackgroundcolor,
+                  borderRadius: BorderRadius.circular(15.0)),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 12.sp, horizontal: 14.sp),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(playlistcardnames[index],
+                                style: AppTestStyle.headingint(
+                                    fontSize: 16.sp,
+                                    color: textColor,
+                                    fontWeight: FontWeight.bold)),
+                            AppIconsWidget.horizontaldiamond(
+                                color: cardStatusColor, size: 15),
+                          ],
+                        ),
+                        if (subtitle.isNotEmpty)
+                          Text("Episode ${subtitle[index]}",
                               style: AppTestStyle.headingint(
-                                  fontSize: 16.sp,
-                                  color: textColor,
+                                  fontSize: 15.sp,
+                                  color: AppColors.white,
                                   fontWeight: FontWeight.bold)),
-                          AppIconsWidget.horizontaldiamond(
-                              color: cardStatusColor, size: 15),
-                        ],
-                      ),
-                      if (subtitle.isNotEmpty)
-                        Text("Episode ${subtitle[index]}",
-                            style: AppTestStyle.headingint(
-                                fontSize: 15.sp,
-                                color: AppColors.white,
-                                fontWeight: FontWeight.bold)),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 18 / 15.7,
+                      child: imageList[index],
+                    ),
                   ),
-                  child: AspectRatio(
-                    aspectRatio: 18 / 15.7,
-                    child: imageList[index],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

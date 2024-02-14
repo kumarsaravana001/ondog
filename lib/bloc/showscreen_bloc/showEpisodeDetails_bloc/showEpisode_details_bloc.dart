@@ -34,7 +34,6 @@ class UserEpisodeDetailBloc
       'user_id': userId,
       'show_id': showId,
     });
-    print("showid from UserEpisodeDetailBloc : ${showId}");
     try {
       final response = await http.post(
         url,
@@ -44,8 +43,7 @@ class UserEpisodeDetailBloc
         },
         body: body,
       );
-      print("Response status UserEpisodeDetailBloc: ${response.statusCode}");
-      print("Response body UserEpisodeDetailBloc: ${response.body}");
+
       if (response.statusCode == 200) {
         var responseData = json.decode(response.body);
         if (responseData['status'] == true) {
