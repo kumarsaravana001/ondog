@@ -5,3 +5,8 @@ class ShowIdCubit extends Cubit<int> {
 
   void updateShowId(int showId) => emit(showId);
 }
+class EpisodeIdCubit extends Cubit<int> {
+  EpisodeIdCubit() : super(0);
+
+  void updateShowId(int showId) => emit(showId);
+}

@@ -121,7 +121,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
     required this.showIds,
     required this.onTap,
     required this.titlecard,
-    this.episodeId,
+    required this.episodeId,
   });
 
   final Color cardStatusColor;
@@ -131,7 +131,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
   final List<String> subtitle;
   final Color textColor;
   final List<String> titlecard;
-  final Function(String showId) onTap;
+  final Function(String showId, String episodeId) onTap;
   final List<String>? showIds;
   final List<String>? episodeId;
 
@@ -146,8 +146,14 @@ class HorizontalScrollableCard1 extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              if (showIds != null && index < showIds!.length) {
-                onTap(showIds![index]);
+              if (showIds != null &&
+                  episodeId != null &&
+                  index < showIds!.length &&
+                  index < episodeId!.length) {
+                onTap(
+                  showIds![index],
+                  episodeId![index],
+                );
               }
             },
             child: Container(

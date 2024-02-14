@@ -5,12 +5,13 @@ import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
 import 'package:ondgo_flutter/models/showscreen_modules/showscreen_modules.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
-import 'package:ondgo_flutter/view/screens/showcase/media_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/media_cover_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_content.dart';
-import 'package:ondgo_flutter/view/screens/showcase/quiz_question_answer_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/qna_placeholder.dart';
+import 'package:ondgo_flutter/view/screens/showcase/quiz_init_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
-import 'package:ondgo_flutter/view/screens/showcase/show_case_card_section.dart';
-import 'package:ondgo_flutter/view/screens/showcase/watch_media_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
@@ -116,7 +117,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                         builder: (context, showQuiz) {
                           return Visibility(
                             visible: showQuiz,
-                            child: const QuizInitWIdget(),
+                            child: QuizInitWIdget(),
                           );
                         },
                       ),
@@ -130,7 +131,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                       correctAnswers: correctAnswers,
                                       onFinishPressed: () {
                                         setState(() {
-                                          showQuizContent = false;
+                                          showQuizContent = true;
                                         });
                                       },
                                     )
@@ -146,78 +147,6 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class QuizInitWIdget extends StatelessWidget {
-  const QuizInitWIdget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 18.sp, vertical: 15.sp),
-      child: Container(
-        padding: EdgeInsets.all(15.sp),
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: AppColors.black),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              // !showQuizContent
-              //     ? AppLocalisation.takethenextquiz
-              //     :
-              AppLocalisation.greatwork,
-              style: AppTestStyle.headingBai(
-                  color: Colors.purple,
-                  fontSize: 21.sp,
-                  fontWeight: FontWeight.w800),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  // !showQuizContent
-                  //     ? AppLocalisation
-                  //         .earnpointstoclaimexistingrewards
-                  //     :
-                  AppLocalisation.claimnextreward,
-                  style: AppTestStyle.headingBai(
-                      color: AppColors.white,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.purple)),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 16.sp, vertical: 10.sp),
-                    child: GestureDetector(
-                      onTap: () {
-                        // setState(() {
-                        //   showQuizContent = !showQuizContent;
-                        // });
-                      },
-                      child: Text(
-                          showQuizContent
-                              ? AppLocalisation.end
-                              : AppLocalisation.start,
-                          style: AppTestStyle.headingint(
-                              color: AppColors.white, fontSize: 16.sp)),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ],
         ),
       ),
     );

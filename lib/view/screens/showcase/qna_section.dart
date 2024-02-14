@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/view/screens/showcase/quiz_question_answer_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/qna_placeholder.dart';
 
 import '../../../config/config_index.dart';
 

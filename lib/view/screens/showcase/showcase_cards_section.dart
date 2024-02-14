@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
+import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_event.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
@@ -27,6 +29,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
 
     return MultiBlocProvider(
       providers: [
+        BlocProvider<QuizDetailsBloc>(create: (context) => QuizDetailsBloc()),
         BlocProvider<UserEpisodeDetailBloc>(
             create: (context) => UserEpisodeDetailBloc()
               ..add(FetchUserEpisodeDetail(showId: showId))),
@@ -60,6 +63,9 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                     List<String> showIds = state.episodeDetails
                         .map((show) => show.showId ?? 'No Show Name')
                         .toList();
+                    List<String> episodeId = state.episodeDetails
+                        .map((show) => show.episodeId ?? 'No Show Name')
+                        .toList();
                     List<String> episodeNum = state.episodeDetails
                         .map((show) => show.episodeId ?? 'No Show Name')
                         .toList();
@@ -79,8 +85,23 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                       subtitle: episodeNum,
                       titlecard: showNames,
                       showIds: showIds,
-                      onTap: (String showId) {
-                        print('Show ID: $showId, Episode ID: episodeId');
+                      episodeId: episodeId,
+                      onTap: (String showId, String episodeId) {
+                        final int parsedShowId = int.tryParse(showId) ?? 0;
+                        final int parsedepisodeId =
+                            int.tryParse(episodeId) ?? 0;
+
+                        context.read<ShowIdCubit>().updateShowId(parsedShowId);
+                        context
+                            .read<EpisodeIdCubit>()
+                            .updateShowId(parsedepisodeId);
+
+                        BlocProvider.of<QuizDetailsBloc>(context)
+                            .add(FetchQuizDetails(
+                          showId: int.parse(showId),
+                          episodeId: int.parse(episodeId),
+                        ));
+                        print('Show ID: $showId, Episode ID: $episodeId');
                         context
                             .read<QuizVisibilityCubit>()
                             .toggleQuizVisibility();

@@ -134,6 +134,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => SignInBloc()),
           BlocProvider(create: (context) => NavigationCubit()),
           BlocProvider(create: (context) => QuizVisibilityCubit()),
+          BlocProvider(create: (context) => EpisodeIdCubit()),
           BlocProvider(create: (context) => UserEpisodeDetailBloc()),
           BlocProvider(create: (context) => UserShowDetailBloc()),
           BlocProvider(create: (context) => ShowIdCubit()),
