@@ -31,8 +31,6 @@ class ShowCaseScreen extends StatefulWidget {
 }
 
 class _ShowCaseScreenState extends State<ShowCaseScreen> {
-
-
   int correctAnswers = 0;
   int currentQuestionIndex = 0;
   late int selectedOptionIndex = -1;
@@ -63,7 +61,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => QuizVisibilityCubit()),
+        BlocProvider(create: (_) => QuizVisibilityCubit()),
       ],
       child: Scaffold(
         body: SafeArea(
@@ -109,7 +107,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                 : null;
                             return buildShowDetails(showDetails);
                           } else if (state is UserShowDetailError) {
-                            return Text('Error: //${state.message}');
+                            return Text('Error: ////${state.message}');
                           }
                           return const Text('Please select a show.');
                         },

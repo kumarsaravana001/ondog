@@ -1,12 +1,7 @@
-// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
-
-import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
-import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
@@ -28,10 +23,13 @@ class ShowCaseCardSections extends StatefulWidget {
 class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
   @override
   Widget build(BuildContext context) {
+    final showId = context.read<ShowIdCubit>().state;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<UserEpisodeDetailBloc>(
-            create: (context) => UserEpisodeDetailBloc()),
+            create: (context) => UserEpisodeDetailBloc()
+              ..add(FetchUserEpisodeDetail(showId: showId))),
       ],
       child: BlocListener<ShowIdCubit, int?>(
         listener: (context, showId) {
@@ -53,7 +51,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
               child: BlocBuilder<UserEpisodeDetailBloc, UserEpisodeDetailState>(
                 builder: (context, state) {
                   if (state is UserEpisodeDetailLoading) {
-                    return horizontalCardShimmerWidget(); // Show loading indicator while data is being fetched
+                    return const CircularProgressIndicator();
                   } else if (state is UserEpisodeDetailLoaded &&
                       state.episodeDetails.isNotEmpty) {
                     List<String> showNames = state.episodeDetails
@@ -81,11 +79,11 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                       subtitle: episodeNum,
                       titlecard: showNames,
                       showIds: showIds,
-                      onTap: (String showId, String episodeId) {
+                      onTap: (String showId) {
+                        print('Show ID: $showId, Episode ID: episodeId');
                         context
                             .read<QuizVisibilityCubit>()
                             .toggleQuizVisibility();
-                        print("ontapped");
                       },
                     );
                   } else if (state is UserEpisodeDetailError) {

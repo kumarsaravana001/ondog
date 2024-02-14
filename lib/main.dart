@@ -86,7 +86,6 @@ class _MyAppState extends State<MyApp> {
             builder: (context, state) => const SplashScreentwo()),
         GoRoute(
             path: '/signup', builder: (context, state) => const SignupScreen()),
-
         GoRoute(
             path: '/login', builder: (context, state) => const LoginScreen()),
         GoRoute(path: '/navbar', builder: (context, state) => Navbar()),
@@ -126,7 +125,6 @@ class _MyAppState extends State<MyApp> {
         GoRoute(
             path: '/fullScreenImage',
             builder: (context, state) => const ReelsFullScreen()),
-        // GoRoute(path: '/test', builder: (context, state) => const TestScreen()),
       ],
     );
     return ResponsiveSizer(builder: (context, orientation, screenType) {
@@ -135,10 +133,10 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => LoginBloc()),
           BlocProvider(create: (context) => SignInBloc()),
           BlocProvider(create: (context) => NavigationCubit()),
+          BlocProvider(create: (context) => QuizVisibilityCubit()),
           BlocProvider(create: (context) => UserEpisodeDetailBloc()),
           BlocProvider(create: (context) => UserShowDetailBloc()),
           BlocProvider(create: (context) => ShowIdCubit()),
-          BlocProvider(create: (context) => QuizVisibilityCubit()),
         ],
         child: MaterialApp.router(
           routerConfig: router,
