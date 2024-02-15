@@ -14,9 +14,12 @@ import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
 import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
+import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showId_cubit.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_custombar.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_event.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_state.dart';
 
 class ShowCaseScreen extends StatefulWidget {
   const ShowCaseScreen({super.key});
@@ -34,32 +37,62 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
   bool showQuizContent = false;
   bool showScoreContent = false;
 
-  void handleOptionTap(int optionIndex) {
-    setState(
-      () {
-        selectedOptionIndex = optionIndex;
+  // void handleOptionTap(int optionIndex) {
+  //   setState(
+  //     () {
+  //       selectedOptionIndex = optionIndex;
 
-        if (optionIndex ==
-            quizData[currentQuestionIndex]['correctAnswerIndex']) {
-          correctAnswers++;
-        }
+  //       if (optionIndex ==
+  //           quizData[currentQuestionIndex]['correctAnswerIndex']) {
+  //         correctAnswers++;
+  //       }
 
-        if (currentQuestionIndex < quizData.length - 1) {
-          currentQuestionIndex++;
-          selectedOptionIndex = -1;
-        } else {
-          totalQuestions = quizData.length;
-          showScoreContent = true;
-        }
-      },
-    );
+  //       if (currentQuestionIndex < quizData.length - 1) {
+  //         currentQuestionIndex++;
+  //         selectedOptionIndex = -1;
+  //       } else {
+  //         totalQuestions = quizData.length;
+  //         showScoreContent = true;
+  //       }
+  //     },
+  //   );
+  // }
+  @override
+  void initState() {
+    super.initState();
+    // Listen to changes in showId and episodeId and fetch quiz details accordingly
+    final showId = context.read<ShowIdCubit>().state;
+    final episodeId = context.read<EpisodeIdCubit>().state;
+    if (showId > 0 && episodeId > 0) {
+      context
+          .read<QuizDetailsBloc>()
+          .add(FetchQuizDetails(showId: showId, episodeId: episodeId));
+    }
+  }
+
+  void _handleStartQuiz() {
+    final showId = context.read<ShowIdCubit>().state;
+    final episodeId = context.read<EpisodeIdCubit>().state;
+    if (showId > 0 && episodeId > 0) {
+      context
+          .read<QuizDetailsBloc>()
+          .add(FetchQuizDetails(showId: showId, episodeId: episodeId));
+    }
+
+    setState(() {
+      showQuizContent = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final showId = context.read<ShowIdCubit>().state;
+    final episodeId = context.read<EpisodeIdCubit>().state;
     return MultiBlocProvider(
       providers: [
-        BlocProvider<QuizDetailsBloc>(create: (context) => QuizDetailsBloc()),
+        BlocProvider<QuizDetailsBloc>(
+            create: (context) => QuizDetailsBloc()
+              ..add(FetchQuizDetails(showId: showId, episodeId: episodeId))),
         BlocProvider(create: (_) => QuizVisibilityCubit()),
       ],
       child: Scaffold(
@@ -112,19 +145,12 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                         },
                       ),
                       BlocBuilder<QuizVisibilityCubit, bool>(
-                        builder: (context, showQuiz) {
-                          return Visibility(
-                            visible: showQuiz,
-                            child: QuizInitWIdget(
-                              onStartQuiz: () {
-                                setState(() {
-                                  showQuizContent = true;
-                                });
-                              },
-                            ),
-                          );
-                        },
-                      ),
+                          builder: (context, showQuiz) {
+                        return Visibility(
+                          visible: showQuiz,
+                          child: QuizInitWIdget(onStartQuiz: _handleStartQuiz),
+                        );
+                      }),
                       if (showQuizContent)
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.sp),
@@ -136,13 +162,8 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                     setState(() {
                                       showQuizContent = false;
                                     });
-                                  },
-                                )
-                              : QuizQuestionAnswerSection(
-                                  currentQuestionIndex: currentQuestionIndex,
-                                  quizData: quizData,
-                                  handleOptionTap: handleOptionTap,
-                                ),
+                                  })
+                              : const QuizQuestionAnswerSection(),
                         ),
                       const ShowCaseCardSections(),
                       SizedBox(height: 10.h),
