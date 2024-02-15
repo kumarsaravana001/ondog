@@ -11,7 +11,6 @@ class QuizDetailsLoaded extends QuizDetailsState {
   final int showId;
   final int episodeId;
 
-  // Corrected constructor
   QuizDetailsLoaded(this.quizDetails,
       {required this.showId, required this.episodeId});
 }

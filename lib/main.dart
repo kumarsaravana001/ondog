@@ -1,5 +1,3 @@
-// ignore_for_file: unused_import
-
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
@@ -23,10 +22,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('sessionBox');
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   String initialRoute = determineInitialRoute();
   runApp(
       //DevicePreview(
@@ -44,10 +41,7 @@ String determineInitialRoute() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({
-    super.key,
-    required this.initialRoute,
-  });
+  const MyApp({super.key, required this.initialRoute});
 
   final String initialRoute;
 
@@ -127,28 +121,33 @@ class _MyAppState extends State<MyApp> {
             builder: (context, state) => const ReelsFullScreen()),
       ],
     );
-    return ResponsiveSizer(builder: (context, orientation, screenType) {
-      return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => LoginBloc()),
-          BlocProvider(create: (context) => SignInBloc()),
-          BlocProvider(create: (context) => NavigationCubit()),
-          BlocProvider(create: (context) => QuizVisibilityCubit()),
-          BlocProvider(create: (context) => EpisodeIdCubit()),
-          BlocProvider(create: (context) => UserEpisodeDetailBloc()),
-          BlocProvider(create: (context) => UserShowDetailBloc()),
-          BlocProvider(create: (context) => ShowIdCubit()),
-        ],
-        child: MaterialApp.router(
-          routerConfig: router,
-          debugShowCheckedModeBanner: false,
-          title: 'Ondgo',
-          theme: ThemeData(
-            useMaterial3: true,
-            dialogBackgroundColor: AppColors.white,
+    return ResponsiveSizer(
+      builder: (context, orientation, screenType) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => LoginBloc()),
+            BlocProvider(create: (context) => SignInBloc()),
+            BlocProvider(create: (context) => NavigationCubit()),
+            BlocProvider(create: (context) => QuizVisibilityCubit()),
+            BlocProvider(create: (context) => ShowIdCubit()),
+            BlocProvider(create: (context) => EpisodeIdCubit()),
+            BlocProvider(create: (context) => UserEpisodeDetailBloc()),
+            BlocProvider(create: (context) => UserShowDetailBloc()),
+            BlocProvider(create: (context) => ShowIdCubit()),
+            BlocProvider(create: (context) => EpisodeIdCubit()),
+            BlocProvider(create: (context) => QuizDetailsBloc()),
+          ],
+          child: MaterialApp.router(
+            routerConfig: router,
+            debugShowCheckedModeBanner: false,
+            title: 'Ondgo',
+            theme: ThemeData(
+              useMaterial3: true,
+              dialogBackgroundColor: AppColors.white,
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

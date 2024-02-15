@@ -12,6 +12,7 @@ import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
+import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
 import '../../../bloc/showscreen_bloc/showId_cubit.dart';
 import '../../../config/config_index.dart';
@@ -58,6 +59,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<QuizDetailsBloc>(create: (context) => QuizDetailsBloc()),
         BlocProvider(create: (_) => QuizVisibilityCubit()),
       ],
       child: Scaffold(
@@ -123,27 +125,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                           );
                         },
                       ),
-                      // showQuizContent == false
-                      //     ? const ShowCaseCardSections()
-                      //     : Padding(
-                      //         padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                      //         child: showScoreContent
-                      //             ? ScoreWidget(
-                      //                 totalQuestions: totalQuestions,
-                      //                 correctAnswers: correctAnswers,
-                      //                 onFinishPressed: () {
-                      //                   setState(() {});
-                      //                 },
-                      //               )
-                      //             : QuizQuestionAnswerSection(
-                      //                 currentQuestionIndex:
-                      //                     currentQuestionIndex,
-                      //                 quizData: quizData,
-                      //                 handleOptionTap: handleOptionTap)),
-
-                      if (!showQuizContent)
-                        const ShowCaseCardSections() // Show this if showQuizContent is false
-                      else
+                      if (showQuizContent)
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.sp),
                           child: showScoreContent
@@ -152,18 +134,17 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                   correctAnswers: correctAnswers,
                                   onFinishPressed: () {
                                     setState(() {
-                                      showQuizContent =
-                                          false; // Hide quiz content, showing cards again or whatever you choose
+                                      showQuizContent = false;
                                     });
                                   },
                                 )
                               : QuizQuestionAnswerSection(
                                   currentQuestionIndex: currentQuestionIndex,
-                                  quizData:
-                                      quizData, // Ensure this is populated
+                                  quizData: quizData,
                                   handleOptionTap: handleOptionTap,
                                 ),
                         ),
+                      const ShowCaseCardSections(),
                       SizedBox(height: 10.h),
                     ],
                   ),

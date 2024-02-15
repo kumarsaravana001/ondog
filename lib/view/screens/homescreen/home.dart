@@ -749,7 +749,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           } else if (state is CategoryWiseShow2Error) {
                             return Text('Error: ${state.messages}');
                           } else {
-                            return horizontalCardShimmerWidget(); // Or handle other states as needed
+                            return horizontalCardShimmerWidget();
                           }
                         },
                       ),

@@ -17,8 +17,6 @@ class QuizDetailsBloc extends Bloc<QuizDetailsEvent, QuizDetailsState> {
       FetchQuizDetails event, Emitter<QuizDetailsState> emit) async {
     emit(QuizDetailsLoading());
     try {
-      emit(QuizDetailsLoading());
-
       final quizDetails =
           await _fetchQuizDetails(event.showId, event.episodeId);
       emit(QuizDetailsLoaded(
@@ -38,12 +36,12 @@ class QuizDetailsBloc extends Bloc<QuizDetailsEvent, QuizDetailsState> {
     String? userId = box.get('userId');
     var url = Uri.parse('https://ondgo.in/api/user-quiz-details.php');
     var body = json.encode({
-      'user_id': userId, // "U588583"
-      'show_id': showId, // 4
-      'episode_id': episodeId, // 1
+      'user_id': userId,
+      'show_id': showId,
+      'episode_id': episodeId,
     });
     print("showid from QuizDetailsBloc : ${showId}");
-    print("showid from QuizDetailsBloc : ${episodeId}");
+    print("episodeid from QuizDetailsBloc : ${episodeId}");
 
     var response = await http.post(
       url,

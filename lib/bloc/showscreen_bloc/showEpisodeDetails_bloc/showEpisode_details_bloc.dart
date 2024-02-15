@@ -43,7 +43,8 @@ class UserEpisodeDetailBloc
         },
         body: body,
       );
-
+      // print("Response UserEpisodeDetailBloc: ${response.statusCode}");
+      // print("Response UserEpisodeDetailBloc: ${response.body}");
       if (response.statusCode == 200) {
         var responseData = json.decode(response.body);
         if (responseData['status'] == true) {
