@@ -37,30 +37,9 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
   bool showQuizContent = false;
   bool showScoreContent = false;
 
-  // void handleOptionTap(int optionIndex) {
-  //   setState(
-  //     () {
-  //       selectedOptionIndex = optionIndex;
-
-  //       if (optionIndex ==
-  //           quizData[currentQuestionIndex]['correctAnswerIndex']) {
-  //         correctAnswers++;
-  //       }
-
-  //       if (currentQuestionIndex < quizData.length - 1) {
-  //         currentQuestionIndex++;
-  //         selectedOptionIndex = -1;
-  //       } else {
-  //         totalQuestions = quizData.length;
-  //         showScoreContent = true;
-  //       }
-  //     },
-  //   );
-  // }
   @override
   void initState() {
     super.initState();
-    // Listen to changes in showId and episodeId and fetch quiz details accordingly
     final showId = context.read<ShowIdCubit>().state;
     final episodeId = context.read<EpisodeIdCubit>().state;
     if (showId > 0 && episodeId > 0) {
@@ -128,7 +107,29 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                 },
                               ),
                             )
-                          : const MediaWatchSection(),
+                          :
+                          // const MediaWatchSection(),
+                          BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
+                              builder: (context, state) {
+                                if (state is UserShowDetailLoaded) {
+                                  final showDetails =
+                                      state.userDetails.isNotEmpty
+                                          ? state.userDetails.first
+                                          : null;
+                                  if (showDetails != null) {
+                                    print(
+                                        "-------------------------------------------------------Show Teaser URL: ${showDetails.showTeaser}");
+                                    return MediaWatchSection(
+                                      videoUrl: showDetails.showTeaser ??
+                                          // 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+                                          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+                                    );
+                                  }
+                                }
+                                return const Center(
+                                    child: Text("Video Not playing"));
+                              },
+                            ),
                       BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
                         builder: (context, state) {
                           if (state is UserShowDetailLoading) {
@@ -139,7 +140,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                 : null;
                             return buildShowDetails(showDetails);
                           } else if (state is UserShowDetailError) {
-                            return Text('Error: ////${state.message}');
+                            return Text('Error: ${state.message}');
                           }
                           return const Text('Please select a show.');
                         },

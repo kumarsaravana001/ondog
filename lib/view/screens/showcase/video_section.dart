@@ -128,7 +128,9 @@ import 'package:chewie/chewie.dart';
 //   }
 // }
 class MediaWatchSection extends StatefulWidget {
-  const MediaWatchSection({super.key});
+  final String videoUrl;
+
+  const MediaWatchSection({super.key, required this.videoUrl});
 
   @override
   _MediaWatchSectionState createState() => _MediaWatchSectionState();
@@ -141,9 +143,10 @@ class _MediaWatchSectionState extends State<MediaWatchSection> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
-      ..initialize().then((_) {
+    _controller = VideoPlayerController.network(widget.videoUrl
+      // 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      // 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+    )..initialize().then((_) {
         setState(() {});
       });
     _chewieController = ChewieController(
