@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/config/app_colors.dart';
-import 'package:ondgo_flutter/config/app_localization.dart';
-import 'package:ondgo_flutter/view/index.dart';
-
 import '../../../config/config_index.dart';
 
 class QuizInitWIdget extends StatefulWidget {
+    final VoidCallback onStartQuiz; // Define the callback here
+
+  const QuizInitWIdget({super.key, required this.onStartQuiz});
+
   @override
   State<QuizInitWIdget> createState() => _QuizInitWIdgetState();
 }
@@ -57,6 +57,7 @@ class _QuizInitWIdgetState extends State<QuizInitWIdget> {
                         setState(() {
                           showQuizContent = !showQuizContent;
                         });
+                        widget.onStartQuiz();
                       },
                       child: Text(
                           showQuizContent

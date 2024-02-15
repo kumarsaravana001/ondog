@@ -3,26 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
-import 'package:ondgo_flutter/models/showscreen_modules/showscreen_modules.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import 'package:ondgo_flutter/view/screens/showcase/media_cover_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/qna_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_content.dart';
-import 'package:ondgo_flutter/view/screens/showcase/qna_placeholder.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_init_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
-import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
-import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
 import '../../../bloc/showscreen_bloc/showId_cubit.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_custombar.dart';
-
-bool showWatchedContent = false;
-bool showQuizContent = false;
-bool showScoreContent = false;
-int score = 0;
 
 class ShowCaseScreen extends StatefulWidget {
   const ShowCaseScreen({super.key});
@@ -34,8 +27,11 @@ class ShowCaseScreen extends StatefulWidget {
 class _ShowCaseScreenState extends State<ShowCaseScreen> {
   int correctAnswers = 0;
   int currentQuestionIndex = 0;
-  late int selectedOptionIndex = -1;
+  int selectedOptionIndex = -1;
   int totalQuestions = 0;
+  bool showWatchedContent = false;
+  bool showQuizContent = false;
+  bool showScoreContent = false;
 
   void handleOptionTap(int optionIndex) {
     setState(
@@ -117,29 +113,57 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                         builder: (context, showQuiz) {
                           return Visibility(
                             visible: showQuiz,
-                            child: QuizInitWIdget(),
+                            child: QuizInitWIdget(
+                              onStartQuiz: () {
+                                setState(() {
+                                  showQuizContent = true;
+                                });
+                              },
+                            ),
                           );
                         },
                       ),
-                      showQuizContent == false
-                          ? const ShowCaseCardSections()
-                          : Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                              child: showScoreContent
-                                  ? ScoreWidget(
-                                      totalQuestions: totalQuestions,
-                                      correctAnswers: correctAnswers,
-                                      onFinishPressed: () {
-                                        setState(() {
-                                          showQuizContent = true;
-                                        });
-                                      },
-                                    )
-                                  : QuizQuestionAnswerSection(
-                                      currentQuestionIndex:
-                                          currentQuestionIndex,
-                                      quizData: quizData,
-                                      handleOptionTap: handleOptionTap)),
+                      // showQuizContent == false
+                      //     ? const ShowCaseCardSections()
+                      //     : Padding(
+                      //         padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                      //         child: showScoreContent
+                      //             ? ScoreWidget(
+                      //                 totalQuestions: totalQuestions,
+                      //                 correctAnswers: correctAnswers,
+                      //                 onFinishPressed: () {
+                      //                   setState(() {});
+                      //                 },
+                      //               )
+                      //             : QuizQuestionAnswerSection(
+                      //                 currentQuestionIndex:
+                      //                     currentQuestionIndex,
+                      //                 quizData: quizData,
+                      //                 handleOptionTap: handleOptionTap)),
+
+                      if (!showQuizContent)
+                        const ShowCaseCardSections() // Show this if showQuizContent is false
+                      else
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                          child: showScoreContent
+                              ? ScoreWidget(
+                                  totalQuestions: totalQuestions,
+                                  correctAnswers: correctAnswers,
+                                  onFinishPressed: () {
+                                    setState(() {
+                                      showQuizContent =
+                                          false; // Hide quiz content, showing cards again or whatever you choose
+                                    });
+                                  },
+                                )
+                              : QuizQuestionAnswerSection(
+                                  currentQuestionIndex: currentQuestionIndex,
+                                  quizData:
+                                      quizData, // Ensure this is populated
+                                  handleOptionTap: handleOptionTap,
+                                ),
+                        ),
                       SizedBox(height: 10.h),
                     ],
                   ),
@@ -149,99 +173,6 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-Widget buildShowDetails(ShowDetailsData? showDetails) {
-  if (showDetails == null) return const Text('No details available');
-  return Padding(
-    padding: EdgeInsets.only(top: 10.sp, left: 18.sp),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          showDetails.showName ?? 'Show Name Not Available',
-          style: AppTestStyle.headingBai(
-            fontSize: 22.sp,
-            color: AppColors.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 10.sp),
-          child: Text(
-            showDetails.description ?? 'Description Not Available',
-            style: AppTestStyle.headingint(
-              fontSize: 17.sp,
-              italic: true,
-              color: AppColors.black,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-class QuizQuestionAnswerSection extends StatefulWidget {
-  const QuizQuestionAnswerSection({
-    super.key,
-    required this.currentQuestionIndex,
-    required this.quizData,
-    required this.handleOptionTap,
-  });
-
-  final int currentQuestionIndex;
-  final Function(int) handleOptionTap;
-  final List<Map<String, dynamic>> quizData;
-
-  @override
-  State<QuizQuestionAnswerSection> createState() =>
-      _QuizQuestionAnswerSectionState();
-}
-
-class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
-  late int _selectedOptionIndex = -1;
-
-  @override
-  Widget build(BuildContext context) {
-    Map<String, dynamic> currentQuestion =
-        widget.quizData[widget.currentQuestionIndex];
-    List<String> options = currentQuestion['options'];
-
-    return Column(
-      children: [
-        QuizQuestionSection(
-          number: '${widget.currentQuestionIndex + 1} / 10 ',
-          question: currentQuestion['question'],
-        ),
-        GridView.count(
-          childAspectRatio: 3,
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          children: List.generate(
-            options.length,
-            (index) => RadioListTile<int>(
-              activeColor: AppColors.black,
-              contentPadding: EdgeInsets.zero,
-              dense: true,
-              title: Text(options[index]),
-              value: index,
-              groupValue: _selectedOptionIndex,
-              onChanged: (int? value) {
-                if (value != null) {
-                  widget.handleOptionTap(value);
-                  setState(() {
-                    _selectedOptionIndex = value;
-                  });
-                }
-              },
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
