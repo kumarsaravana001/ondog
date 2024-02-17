@@ -11,10 +11,10 @@ class HorizontalScrollableCard extends StatelessWidget {
     this.textColor = AppColors.black,
     required this.cardStatusColor,
     required this.imageList,
-    required this.showIds,
+     this.showIds,
     required this.onTap,
     required this.imageListCount,
-    required this.titlecard,
+     this.titlecard,
   });
 
   final Color cardStatusColor;
@@ -25,7 +25,7 @@ class HorizontalScrollableCard extends StatelessWidget {
   final List<String>? showIds;
   final String subtitle;
   final Color textColor;
-  final List<String> titlecard;
+  final List<String>? titlecard;
 
   String _truncateTitle(String title) {
     List<String> words = title.split(' ');
@@ -69,7 +69,7 @@ class HorizontalScrollableCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              _truncateTitle(titlecard[index]),
+                              _truncateTitle(titlecard![index]),
                               style: AppTestStyle.headingint(
                                 fontSize: 16.sp,
                                 color: textColor,

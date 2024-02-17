@@ -139,6 +139,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  HorizontalScrollableCard spotlightWidget(
+      List<PopularpicksData> popularpicks) {
+    List<String> imageUrls = [];
+    List<String> showNames = [];
+    for (var pick in popularpicks) {
+      String imageUrl = pick.thumbnail != null && pick.thumbnail!.isNotEmpty
+          ? pick.thumbnail!.first
+          : 'default_image_url';
+      imageUrls.add(imageUrl);
+      showNames.add(pick.showName ?? 'Default Show Name');
+    }
+
+    List<Image> imageWidgets = imageUrls.map((url) {
+      return Image.network(url, fit: BoxFit.cover);
+    }).toList();
+
+    return HorizontalScrollableCard(
+      cardStatusColor: Colors.indigoAccent,
+      titlecard: showNames,
+      imageListCount: popularpicks.length,
+      imageList: imageWidgets,
+      textColor: AppColors.black,
+      cardbackgroundcolor: AppColors.white,
+      onTap: (String showId) {},
+      showIds: [],
+    );
+  }
+
   Widget buildBannerCarousel(List<Data> banners) {
     List<Widget> bannerWidgets = banners.expand((banner) {
       List<String> imageUrls =
@@ -233,23 +261,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontSize: 22.sp,
                                 color: AppColors.white,
                                 fontWeight: FontWeight.w700))),
-                    // Positioned(
-                    //   bottom: 50.sp,
-                    //   left: 20.sp,
-                    //   right: 8.sp,
-                    //   child: SizedBox(
-                    //     height: 200,
-                    //     child: HorizontalScrollableCard(
-                    //       cardStatusColor: Colors.indigo,
-                    //       imageListCount: playlistcardnames.length,
-                    //       imageList: yourlistImagepath,
-                    //       cardbackgroundcolor: AppColors.white,
-                    //       showIds: [],
-                    //       onTap: (String showId) {},
-                    //       titlecard: [],
-                    //     ),
-                    //   ),
-                    // ),
+                    Positioned(
+                      bottom: 50.sp,
+                      left: 20.sp,
+                      right: 8.sp,
+                      child: SizedBox(
+                        height: 200,
+                        child:
+                            //  HorizontalScrollableCard(
+                            //   cardStatusColor: Colors.indigo,
+                            //   imageListCount: playlistcardnames.length,
+                            //   imageList: yourlistImagepath,
+                            //   cardbackgroundcolor: AppColors.white,
+                            //   // showIds:,
+                            //   onTap: (String showId) {},
+                            //   // titlecard: [],
+                            // ),
+                            BlocBuilder<PopularPicksBloc, PopularPicksState>(
+                          builder: (context, state) {
+                            if (state is PopularPicksLoaded) {
+                              return spotlightWidget(state.popularPicks);
+                            } else if (state is PopularPicksLoading) {
+                              return horizontalCardShimmerWidget();
+                            } else {
+                              return horizontalCardShimmerWidget();
+                            }
+                          },
+                        ),
+                      ),
+                    ),
                     Positioned(
                       child: ClipPath(
                         clipper: StackHometopshape(),

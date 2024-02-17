@@ -107,9 +107,8 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                 },
                               ),
                             )
-                          :
-                          // const MediaWatchSection(),
-                          BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
+                          : BlocBuilder<UserShowDetailBloc,
+                              UserShowDetailState>(
                               builder: (context, state) {
                                 if (state is UserShowDetailLoaded) {
                                   final showDetails =
@@ -121,7 +120,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                         "-------------------------------------------------------Show Teaser URL: ${showDetails.showTeaser}");
                                     return MediaWatchSection(
                                       videoUrl: showDetails.showTeaser ??
-                                          // 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+                                          //'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
                                           'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
                                     );
                                   }
