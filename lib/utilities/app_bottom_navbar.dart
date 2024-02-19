@@ -144,39 +144,54 @@ class Navbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<NavigationCubit, int>(
-        builder: (context, selectedIndex) {
-          return Stack(
-            children: [
-              IndexedStack(
-                index: selectedIndex,
-                children: _screens,
-              ),
-              Positioned(
-                left: 15,
-                right: 15,
-                bottom: 0,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                  child: BottomNavigationBar(
-                    backgroundColor: AppColors.black,
-                    type: BottomNavigationBarType.fixed,
-                    items: _navBarItems,
-                    currentIndex: selectedIndex,
-                    selectedFontSize: 0,
-                    unselectedFontSize: 0,
-                    onTap: (index) => BlocProvider.of<NavigationCubit>(context)
-                        .navigateToIndex(index),
+    return WillPopScope(
+      onWillPop: () async {
+        final NavigationCubit navCubit =
+            BlocProvider.of<NavigationCubit>(context);
+        final int currentIndex = navCubit.state;
+
+        if (currentIndex != 0) {
+          navCubit.navigateToIndex(0);
+          return false;
+        }
+
+        return true;
+      },
+      child: Scaffold(
+        body: BlocBuilder<NavigationCubit, int>(
+          builder: (context, selectedIndex) {
+            return Stack(
+              children: [
+                IndexedStack(
+                  index: selectedIndex,
+                  children: _screens,
+                ),
+                Positioned(
+                  left: 15,
+                  right: 15,
+                  bottom: 0,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    child: BottomNavigationBar(
+                      backgroundColor: AppColors.black,
+                      type: BottomNavigationBarType.fixed,
+                      items: _navBarItems,
+                      currentIndex: selectedIndex,
+                      selectedFontSize: 0,
+                      unselectedFontSize: 0,
+                      onTap: (index) =>
+                          BlocProvider.of<NavigationCubit>(context)
+                              .navigateToIndex(index),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

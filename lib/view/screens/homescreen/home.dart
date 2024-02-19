@@ -28,6 +28,9 @@ import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_screen.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
+import '../../../bloc/homescreen_bloc/spotlight_bloc/spotlight_bloc.dart';
+import '../../../bloc/homescreen_bloc/spotlight_bloc/spotlight_event.dart';
+import '../../../bloc/homescreen_bloc/spotlight_bloc/spotlight_state.dart';
 import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
@@ -98,106 +101,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void startConnectivityCheck() {
-    connectivityCheckTimer?.cancel(); // Cancel any existing timer
+    connectivityCheckTimer?.cancel();
     connectivityCheckTimer =
         Timer.periodic(const Duration(seconds: 10), (timer) async {
       var connectivityResult = await Connectivity().checkConnectivity();
       if (connectivityResult != ConnectivityResult.none) {
         isOnline = true;
         _loadData();
-        connectivityCheckTimer?.cancel(); // Stop the timer as internet is back
+        connectivityCheckTimer?.cancel();
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Internet Connection Restored')));
       }
     });
-  }
-
-  HorizontalScrollableCard popularPicksWidget(
-      List<PopularpicksData> popularpicks) {
-    List<String> imageUrls = [];
-    List<String> showNames = [];
-    for (var pick in popularpicks) {
-      String imageUrl = pick.thumbnail != null && pick.thumbnail!.isNotEmpty
-          ? pick.thumbnail!.first
-          : 'default_image_url';
-      imageUrls.add(imageUrl);
-      showNames.add(pick.showName ?? 'Default Show Name');
-    }
-
-    List<Image> imageWidgets = imageUrls.map((url) {
-      return Image.network(url, fit: BoxFit.cover);
-    }).toList();
-
-    return HorizontalScrollableCard(
-      cardStatusColor: Colors.indigoAccent,
-      titlecard: showNames,
-      imageListCount: popularpicks.length,
-      imageList: imageWidgets,
-      textColor: AppColors.white,
-      onTap: (String showId) {},
-      showIds: [],
-    );
-  }
-
-  HorizontalScrollableCard spotlightWidget(
-      List<PopularpicksData> popularpicks) {
-    List<String> imageUrls = [];
-    List<String> showNames = [];
-    for (var pick in popularpicks) {
-      String imageUrl = pick.thumbnail != null && pick.thumbnail!.isNotEmpty
-          ? pick.thumbnail!.first
-          : 'default_image_url';
-      imageUrls.add(imageUrl);
-      showNames.add(pick.showName ?? 'Default Show Name');
-    }
-
-    List<Image> imageWidgets = imageUrls.map((url) {
-      return Image.network(url, fit: BoxFit.cover);
-    }).toList();
-
-    return HorizontalScrollableCard(
-      cardStatusColor: Colors.indigoAccent,
-      titlecard: showNames,
-      imageListCount: popularpicks.length,
-      imageList: imageWidgets,
-      textColor: AppColors.black,
-      cardbackgroundcolor: AppColors.white,
-      onTap: (String showId) {},
-      showIds: [],
-    );
-  }
-
-  Widget buildBannerCarousel(List<Data> banners) {
-    List<Widget> bannerWidgets = banners.expand((banner) {
-      List<String> imageUrls =
-          banner.thumbnail != null && banner.thumbnail!.isNotEmpty
-              ? banner.thumbnail!
-              : ['assets/images/middleclass_banner.png'];
-
-      showNames.add(banner.categoryName ?? 'Default Banner');
-
-      return imageUrls.map((imageUrl) {
-        return Image.network(imageUrl, fit: BoxFit.cover);
-      });
-    }).toList();
-    return SizedBox(
-      height: 71.h,
-      child: CarouselSlider(
-        items: bannerWidgets,
-        options: CarouselOptions(
-          autoPlay: true,
-          autoPlayCurve: Curves.decelerate,
-          autoPlayInterval: const Duration(seconds: 5),
-          height: 71.h,
-          viewportFraction: 1.0,
-          onPageChanged: (index, reason) {
-            setState(() {
-              _currentCarouselIndex = index;
-            });
-          },
-        ),
-      ),
-    );
   }
 
   void _loadData() {
@@ -205,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
     BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
     BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
+    BlocProvider.of<HomeScreenSpotLightBloc>(context).add(FetchSpotlight());
     // Add other BLoC fetch events here as needed
   }
 
@@ -228,6 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
             create: (context) => PopularPicksBloc()..add(FetchPopularPicks())),
         BlocProvider<CategoryListBloc>(
             create: (context) => CategoryListBloc()..add(FetchCategoryList())),
+        BlocProvider<HomeScreenSpotLightBloc>(
+            create: (context) =>
+                HomeScreenSpotLightBloc()..add(FetchSpotlight())),
         BlocProvider<CategoryWiseShowBloc>(
             create: (context) => CategoryWiseShowBloc()),
         BlocProvider<CategoryWiseShowBloc1>(
@@ -254,34 +173,70 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Positioned(
-                        bottom: 80.sp,
-                        right: 46.sp,
-                        child: Text(AppLocalisation.spotlight,
-                            style: AppTestStyle.headingBai(
-                                fontSize: 22.sp,
-                                color: AppColors.white,
-                                fontWeight: FontWeight.w700))),
+                      bottom: 80.sp,
+                      right: 46.sp,
+                      child: Text(
+                        AppLocalisation.spotlight,
+                        style: AppTestStyle.headingBai(
+                            fontSize: 22.sp,
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
                     Positioned(
                       bottom: 50.sp,
                       left: 20.sp,
                       right: 8.sp,
                       child: SizedBox(
                         height: 200,
-                        child:
-                            //  HorizontalScrollableCard(
-                            //   cardStatusColor: Colors.indigo,
-                            //   imageListCount: playlistcardnames.length,
-                            //   imageList: yourlistImagepath,
-                            //   cardbackgroundcolor: AppColors.white,
-                            //   // showIds:,
-                            //   onTap: (String showId) {},
-                            //   // titlecard: [],
-                            // ),
-                            BlocBuilder<PopularPicksBloc, PopularPicksState>(
+                        child: BlocBuilder<HomeScreenSpotLightBloc,
+                            HomeScreenSpotlightState>(
                           builder: (context, state) {
-                            if (state is PopularPicksLoaded) {
-                              return spotlightWidget(state.popularPicks);
-                            } else if (state is PopularPicksLoading) {
+                            if (state is HomeScreenSpotlightLoaded &&
+                                state.spotlight.isNotEmpty) {
+                              List<String> showNames = state.spotlight
+                                  .map(
+                                      (show) => show.showName ?? 'No Show Name')
+                                  .toList();
+                              List<String> showIds = state.spotlight
+                                  .map((show) => show.showId ?? 'No Show Name')
+                                  .toList();
+                              List<Widget> imageWidgets =
+                                  state.spotlight.map((show) {
+                                String imageUrl = show.thumbnail!.isNotEmpty
+                                    ? show.thumbnail![0]
+                                    : 'default_image_url';
+
+                                return Image.network(imageUrl,
+                                    fit: BoxFit.cover);
+                              }).toList();
+
+                              return HorizontalScrollableCard(
+                                cardStatusColor: Colors.indigoAccent,
+                                titlecard: showNames,
+                                imageListCount: state.spotlight.length,
+                                imageList: imageWidgets,
+                                textColor: AppColors.white,
+                                onTap: (String showId) {
+                                  final int parsedShowId =
+                                      int.tryParse(showId) ?? 0;
+                                  context
+                                      .read<ShowIdCubit>()
+                                      .updateShowId(parsedShowId);
+
+                                  BlocProvider.of<NavigationCubit>(context)
+                                      .navigateToIndex(3);
+                                  BlocProvider.of<UserShowDetailBloc>(context)
+                                      .add(FetchUserShowDetail(
+                                          showId: int.parse(showId)));
+                                  BlocProvider.of<UserEpisodeDetailBloc>(
+                                          context)
+                                      .add(FetchUserEpisodeDetail(
+                                          showId: int.parse(showId)));
+                                },
+                                showIds: showIds,
+                              );
+                            } else if (state is HomeScreenSpotlightLoading) {
                               return horizontalCardShimmerWidget();
                             } else {
                               return horizontalCardShimmerWidget();
@@ -298,8 +253,71 @@ class _HomeScreenState extends State<HomeScreen> {
                             BlocBuilder<HomeScreenBannerBloc,
                                 HomeScreenBannerState>(
                               builder: (context, state) {
-                                if (state is HomeScreenBannerLoaded) {
-                                  return buildBannerCarousel(state.banners);
+                                if (state is HomeScreenBannerLoaded &&
+                                    state.banners.isNotEmpty) {
+                                  // return buildBannerCarousel(state.banners);
+                                  List<Widget> bannerWidgets =
+                                      state.banners.expand(
+                                    (banner) {
+                                      List<String> imageUrls =
+                                          banner.thumbnail != null &&
+                                                  banner.thumbnail!.isNotEmpty
+                                              ? banner.thumbnail!
+                                              : [
+                                                  'assets/images/middleclass_banner.png'
+                                                ];
+
+                                      showNames.add(banner.categoryName ??
+                                          'Default Banner');
+
+                                      String showId =
+                                          banner.showId ?? 'No Show Name';
+
+                                      return imageUrls.map(
+                                        (imageUrl) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              final int parsedShowId =
+                                                  int.tryParse(showId) ?? 0;
+                                              context
+                                                  .read<ShowIdCubit>()
+                                                  .updateShowId(parsedShowId);
+                                              BlocProvider.of<NavigationCubit>(
+                                                      context)
+                                                  .navigateToIndex(3);
+                                              BlocProvider.of<
+                                                          UserShowDetailBloc>(
+                                                      context)
+                                                  .add(FetchUserShowDetail(
+                                                      showId:
+                                                          int.parse(showId)));
+                                            },
+                                            child: Image.network(imageUrl,
+                                                fit: BoxFit.cover),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ).toList();
+                                  return SizedBox(
+                                    height: 71.h,
+                                    child: CarouselSlider(
+                                      items: bannerWidgets,
+                                      options: CarouselOptions(
+                                        autoPlay: true,
+                                        autoPlayCurve: Curves.decelerate,
+                                        autoPlayInterval:
+                                            const Duration(seconds: 5),
+                                        height: 71.h,
+                                        viewportFraction: 1.0,
+                                        onPageChanged: (index, reason) {
+                                          setState(() {
+                                            _currentCarouselIndex = index;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  );
                                 } else if (state is HomeScreenBannerLoading) {
                                   return buildbannerShimmerEffect();
                                 } else {
@@ -366,17 +384,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              _currentCarouselIndex <
-                                                      showNames.length
-                                                  ? showNames[
-                                                      _currentCarouselIndex]
-                                                  : 'Show',
-                                              style: AppTestStyle.headingBai(
-                                                fontSize: 24.sp,
-                                                color: AppColors.black,
-                                                fontWeight: FontWeight.w600,
-                                              ),
+                                            BlocBuilder<HomeScreenBannerBloc,
+                                                HomeScreenBannerState>(
+                                              builder: (context, state) {
+                                                if (state
+                                                        is HomeScreenBannerLoaded &&
+                                                    state.banners.isNotEmpty) {
+                                                  showNames = state.banners
+                                                      .map((banner) =>
+                                                          banner.categoryName ??
+                                                          'Default Banner')
+                                                      .toList();
+
+                                                  return Text(
+                                                    _currentCarouselIndex <
+                                                            showNames.length
+                                                        ? showNames[
+                                                            _currentCarouselIndex]
+                                                        : 'Show loading',
+                                                    style:
+                                                        AppTestStyle.headingBai(
+                                                      fontSize: 24.sp,
+                                                      color: AppColors.black,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  );
+                                                } else if (state
+                                                    is HomeScreenBannerLoading) {
+                                                  return buildbannerShimmerEffect();
+                                                } else {
+                                                  return buildbannerShimmerEffect();
+                                                }
+                                              },
                                             ),
                                             Text(
                                               AppLocalisation.newepisodes,
@@ -395,28 +435,30 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             Positioned(
-                                bottom: 10,
-                                right: 60,
-                                left: 60,
-                                child: SvgPicture.asset(
-                                    IconAssets.diamondstar, //do later
-                                    height: 14,
-                                    // ignore: deprecated_member_use
-                                    color: _currentCarouselIndex == 0
-                                        ? Colors.white
-                                        : Colors.grey)),
-                            Positioned(
-                                bottom: 20,
-                                right: 1,
-                                left: 60,
-                                child: SvgPicture.asset(
-                                  IconAssets.diamondstar,
+                              bottom: 10,
+                              right: 60,
+                              left: 60,
+                              child: SvgPicture.asset(
+                                  IconAssets.diamondstar, //do later
                                   height: 14,
                                   // ignore: deprecated_member_use
-                                  color: _currentCarouselIndex == 1
+                                  color: _currentCarouselIndex == 0
                                       ? Colors.white
-                                      : Colors.grey,
-                                )),
+                                      : Colors.grey),
+                            ),
+                            Positioned(
+                              bottom: 20,
+                              right: 1,
+                              left: 60,
+                              child: SvgPicture.asset(
+                                IconAssets.diamondstar,
+                                height: 14,
+                                // ignore: deprecated_member_use
+                                color: _currentCarouselIndex == 1
+                                    ? Colors.white
+                                    : Colors.grey,
+                              ),
+                            ),
                             Positioned(
                               bottom: 20,
                               right: 60,
@@ -452,8 +494,47 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
                       child: BlocBuilder<PopularPicksBloc, PopularPicksState>(
                         builder: (context, state) {
-                          if (state is PopularPicksLoaded) {
-                            return popularPicksWidget(state.popularPicks);
+                          if (state is PopularPicksLoaded &&
+                              state.popularPicks.isNotEmpty) {
+                            List<String> showNames = state.popularPicks
+                                .map((show) => show.showName ?? 'No Show Name')
+                                .toList();
+                            List<String> showIds = state.popularPicks
+                                .map((show) => show.showId ?? 'No Show Name')
+                                .toList();
+                            List<Widget> imageWidgets =
+                                state.popularPicks.map((show) {
+                              String imageUrl = show.thumbnail!.isNotEmpty
+                                  ? show.thumbnail![0]
+                                  : 'default_image_url';
+
+                              return Image.network(imageUrl, fit: BoxFit.cover);
+                            }).toList();
+
+                            return HorizontalScrollableCard(
+                              cardStatusColor: Colors.indigoAccent,
+                              titlecard: showNames,
+                              imageListCount: state.popularPicks.length,
+                              imageList: imageWidgets,
+                              textColor: AppColors.white,
+                              onTap: (String showId) {
+                                final int parsedShowId =
+                                    int.tryParse(showId) ?? 0;
+                                context
+                                    .read<ShowIdCubit>()
+                                    .updateShowId(parsedShowId);
+
+                                BlocProvider.of<NavigationCubit>(context)
+                                    .navigateToIndex(3);
+                                BlocProvider.of<UserShowDetailBloc>(context)
+                                    .add(FetchUserShowDetail(
+                                        showId: int.parse(showId)));
+                                BlocProvider.of<UserEpisodeDetailBloc>(context)
+                                    .add(FetchUserEpisodeDetail(
+                                        showId: int.parse(showId)));
+                              },
+                              showIds: showIds,
+                            );
                           } else if (state is PopularPicksLoading) {
                             return horizontalCardShimmerWidget();
                           } else {
@@ -665,39 +746,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   ],
                 ),
-                // Stack(
-                //   children: [
-                //     SvgPicture.asset(IconAssets.appbackground),
-                //     BlocBuilder<CategoryListBloc, CategoryListState>(
-                //       builder: (context, state) {
-                //         if (state is CategoryListLoaded &&
-                //             state.categories.isNotEmpty) {
-                //           return Center(
-                //             child: Text(
-                //               state.categories[2].categoryName ??
-                //                   'Default Category Name',
-                //               style: AppTestStyle.headingBai(
-                //                   fontSize: 22.sp,
-                //                   color: AppColors.black,
-                //                   fontWeight: FontWeight.w800),
-                //             ),
-                //           );
-                //         } else {
-                //           return Center(child: buildTextShimmerEffect());
-                //         }
-                //       },
-                //     ),
-                //     Padding(
-                //       padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
-                //       child: HorizontalScrollableCard(
-                //           cardStatusColor: Colors.brown,
-                //           titlecard: technologyimagepathtitle,
-                //           imageListCount: technologiesImagepath.length,
-                //           imageList: technologiesImagepath,
-                //           textColor: AppColors.white),
-                //     )
-                //   ],
-                // ),
                 Stack(
                   children: [
                     SvgPicture.asset(IconAssets.appbackground),
@@ -709,8 +757,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             int categoryIddd =
                                 int.parse(state.categories[2].categoryId!);
                             BlocProvider.of<CategoryWiseShowBloc2>(context).add(
-                                FetchCategoryWiseShows2(
-                                    categoryIddd: categoryIddd));
+                              FetchCategoryWiseShows2(
+                                  categoryIddd: categoryIddd),
+                            );
                           }
                         },
                         child: Padding(

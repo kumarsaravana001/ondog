@@ -108,7 +108,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                       },
                     );
                   } else if (state is UserEpisodeDetailError) {
-                    return Text('Error: ${state.message}');
+                    return const Center(child: Text("No New Episodes"));
                   } else {
                     return horizontalCardShimmerWidget();
                   }
@@ -116,9 +116,12 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(left: 18.sp),
-                child: Text(AppLocalisation.events,
-                    style: AppTestStyle.headingBai(fontSize: 26.sp))),
+              padding: EdgeInsets.only(left: 18.sp),
+              child: Text(
+                AppLocalisation.events,
+                style: AppTestStyle.headingBai(fontSize: 26.sp),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(left: 15.sp),
               child: ScrollableElongatedCardWidget(

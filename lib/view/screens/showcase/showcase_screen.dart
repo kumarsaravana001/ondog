@@ -12,6 +12,7 @@ import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
+import '../../../bloc/navigation_cubit/navigationbar_cubit.dart';
 import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
@@ -74,103 +75,112 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
               ..add(FetchQuizDetails(showId: showId, episodeId: episodeId))),
         BlocProvider(create: (_) => QuizVisibilityCubit()),
       ],
-      child: Scaffold(
-        body: SafeArea(
-          child: BlocListener<ShowIdCubit, int?>(
-            listener: (context, showId) {
-              if (showId != null) {
-                context
-                    .read<UserShowDetailBloc>()
-                    .add(FetchUserShowDetail(showId: showId));
-              }
-            },
-            child: Stack(
-              children: [
-                Positioned(
-                    child: Center(
-                        child: SvgPicture.asset(IconAssets.appbackground))),
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                          child: const CustomeAppBar()),
-                      showWatchedContent == false
-                          ? Padding(
-                              padding: EdgeInsets.all(18.sp),
-                              child: MediaSection(
-                                onWatchNowPressed: () {
-                                  setState(() {
-                                    showWatchedContent = true;
-                                  });
+      child: GestureDetector(
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if (details.primaryVelocity! < 0) {
+            BlocProvider.of<NavigationCubit>(context).navigateToIndex(0);
+          }
+        },
+        child: Scaffold(
+          body: SafeArea(
+            child: BlocListener<ShowIdCubit, int?>(
+              listener: (context, showId) {
+                if (showId != null) {
+                  context
+                      .read<UserShowDetailBloc>()
+                      .add(FetchUserShowDetail(showId: showId));
+                }
+              },
+              child: Stack(
+                children: [
+                  Positioned(
+                      child: Center(
+                          child: SvgPicture.asset(IconAssets.appbackground))),
+                  SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                            child: const CustomeAppBar()),
+                        showWatchedContent == false
+                            ? Padding(
+                                padding: EdgeInsets.all(18.sp),
+                                child: MediaSection(
+                                  onWatchNowPressed: () {
+                                    setState(() {
+                                      showWatchedContent = true;
+                                    });
+                                  },
+                                ),
+                              )
+                            : BlocBuilder<UserShowDetailBloc,
+                                UserShowDetailState>(
+                                builder: (context, state) {
+                                  if (state is UserShowDetailLoaded) {
+                                    final showDetails =
+                                        state.userDetails.isNotEmpty
+                                            ? state.userDetails.first
+                                            : null;
+                                    if (showDetails != null) {
+                                      print(
+                                          "Show Teaser URL: ${showDetails.showTeaser}");
+                                      return MediaWatchSection(
+                                        videoUrl: showDetails.showTeaser ??
+                                            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+                                      );
+                                    }
+                                  }
+                                  return const Center(
+                                      child: Text("Video Not playing"));
                                 },
                               ),
-                            )
-                          : BlocBuilder<UserShowDetailBloc,
-                              UserShowDetailState>(
-                              builder: (context, state) {
-                                if (state is UserShowDetailLoaded) {
-                                  final showDetails =
-                                      state.userDetails.isNotEmpty
-                                          ? state.userDetails.first
-                                          : null;
-                                  if (showDetails != null) {
-                                    print(
-                                        "-------------------------------------------------------Show Teaser URL: ${showDetails.showTeaser}");
-                                    return MediaWatchSection(
-                                      videoUrl: showDetails.showTeaser ??
-                                          //'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
-                                          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-                                    );
-                                  }
-                                }
-                                return const Center(
-                                    child: Text("Video Not playing"));
-                              },
-                            ),
-                      BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
-                        builder: (context, state) {
-                          if (state is UserShowDetailLoading) {
-                            return buildTextShimmerEffect();
-                          } else if (state is UserShowDetailLoaded) {
-                            final showDetails = state.userDetails.isNotEmpty
-                                ? state.userDetails.first
-                                : null;
-                            return buildShowDetails(showDetails);
-                          } else if (state is UserShowDetailError) {
-                            return Text('Error: ${state.message}');
-                          }
-                          return const Text('Please select a show.');
-                        },
-                      ),
-                      BlocBuilder<QuizVisibilityCubit, bool>(
-                          builder: (context, showQuiz) {
-                        return Visibility(
-                          visible: showQuiz,
-                          child: QuizInitWIdget(onStartQuiz: _handleStartQuiz),
-                        );
-                      }),
-                      if (showQuizContent)
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                          child: showScoreContent
-                              ? ScoreWidget(
-                                  totalQuestions: totalQuestions,
-                                  correctAnswers: correctAnswers,
-                                  onFinishPressed: () {
-                                    setState(() {
-                                      showQuizContent = false;
-                                    });
-                                  })
-                              : const QuizQuestionAnswerSection(),
+                        BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
+                          builder: (context, state) {
+                            if (state is UserShowDetailLoading) {
+                              return buildTextShimmerEffect();
+                            } else if (state is UserShowDetailLoaded) {
+                              final showDetails = state.userDetails.isNotEmpty
+                                  ? state.userDetails.first
+                                  : null;
+                              return buildShowDetails(showDetails);
+                            } else if (state is UserShowDetailError) {
+                              return Center(
+                                  child: Text('Error: ${state.message}'));
+                            }
+                            return Center(
+                                child: const Text('Please select a show.'));
+                          },
                         ),
-                      const ShowCaseCardSections(),
-                      SizedBox(height: 10.h),
-                    ],
+                        BlocBuilder<QuizVisibilityCubit, bool>(
+                            builder: (context, showQuiz) {
+                          return Visibility(
+                            visible: showQuiz,
+                            child:
+                                QuizInitWIdget(onStartQuiz: _handleStartQuiz),
+                          );
+                        }),
+                        if (showQuizContent)
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                            child: showScoreContent
+                                ? ScoreWidget(
+                                    totalQuestions: totalQuestions,
+                                    correctAnswers: correctAnswers,
+                                    onFinishPressed: () {
+                                      setState(() {
+                                        showQuizContent = false;
+                                      });
+                                    })
+                                : const QuizQuestionAnswerSection(),
+                          ),
+                        const ShowCaseCardSections(),
+                        SizedBox(height: 10.h),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

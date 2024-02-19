@@ -9,8 +9,6 @@ import 'package:ondgo_flutter/models/homescreen_model/popular_picks_model.dart';
 import 'package:http/http.dart' as http;
 
 class PopularPicksBloc extends Bloc<PopularPicksEvent, PopularPicksState> {
-  // final LoginBloc loginBloc;
-
   PopularPicksBloc() : super(PopularPicksInitial()) {
     on<FetchPopularPicks>(_onFetchPopularPicks);
   }

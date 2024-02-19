@@ -120,7 +120,7 @@ class _MyAppState extends State<MyApp> {
             path: '/fullScreenImage',
             builder: (context, state) => const ReelsFullScreen()),
       ],
-    );
+    ); 
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
         return MultiBlocProvider(
