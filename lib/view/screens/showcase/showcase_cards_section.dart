@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeDetails_bloc/epidoseVideoDetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
+import '../../../bloc/showscreen_bloc/episodeDetails_bloc/episodeVideoDetail_event.dart';
 import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_event.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
@@ -101,7 +103,12 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                           showId: int.parse(showId),
                           episodeId: int.parse(episodeId),
                         ));
-                        print('Show ID: $showId, Episode ID: $episodeId');
+                        BlocProvider.of<VideoDetailsBloc>(context)
+                            .add(FetchVideoDetails(
+                          showId: int.parse(showId),
+                          episodeId: int.parse(episodeId),
+                        ));
+
                         context
                             .read<QuizVisibilityCubit>()
                             .toggleQuizVisibility();

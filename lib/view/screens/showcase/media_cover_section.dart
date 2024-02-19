@@ -8,7 +8,7 @@ import '../../../utilities/index.dart';
 class MediaSection extends StatelessWidget {
   final VoidCallback? onWatchNowPressed;
 
-  const MediaSection({Key? key, this.onWatchNowPressed}) : super(key: key);
+  const MediaSection({super.key, this.onWatchNowPressed});
 
   @override
   Widget build(BuildContext context) {

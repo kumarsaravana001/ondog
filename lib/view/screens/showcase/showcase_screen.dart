@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
@@ -6,7 +8,6 @@ import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import 'package:ondgo_flutter/view/screens/showcase/media_cover_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/qna_section.dart';
-import 'package:ondgo_flutter/view/screens/showcase/quiz_content.dart';
 import 'package:ondgo_flutter/view/screens/showcase/quiz_init_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
@@ -15,12 +16,10 @@ import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
 import '../../../bloc/navigation_cubit/navigationbar_cubit.dart';
 import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
-import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showId_cubit.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_custombar.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_event.dart';
-import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_state.dart';
 
 class ShowCaseScreen extends StatefulWidget {
   const ShowCaseScreen({super.key});
@@ -148,8 +147,8 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                               return Center(
                                   child: Text('Error: ${state.message}'));
                             }
-                            return Center(
-                                child: const Text('Please select a show.'));
+                            return const Center(
+                                child: Text('Please select a show.'));
                           },
                         ),
                         BlocBuilder<QuizVisibilityCubit, bool>(

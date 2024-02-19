@@ -19,8 +19,8 @@ class HomeScreenSpotLightBloc
       final spotlightData = await fetchSpotlight();
       emit(HomeScreenSpotlightLoaded(spotlightData));
     } catch (e) {
-      print(
-          '++++++++++++++++++++++++++++++++++++Error occurred in _onFetchPopularPicks: $e');
+      // print(
+      //     '++++++++++++++++++++++++++++++++++++Error occurred in _onFetchPopularPicks: $e');
       emit(HomeScreenSpotlightError(e.toString()));
     }
   }
@@ -39,7 +39,7 @@ class HomeScreenSpotLightBloc
     final body = json.encode({
       'user_id': userId,
     });
-    print('userid ++++++++++++++++++++++++++++++++++++++++++++: ${userId}');
+    // print('userid ++++++++++++++++++++++++++++++++++++++++++++: ${userId}');
 
     try {
       final response = await http.post(
