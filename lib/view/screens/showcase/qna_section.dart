@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_state.dart';
 import 'package:ondgo_flutter/view/screens/showcase/qna_placeholder.dart';
-import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
 import '../../../config/config_index.dart';
 
 class QuizQuestionAnswerSection extends StatefulWidget {
@@ -27,11 +26,9 @@ class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
         } else if (state is QuizDetailsLoaded) {
           final currentQuestion = state.quizDetails[_currentQuestionIndex];
 
-          final optionsString =
-              currentQuestion.choices; // This is your comma-separated string
+          final optionsString = currentQuestion.choices;
           final options = optionsString!.split(',');
-          print("Current Question Options: ${options}");
-          print("Options Count: ${options.length}");
+
           return Column(
             children: [
               QuizQuestionSection(
@@ -62,14 +59,6 @@ class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
                             _currentQuestionIndex++;
                           } else {
                             print('Quiz Completed');
-                            // ScoreWidget(
-                            //     totalQuestions: totalQuestions,
-                            //     correctAnswers: correctAnswers,
-                            //     onFinishPressed: () {
-                            //       setState(() {
-                            //         showQuizContent = false;
-                            //       });
-                            //     });
                           }
                           _selectedOptionIndex = -1;
                         });

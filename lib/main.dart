@@ -11,6 +11,7 @@ import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'package:ondgo_flutter/config/app_colors.dart';
+import 'bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import 'bloc/showscreen_bloc/quizVisibility_cubit.dart';
 import 'bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import 'utilities/index.dart';
@@ -120,7 +121,7 @@ class _MyAppState extends State<MyApp> {
             path: '/fullScreenImage',
             builder: (context, state) => const ReelsFullScreen()),
       ],
-    ); 
+    );
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
         return MultiBlocProvider(
@@ -132,6 +133,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => ShowIdCubit()),
             BlocProvider(create: (context) => EpisodeIdCubit()),
             BlocProvider(create: (context) => UserEpisodeDetailBloc()),
+            BlocProvider(create: (context) => DisplayBloc()),
             BlocProvider(create: (context) => UserShowDetailBloc()),
             BlocProvider(create: (context) => ShowIdCubit()),
             BlocProvider(create: (context) => EpisodeIdCubit()),
