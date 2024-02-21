@@ -6,6 +6,7 @@ import '../../../bloc/search_bloc/search_bloc.dart';
 import '../../../bloc/search_bloc/search_event.dart';
 import '../../../bloc/search_bloc/search_state.dart';
 import '../../../config/config_index.dart';
+import '../../../models/search_model/search_model.dart';
 import '../../../utilities/app_bg.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
@@ -96,6 +97,18 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                   ],
                 ),
               ),
+              BlocBuilder<SearchBloc, SearchState>(
+                builder: (context, state) {
+                  if (state is SearchLoading) {
+                    return CircularProgressIndicator();
+                  } else if (state is SearchLoaded) {
+                    return buildSearchResults(state.categories);
+                  } else if (state is SearchError) {
+                    return Text('Failed to load search results');
+                  }
+                  return Container(); // Placeholder for initial state or any other non-handled state
+                },
+              ),
               Stack(
                 children: [
                   SvgPicture.asset(IconAssets.spotlightbgframe2,
@@ -128,6 +141,32 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildSearchResults(List<SearchModelData> categories) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: categories.length,
+      itemBuilder: (BuildContext context, int index) {
+        SearchModelData category = categories[index];
+        return Card(
+          // Using Card for better UI representation
+          child: ListTile(
+            leading: CircleAvatar(
+              // Optional: visual representation, could be an icon
+              child: Text(category.categoryId!),
+              backgroundColor: Colors.grey[200],
+              foregroundColor: Colors.black,
+            ),
+            title: Text(category.categoryName!),
+            subtitle: Text('Tags: ${category.tags?.join(', ')}'),
+            trailing: Icon(Icons
+                .arrow_forward), // Optional: for navigation or action indication
+          ),
+        );
+      },
     );
   }
 }
