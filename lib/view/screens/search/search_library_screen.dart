@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
+import '../../../bloc/search_bloc/search_bloc.dart';
+import '../../../bloc/search_bloc/search_event.dart';
+import '../../../bloc/search_bloc/search_state.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_bg.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
@@ -14,6 +19,29 @@ class SearchandLibraryScreen extends StatefulWidget {
 
 class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
   TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    String userId = Hive.box('sessionBox').get('userId', defaultValue: '');
+    if (userId.isNotEmpty) {
+      context
+          .read<SearchBloc>()
+          .add(FetchCategories(userId: userId, query: searchController.text));
+    }
+  }
+
+  @override
+  void dispose() {
+    searchController.removeListener(_onSearchChanged);
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,7 +88,7 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                         controller: searchController,
                         hintText: "Search",
                         borderColor: AppColors.white,
-                        textColor: AppColors.white,
+                        textColor: AppColors.black,
                         suffixIcon: Icons.search,
                         onSuffixIconPressed: () {},
                       ),
