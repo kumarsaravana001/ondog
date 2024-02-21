@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
+import 'package:ondgo_flutter/bloc/search_bloc/catwiseshow_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
@@ -134,6 +135,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => ShowIdCubit()),
             BlocProvider(create: (context) => EpisodeIdCubit()),
             BlocProvider(create: (context) => UserEpisodeDetailBloc()),
+            BlocProvider(create: (context) => CategoryWiseShowSearchBloc()),
             BlocProvider(create: (context) => DisplayBloc()),
             BlocProvider(create: (context) => UserShowDetailBloc()),
             BlocProvider(create: (context) => ShowIdCubit()),
