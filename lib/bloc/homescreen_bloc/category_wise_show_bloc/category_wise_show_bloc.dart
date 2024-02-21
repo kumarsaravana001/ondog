@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
 import 'package:ondgo_flutter/models/homescreen_model/category_list_wise_model.dart';
-
 import '../../../networkconfig/api_url.dart';
 
 class CategoryWiseShowBloc
@@ -83,7 +82,6 @@ class CategoryWiseShowBloc1
       'category_id': categoryIdd,
     });
 
-    // print('Categorywise id ${categoryIdd}');
     try {
       final response = await http.post(
         url,

@@ -37,8 +37,7 @@ class VideoDetailsBloc extends Bloc<VideoDetailsEvent, VideoDetailsState> {
       'show_id': showId,
       'episode_id': episodeId,
     });
-    print("--------1-------showid from VideoDetailsBloc : ${showId}");
-    print("--------2-------episodeid from VideoDetailsBloc : ${episodeId}");
+
     var response = await http.post(
       url,
       headers: {
@@ -47,9 +46,7 @@ class VideoDetailsBloc extends Bloc<VideoDetailsEvent, VideoDetailsState> {
       },
       body: body,
     );
-    print(
-        "--------3-------Response status VideoDetailsBloc: ${response.statusCode}");
-    print("--------4-------Response body VideoDetailsBloc: ${response.body}");
+
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       if (jsonData['status'] == true) {

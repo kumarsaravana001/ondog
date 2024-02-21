@@ -11,6 +11,7 @@ import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'package:ondgo_flutter/config/app_colors.dart';
+import 'bloc/search_bloc/search_bloc.dart';
 import 'bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import 'bloc/showscreen_bloc/quizVisibility_cubit.dart';
 import 'bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
@@ -138,6 +139,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => ShowIdCubit()),
             BlocProvider(create: (context) => EpisodeIdCubit()),
             BlocProvider(create: (context) => QuizDetailsBloc()),
+            BlocProvider(create: (context) => SearchBloc()),
           ],
           child: MaterialApp.router(
             routerConfig: router,
