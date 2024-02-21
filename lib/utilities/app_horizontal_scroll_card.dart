@@ -11,10 +11,10 @@ class HorizontalScrollableCard extends StatelessWidget {
     this.textColor = AppColors.black,
     required this.cardStatusColor,
     required this.imageList,
-     this.showIds,
+    this.showIds,
     required this.onTap,
     required this.imageListCount,
-     this.titlecard,
+    this.titlecard,
   });
 
   final Color cardStatusColor;
@@ -183,7 +183,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                           ],
                         ),
                         if (subtitle.isNotEmpty)
-                          Text("Episode ${subtitle[index]}",
+                          Text("${subtitle[index]}",
                               style: AppTestStyle.headingint(
                                   fontSize: 15.sp,
                                   color: AppColors.white,

@@ -70,7 +70,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                         .map((show) => show.episodeId ?? 'No Show Name')
                         .toList();
                     List<String> episodeNum = state.episodeDetails
-                        .map((show) => show.episodeId ?? 'No Show Name')
+                        .map((show) => show.episodeTitle ?? 'No Show Name')
                         .toList();
                     List<Widget> imageWidgets =
                         state.episodeDetails.map((show) {
