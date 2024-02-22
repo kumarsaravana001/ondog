@@ -1,5 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/utilities/app_banner_list.dart';
+
 import '../config/config_index.dart';
 
 class ElongatedCardWidget extends StatelessWidget {
@@ -12,15 +13,15 @@ class ElongatedCardWidget extends StatelessWidget {
   final List<Image> imageList;
 
   const ElongatedCardWidget({
-    Key? key,
+    super.key,
     required this.label,
     required this.sublabel,
     required this.date,
     required this.amount,
+    required this.cardlength,
     required this.onPressed,
     required this.imageList,
-    required this.cardlength,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

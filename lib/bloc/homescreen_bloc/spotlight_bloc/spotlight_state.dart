@@ -1,4 +1,3 @@
-import '../../../../models/homescreen_model/banner_model.dart';
 import '../../../models/homescreen_model/spotlight_module.dart';
 
 abstract class HomeScreenSpotlightState {}

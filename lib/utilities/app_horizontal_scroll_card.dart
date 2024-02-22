@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../config/config_index.dart';
 
 class HorizontalScrollableCard extends StatelessWidget {
