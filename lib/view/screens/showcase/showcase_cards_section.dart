@@ -57,12 +57,13 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
               child: BlocBuilder<UserEpisodeDetailBloc, UserEpisodeDetailState>(
                 builder: (context, state) {
                   if (state is UserEpisodeDetailLoading) {
-                    return const CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   } else if (state is UserEpisodeDetailLoaded &&
                       state.episodeDetails.isNotEmpty) {
                     List<String> showNames = state.episodeDetails
                         .map((show) => show.showName ?? 'No Show Name')
                         .toList();
+
                     List<String> showIds = state.episodeDetails
                         .map((show) => show.showId ?? 'No Show Name')
                         .toList();

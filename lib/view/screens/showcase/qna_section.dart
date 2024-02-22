@@ -22,7 +22,7 @@ class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
     return BlocBuilder<QuizDetailsBloc, QuizDetailsState>(
       builder: (context, state) {
         if (state is QuizDetailsLoading) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         } else if (state is QuizDetailsLoaded) {
           final currentQuestion = state.quizDetails[_currentQuestionIndex];
 
@@ -70,7 +70,8 @@ class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
             ],
           );
         } else if (state is QuizDetailsError) {
-          return Text('Error: ${state.message}');
+          return Center(child: const Text('Quiz will be updated soon...'));
+          //Text('Error: ${state.message}');
         }
         return const Text('Please start the quiz.');
       },

@@ -134,6 +134,14 @@ class HorizontalScrollableCard1 extends StatelessWidget {
   final Function(String showId, String episodeId) onTap;
   final List<String>? showIds;
   final List<String>? episodeId;
+  String _truncateTitle(String title) {
+    List<String> words = title.split(' ');
+    if (words.length > 1) {
+      return '${words[0]} ...';
+    } else {
+      return title;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +181,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(playlistcardnames[index],
+                            Text(_truncateTitle(titlecard![index]),
                                 style: AppTestStyle.headingint(
                                     fontSize: 16.sp,
                                     color: textColor,

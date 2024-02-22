@@ -1,8 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_event.dart';
@@ -18,14 +19,9 @@ import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
-
 import 'package:ondgo_flutter/config/config_index.dart';
-import 'package:ondgo_flutter/models/homescreen_model/banner_model.dart';
-import 'package:ondgo_flutter/models/homescreen_model/popular_picks_model.dart';
-import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
-import 'package:ondgo_flutter/view/screens/showcase/showcase_screen.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
 import '../../../bloc/homescreen_bloc/spotlight_bloc/spotlight_bloc.dart';
@@ -116,12 +112,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _loadData() {
-    // Triggering the fetching of data for each relevant BLoC
     BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
     BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
     BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
     BlocProvider.of<HomeScreenSpotLightBloc>(context).add(FetchSpotlight());
-    // Add other BLoC fetch events here as needed
   }
 
   void _loadUserId() async {
@@ -255,7 +249,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               builder: (context, state) {
                                 if (state is HomeScreenBannerLoaded &&
                                     state.banners.isNotEmpty) {
-                                  // return buildBannerCarousel(state.banners);
                                   List<Widget> bannerWidgets =
                                       state.banners.expand(
                                     (banner) {
@@ -413,8 +406,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 } else if (state
                                                     is HomeScreenBannerLoading) {
                                                   return buildbannerShimmerEffect();
+                                                  //buildbannerShimmerEffect();
                                                 } else {
-                                                  return buildbannerShimmerEffect();
+                                                  return Container();
                                                 }
                                               },
                                             ),
@@ -441,7 +435,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: SvgPicture.asset(
                                   IconAssets.diamondstar, //do later
                                   height: 14,
-                                  // ignore: deprecated_member_use
                                   color: _currentCarouselIndex == 0
                                       ? Colors.white
                                       : Colors.grey),
@@ -453,7 +446,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: SvgPicture.asset(
                                 IconAssets.diamondstar,
                                 height: 14,
-                                // ignore: deprecated_member_use
                                 color: _currentCarouselIndex == 1
                                     ? Colors.white
                                     : Colors.grey,
@@ -466,7 +458,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: SvgPicture.asset(
                                 IconAssets.diamondstar,
                                 height: 14,
-                                // ignore: deprecated_member_use
                                 color: _currentCarouselIndex == 2
                                     ? Colors.white
                                     : Colors.grey,
@@ -554,13 +545,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     Center(
                       child: BlocListener<CategoryListBloc, CategoryListState>(
                         listener: (context, state) {
-                          // if (state is CategoryListLoaded &&
-                          //     state.categories.isNotEmpty) {
-                          //   int categoryId =
-                          //       int.parse(state.categories[0].categoryId!);
-                          //   BlocProvider.of<CategoryWiseShowBloc>(context).add(
-                          //       FetchCategoryWiseShows(categoryId: categoryId));
-                          // }
                           if (state is CategoryListLoaded) {
                             if (state.categories.isNotEmpty) {
                               final categoryIdStr =
@@ -606,7 +590,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           CategoryWiseShowState>(
                         builder: (context, state) {
                           if (state is CategoryWiseShowLoading) {
-                            return const CircularProgressIndicator();
+                            return const Center(
+                                child: CircularProgressIndicator());
                           } else if (state is CategoryWiseShowLoaded &&
                               state.shows.isNotEmpty) {
                             List<String> showNames = state.shows
@@ -672,8 +657,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             BlocProvider.of<CategoryWiseShowBloc1>(context).add(
                                 FetchCategoryWiseShows1(
                                     categoryIdd: categoryIdd));
-
-                            // print("inside bloclistner 2 ${categoryIdd}");
                           }
                         },
                         child: Padding(
@@ -707,10 +690,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           CategoryWiseShow1State>(
                         builder: (context, state) {
                           if (state is CategoryWiseShow1Loading) {
-                            return const CircularProgressIndicator(); // Show loading indicator while data is being fetched
+                            return const Center(
+                                child: CircularProgressIndicator());
                           } else if (state is CategoryWiseShow1Loaded &&
                               state.shows.isNotEmpty) {
-                            // Extracting show names and thumbnails from the loaded shows
                             List<String> showNames = state.shows
                                 .map((show) => show.showName ?? 'No Show Name')
                                 .toList();
@@ -806,7 +789,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           CategoryWiseShow2State>(
                         builder: (context, state) {
                           if (state is CategoryWiseShow2Loading) {
-                            return const CircularProgressIndicator(); // Show loading indicator while data is being fetched
+                            return const Center(
+                                child: Center(
+                                    child:
+                                        CircularProgressIndicator())); // Show loading indicator while data is being fetched
                           } else if (state is CategoryWiseShow2Loaded &&
                               state.shows.isNotEmpty) {
                             // Extracting show names and thumbnails from the loaded shows
