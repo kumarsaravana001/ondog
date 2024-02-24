@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/reels_bloc/reels_bloc.dart';
 import 'package:ondgo_flutter/bloc/reels_bloc/reels_event.dart';
 import 'package:video_player/video_player.dart';
+import '../../../bloc/navigation_cubit/navigationbar_cubit.dart';
 import '../../../bloc/reels_bloc/reels_state.dart';
 
 class ShortsPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: 0, keepPage: true)
+    _pageController = PageController(initialPage: 1, keepPage: true)
       ..addListener(() {
         setState(() {
           _handlePageChange(_pageController.page!.round());
@@ -75,59 +76,65 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<UserReelsBloc, UserReelsState>(
+    return BlocListener<NavigationCubit, int>(
       listener: (context, state) {
-        if (state is UserReelsLoaded) {
-          // Ensure we only include non-null video URLs
-          final videoUrls = state.reels
-              .map((reel) => reel.videoUrl)
-              .where((url) => url != null)
-              .cast<String>()
-              .toList();
-          _initializeVideoPlayers(videoUrls);
+        if (state != 2) {
+          _pauseAllVideos();
         }
       },
-      builder: (context, state) {
-        if (state is UserReelsLoading) {
-          return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
-        } else if (state is UserReelsLoaded) {
-          return Scaffold(
-            body: PageView.builder(
-              controller: _pageController,
-              scrollDirection: Axis.vertical,
-              itemCount: _controllers.length,
-              itemBuilder: (context, index) {
-                if (!_controllers[index].value.isInitialized) {
-                  return Container(
-                    color: Colors.black,
-                    child: const Center(child: CircularProgressIndicator()),
+      child: BlocConsumer<UserReelsBloc, UserReelsState>(
+        listener: (context, state) {
+          if (state is UserReelsLoaded) {
+            final videoUrls = state.reels
+                .map((reel) => reel.videoUrl)
+                .where((url) => url != null)
+                .cast<String>()
+                .toList();
+            _initializeVideoPlayers(videoUrls);
+          }
+        },
+        builder: (context, state) {
+          if (state is UserReelsLoading) {
+            return const Scaffold(
+                body: Center(child: CircularProgressIndicator()));
+          } else if (state is UserReelsLoaded) {
+            return Scaffold(
+              body: PageView.builder(
+                controller: _pageController,
+                scrollDirection: Axis.vertical,
+                itemCount: _controllers.length,
+                itemBuilder: (context, index) {
+                  if (!_controllers[index].value.isInitialized) {
+                    return Container(
+                      color: Colors.black,
+                      child: const Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                  return GestureDetector(
+                    onTap: () {
+                      if (_controllers[index].value.isPlaying) {
+                        _controllers[index].pause();
+                      } else {
+                        _controllers[index].play();
+                      }
+                    },
+                    child: AspectRatio(
+                      aspectRatio: _controllers[index].value.aspectRatio,
+                      child: VideoPlayer(_controllers[index]),
+                    ),
                   );
-                }
-                return GestureDetector(
-                  onTap: () {
-                    if (_controllers[index].value.isPlaying) {
-                      _controllers[index].pause();
-                    } else {
-                      _controllers[index].play();
-                    }
-                  },
-                  child: AspectRatio(
-                    aspectRatio: _controllers[index].value.aspectRatio,
-                    child: VideoPlayer(_controllers[index]),
-                  ),
-                );
-              },
-            ),
-          );
-        } else if (state is UserReelsError) {
-          return const Scaffold(
-              body: Center(child: Text("Error loading videos")));
-        } else {
-          return const Scaffold(
-              body: Center(child: Text("No videos to display")));
-        }
-      },
+                },
+              ),
+            );
+          } else if (state is UserReelsError) {
+            return const Scaffold(
+                body: Center(child: Text("Error loading videos")));
+          } else {
+            return const Scaffold(
+                body: Center(child: Text("No videos to display")));
+          }
+        },
+      ),
     );
   }
 }
