@@ -11,6 +11,7 @@ import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'package:ondgo_flutter/config/app_colors.dart';
+import 'bloc/reels_bloc/reels_bloc.dart';
 import 'bloc/search_bloc/search_bloc.dart';
 import 'bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import 'bloc/showscreen_bloc/quizVisibility_cubit.dart';
@@ -116,11 +117,11 @@ class _MyAppState extends State<MyApp> {
         GoRoute(
             path: '/contact',
             builder: (context, state) => const ContactUsScreen()),
-        GoRoute(
-            path: '/reels', builder: (context, state) => const ReelsScreen()),
+        // GoRoute(
+        //     path: '/reels', builder: (context, state) => const ReelsScreen()),
         GoRoute(
             path: '/fullScreenImage',
-            builder: (context, state) => const ReelsFullScreen()),
+            builder: (context, state) =>  ShortsPage()),
       ],
     );
     return ResponsiveSizer(
@@ -137,6 +138,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => CategoryWiseShowSearchBloc()),
             BlocProvider(create: (context) => DisplayBloc()),
             BlocProvider(create: (context) => UserShowDetailBloc()),
+            BlocProvider(create: (context) => ReelsBloc()),
             BlocProvider(create: (context) => ShowIdCubit()),
             BlocProvider(create: (context) => EpisodeIdCubit()),
             BlocProvider(create: (context) => QuizDetailsBloc()),

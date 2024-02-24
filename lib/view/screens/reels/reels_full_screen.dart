@@ -1,147 +1,133 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
-import '../../../config/config_index.dart';
 
-class ReelsFullScreen extends StatefulWidget {
-  const ReelsFullScreen({Key? key}) : super(key: key);
+import '../../../bloc/navigation_cubit/navigationbar_cubit.dart';
+
+class ShortsPage extends StatefulWidget {
+  const ShortsPage({super.key});
 
   @override
-  State<ReelsFullScreen> createState() => _ReelsFullScreenState();
+  _ShortsPageState createState() => _ShortsPageState();
 }
 
-class _ReelsFullScreenState extends State<ReelsFullScreen> {
-  int _currentIndex = 0;
+class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
+  late PageController _pageController;
+
   final List<String> videoPaths = [
     'assets/videos/shorts_video1.mp4',
     'assets/videos/shorts_video2.mp4',
     'assets/videos/shorts_video3.mp4',
   ];
-  late VideoPlayerController _controller;
+
+  List<VideoPlayerController> _controllers = [];
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(videoPaths[_currentIndex])
-      ..initialize().then((_) {
-        setState(() {});
-        _controller.play();
+    _initializeVideoPlayers();
+    _pageController = PageController(initialPage: 0, keepPage: true)
+      ..addListener(() {
+        setState(() {
+          _handlePageChange(_pageController.page!.round());
+        });
       });
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  void _handlePageChange(int index) {
+    if (!_pageController.hasClients || _pageController.page == null) return;
+
+    if (_pageController.page!.round() != _controllers.length - 1) {
+      _pauseAllVideos();
+    } else {
+      _playAllVideos();
+    }
+  }
+
+  void _playAllVideos() {
+    for (var controller in _controllers) {
+      if (!controller.value.isPlaying) {
+        controller.play();
+      }
+    }
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _pageController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
-  void nextVideo() {
-    if (_currentIndex < videoPaths.length - 1) {
-      setState(() {
-        _currentIndex++;
-        _controller = VideoPlayerController.asset(videoPaths[_currentIndex])
-          ..initialize().then((_) {
-            setState(() {
-              _controller.play();
-            });
-          });
-      });
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
+      _pauseAllVideos();
     }
   }
 
-  void previousVideo() {
-    if (_currentIndex > 0) {
-      setState(() {
-        _currentIndex--;
-        _controller = VideoPlayerController.asset(videoPaths[_currentIndex])
-          ..initialize().then((_) {
-            setState(() {
-              _controller.play();
-            });
-          });
-      });
+  void _pauseAllVideos() {
+    _controllers.forEach((controller) {
+      if (controller.value.isPlaying) {
+        controller.pause();
+      }
+    });
+  }
+
+  void _initializeVideoPlayers() {
+    for (var videoPath in videoPaths) {
+      VideoPlayerController controller = VideoPlayerController.asset(videoPath)
+        ..initialize().then((_) {
+          setState(() {});
+        })
+        ..setLooping(true);
+      _controllers.add(controller);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    return Scaffold(
-      body: GestureDetector(
-        onHorizontalDragEnd: (DragEndDetails details) {
-          if (details.primaryVelocity != null) {
-            if (details.primaryVelocity! > 0) {
-              previousVideo();
-            } else {
-              nextVideo();
+    return BlocListener<NavigationCubit, int>(
+      listener: (context, state) {
+        if (state != 2) {
+          _pauseAllVideos();
+        }
+      },
+      child: Scaffold(
+        body: PageView.builder(
+          controller: _pageController,
+          scrollDirection: Axis.vertical,
+          itemCount: videoPaths.length,
+          itemBuilder: (context, index) {
+            // Check if the controller is initialized
+            if (!_controllers[index].value.isInitialized) {
+              return Container(
+                color: Colors.black,
+                child: const Center(child: CircularProgressIndicator()),
+              );
             }
-          }
-        },
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: Stack(
-              // fit: StackFit.expand,
-              children: [
-                _controller.value.isInitialized
-                    ? VideoPlayer(_controller)
-                    : Container(),
-                Positioned(
-                  bottom: 60.sp,
-                  left: 20.sp,
-                  child: SvgPicture.asset(IconAssets.reelsleftindicator),
-                ),
-                Positioned(
-                  bottom: 50.sp,
-                  left: MediaQuery.of(context).size.width / 2 - 20,
-                  child: SvgPicture.asset(IconAssets.reelscenterindicator),
-                ),
-                Positioned(
-                  bottom: 60.sp,
-                  right: 20.sp,
-                  child: SvgPicture.asset(IconAssets.reelsrightindicator),
-                ),
-                Positioned(
-                  bottom: 35.sp,
-                  left: 20.sp,
-                  child: AppIconsWidget.favourites(color: AppColors.white),
-                ),
-                Positioned(
-                  bottom: 33.sp,
-                  left: MediaQuery.of(context).size.width * 2 / 7,
-                  child: Text(
-                    AppLocalisation.nutritiondaily,
-                    style: AppTestStyle.headingBai(
-                      fontSize: 24,
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 35.sp,
-                  right: 20.sp,
-                  child: AppIconsWidget.share(color: AppColors.white),
-                ),
-                Positioned(
-                  bottom: 20.sp,
-                  left: MediaQuery.of(context).size.width * 2 / 6,
-                  child: Text(
-                    AppLocalisation.newepisodes,
-                    style: AppTestStyle.headingint(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+
+            return GestureDetector(
+              onTap: () {
+                // Check the current playing state and toggle between play and pause
+                if (_controllers[index].value.isPlaying) {
+                  _controllers[index].pause();
+                } else {
+                  _controllers[index].play();
+                }
+              },
+              child: AspectRatio(
+                aspectRatio: _controllers[index].value.aspectRatio,
+                child: VideoPlayer(_controllers[index]),
+              ),
+            );
+          },
         ),
       ),
     );

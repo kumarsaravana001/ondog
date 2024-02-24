@@ -100,6 +100,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ondgo_flutter/config/app_colors.dart';
 import 'package:ondgo_flutter/config/app_icons.dart';
 import 'package:ondgo_flutter/view/screens/profile/profile_screen.dart';
+import 'package:ondgo_flutter/view/screens/reels/reels_full_screen.dart';
 import 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
 import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_screen.dart';
@@ -110,10 +111,12 @@ import '../view/screens/homescreen/home.dart';
 class Navbar extends StatelessWidget {
   Navbar({Key? key}) : super(key: key);
 
-  final List<Widget> _screens = const [
+  final List<Widget> _screens = [
     HomeScreen(),
     SearchandLibraryScreen(),
-    ReelsScreen(),
+    // ReelsScreen(),
+    // ReelsFullScreen(),
+    ShortsPage(),
     ShowCaseScreen(),
     ProfileScreen(),
   ];
