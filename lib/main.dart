@@ -121,7 +121,7 @@ class _MyAppState extends State<MyApp> {
         //     path: '/reels', builder: (context, state) => const ReelsScreen()),
         GoRoute(
             path: '/fullScreenImage',
-            builder: (context, state) =>  ShortsPage()),
+            builder: (context, state) => const ShortsPage()),
       ],
     );
     return ResponsiveSizer(
@@ -138,11 +138,11 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => CategoryWiseShowSearchBloc()),
             BlocProvider(create: (context) => DisplayBloc()),
             BlocProvider(create: (context) => UserShowDetailBloc()),
-            BlocProvider(create: (context) => ReelsBloc()),
             BlocProvider(create: (context) => ShowIdCubit()),
             BlocProvider(create: (context) => EpisodeIdCubit()),
             BlocProvider(create: (context) => QuizDetailsBloc()),
             BlocProvider(create: (context) => SearchBloc()),
+            BlocProvider(create: (context) => UserReelsBloc()),
           ],
           child: MaterialApp.router(
             routerConfig: router,

@@ -4,58 +4,57 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:ondgo_flutter/bloc/reels_bloc/reels_event.dart';
 import 'package:ondgo_flutter/bloc/reels_bloc/reels_state.dart';
-import 'package:ondgo_flutter/networkconfig/api_url.dart';
 
-class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
-  ReelsBloc() : super(ReelsInitial()) {
-    on<FetchReelsDetails>(_onFetchReelsDetails);
+import '../../models/reels_model/reels_model.dart';
+import '../../networkconfig/api_url.dart';
+
+class UserReelsBloc extends Bloc<UserReelsEvent, UserReelsState> {
+  UserReelsBloc() : super(UserReelsInitial()) {
+    on<FetchUserReels>(_onFetchUserReels);
   }
 
-  Future<dynamic> fetchVideoDetails(int showId, int episodeId) async {
-    var box = Hive.box('sessionBox');
-    String? userId = box.get('userId');
-    final url = Uri.parse('https://ondgo.in/api/user-video-details.php');
-
-    final body = json.encode({
-      'user_id': userId,
-      'show_id': showId,
-      'episode_id': episodeId,
-    });
-
+  void _onFetchUserReels(
+      FetchUserReels event, Emitter<UserReelsState> emit) async {
+    emit(UserReelsLoading());
     try {
-      final response = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-          'API_KEY': ApiUrl.apiKey,
-        },
-        body: body,
-      );
-
-      if (response.statusCode == 200) {
-        var responseData = jsonDecode(response.body);
-        if (responseData['status'] == true) {
-          return responseData['data'];
-        } else {
-          throw Exception('Failed to fetch video details');
-        }
-      } else {
-        throw Exception('Failed with status code: ${response.statusCode}');
-      }
+      final reelsList = await _fetchUserReels();
+      emit(UserReelsLoaded(reelsList));
     } catch (e) {
-      rethrow;
+      emit(UserReelsError(e.toString()));
     }
   }
 
-  void _onFetchReelsDetails(
-      FetchReelsDetails event, Emitter<ReelsState> emit) async {
-    try {
-      emit(ReelsLoading());
-      final videoDetails =
-          await fetchVideoDetails(event.showId, event.episodeId);
-      emit(ReelsLoaded(videoDetails));
-    } catch (e) {
-      emit(ReelsError(e.toString()));
+  Future<List<ReelsData>> _fetchUserReels() async {
+    String? userId =
+        Hive.box('sessionBox').get('userId', defaultValue: "U588583");
+    var url = Uri.parse('https://ondgo.in/api/user-reels.php');
+    var body = json.encode({
+      'user_id': userId,
+    });
+
+    var response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'API_KEY': ApiUrl.apiKey,
+      },
+      body: body,
+    );
+    print("Responce ${response.statusCode}");
+    print("Responce ${response.body}");
+
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      if (jsonData['status'] == true) {
+        List<dynamic> dataList = jsonData['data'];
+        return dataList
+            .map<ReelsData>((item) => ReelsData.fromJson(item))
+            .toList();
+      } else {
+        throw Exception('Failed to fetch user reels');
+      }
+    } else {
+      throw Exception('Failed with status code: ${response.statusCode}');
     }
   }
 }

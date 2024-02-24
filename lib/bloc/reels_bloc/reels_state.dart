@@ -1,19 +1,19 @@
 import '../../models/reels_model/reels_model.dart';
 
-abstract class ReelsState {}
+abstract class UserReelsState {}
 
-class ReelsInitial extends ReelsState {}
+class UserReelsInitial extends UserReelsState {}
 
-class ReelsLoading extends ReelsState {}
+class UserReelsLoading extends UserReelsState {}
 
-class ReelsLoaded extends ReelsState {
-  final List<ReelsData> videoDetails;
+class UserReelsLoaded extends UserReelsState {
+  final List<ReelsData> reels;
 
-  ReelsLoaded(this.videoDetails);
+  UserReelsLoaded(this.reels);
 }
 
-class ReelsError extends ReelsState {
+class UserReelsError extends UserReelsState {
   final String message;
 
-  ReelsError(this.message);
+  UserReelsError(this.message);
 }
