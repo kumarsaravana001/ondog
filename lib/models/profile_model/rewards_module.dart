@@ -1,15 +1,9 @@
-class UserRewardsModel {
-  final List<String> rewardsimagePaths;
+class RewardsUrl {
+  final String rewardurl;
 
-  UserRewardsModel({required this.rewardsimagePaths});
+  RewardsUrl({required this.rewardurl});
 
-  factory UserRewardsModel.fromJson(Map<String, dynamic> json) {
-    List<String> paths = [];
-    if (json['images'] != null) {
-      json['images'].forEach((v) {
-        paths.add(v); // Assuming 'v' is a string URL
-      });
-    }
-    return UserRewardsModel(rewardsimagePaths: paths);
+  factory RewardsUrl.fromJson(String jsonUrl) {
+    return RewardsUrl(rewardurl: jsonUrl);
   }
 }

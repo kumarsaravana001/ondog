@@ -148,6 +148,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => UserReelsBloc()),
             BlocProvider(create: (context) => FeedbackBloc()),
             BlocProvider(create: (context) => PurchaseBloc()),
+            BlocProvider(create: (context) => RewardsBloc()),
           ],
           child: MaterialApp.router(
             routerConfig: router,
