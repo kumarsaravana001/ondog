@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_bloc.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_event.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/utilities/app_elongated_card.dart';
 import '../../../config/config_index.dart';
@@ -11,6 +14,8 @@ class RewardsScreen extends StatefulWidget {
 }
 
 class _RewardsScreenState extends State<RewardsScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

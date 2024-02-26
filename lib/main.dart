@@ -5,13 +5,15 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_bloc.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/feedback_bloc/feedback_bloc.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_bloc.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_bloc.dart';
 import 'package:ondgo_flutter/bloc/search_bloc/catwiseshow_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'package:ondgo_flutter/config/app_colors.dart';
-import 'bloc/profile_bloc/feedback_bloc.dart';
 import 'bloc/reels_bloc/reels_bloc.dart';
 import 'bloc/search_bloc/search_bloc.dart';
 import 'bloc/showscreen_bloc/episodeDisplay_cubit.dart';
@@ -145,6 +147,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => SearchBloc()),
             BlocProvider(create: (context) => UserReelsBloc()),
             BlocProvider(create: (context) => FeedbackBloc()),
+            BlocProvider(create: (context) => PurchaseBloc()),
           ],
           child: MaterialApp.router(
             routerConfig: router,

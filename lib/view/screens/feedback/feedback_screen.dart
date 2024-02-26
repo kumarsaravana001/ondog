@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:ondgo_flutter/bloc/profile_bloc/feedback_event.dart';
-import '../../../bloc/profile_bloc/feedback_bloc.dart';
-import '../../../bloc/profile_bloc/feedback_state.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/feedback_bloc/feedback_event.dart';
+import '../../../bloc/profile_bloc/feedback_bloc/feedback_bloc.dart';
+import '../../../bloc/profile_bloc/feedback_bloc/feedback_state.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/index.dart';
 

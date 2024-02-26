@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart' as http;
-import 'package:ondgo_flutter/bloc/profile_bloc/feedback_event.dart';
-import 'package:ondgo_flutter/bloc/profile_bloc/feedback_state.dart';
-import '../../../networkconfig/api_url.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/feedback_bloc/feedback_event.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/feedback_bloc/feedback_state.dart';
+import '../../../../networkconfig/api_url.dart';
 
 class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
   FeedbackBloc() : super(FeedbackInitial()) {
