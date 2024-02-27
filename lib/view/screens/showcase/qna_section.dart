@@ -58,7 +58,7 @@ class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
                               state.quizDetails.length - 1) {
                             _currentQuestionIndex++;
                           } else {
-                            print('Quiz Completed');
+                            // print('Quiz Completed');
                           }
                           _selectedOptionIndex = -1;
                         });

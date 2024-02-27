@@ -21,7 +21,7 @@ class PopularPicksBloc extends Bloc<PopularPicksEvent, PopularPicksState> {
       emit(PopularPicksLoaded(popularPicksData));
     } catch (e) {
       emit(PopularPicksError(e.toString()));
-      print('Error occurred in _onFetchPopularPicks: $e');
+      // print('Error occurred in _onFetchPopularPicks: $e');
     }
   }
 

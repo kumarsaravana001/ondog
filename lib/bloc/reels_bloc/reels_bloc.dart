@@ -40,8 +40,8 @@ class UserReelsBloc extends Bloc<UserReelsEvent, UserReelsState> {
       },
       body: body,
     );
-    print("Responce ${response.statusCode}");
-    print("Responce ${response.body}");
+    // print("Responce ${response.statusCode}");
+    // print("Responce ${response.body}");
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);

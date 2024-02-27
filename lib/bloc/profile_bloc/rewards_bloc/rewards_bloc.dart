@@ -39,7 +39,7 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
       },
       body: body,
     );
-    print("Resp from Rewards ${response.body}");
+    // print("Resp from Rewards ${response.body}");
     if (response.statusCode == 200) {
       List<dynamic> jsonUrls = json.decode(response.body);
       return jsonUrls

@@ -17,8 +17,8 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
     try {
       final FeedbackModel result = await _submitFeedback(event.comment);
       if (result.status ?? false) {
-        print(
-            "Emitting FeedbackSuccess with message: ${result.message}"); // Debug print
+        // print(
+        //     "Emitting FeedbackSuccess with message: ${result.message}"); // Debug print
 
         emit(FeedbackSuccess(
             result.message ?? "Feedback submitted successfully."));
@@ -46,7 +46,7 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
       },
       body: body,
     );
-    print("the responce frm feedback ${response.body}");
+    // print("the responce frm feedback ${response.body}");
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       return FeedbackModel.fromJson(jsonData);

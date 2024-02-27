@@ -34,7 +34,7 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
       headers: {'Content-Type': 'application/json'},
       body: body,
     );
-    print("Resp from purchase ${response.body}");
+    // print("Resp from purchase ${response.body}");
     if (response.statusCode == 200) {
       List<dynamic> jsonUrls = json.decode(response.body);
       return jsonUrls

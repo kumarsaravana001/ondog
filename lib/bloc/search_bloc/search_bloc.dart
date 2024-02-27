@@ -41,9 +41,9 @@ Future<List<SearchModelData>> fetchCategories(
         "query": query,
       }),
     );
-    print("userid ${userId} & query ${query}");
-    print("responce ${response.statusCode}");
-    print("responce ${response.body}");
+    // print("userid ${userId} & query ${query}");
+    // print("responce ${response.statusCode}");
+    // print("responce ${response.body}");
     if (response.statusCode == 200) {
       var responseData = jsonDecode(response.body);
       if (responseData['status'] == true) {
