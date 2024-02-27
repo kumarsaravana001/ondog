@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showid_cubit.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
-import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
@@ -14,8 +12,6 @@ import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_detail
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../utilities/app_vertical_scroll_card.dart';
 
 class PlayListScreen extends StatefulWidget {
   const PlayListScreen({super.key});

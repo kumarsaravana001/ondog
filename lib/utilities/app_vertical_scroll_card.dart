@@ -3,7 +3,22 @@ import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../config/config_index.dart';
 
 class AppVerticalScrollCard extends StatelessWidget {
-  const AppVerticalScrollCard({super.key});
+  final List<Widget> imageList;
+  final List<String>? titlecard;
+
+  const AppVerticalScrollCard({
+    super.key,
+    required this.imageList,
+    this.titlecard,
+  });
+  String _truncateTitle(String title) {
+    List<String> words = title.split(' ');
+    if (words.length > 1) {
+      return '${words[0]} ...';
+    } else {
+      return title;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +45,14 @@ class AppVerticalScrollCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(eventimagepathtitle[index],
-                            style: AppTestStyle.headingint(
-                                fontSize: 13.sp,
-                                color: AppColors.white,
-                                fontWeight: FontWeight.bold)),
+                        Text(
+                          _truncateTitle(titlecard![index]),
+                          style: AppTestStyle.headingint(
+                            fontSize: 16.sp,
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         Text(AppLocalisation.ddmm,
                             style: AppTestStyle.headingint(
                                 fontSize: 16.sp,
@@ -42,15 +60,15 @@ class AppVerticalScrollCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold))
                       ],
                     ),
-                    Text(AppLocalisation.commingsoon,
-                        style: AppTestStyle.headingint(
-                            fontSize: 15.sp,
-                            color: AppColors.white,
-                            fontWeight: FontWeight.bold)),
+                    // Text(AppLocalisation.commingsoon,
+                    //     style: AppTestStyle.headingint(
+                    //         fontSize: 15.sp,
+                    //         color: AppColors.white,
+                    //         fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
-              Expanded(child: eventsImagepath[index]),
+              Expanded(child: imageList[index]),
               ClipRRect(
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(15),
