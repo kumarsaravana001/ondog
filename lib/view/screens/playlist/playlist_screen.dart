@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/events_bloc/event_state.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showid_cubit.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
@@ -58,7 +59,10 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
                     child: BlocBuilder<PopularPicksBloc, PopularPicksState>(
                       builder: (context, state) {
-                        if (state is PopularPicksLoaded &&
+                        if (state is UserEventDetailLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (state is PopularPicksLoaded &&
                             state.popularPicks.isNotEmpty) {
                           List<String> showNames = state.popularPicks
                               .map((show) => show.showName ?? 'No Show Name')

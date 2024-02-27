@@ -6,6 +6,8 @@ import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_event.dart'
 import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_state.dart';
 import 'package:ondgo_flutter/models/profile_model/rewards_module.dart';
 
+import '../../../networkconfig/api_url.dart';
+
 class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
   RewardsBloc() : super(RewardsInitial()) {
     on<FetchRewardsUrls>(_onFetchRewardsUrls);
@@ -31,7 +33,10 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
 
     var response = await http.post(
       url,
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'API_KEY': ApiUrl.apiKey,
+      },
       body: body,
     );
     print("Resp from Rewards ${response.body}");
