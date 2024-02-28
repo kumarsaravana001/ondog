@@ -137,6 +137,44 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
                             ),
                           ),
                           Positioned(
+                            top: 75,
+                            right: 10,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  borderRadius:
+                                      BorderRadiusDirectional.circular(20)),
+                              child: Column(
+                                children: [
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.playlist_add,
+                                        color: AppColors.white,
+                                      )),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.comment,
+                                        color: AppColors.white,
+                                      )),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.favorite,
+                                        color: AppColors.white,
+                                      )),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.share,
+                                        color: AppColors.white,
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Positioned(
                             top: 0,
                             left: 0,
                             right: 0,

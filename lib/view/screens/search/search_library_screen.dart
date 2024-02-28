@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
+import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
+import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
+import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
 import '../../../bloc/navigation_cubit/navigationbar_cubit.dart';
 import '../../../bloc/search_bloc/catwiseshow_bloc.dart';
 import '../../../bloc/search_bloc/catwiseshow_event.dart';
@@ -79,6 +81,8 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
       providers: [
         BlocProvider<CategoryWiseShowBloc>(
             create: (context) => CategoryWiseShowBloc()),
+        BlocProvider<PopularPicksBloc>(
+            create: (context) => PopularPicksBloc()..add(FetchPopularPicks())),
       ],
       child: SafeArea(
         child: Scaffold(
@@ -145,7 +149,7 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                   },
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                  padding: EdgeInsets.only(left: 20.0.sp, top: 10.sp),
                   child: BlocBuilder<CategoryWiseShowSearchBloc,
                       CategoryWiseShowSearchState>(
                     builder: (context, state) {
@@ -193,7 +197,62 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                       } else if (state is CategoryWiseShowSearchError) {
                         return Text('Error: ${state.message}');
                       } else {
-                        return horizontalCardShimmerWidget();
+                        return BlocBuilder<PopularPicksBloc, PopularPicksState>(
+                          builder: (context, state) {
+                            if (state is PopularPicksLoading) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            } else if (state is PopularPicksLoaded &&
+                                state.popularPicks.isNotEmpty) {
+                              List<String> showNames = state.popularPicks
+                                  .map(
+                                      (show) => show.showName ?? 'No Show Name')
+                                  .toList();
+                              List<String> showIds = state.popularPicks
+                                  .map((show) => show.showId ?? 'No Show Name')
+                                  .toList();
+                              List<Widget> imageWidgets =
+                                  state.popularPicks.map((show) {
+                                String imageUrl = show.thumbnail!.isNotEmpty
+                                    ? show.thumbnail![0]
+                                    : 'default_image_url';
+
+                                return Image.network(imageUrl,
+                                    fit: BoxFit.cover);
+                              }).toList();
+
+                              return HorizontalScrollableCard(
+                                titlecard: showNames,
+                                imageListCount: state.popularPicks.length,
+                                imageList: imageWidgets,
+                                textColor: AppColors.white,
+                                cardStatusColor: Colors.indigoAccent,
+                                onTap: (String showId) {
+                                  final int parsedShowId =
+                                      int.tryParse(showId) ?? 0;
+                                  context
+                                      .read<ShowIdCubit>()
+                                      .updateShowId(parsedShowId);
+
+                                  BlocProvider.of<NavigationCubit>(context)
+                                      .navigateToIndex(3);
+                                  BlocProvider.of<UserShowDetailBloc>(context)
+                                      .add(FetchUserShowDetail(
+                                          showId: int.parse(showId)));
+                                  BlocProvider.of<UserEpisodeDetailBloc>(
+                                          context)
+                                      .add(FetchUserEpisodeDetail(
+                                          showId: int.parse(showId)));
+                                },
+                                showIds: showIds,
+                              );
+                            } else if (state is PopularPicksLoading) {
+                              return horizontalCardShimmerWidget();
+                            } else {
+                              return horizontalCardShimmerWidget();
+                            }
+                          },
+                        );
                       }
                     },
                   ),
