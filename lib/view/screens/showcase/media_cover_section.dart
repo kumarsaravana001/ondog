@@ -43,7 +43,7 @@ class MediaCoverSection extends StatelessWidget {
     return BlocBuilder<VideoDetailsBloc, VideoDetailsState>(
       builder: (context, state) {
         if (state is VideoDetailsLoading) {
-          return const Center(child:  CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (state is VideoDetailsLoaded) {
           final videoDetail = state.episodevideoDetails.first;
           final String showTitle = videoDetail.title ?? "Loading ...";

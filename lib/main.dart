@@ -120,8 +120,8 @@ class _MyAppState extends State<MyApp> {
         GoRoute(
             path: '/contact',
             builder: (context, state) => const ContactUsScreen()),
-        // GoRoute(
-        //     path: '/reels', builder: (context, state) => const ReelsScreen()),
+        //GoRoute(
+        //path: '/reels', builder: (context, state) => const ReelsScreen()),
         GoRoute(
             path: '/fullScreenImage',
             builder: (context, state) => const ShortsPage()),

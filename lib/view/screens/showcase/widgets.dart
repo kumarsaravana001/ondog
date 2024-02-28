@@ -29,6 +29,34 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
             ),
           ),
         ),
+        Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 10.sp),
+              child: Text(
+                showDetails.actorArtist ?? 'Description Not Available',
+                style: AppTestStyle.headingint(
+                  fontSize: 17.sp,
+                  italic: true,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10.sp, left: 20.sp),
+              child: Text(
+                showDetails.director ?? 'Description Not Available',
+                style: AppTestStyle.headingint(
+                  fontSize: 17.sp,
+                  italic: true,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     ),
   );
