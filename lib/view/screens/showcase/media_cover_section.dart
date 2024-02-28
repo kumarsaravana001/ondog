@@ -40,18 +40,13 @@ class MediaCoverSection extends StatelessWidget {
   }
 
   Widget buildVideoDetailsSection(BuildContext context) {
-    // Similar logic for VideoDetailsBloc
     return BlocBuilder<VideoDetailsBloc, VideoDetailsState>(
       builder: (context, state) {
-        // Implement logic based on VideoDetailsBloc states
-        // This is a placeholder, adapt it to your actual state and data model
         if (state is VideoDetailsLoading) {
-          return Center(child: const CircularProgressIndicator());
+          return const Center(child:  CircularProgressIndicator());
         } else if (state is VideoDetailsLoaded) {
-          // Assuming your VideoDetailsLoaded state has similar properties
           final videoDetail = state.episodevideoDetails.first;
           final String showTitle = videoDetail.title ?? "Loading ...";
-          // final String thumbnailUrl = videoDetail.thumbnail ?? 'assets/images/health_care_banner.png';
           final String thumbnailUrl = videoDetail.thumbnail?.isNotEmpty == true
               ? videoDetail.thumbnail![0]
               : 'assets/images/health_care_banner.png';

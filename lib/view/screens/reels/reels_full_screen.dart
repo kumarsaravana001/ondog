@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +7,7 @@ import 'package:ondgo_flutter/bloc/reels_bloc/reels_event.dart';
 import 'package:video_player/video_player.dart';
 import '../../../bloc/navigation_cubit/navigationbar_cubit.dart';
 import '../../../bloc/reels_bloc/reels_state.dart';
+import '../../../config/config_index.dart';
 
 class ShortsPage extends StatefulWidget {
   const ShortsPage({super.key});
@@ -45,15 +46,6 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
 
   void _handlePageChange(int index) {
     if (!_pageController.hasClients || _pageController.page == null) return;
-    // Your existing logic
-  }
-
-  void _playAllVideos() {
-    for (var controller in _controllers) {
-      if (!controller.value.isPlaying) {
-        controller.play();
-      }
-    }
   }
 
   void _pauseAllVideos() {
@@ -98,32 +90,87 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
             return const Scaffold(
                 body: Center(child: CircularProgressIndicator()));
           } else if (state is UserReelsLoaded) {
-            return Scaffold(
-              body: PageView.builder(
-                controller: _pageController,
-                scrollDirection: Axis.vertical,
-                itemCount: _controllers.length,
-                itemBuilder: (context, index) {
-                  if (!_controllers[index].value.isInitialized) {
-                    return Container(
-                      color: Colors.black,
-                      child: const Center(child: CircularProgressIndicator()),
+            return SafeArea(
+              child: Scaffold(
+                body: PageView.builder(
+                  controller: _pageController,
+                  scrollDirection: Axis.vertical,
+                  itemCount: state.reels.length,
+                  itemBuilder: (context, index) {
+                    final screenHeight = MediaQuery.of(context).size.height;
+                    final screenWidth = MediaQuery.of(context).size.width;
+                    final videoWidth = screenHeight * (33 / 70);
+                    final reel = state.reels[index];
+                    if (!_controllers[index].value.isInitialized) {
+                      return Container(
+                          color: Colors.black,
+                          child:
+                              const Center(child: CircularProgressIndicator()));
+                    }
+                    return GestureDetector(
+                      onTap: () {
+                        if (_controllers[index].value.isPlaying) {
+                          _controllers[index].pause();
+                        } else {
+                          _controllers[index].play();
+                        }
+                      },
+                      child: Stack(
+                        children: [
+                          // AspectRatio(
+                          //   aspectRatio: 33 / 70,
+                          //   child: VideoPlayer(_controllers[index]),
+                          // ),
+                          SizedBox(
+                            height: screenHeight, // Full screen height
+                            width: videoWidth > screenWidth
+                                ? videoWidth
+                                : screenWidth, // Full screen width or calculated width
+                            child: FittedBox(
+                              fit: BoxFit
+                                  .fitHeight, // Fit the height to fill the screen vertically
+                              child: SizedBox(
+                                width: videoWidth,
+                                height: screenHeight,
+                                child: VideoPlayer(_controllers[index]),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              color: Colors
+                                  .black45, // Semi-transparent background for readability
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    reel.title!,
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    reel.description!,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     );
-                  }
-                  return GestureDetector(
-                    onTap: () {
-                      if (_controllers[index].value.isPlaying) {
-                        _controllers[index].pause();
-                      } else {
-                        _controllers[index].play();
-                      }
-                    },
-                    child: AspectRatio(
-                      aspectRatio: _controllers[index].value.aspectRatio,
-                      child: VideoPlayer(_controllers[index]),
-                    ),
-                  );
-                },
+                  },
+                ),
               ),
             );
           } else if (state is UserReelsError) {
