@@ -8,11 +8,17 @@ import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/index.dart';
 
-class MediaCoverSection extends StatelessWidget {
+class MediaCoverSection extends StatefulWidget {
   const MediaCoverSection({super.key, this.onWatchNowPressed});
 
   final VoidCallback? onWatchNowPressed;
 
+  @override
+  State<MediaCoverSection> createState() => _MediaCoverSectionState();
+}
+
+class _MediaCoverSectionState extends State<MediaCoverSection> {
+  
   Widget buildUserDetailsSection(BuildContext context) {
     return BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
       builder: (context, state) {
@@ -103,7 +109,7 @@ class MediaCoverSection extends StatelessWidget {
                       bordercolor: AppColors.black,
                       fontsize: 16.sp,
                       labelcolor: AppColors.white,
-                      onPressed: onWatchNowPressed,
+                      onPressed: widget.onWatchNowPressed,
                       text: 'Watch now'),
                 ),
               ],

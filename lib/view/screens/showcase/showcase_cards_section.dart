@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeDetails_bloc/epidoseVideoDetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import '../../../bloc/showscreen_bloc/episodeDetails_bloc/episodeVideoDetail_event.dart';
 import '../../../bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_event.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
+import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
+import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_state.dart';
@@ -27,6 +30,17 @@ class ShowCaseCardSections extends StatefulWidget {
 
 class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
   @override
+  void initState() {
+    super.initState();
+    final showId = context.read<ShowIdCubit>().state;
+    if (showId != null) {
+      context
+          .read<UserShowDetailBloc>()
+          .add(FetchUserShowDetail(showId: showId));
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final showId = context.read<ShowIdCubit>().state;
 
@@ -43,6 +57,9 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
             context
                 .read<UserEpisodeDetailBloc>()
                 .add(FetchUserEpisodeDetail(showId: showId));
+            context
+                .read<UserShowDetailBloc>()
+                .add(FetchUserShowDetail(showId: showId));
           }
         },
         child: Column(
@@ -52,6 +69,27 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                 padding: EdgeInsets.only(left: 18.sp),
                 child: Text(AppLocalisation.episodes,
                     style: AppTestStyle.headingBai(fontSize: 26.sp))),
+            BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
+              builder: (context, state) {
+                String episodesText = "Total episodes"; // Default text
+                if (state is UserShowDetailLoaded &&
+                    state.userDetails.isNotEmpty) {
+                  // Assuming ShowDetailsData has a property to get the episodes count
+                  Object episodesCount =
+                      state.userDetails.first.totalEpisodes ?? 0;
+                  episodesText +=
+                      ' ($episodesCount)'; // Update text to include count
+                }
+
+                return Padding(
+                  padding: EdgeInsets.only(left: 18.sp),
+                  child: Text(
+                    episodesText,
+                    style: AppTestStyle.headingBai(fontSize: 16.sp),
+                  ),
+                );
+              },
+            ),
             Padding(
               padding: EdgeInsets.only(left: 15.sp),
               child: BlocBuilder<UserEpisodeDetailBloc, UserEpisodeDetailState>(
@@ -63,10 +101,10 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                     List<String> showNames = state.episodeDetails
                         .map((show) => show.showName ?? 'No Show Name')
                         .toList();
-
                     List<String> showIds = state.episodeDetails
                         .map((show) => show.showId ?? 'No Show Name')
                         .toList();
+
                     List<String> episodeId = state.episodeDetails
                         .map((show) => show.episodeId ?? 'No Show Name')
                         .toList();
@@ -92,10 +130,19 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                       episodeId: episodeId,
                       onTap: (String showId, String episodeId) {
                         final int parsedShowId = int.tryParse(showId) ?? 0;
+                        final int parsedEpisodeId =
+                            int.tryParse(episodeId) ?? 0;
                         final int parsedepisodeId =
                             int.tryParse(episodeId) ?? 0;
+                        context.read<VideoDetailsBloc>().add(FetchVideoDetails(
+                            episodeId: int.parse(episodeId),
+                            showId: int.parse(showId)));
 
                         context.read<ShowIdCubit>().updateShowId(parsedShowId);
+                        context
+                            .read<EpisodeIdCubit>()
+                            .updateShowId(parsedEpisodeId);
+
                         context
                             .read<EpisodeIdCubit>()
                             .updateShowId(parsedepisodeId);

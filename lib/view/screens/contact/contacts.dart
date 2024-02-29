@@ -66,16 +66,13 @@ class ContactUsScreen extends StatelessWidget {
                       text: AppLocalisation.infoondgolive,
                       url: 'https://www.ondgo.live/',
                     ),
-                    // Text(AppLocalisation.infoondgolive,
-                    //     style: AppTestStyle.headingint(
-                    //         fontSize: 20.sp, fontWeight: FontWeight.bold)),
                     SizedBox(height: 5.5.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _buildSocialIcon(
                           icon: Image.asset("assets/images/youtube_icon.png",
-                              height: 40, width: 40),
+                              height: 50, width: 50),
                           url: 'https://www.youtube.com/@ondgolive',
                         ),
                         _buildSocialIcon(
@@ -85,7 +82,7 @@ class ContactUsScreen extends StatelessWidget {
                         ),
                         _buildSocialIcon(
                           icon: Image.asset("assets/images/facebook_icon.png",
-                              height: 40, width: 40),
+                              height: 50, width: 50),
                           url: 'https://www.facebook.com/ondgolive/',
                         ),
                         _buildSocialIcon(
@@ -93,13 +90,10 @@ class ContactUsScreen extends StatelessWidget {
                               height: 40, width: 40),
                           url: 'https://twitter.com/ondgolive',
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 8.0),
-                          child: _buildSocialIcon(
-                            icon: Image.asset("assets/images/linkedin_icon.png",
-                                height: 50, width: 50),
-                            url: 'https://www.linkedin.com/company/ondgolive/',
-                          ),
+                        _buildSocialIcon(
+                          icon: Image.asset("assets/images/linkedin_icon.png",
+                              height: 50, width: 50),
+                          url: 'https://www.linkedin.com/company/ondgolive/',
                         ),
                       ],
                     ),
