@@ -8,6 +8,7 @@ import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
 import 'package:ondgo_flutter/utilities/index.dart';
 import '../../../utilities/app_validator.dart';
+import 'package:hive/hive.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -24,6 +25,22 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController mobileController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    openBox();
+  }
+
+  Future<void> openBox() async {
+    await Hive.openBox('userBox');
+  }
+
+  Future<void> saveUserData(String firstName, String email) async {
+    var box = Hive.box('userBox');
+    await box.put('firstName', firstName);
+    await box.put('email', email);
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -39,10 +56,9 @@ class _SignupScreenState extends State<SignupScreen> {
           }
           if (state is SignInSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Registration successful")),
+              const SnackBar(content: Text("Registration successful")),
             );
-            // Delay navigation to allow the user to see the SnackBar message
-            Future.delayed(Duration(seconds: 2), () {
+            Future.delayed(const Duration(seconds: 2), () {
               GoRouter.of(context).go('/login'); // Navigate to the login screen
             });
           }
@@ -177,6 +193,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                       text: AppLocalisation.signup,
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
+                                          saveUserData(firstNameController.text,
+                                              emailController.text);
                                           BlocProvider.of<SignInBloc>(context)
                                               .add(
                                             SignInRequested(

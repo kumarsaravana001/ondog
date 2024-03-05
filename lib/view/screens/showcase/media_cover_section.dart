@@ -18,7 +18,6 @@ class MediaCoverSection extends StatefulWidget {
 }
 
 class _MediaCoverSectionState extends State<MediaCoverSection> {
-  
   Widget buildUserDetailsSection(BuildContext context) {
     return BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
       builder: (context, state) {

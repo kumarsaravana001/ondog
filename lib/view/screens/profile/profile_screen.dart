@@ -1,7 +1,12 @@
+import 'dart:io';
+import 'package:path/path.dart' as path;
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -16,6 +21,38 @@ Future<void> logout() async {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  late String imagePath;
+  File? image;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadImagePath();
+  }
+
+  Future<void> _loadImagePath() async {
+    var box = Hive.box('userBox');
+    imagePath = box.get('profileImagePath', defaultValue: '');
+    setState(() {});
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        image = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<Map<String, dynamic>> getUserData() async {
+    var box = Hive.box('userBox');
+    String firstName = box.get('firstName', defaultValue: 'User');
+    String email = box.get('email', defaultValue: 'email@example.com');
+    return {"firstName": firstName, "email": email};
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,37 +84,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             padding: EdgeInsets.only(top: 35.sp),
                             child: Column(
                               children: [
-                                Container(
-                                  width: 40.w,
-                                  height: 20.h,
-                                  decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(15))),
-                                  child: ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                      child: AppImages.dummyimage(
-                                          fit: BoxFit.cover)),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 16.sp),
-                                  child: Text(
-                                    AppLocalisation.username,
-                                    style: AppTestStyle.headingBai(
-                                        color: AppColors.white,
-                                        fontSize: 24.sp,
-                                        fontWeight: FontWeight.bold),
+                                Center(
+                                  child: Stack(
+                                    alignment: Alignment.bottomRight,
+                                    children: <Widget>[
+                                      CircleAvatar(
+                                        radius:
+                                            80, // Adjust the radius as needed
+                                        backgroundColor: Colors.grey.shade300,
+                                        backgroundImage: image != null
+                                            ? FileImage(image!)
+                                            : null,
+                                        child: image == null
+                                            ? Icon(Icons.person,
+                                                size: 80) // Placeholder icon
+                                            : null,
+                                      ),
+                                      FloatingActionButton(
+                                        mini: true, // Makes the button smaller
+                                        onPressed: _pickImage,
+                                        child: Icon(Icons.edit),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 10.sp),
-                                  child: Text(
-                                    AppLocalisation.useremail,
-                                    style: AppTestStyle.headingint(
-                                        color: AppColors.white,
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.normal),
-                                  ),
+                                FutureBuilder<Map<String, dynamic>>(
+                                  future: getUserData(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Center(
+                                          child: CircularProgressIndicator());
+                                    }
+                                    // Extracting data from snapshot
+                                    String firstName =
+                                        snapshot.data?['firstName'] ?? 'User';
+                                    String email = snapshot.data?['email'] ??
+                                        'email@example.com';
+                                    return Column(
+                                      children: [
+                                        // Your existing Stack widget...
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 16.sp),
+                                          child: Text(
+                                            firstName, // Displaying the first name
+                                            style: AppTestStyle.headingBai(
+                                                color: AppColors.white,
+                                                fontSize: 24.sp,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10.sp),
+                                          child: Text(
+                                            email, // Displaying the email
+                                            style: AppTestStyle.headingint(
+                                                color: AppColors.white,
+                                                fontSize: 18.sp,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                        ),
+                                        // Your remaining widgets...
+                                      ],
+                                    );
+                                  },
                                 ),
                               ],
                             ),

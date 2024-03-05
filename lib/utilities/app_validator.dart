@@ -5,9 +5,9 @@ class ValidationUtil {
       return 'First Name is required';
     }
 
-    if (value.length > 9) {
+    if (value.length > 24) {
       // Check if the input exceeds 9 characters
-      return 'Name must not exceed 9 characters';
+      return 'Name must not exceed 20 characters';
     }
 
     RegExp onlyAlphabets = RegExp(r'^[a-zA-Z]+$');

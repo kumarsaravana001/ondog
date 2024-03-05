@@ -6,6 +6,7 @@ import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import '../../../bloc/showscreen_bloc/episodeDetails_bloc/episodeVideoDetail_event.dart';
+// import '../../../bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import '../../../bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_event.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
@@ -132,36 +133,27 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                         final int parsedShowId = int.tryParse(showId) ?? 0;
                         final int parsedEpisodeId =
                             int.tryParse(episodeId) ?? 0;
-                        final int parsedepisodeId =
-                            int.tryParse(episodeId) ?? 0;
-                        context.read<VideoDetailsBloc>().add(FetchVideoDetails(
-                            episodeId: int.parse(episodeId),
-                            showId: int.parse(showId)));
 
                         context.read<ShowIdCubit>().updateShowId(parsedShowId);
                         context
                             .read<EpisodeIdCubit>()
                             .updateShowId(parsedEpisodeId);
 
-                        context
-                            .read<EpisodeIdCubit>()
-                            .updateShowId(parsedepisodeId);
-
-                        BlocProvider.of<QuizDetailsBloc>(context)
-                            .add(FetchQuizDetails(
-                          showId: int.parse(showId),
-                          episodeId: int.parse(episodeId),
-                        ));
-                        BlocProvider.of<VideoDetailsBloc>(context)
-                            .add(FetchVideoDetails(
-                          showId: int.parse(showId),
-                          episodeId: int.parse(episodeId),
-                        ));
+                        context.read<VideoDetailsBloc>().add(FetchVideoDetails(
+                            episodeId: parsedEpisodeId, showId: parsedShowId));
                         context.read<DisplayBloc>().showVideoDetails();
-
                         context
                             .read<QuizVisibilityCubit>()
                             .toggleQuizVisibility();
+
+                        BlocProvider.of<QuizDetailsBloc>(context).add(
+                            FetchQuizDetails(
+                                showId: int.parse(showId),
+                                episodeId: int.parse(episodeId)));
+                        BlocProvider.of<VideoDetailsBloc>(context).add(
+                            FetchVideoDetails(
+                                showId: int.parse(showId),
+                                episodeId: int.parse(episodeId)));
                       },
                     );
                   } else if (state is UserEpisodeDetailError) {
