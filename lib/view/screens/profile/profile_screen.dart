@@ -1,12 +1,14 @@
-import 'dart:io';
-import 'package:path/path.dart' as path;
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:ondgo_flutter/utilities/app_bg.dart';
+import 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
+// import 'package:path/path.dart' as path;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -15,31 +17,48 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-Future<void> logout() async {
-  var box = Hive.box('sessionBox');
-  await box.delete('userId');
-}
-
 class _ProfileScreenState extends State<ProfileScreen> {
-  late String imagePath;
   File? image;
+  String firstName = '';
+  String email = '';
 
   @override
   void initState() {
     super.initState();
     _loadImagePath();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    var box = Hive.box('userBox');
+    String storedFirstName =
+        box.get('firstName', defaultValue: 'User') as String;
+    String storedEmail =
+        box.get('email', defaultValue: 'email@example.com') as String;
+
+    setState(() {
+      firstName = storedFirstName;
+      email = storedEmail;
+    });
   }
 
   Future<void> _loadImagePath() async {
     var box = Hive.box('userBox');
-    imagePath = box.get('profileImagePath', defaultValue: '');
-    setState(() {});
+    String? imagePath = box.get('profileImagePath');
+    if (imagePath != null) {
+      setState(() {
+        image = File(imagePath);
+      });
+    }
   }
 
   Future<void> _pickImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
+      Box userBox = await Hive.openBox('userBox');
+
+      await userBox.put('profileImagePath', pickedFile.path);
       setState(() {
         image = File(pickedFile.path);
       });
@@ -51,6 +70,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String firstName = box.get('firstName', defaultValue: 'User');
     String email = box.get('email', defaultValue: 'email@example.com');
     return {"firstName": firstName, "email": email};
+  }
+
+  Future<void> logout() async {
+    var box = Hive.box('sessionBox');
+    await box.delete('userId');
+    GoRouter.of(context).go('/login');
   }
 
   @override
@@ -65,14 +90,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Stack(
                     children: [
+                      // ClipPath(
+                      //   clipper: TriangularClipper(),
+                      //   child: Container(
+                      //     height: 54.h,
+                      //     color: Colors.black,
+                      //   ),
+                      // ),
                       SvgPicture.asset(
                         width: MediaQuery.of(context).size.width,
                         IconAssets.profilebg,
                       ),
-                      Positioned(
-                          top: 0,
-                          right: 30,
-                          child: SvgPicture.asset(IconAssets.badgecloseblack)),
+                      // Positioned(
+                      //     top: 0,
+                      //     right: 30,
+                      //     child: SvgPicture.asset(IconAssets.badgecloseblack)),
                       Positioned(
                           bottom: -15.sp,
                           left: MediaQuery.of(context).size.width * 0.5 - 30,
@@ -87,23 +119,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Center(
                                   child: Stack(
                                     alignment: Alignment.bottomRight,
-                                    children: <Widget>[
+                                    children: [
                                       CircleAvatar(
-                                        radius:
-                                            80, // Adjust the radius as needed
+                                        radius: 70,
                                         backgroundColor: Colors.grey.shade300,
                                         backgroundImage: image != null
                                             ? FileImage(image!)
                                             : null,
                                         child: image == null
-                                            ? Icon(Icons.person,
-                                                size: 80) // Placeholder icon
+                                            ? const Icon(Icons.person, size: 80)
                                             : null,
                                       ),
                                       FloatingActionButton(
                                         mini: true, // Makes the button smaller
                                         onPressed: _pickImage,
-                                        child: Icon(Icons.edit),
+                                        child: const Icon(Icons.edit),
                                       ),
                                     ],
                                   ),
@@ -116,18 +146,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       return const Center(
                                           child: CircularProgressIndicator());
                                     }
-                                    // Extracting data from snapshot
-                                    String firstName =
-                                        snapshot.data?['firstName'] ?? 'User';
-                                    String email = snapshot.data?['email'] ??
-                                        'email@example.com';
+
                                     return Column(
                                       children: [
-                                        // Your existing Stack widget...
                                         Padding(
                                           padding: EdgeInsets.only(top: 16.sp),
                                           child: Text(
-                                            firstName, // Displaying the first name
+                                            firstName,
                                             style: AppTestStyle.headingBai(
                                                 color: AppColors.white,
                                                 fontSize: 24.sp,
@@ -189,11 +214,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.5 - 35.sp,
-                left: -10,
-                right: -10,
+                top: 78.sp,
+                // top: MediaQuery.of(context).size.height * 0.5 - 35.sp,
+                // top: MediaQuery.of(context).size.height,
+
+                left: -10.sp,
+                right: -10.sp,
                 child: SvgPicture.asset(IconAssets.profilelevels,
-                    // ignore: deprecated_member_use
                     color: AppColors.black),
               ),
               Positioned(

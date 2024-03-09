@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,15 +28,15 @@ import '../view/view_index.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  await Hive.openBox('userBox');
+
   await Hive.openBox('sessionBox');
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   String initialRoute = determineInitialRoute();
   runApp(
       //DevicePreview(
-      //builder: (context) => MyApp(
-      //authToken: authToken,
-      //),
+      //builder: (context) => MyApp(initialRoute: initialRoute),
       //));
       MyApp(initialRoute: initialRoute));
 }
@@ -120,8 +121,8 @@ class _MyAppState extends State<MyApp> {
         GoRoute(
             path: '/contact',
             builder: (context, state) => const ContactUsScreen()),
-        //GoRoute(
-        //path: '/reels', builder: (context, state) => const ReelsScreen()),
+        GoRoute(
+            path: '/reels', builder: (context, state) => const ReelsScreen()),
         GoRoute(
             path: '/fullScreenImage',
             builder: (context, state) => const ShortsPage()),

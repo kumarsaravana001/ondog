@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
@@ -97,15 +98,15 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                         height: 30.h,
                         color: AppColors.black,
                       ),
-                      Positioned(
-                        top: 0,
-                        right: 30,
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(IconAssets.badgecloseblack)
-                          ],
-                        ),
-                      ),
+                      // Positioned(
+                      //   top: 0,
+                      //   right: 30,
+                      //   child: Row(
+                      //     children: [
+                      //       SvgPicture.asset(IconAssets.badgecloseblack)
+                      //     ],
+                      //   ),
+                      // ),
                       Positioned(
                         top: 10,
                         left: 20,
@@ -123,7 +124,7 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            top: 38.sp, left: 20.sp, right: 20.sp),
+                            top: 38.sp, left: 20.sp, right: 15.sp),
                         child: CustomTextField(
                           controller: searchController,
                           hintText: "Search",
@@ -136,150 +137,157 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                     ],
                   ),
                 ),
-                BlocBuilder<SearchBloc, SearchState>(
-                  builder: (context, state) {
-                    if (state is SearchLoading) {
-                      return const CircularProgressIndicator();
-                    } else if (state is SearchLoaded) {
-                      return buildSearchResults(state.categories);
-                    } else if (state is SearchError) {
-                      return const Text('Failed to load search results');
-                    }
-                    return Container();
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.0.sp, top: 10.sp),
-                  child: BlocBuilder<CategoryWiseShowSearchBloc,
-                      CategoryWiseShowSearchState>(
-                    builder: (context, state) {
-                      if (state is CategoryWiseShowSearchLoading) {
-                        return const CircularProgressIndicator();
-                      } else if (state is CategoryWiseShowSearchLoaded &&
-                          state.categoryWise.isNotEmpty) {
-                        List<String> showNames = state.categoryWise
-                            .map((show) => show.showName ?? 'No Show Name')
-                            .toList();
-                        List<String> showIds = state.categoryWise
-                            .map((show) => show.showId.toString())
-                            .toList();
-                        List<Widget> imageWidgets =
-                            state.categoryWise.map((show) {
-                          String imageUrl = show.thumbnail!.isNotEmpty
-                              ? show.thumbnail![0]
-                              : 'default_image_url';
-
-                          return Image.network(imageUrl, fit: BoxFit.cover);
-                        }).toList();
-
-                        return HorizontalScrollableCard(
-                          cardStatusColor: Colors.brown,
-                          titlecard: showNames,
-                          imageListCount: state.categoryWise.length,
-                          imageList: imageWidgets,
-                          showIds: showIds,
-                          textColor: AppColors.white,
-                          onTap: (showId) {
-                            final int parsedShowId = int.tryParse(showId) ?? 0;
-                            context
-                                .read<ShowIdCubit>()
-                                .updateShowId(parsedShowId);
-
-                            BlocProvider.of<NavigationCubit>(context)
-                                .navigateToIndex(3);
-                            BlocProvider.of<UserShowDetailBloc>(context).add(
-                                FetchUserShowDetail(showId: int.parse(showId)));
-                            BlocProvider.of<UserEpisodeDetailBloc>(context).add(
-                              FetchUserEpisodeDetail(showId: int.parse(showId)),
-                            );
-                          },
-                        );
-                      } else if (state is CategoryWiseShowSearchError) {
-                        return Text('Error: ${state.message}');
-                      } else {
-                        return BlocBuilder<PopularPicksBloc, PopularPicksState>(
-                          builder: (context, state) {
-                            if (state is PopularPicksLoading) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            } else if (state is PopularPicksLoaded &&
-                                state.popularPicks.isNotEmpty) {
-                              List<String> showNames = state.popularPicks
-                                  .map(
-                                      (show) => show.showName ?? 'No Show Name')
-                                  .toList();
-                              List<String> showIds = state.popularPicks
-                                  .map((show) => show.showId ?? 'No Show Name')
-                                  .toList();
-                              List<Widget> imageWidgets =
-                                  state.popularPicks.map((show) {
-                                String imageUrl = show.thumbnail!.isNotEmpty
-                                    ? show.thumbnail![0]
-                                    : 'default_image_url';
-
-                                return Image.network(imageUrl,
-                                    fit: BoxFit.cover);
-                              }).toList();
-
-                              return HorizontalScrollableCard(
-                                titlecard: showNames,
-                                imageListCount: state.popularPicks.length,
-                                imageList: imageWidgets,
-                                textColor: AppColors.white,
-                                cardStatusColor: Colors.indigoAccent,
-                                onTap: (String showId) {
-                                  final int parsedShowId =
-                                      int.tryParse(showId) ?? 0;
-                                  context
-                                      .read<ShowIdCubit>()
-                                      .updateShowId(parsedShowId);
-
-                                  BlocProvider.of<NavigationCubit>(context)
-                                      .navigateToIndex(3);
-                                  BlocProvider.of<UserShowDetailBloc>(context)
-                                      .add(FetchUserShowDetail(
-                                          showId: int.parse(showId)));
-                                  BlocProvider.of<UserEpisodeDetailBloc>(
-                                          context)
-                                      .add(FetchUserEpisodeDetail(
-                                          showId: int.parse(showId)));
-                                },
-                                showIds: showIds,
-                              );
-                            } else if (state is PopularPicksLoading) {
-                              return horizontalCardShimmerWidget();
-                            } else {
-                              return horizontalCardShimmerWidget();
-                            }
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ),
                 Stack(
                   children: [
                     SvgPicture.asset(IconAssets.spotlightbgframe2,
                         height: 35.h, fit: BoxFit.cover),
                     Positioned(
-                      left: 20.sp,
-                      right: 05.sp,
+                      left: 15.sp,
+                      right: 5.sp,
                       child: Column(
                         children: [
-                          // Text(
-                          //   AppLocalisation.sprituality,
-                          //   style: AppTestStyle.headingBai(fontSize: 26.sp),
-                          // ),
-                          // HorizontalScrollableCard(
-                          //   cardStatusColor: Colors.yellow[300]!,
-                          //   titlecard: spritualityimagepathtitle,
-                          //   imageListCount: sritualityImagepath.length,
-                          //   imageList: sritualityImagepath,
-                          //   textColor: AppColors.white,
-                          //   subtitle: AppLocalisation.ratingcount,
-                          //   onTap: (String showId) {},
-                          //   showIds: [],
-                          // ),
+                          BlocBuilder<SearchBloc, SearchState>(
+                            builder: (context, state) {
+                              if (state is SearchLoading) {
+                                return const CircularProgressIndicator();
+                              } else if (state is SearchLoaded) {
+                                return buildSearchResults(state.categories);
+                              } else if (state is SearchError) {
+                                return const Text(
+                                    'Failed to load search results');
+                              }
+                              return Container();
+                            },
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.0.sp, top: 10.sp),
+                            child: BlocBuilder<CategoryWiseShowSearchBloc,
+                                CategoryWiseShowSearchState>(
+                              builder: (context, state) {
+                                if (state is CategoryWiseShowSearchLoading) {
+                                  return const CircularProgressIndicator();
+                                } else if (state
+                                        is CategoryWiseShowSearchLoaded &&
+                                    state.categoryWise.isNotEmpty) {
+                                  List<String> showNames = state.categoryWise
+                                      .map((show) =>
+                                          show.showName ?? 'No Show Name')
+                                      .toList();
+                                  List<String> showIds = state.categoryWise
+                                      .map((show) => show.showId.toString())
+                                      .toList();
+                                  List<Widget> imageWidgets =
+                                      state.categoryWise.map((show) {
+                                    String imageUrl = show.thumbnail!.isNotEmpty
+                                        ? show.thumbnail![0]
+                                        : 'default_image_url';
+
+                                    return Image.network(imageUrl,
+                                        fit: BoxFit.cover);
+                                  }).toList();
+
+                                  return HorizontalScrollableCard(
+                                    cardStatusColor: Colors.brown,
+                                    titlecard: showNames,
+                                    imageListCount: state.categoryWise.length,
+                                    imageList: imageWidgets,
+                                    showIds: showIds,
+                                    textColor: AppColors.white,
+                                    onTap: (showId) {
+                                      final int parsedShowId =
+                                          int.tryParse(showId) ?? 0;
+                                      context
+                                          .read<ShowIdCubit>()
+                                          .updateShowId(parsedShowId);
+
+                                      // BlocProvider.of<NavigationCubit>(context)
+                                      //     .navigateToIndex(3);
+                                      context.push("/showcase");
+                                      BlocProvider.of<UserShowDetailBloc>(
+                                              context)
+                                          .add(FetchUserShowDetail(
+                                              showId: int.parse(showId)));
+                                      BlocProvider.of<UserEpisodeDetailBloc>(
+                                              context)
+                                          .add(
+                                        FetchUserEpisodeDetail(
+                                            showId: int.parse(showId)),
+                                      );
+                                    },
+                                  );
+                                } else if (state
+                                    is CategoryWiseShowSearchError) {
+                                  return Text('Error: ${state.message}');
+                                } else {
+                                  return BlocBuilder<PopularPicksBloc,
+                                      PopularPicksState>(
+                                    builder: (context, state) {
+                                      if (state is PopularPicksLoading) {
+                                        return const Center(
+                                            child: CircularProgressIndicator());
+                                      } else if (state is PopularPicksLoaded &&
+                                          state.popularPicks.isNotEmpty) {
+                                        List<String> showNames = state
+                                            .popularPicks
+                                            .map((show) =>
+                                                show.showName ?? 'No Show Name')
+                                            .toList();
+                                        List<String> showIds = state
+                                            .popularPicks
+                                            .map((show) =>
+                                                show.showId ?? 'No Show Name')
+                                            .toList();
+                                        List<Widget> imageWidgets =
+                                            state.popularPicks.map((show) {
+                                          String imageUrl =
+                                              show.thumbnail!.isNotEmpty
+                                                  ? show.thumbnail![0]
+                                                  : 'default_image_url';
+
+                                          return Image.network(imageUrl,
+                                              fit: BoxFit.cover);
+                                        }).toList();
+
+                                        return HorizontalScrollableCard(
+                                          titlecard: showNames,
+                                          imageListCount:
+                                              state.popularPicks.length,
+                                          imageList: imageWidgets,
+                                          textColor: AppColors.white,
+                                          cardStatusColor: Colors.indigoAccent,
+                                          onTap: (String showId) {
+                                            final int parsedShowId =
+                                                int.tryParse(showId) ?? 0;
+                                            context
+                                                .read<ShowIdCubit>()
+                                                .updateShowId(parsedShowId);
+
+                                            // BlocProvider.of<NavigationCubit>(context)
+                                            //     .navigateToIndex(3);
+                                            context.push("/showcase");
+                                            BlocProvider.of<UserShowDetailBloc>(
+                                                    context)
+                                                .add(FetchUserShowDetail(
+                                                    showId: int.parse(showId)));
+                                            BlocProvider.of<
+                                                        UserEpisodeDetailBloc>(
+                                                    context)
+                                                .add(FetchUserEpisodeDetail(
+                                                    showId: int.parse(showId)));
+                                          },
+                                          showIds: showIds,
+                                        );
+                                      } else if (state is PopularPicksLoading) {
+                                        return horizontalCardShimmerWidget();
+                                      } else {
+                                        return horizontalCardShimmerWidget();
+                                      }
+                                    },
+                                  );
+                                }
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -306,20 +314,6 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
             style: AppTestStyle.headingBai(fontSize: 26.sp),
           ),
         );
-        // Card(
-        //   child: ListTile(
-        //     leading: CircleAvatar(
-        //       // Optional: visual representation, could be an icon
-        //       child: Text(category.categoryId!),
-        //       backgroundColor: Colors.grey[200],
-        //       foregroundColor: Colors.black,
-        //     ),
-        //     title: Text(category.categoryName!),
-        //     subtitle: Text('Tags: ${category.tags?.join(', ')}'),
-        //     trailing: const Icon(Icons
-        //         .arrow_forward), // Optional: for navigation or action indication
-        //   ),
-        // );
       },
     );
   }

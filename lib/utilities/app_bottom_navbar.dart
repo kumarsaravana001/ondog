@@ -113,11 +113,12 @@ class Navbar extends StatelessWidget {
 
   final List<Widget> _screens = [
     HomeScreen(),
-    SearchandLibraryScreen(),
+    // SearchandLibraryScreen(),
     // ReelsScreen(),
     // ReelsFullScreen(),
-    ShortsPage(),
-    ShowCaseScreen(),
+    // ShortsPage(),
+    ReelsScreen(),
+    // ShowCaseScreen(),
     ProfileScreen(),
   ];
 
@@ -126,19 +127,19 @@ class Navbar extends StatelessWidget {
       icon: SvgPicture.asset(IconAssets.navbaricon1, height: 25),
       label: '',
     ),
-    BottomNavigationBarItem(
-      icon: SvgPicture.asset(IconAssets.horizontaldiamond,
-          height: 20, color: AppColors.white),
-      label: '',
-    ),
+    // BottomNavigationBarItem(
+    //   icon: SvgPicture.asset(IconAssets.horizontaldiamond,
+    //       height: 20, color: AppColors.white),
+    //   label: '',
+    // ),
     BottomNavigationBarItem(
       icon: SvgPicture.asset(IconAssets.navbaricon2, height: 25),
       label: '',
     ),
-    BottomNavigationBarItem(
-      icon: SvgPicture.asset(IconAssets.navbaricon3, height: 25),
-      label: '',
-    ),
+    // BottomNavigationBarItem(
+    //   icon: SvgPicture.asset(IconAssets.navbaricon3, height: 25),
+    //   label: '',
+    // ),
     BottomNavigationBarItem(
       icon: SvgPicture.asset(IconAssets.badgecloseblack, height: 48),
       label: '',

@@ -39,7 +39,7 @@ class HorizontalScrollableCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-      height: 200,
+      height: 28.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: imageListCount,
@@ -51,7 +51,7 @@ class HorizontalScrollableCard extends StatelessWidget {
               }
             },
             child: Container(
-              width: 42.w,
+              width: 43.w,
               margin: EdgeInsets.all(12.sp),
               decoration: BoxDecoration(
                   color: cardbackgroundcolor,
@@ -94,7 +94,7 @@ class HorizontalScrollableCard extends StatelessWidget {
                       bottomRight: Radius.circular(15),
                     ),
                     child: AspectRatio(
-                      aspectRatio: 16 / 15.7,
+                      aspectRatio: 16 / 16.5,
                       child: imageList[index],
                     ),
                   ),
@@ -146,7 +146,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-      height: 200,
+      height: 25.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: imageListCount,
@@ -164,7 +164,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
               }
             },
             child: Container(
-              width: 42.w,
+              width: 43.w,
               margin: EdgeInsets.all(12.sp),
               decoration: BoxDecoration(
                   color: cardbackgroundcolor,
@@ -204,7 +204,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                       bottomRight: Radius.circular(15),
                     ),
                     child: AspectRatio(
-                      aspectRatio: 18 / 15.7,
+                      aspectRatio: 14 / 16.5,
                       child: imageList[index],
                     ),
                   ),

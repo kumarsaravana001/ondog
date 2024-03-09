@@ -1,9 +1,9 @@
 // ignore_for_file: deprecated_member_use
-
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_event.dart';
@@ -15,7 +15,6 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/categ
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
-import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
@@ -123,9 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
     userId = box.get('userId');
     if (userId == null) {
       // Handle user not found scenario, maybe navigate to login screen
-    } else {
-      // Make your API calls using userId
-    }
+    } else {}
   }
 
   @override
@@ -161,14 +158,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     ClipPath(
                       clipper: Hometopshape(),
-                      child: Container(
-                        height: 122.h,
-                        color: Colors.black,
-                      ),
+                      child: Container(height: 125.h, color: Colors.black),
                     ),
                     Positioned(
                       bottom: 80.sp,
-                      right: 46.sp,
+                      right: 48.sp,
                       child: Text(
                         AppLocalisation.spotlight,
                         style: AppTestStyle.headingBai(
@@ -178,11 +172,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 50.sp,
+                      bottom: 48.sp,
                       left: 20.sp,
                       right: 8.sp,
                       child: SizedBox(
-                        height: 200,
+                        //height: 230.5,
+                        height: 27.9.h,
                         child: BlocBuilder<HomeScreenSpotLightBloc,
                             HomeScreenSpotlightState>(
                           builder: (context, state) {
@@ -210,7 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 titlecard: showNames,
                                 imageListCount: state.spotlight.length,
                                 imageList: imageWidgets,
-                                textColor: AppColors.white,
+                                textColor: AppColors.black,
+                                cardbackgroundcolor: AppColors.white,
                                 onTap: (String showId) {
                                   final int parsedShowId =
                                       int.tryParse(showId) ?? 0;
@@ -218,8 +214,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .read<ShowIdCubit>()
                                       .updateShowId(parsedShowId);
 
-                                  BlocProvider.of<NavigationCubit>(context)
-                                      .navigateToIndex(3);
+                                  //BlocProvider.of<NavigationCubit>(context)
+                                  //.navigateToIndex(3);
+                                  context.push("/showcase");
                                   BlocProvider.of<UserShowDetailBloc>(context)
                                       .add(FetchUserShowDetail(
                                           showId: int.parse(showId)));
@@ -275,9 +272,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                               context
                                                   .read<ShowIdCubit>()
                                                   .updateShowId(parsedShowId);
-                                              BlocProvider.of<NavigationCubit>(
-                                                      context)
-                                                  .navigateToIndex(3);
+                                              // BlocProvider.of<NavigationCubit>(
+                                              //         context)
+                                              //     .navigateToIndex(3);
+                                              context.push("/showcase");
                                               BlocProvider.of<
                                                           UserShowDetailBloc>(
                                                       context)
@@ -326,15 +324,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 24.sp,
                                   semanticsLabel: 'Ondgo Logo'),
                             ),
-                            Positioned(
-                              top: 0,
-                              right: 30,
-                              child: InkWell(
-                                onTap: () {},
-                                child: SvgPicture.asset(
-                                    IconAssets.badgecloseblack),
-                              ),
-                            ),
+                            // Positioned(
+                            //   top: 0,
+                            //   right: 30,
+                            //   child: InkWell(
+                            //     onTap: () {},
+                            //     child: SvgPicture.asset(
+                            //         IconAssets.badgecloseblack),
+                            //   ),
+                            // ),
                             Positioned(
                               top: 75.sp,
                               child: Padding(
@@ -354,7 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             labelcolor: AppColors.white,
                                             onPressed: () {},
                                             text: 'streaming soon'),
-                                        SizedBox(width: 50.w),
+                                        SizedBox(width: 40.w),
                                         Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
@@ -362,8 +360,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                               border: Border.all(
                                                   color: AppColors.white),
                                             ),
-                                            child: const Icon(Icons.add,
-                                                color: AppColors.white))
+                                            child: IconButton(
+                                              icon: const Icon(
+                                                Icons.search,
+                                                color: AppColors.white,
+                                                size: 25,
+                                              ),
+                                              onPressed: () {
+                                                context.push("/search");
+                                              },
+                                            )
+                                            // const Icon(Icons.search,
+                                            //     color: AppColors.white),
+                                            )
                                       ],
                                     ),
                                     Container(
@@ -515,8 +524,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .read<ShowIdCubit>()
                                     .updateShowId(parsedShowId);
 
-                                BlocProvider.of<NavigationCubit>(context)
-                                    .navigateToIndex(3);
+                                // BlocProvider.of<NavigationCubit>(context)
+                                //     .navigateToIndex(3);
+                                context.push("/showcase");
                                 BlocProvider.of<UserShowDetailBloc>(context)
                                     .add(FetchUserShowDetail(
                                         showId: int.parse(showId)));
@@ -622,8 +632,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .read<ShowIdCubit>()
                                     .updateShowId(parsedShowId);
 
-                                BlocProvider.of<NavigationCubit>(context)
-                                    .navigateToIndex(3);
+                                // BlocProvider.of<NavigationCubit>(context)
+                                //     .navigateToIndex(3);
+                                context.push("/showcase");
                                 BlocProvider.of<UserShowDetailBloc>(context)
                                     .add(FetchUserShowDetail(
                                         showId: int.parse(showId)));
@@ -722,8 +733,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .read<ShowIdCubit>()
                                     .updateShowId(parsedShowId);
 
-                                BlocProvider.of<NavigationCubit>(context)
-                                    .navigateToIndex(3);
+                                // BlocProvider.of<NavigationCubit>(context)
+                                //     .navigateToIndex(3);
+                                context.push("/showcase");
                                 BlocProvider.of<UserShowDetailBloc>(context)
                                     .add(FetchUserShowDetail(
                                         showId: int.parse(showId)));
@@ -824,8 +836,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .read<ShowIdCubit>()
                                     .updateShowId(parsedShowId);
 
-                                BlocProvider.of<NavigationCubit>(context)
-                                    .navigateToIndex(3);
+                                // BlocProvider.of<NavigationCubit>(context)
+                                //     .navigateToIndex(3);
+                                context.push("/showcase");
                                 BlocProvider.of<UserShowDetailBloc>(context)
                                     .add(FetchUserShowDetail(
                                         showId: int.parse(showId)));
