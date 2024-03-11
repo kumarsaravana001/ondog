@@ -23,7 +23,7 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: 1, keepPage: true)
+    _pageController = PageController(initialPage: 0, keepPage: true)
       ..addListener(() {
         setState(() {
           _handlePageChange(_pageController.page!.round());
@@ -137,73 +137,124 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
                             ),
                           ),
                           Positioned(
-                            top: 75,
-                            right: 10,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.black45,
-                                  borderRadius:
-                                      BorderRadiusDirectional.circular(20)),
-                              child: Column(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.playlist_add,
-                                        color: AppColors.white,
-                                      )),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.comment,
-                                        color: AppColors.white,
-                                      )),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.favorite,
-                                        color: AppColors.white,
-                                      )),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.share,
-                                        color: AppColors.white,
-                                      )),
-                                ],
-                              ),
+                              bottom: 60.sp,
+                              left: 15.sp,
+                              child: SvgPicture.asset(
+                                  IconAssets.reelsleftindicator)),
+                          Positioned(
+                              bottom: 43.sp,
+                              left: 0,
+                              right: 0,
+                              child: SvgPicture.asset(
+                                  IconAssets.reelscenterindicator)),
+                          Positioned(
+                              bottom: 60.sp,
+                              right: 15.sp,
+                              child: SvgPicture.asset(
+                                  IconAssets.reelsrightindicator)),
+                          Positioned(
+                            bottom: 25.sp,
+                            left: 15.sp,
+                            child: AppIconsWidget.favourites(
+                                color: AppColors.white),
+                          ),
+                          Positioned(
+                            bottom: 20.sp,
+                            left: 0,
+                            right: 0,
+                            child: Column(
+                              children: [
+                                Text(
+                                  reel.title!,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  reel.description!,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              color: Colors
-                                  .black45, // Semi-transparent background for readability
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    reel.title!,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    reel.description!,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            bottom: 25.sp,
+                            right: 15.sp,
+                            child: AppIconsWidget.share(color: AppColors.white),
                           ),
+                          // Positioned(
+                          //   top: 75,
+                          //   right: 10,
+                          //   child: Container(
+                          //     decoration: BoxDecoration(
+                          //         color: Colors.black45,
+                          //         borderRadius:
+                          //             BorderRadiusDirectional.circular(20)),
+                          //     child: Column(
+                          //       children: [
+                          //         IconButton(
+                          //             onPressed: () {},
+                          //             icon: const Icon(
+                          //               Icons.playlist_add,
+                          //               color: AppColors.white,
+                          //             )),
+                          //         IconButton(
+                          //             onPressed: () {},
+                          //             icon: const Icon(
+                          //               Icons.comment,
+                          //               color: AppColors.white,
+                          //             )),
+                          //         IconButton(
+                          //             onPressed: () {},
+                          //             icon: const Icon(
+                          //               Icons.favorite,
+                          //               color: AppColors.white,
+                          //             )),
+                          //         IconButton(
+                          //             onPressed: () {},
+                          //             icon: const Icon(
+                          //               Icons.share,
+                          //               color: AppColors.white,
+                          //             )),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
+                          // Positioned(
+                          //   top: 0,
+                          //   left: 0,
+                          //   right: 0,
+                          //   child: Container(
+                          //     padding: const EdgeInsets.all(8),
+                          //     color: Colors
+                          //         .black45, // Semi-transparent background for readability
+                          //     child: Column(
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          //       children: [
+                          //         Text(
+                          //           reel.title!,
+                          //           style: const TextStyle(
+                          //             fontSize: 20,
+                          //             color: Colors.white,
+                          //             fontWeight: FontWeight.bold,
+                          //           ),
+                          //         ),
+                          //         Text(
+                          //           reel.description!,
+                          //           style: const TextStyle(
+                          //             fontSize: 16,
+                          //             color: Colors.white,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     );
