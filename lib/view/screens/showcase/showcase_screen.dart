@@ -39,6 +39,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
   @override
   void initState() {
     super.initState();
+
     final showId = context.read<ShowIdCubit>().state;
     final episodeId = context.read<EpisodeIdCubit>().state;
     if (showId > 0 && episodeId > 0) {
@@ -59,6 +60,13 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
 
     setState(() {
       showQuizContent = true;
+    });
+  }
+
+  void _handleEndQuiz() {
+    const Center(child: Text("Quiz Ended"));
+    setState(() {
+      showQuizContent = false;
     });
   }
 
@@ -151,7 +159,10 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                           builder: (context, showQuiz) {
                         return Visibility(
                           visible: showQuiz,
-                          child: QuizInitWIdget(onStartQuiz: _handleStartQuiz),
+                          child: QuizInitWIdget(
+                            onStartQuiz: _handleStartQuiz,
+                            onEndQuiz: _handleEndQuiz,
+                          ),
                         );
                       }),
                       if (showQuizContent)

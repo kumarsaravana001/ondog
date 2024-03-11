@@ -133,6 +133,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
   final Function(String showId, String episodeId) onTap;
   final List<String>? showIds;
   final List<String>? episodeId;
+
   String _truncateTitle(String title) {
     List<String> words = title.split(' ');
     if (words.length > 1) {
@@ -142,11 +143,23 @@ class HorizontalScrollableCard1 extends StatelessWidget {
     }
   }
 
+  String truncateTitle(String title) {
+    List<String> words = title.split(' ');
+    if (words.length > 1) {
+      String firstWord = words[0];
+      String secondWord =
+          words[1].length > 3 ? '${words[1].substring(0, 3)}...' : words[1];
+      return '$firstWord $secondWord';
+    } else {
+      return title;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-      height: 32.h,
+      height: 30.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: imageListCount,
@@ -180,7 +193,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(_truncateTitle(titlecard![index]),
+                            Text(truncateTitle(subtitle[index]),
                                 style: AppTestStyle.headingint(
                                     fontSize: 16.sp,
                                     color: textColor,
@@ -190,7 +203,9 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                           ],
                         ),
                         if (subtitle.isNotEmpty)
-                          Text("${subtitle[index]}",
+                          //titlecard
+                          Text(truncateTitle(titlecard[index]),
+                              // "${subtitle[index]}",
                               style: AppTestStyle.headingint(
                                   fontSize: 15.sp,
                                   color: AppColors.white,
@@ -204,7 +219,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                       bottomRight: Radius.circular(15),
                     ),
                     child: AspectRatio(
-                      aspectRatio: 16 / 17,
+                      aspectRatio: 16 / 16.3,
                       child: imageList[index],
                     ),
                   ),

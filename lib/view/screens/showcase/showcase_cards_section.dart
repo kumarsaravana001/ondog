@@ -136,7 +136,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                         context.read<ShowIdCubit>().updateShowId(parsedShowId);
                         context
                             .read<EpisodeIdCubit>()
-                            .updateShowId(parsedEpisodeId);
+                            .updateEpisodeId(parsedEpisodeId);
 
                         context.read<VideoDetailsBloc>().add(FetchVideoDetails(
                             episodeId: parsedEpisodeId, showId: parsedShowId));

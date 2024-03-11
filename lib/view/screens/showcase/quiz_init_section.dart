@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../config/config_index.dart';
 
 class QuizInitWIdget extends StatefulWidget {
-    final VoidCallback onStartQuiz; // Define the callback here
+  final VoidCallback onStartQuiz;
+  final VoidCallback onEndQuiz;
 
-  const QuizInitWIdget({super.key, required this.onStartQuiz});
+  const QuizInitWIdget(
+      {super.key, required this.onStartQuiz, required this.onEndQuiz});
 
   @override
   State<QuizInitWIdget> createState() => _QuizInitWIdgetState();
@@ -53,11 +55,21 @@ class _QuizInitWIdgetState extends State<QuizInitWIdget> {
                     padding: EdgeInsets.symmetric(
                         horizontal: 16.sp, vertical: 10.sp),
                     child: GestureDetector(
+                      // onTap: () {
+                      //   setState(() {
+                      //     showQuizContent = !showQuizContent;
+                      //   });
+                      //   widget.onStartQuiz();
+                      // },
                       onTap: () {
                         setState(() {
                           showQuizContent = !showQuizContent;
+                          if (showQuizContent) {
+                            widget.onStartQuiz();
+                          } else {
+                            widget.onEndQuiz();
+                          }
                         });
-                        widget.onStartQuiz();
                       },
                       child: Text(
                           showQuizContent

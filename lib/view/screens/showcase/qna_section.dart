@@ -70,10 +70,10 @@ class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
             ],
           );
         } else if (state is QuizDetailsError) {
-          return Center(child: const Text('Quiz will be updated soon...'));
+          return const Center(child: Text('Select Episode and start the Quiz'));
           //Text('Error: ${state.message}');
         }
-        return const Text('Please start the quiz.');
+        return const Text('Select Episode and start the Quiz');
       },
     );
   }

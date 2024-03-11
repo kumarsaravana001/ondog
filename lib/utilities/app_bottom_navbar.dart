@@ -113,13 +113,14 @@ class Navbar extends StatelessWidget {
 
   final List<Widget> _screens = [
     HomeScreen(),
+    ShowCaseScreen(),
+    // ReelsScreen(),
+    ProfileScreen(),
     // SearchandLibraryScreen(),
     // ReelsScreen(),
     // ReelsFullScreen(),
     // ShortsPage(),
-    ReelsScreen(),
     // ShowCaseScreen(),
-    ProfileScreen(),
   ];
 
   final List<BottomNavigationBarItem> _navBarItems = [

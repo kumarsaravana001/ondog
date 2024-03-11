@@ -8,5 +8,5 @@ class ShowIdCubit extends Cubit<int> {
 class EpisodeIdCubit extends Cubit<int> {
   EpisodeIdCubit() : super(0);
 
-  void updateShowId(int showId) => emit(showId);
+  void updateEpisodeId(int episodeId) => emit(episodeId);
 }

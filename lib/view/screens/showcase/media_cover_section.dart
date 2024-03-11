@@ -71,14 +71,14 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
 
   Widget buildMediaSectionContent(String showTitle, Widget imageWidget) {
     return Container(
-      height: 30.h,
+      height: 29.h,
       decoration: BoxDecoration(
           color: AppColors.black, borderRadius: BorderRadius.circular(20)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 10.sp),
+            padding: EdgeInsets.only(top: 15.sp, left: 15.sp, right: 15.sp),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

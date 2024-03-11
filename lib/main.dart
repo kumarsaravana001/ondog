@@ -29,16 +29,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('userBox');
-
   await Hive.openBox('sessionBox');
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   String initialRoute = determineInitialRoute();
   runApp(
-      //DevicePreview(
-      //builder: (context) => MyApp(initialRoute: initialRoute),
-      //));
-      MyApp(initialRoute: initialRoute));
+    //DevicePreview(
+    //builder: (context) => MyApp(initialRoute: initialRoute),
+    //));
+    MyApp(initialRoute: initialRoute),
+  );
 }
 
 String determineInitialRoute() {
@@ -49,9 +49,7 @@ String determineInitialRoute() {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key, required this.initialRoute});
-
   final String initialRoute;
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -132,7 +130,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, orientation, screenType) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => LoginBloc()),
+            BlocProvider(create: (context) => LoginBloc()), 
             BlocProvider(create: (context) => SignInBloc()),
             BlocProvider(create: (context) => NavigationCubit()),
             BlocProvider(create: (context) => QuizVisibilityCubit()),

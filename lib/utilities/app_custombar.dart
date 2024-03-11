@@ -17,12 +17,12 @@ class CustomeAppBar extends StatelessWidget {
           child: SvgPicture.asset(IconAssets.ondgoTextlogo,
               semanticsLabel: 'Ondgo Logo'),
         ),
-        InkWell(
-            onTap: () {
-              // context.push("/profile");
-            },
-            child:
-                SvgPicture.asset(IconAssets.badgecloseblack)),
+        // InkWell(
+        //     onTap: () {
+        //       // context.push("/profile");
+        //     },
+        //     child:
+        //         SvgPicture.asset(IconAssets.badgecloseblack)),
       ],
     );
   }
