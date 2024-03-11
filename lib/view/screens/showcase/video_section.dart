@@ -18,22 +18,7 @@ class _MediaWatchSectionState extends State<MediaWatchSection> {
   late VideoPlayerController _controller;
   late ChewieController _chewieController;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _controller = VideoPlayerController.network(widget.videoUrl
-  //       // 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-  //       // 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
-  //       )
-  //   ..initialize().then((_) {
-  //     setState(() {});
-  //   });
-  //   _chewieController = ChewieController(
-  //     videoPlayerController: _controller,
-  //     autoPlay: true,
-  //     looping: false,
-  //   );
-  // }
+
   @override
   void initState() {
     super.initState();
@@ -43,10 +28,8 @@ class _MediaWatchSectionState extends State<MediaWatchSection> {
   Future<void> initializePlayer() async {
     _controller = VideoPlayerController.network(widget.videoUrl);
 
-    // Wait for the controller to initialize before updating the UI.
     await _controller.initialize();
 
-    // Only proceed to set up ChewieController if the widget is still mounted.
     if (mounted) {
       setState(() {
         _chewieController = ChewieController(

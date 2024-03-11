@@ -37,7 +37,9 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
                   fit: BoxFit.cover, height: 200);
           return buildMediaSectionContent(showTitle, imageWidget);
         } else if (state is UserShowDetailError) {
-          return Text('Error: ${state.message}');
+          return const Center(
+              child: Text("Please Check your Network Connectivity."));
+          //Text('Error: ${state.message}');
         }
         return const Text("Please select a show.");
       },
@@ -62,7 +64,9 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
                   fit: BoxFit.cover, height: 200);
           return buildMediaSectionContent(showTitle, imageWidget);
         } else if (state is VideoDetailsError) {
-          return Text('Error: ${state.message}');
+          return const Center(
+              child: Text("Please Check your Network Connectivity."));
+          //  Text('Error: ${state.message}');
         }
         return const Text("Please select an episode.");
       },

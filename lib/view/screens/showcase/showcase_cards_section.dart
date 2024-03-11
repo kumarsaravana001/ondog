@@ -71,14 +71,12 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                     style: AppTestStyle.headingBai(fontSize: 26.sp))),
             BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
               builder: (context, state) {
-                String episodesText = "Total episodes"; // Default text
+                String episodesText = "Total episodes";
                 if (state is UserShowDetailLoaded &&
                     state.userDetails.isNotEmpty) {
-                  // Assuming ShowDetailsData has a property to get the episodes count
                   Object episodesCount =
                       state.userDetails.first.totalEpisodes ?? 0;
-                  episodesText +=
-                      ' ($episodesCount)'; // Update text to include count
+                  episodesText += ' ($episodesCount)';
                 }
 
                 return Padding(
@@ -140,19 +138,40 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
 
                         context.read<VideoDetailsBloc>().add(FetchVideoDetails(
                             episodeId: parsedEpisodeId, showId: parsedShowId));
-                        context.read<DisplayBloc>().showVideoDetails();
-                        context
-                            .read<QuizVisibilityCubit>()
-                            .toggleQuizVisibility();
+                        context.read<QuizDetailsBloc>().add(FetchQuizDetails(
+                            showId: parsedShowId, episodeId: parsedEpisodeId));
 
                         BlocProvider.of<QuizDetailsBloc>(context).add(
                             FetchQuizDetails(
                                 showId: int.parse(showId),
                                 episodeId: int.parse(episodeId)));
-                        BlocProvider.of<VideoDetailsBloc>(context).add(
-                            FetchVideoDetails(
-                                showId: int.parse(showId),
-                                episodeId: int.parse(episodeId)));
+
+                        context
+                            .read<QuizVisibilityCubit>()
+                            .toggleQuizVisibility();
+                        context.read<DisplayBloc>().showVideoDetails();
+                        // final int parsedShowId = int.tryParse(showId) ?? 0;
+                        // final int parsedEpisodeId =
+                        //     int.tryParse(episodeId) ?? 0;
+
+                        // context.read<ShowIdCubit>().updateShowId(parsedShowId);
+                        // context
+                        //     .read<EpisodeIdCubit>()
+                        //     .updateEpisodeId(parsedEpisodeId);
+                        // BlocProvider.of<QuizDetailsBloc>(context).add(
+                        //     FetchQuizDetails(
+                        //         showId: int.parse(showId),
+                        //         episodeId: int.parse(episodeId)));
+                        // BlocProvider.of<VideoDetailsBloc>(context).add(
+                        //     FetchVideoDetails(
+                        //         showId: int.parse(showId),
+                        //         episodeId: int.parse(episodeId)));
+                        // context.read<VideoDetailsBloc>().add(FetchVideoDetails(
+                        //     episodeId: parsedEpisodeId, showId: parsedShowId));
+                        // context.read<DisplayBloc>().showVideoDetails();
+                        // context
+                        //     .read<QuizVisibilityCubit>()
+                        //     .toggleQuizVisibility();
                       },
                     );
                   } else if (state is UserEpisodeDetailError) {
