@@ -21,6 +21,8 @@
 //     });
 //   }
 
+// ignore_for_file: deprecated_member_use
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return BlocProvider<NavigationCubit>(
@@ -100,22 +102,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ondgo_flutter/config/app_colors.dart';
 import 'package:ondgo_flutter/config/app_icons.dart';
 import 'package:ondgo_flutter/view/screens/profile/profile_screen.dart';
-import 'package:ondgo_flutter/view/screens/reels/reels_full_screen.dart';
 import 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
-import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
-import 'package:ondgo_flutter/view/screens/showcase/showcase_screen.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
 
 import '../view/screens/homescreen/home.dart';
 
 class Navbar extends StatelessWidget {
-  Navbar({Key? key}) : super(key: key);
+  Navbar({super.key});
 
   final List<Widget> _screens = [
-    HomeScreen(),
-    ShowCaseScreen(),
-    // ReelsScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    // ShowCaseScreen(),
+    const ReelsScreen(),
+    const ProfileScreen(),
     // SearchandLibraryScreen(),
     // ReelsScreen(),
     // ReelsFullScreen(),
