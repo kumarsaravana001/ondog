@@ -166,18 +166,26 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                         );
                       }),
                       if (showQuizContent)
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                          child: showScoreContent
-                              ? ScoreWidget(
-                                  totalQuestions: totalQuestions,
-                                  correctAnswers: correctAnswers,
-                                  onFinishPressed: () {
-                                    setState(() {
-                                      showQuizContent = false;
-                                    });
-                                  })
-                              : const QuizQuestionAnswerSection(),
+                        BlocBuilder<QuizVisibilityCubit, bool>(
+                          builder: (context, showQuiz) {
+                            return Visibility(
+                              visible: showQuiz,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 20.sp),
+                                child: showScoreContent
+                                    ? ScoreWidget(
+                                        totalQuestions: totalQuestions,
+                                        correctAnswers: correctAnswers,
+                                        onFinishPressed: () {
+                                          setState(() {
+                                            showQuizContent = false;
+                                          });
+                                        })
+                                    : const QuizQuestionAnswerSection(),
+                              ),
+                            );
+                          },
                         ),
                       const ShowCaseCardSections(),
                       SizedBox(height: 10.h),
