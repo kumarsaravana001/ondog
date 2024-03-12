@@ -117,10 +117,6 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
                       },
                       child: Stack(
                         children: [
-                          // AspectRatio(
-                          //   aspectRatio: 33 / 70,
-                          //   child: VideoPlayer(_controllers[index]),
-                          // ),
                           SizedBox(
                             height: screenHeight, // Full screen height
                             width: videoWidth > screenWidth
@@ -187,74 +183,6 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
                             right: 15.sp,
                             child: AppIconsWidget.share(color: AppColors.white),
                           ),
-                          // Positioned(
-                          //   top: 75,
-                          //   right: 10,
-                          //   child: Container(
-                          //     decoration: BoxDecoration(
-                          //         color: Colors.black45,
-                          //         borderRadius:
-                          //             BorderRadiusDirectional.circular(20)),
-                          //     child: Column(
-                          //       children: [
-                          //         IconButton(
-                          //             onPressed: () {},
-                          //             icon: const Icon(
-                          //               Icons.playlist_add,
-                          //               color: AppColors.white,
-                          //             )),
-                          //         IconButton(
-                          //             onPressed: () {},
-                          //             icon: const Icon(
-                          //               Icons.comment,
-                          //               color: AppColors.white,
-                          //             )),
-                          //         IconButton(
-                          //             onPressed: () {},
-                          //             icon: const Icon(
-                          //               Icons.favorite,
-                          //               color: AppColors.white,
-                          //             )),
-                          //         IconButton(
-                          //             onPressed: () {},
-                          //             icon: const Icon(
-                          //               Icons.share,
-                          //               color: AppColors.white,
-                          //             )),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   top: 0,
-                          //   left: 0,
-                          //   right: 0,
-                          //   child: Container(
-                          //     padding: const EdgeInsets.all(8),
-                          //     color: Colors
-                          //         .black45, // Semi-transparent background for readability
-                          //     child: Column(
-                          //       crossAxisAlignment: CrossAxisAlignment.start,
-                          //       children: [
-                          //         Text(
-                          //           reel.title!,
-                          //           style: const TextStyle(
-                          //             fontSize: 20,
-                          //             color: Colors.white,
-                          //             fontWeight: FontWeight.bold,
-                          //           ),
-                          //         ),
-                          //         Text(
-                          //           reel.description!,
-                          //           style: const TextStyle(
-                          //             fontSize: 16,
-                          //             color: Colors.white,
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     );

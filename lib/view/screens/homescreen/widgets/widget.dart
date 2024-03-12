@@ -57,3 +57,56 @@ Widget buildTextShimmerEffect() {
     ),
   );
 }
+
+class MyShimmerWidget extends StatelessWidget {
+  final state; // Assuming this is your state that contains purchaseUrls
+
+  MyShimmerWidget(this.state); // Constructor to get state
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 500,
+      child: ListView.builder(
+        itemCount: state.purchaseUrls.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Shimmer.fromColors(
+              baseColor: Colors.grey[300]!, // Change these colors as needed
+              highlightColor:
+                  Colors.grey[100]!, // Change these colors as needed
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.white,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.network(
+                    state.purchaseUrls[index].url,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null)
+                        return child; // Image is fully loaded
+                      return Container(
+                        // Placeholder widget
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        width: double.infinity,
+                        height: 200, // Specify the height of the placeholder
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

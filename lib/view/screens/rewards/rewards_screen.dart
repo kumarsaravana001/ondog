@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_bloc.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_event.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_state.dart';
+import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import '../../../config/config_index.dart';
 
 class RewardsScreen extends StatefulWidget {
@@ -83,7 +84,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                     } else if (state is RewardsError) {
                       return Center(child: Text('Error: ${state.message}'));
                     }
-                    return const SizedBox(); // Return an empty widget for initial and other states
+                    return horizontalCardShimmerWidget();
                   },
                 ),
               ],

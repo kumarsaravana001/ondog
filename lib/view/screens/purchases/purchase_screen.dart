@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_bloc.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_event.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_state.dart';
+import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 
 import '../../../config/config_index.dart';
 
@@ -60,11 +61,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                     if (state is PurchaseLoading) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is PurchaseLoaded) {
-                      return Container(
+                      return SizedBox(
                         height: 500,
-                        // height: MediaQuery.of(context)
-                        //     .size
-                        //     .height,
                         child: ListView.builder(
                           itemCount: state.purchaseUrls.length,
                           itemBuilder: (BuildContext context, int index) {
@@ -86,7 +84,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                     } else if (state is PurchaseError) {
                       return Center(child: Text('Error: ${state.message}'));
                     }
-                    return const SizedBox(); // Return an empty widget for initial and other states
+                    return horizontalCardShimmerWidget();
                   },
                 ),
               ],
