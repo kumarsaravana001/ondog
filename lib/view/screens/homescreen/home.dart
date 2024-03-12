@@ -176,8 +176,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       left: 20.sp,
                       right: 8.sp,
                       child: SizedBox(
-                        //height: 230.5,
-                        height: 27.9.h,
                         child: BlocBuilder<HomeScreenSpotLightBloc,
                             HomeScreenSpotlightState>(
                           builder: (context, state) {

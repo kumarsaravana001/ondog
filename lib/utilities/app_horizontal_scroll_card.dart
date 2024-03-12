@@ -94,7 +94,7 @@ class HorizontalScrollableCard extends StatelessWidget {
                       bottomRight: Radius.circular(15),
                     ),
                     child: AspectRatio(
-                      aspectRatio: 16 / 16.5,
+                      aspectRatio: 16 / 17.7,
                       child: imageList[index],
                     ),
                   ),
@@ -219,7 +219,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                       bottomRight: Radius.circular(15),
                     ),
                     child: AspectRatio(
-                      aspectRatio: 16 / 16.3,
+                      aspectRatio: 16 / 17.4,
                       child: imageList[index],
                     ),
                   ),

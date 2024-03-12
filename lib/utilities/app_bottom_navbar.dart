@@ -103,27 +103,13 @@ import 'package:ondgo_flutter/config/app_colors.dart';
 import 'package:ondgo_flutter/config/app_icons.dart';
 import 'package:ondgo_flutter/view/screens/profile/profile_screen.dart';
 import 'package:ondgo_flutter/view/screens/reels/reels_full_screen.dart';
-import 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
+import 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
 
 import '../view/screens/homescreen/home.dart';
 
 class Navbar extends StatelessWidget {
   Navbar({super.key});
-
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    // ShowCaseScreen(),
-    ShortsPage(),
-
-    // const ReelsScreen(),
-    const ProfileScreen(),
-    // SearchandLibraryScreen(),
-    // ReelsScreen(),
-    // ReelsFullScreen(),
-    // ShortsPage(),
-    // ShowCaseScreen(),
-  ];
 
   final List<BottomNavigationBarItem> _navBarItems = [
     BottomNavigationBarItem(
@@ -149,56 +135,52 @@ class Navbar extends StatelessWidget {
     ),
   ];
 
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    const ReelsScreen(),
+    const ProfileScreen(),
+    // SearchandLibraryScreen(),
+    // ReelsScreen(),
+    // ReelsFullScreen(),
+    // ShortsPage(),
+    // ShowCaseScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        final NavigationCubit navCubit =
-            BlocProvider.of<NavigationCubit>(context);
-        final int currentIndex = navCubit.state;
-
-        if (currentIndex != 0) {
-          navCubit.navigateToIndex(0);
-          return false;
-        }
-
-        return true;
-      },
-      child: Scaffold(
-        body: BlocBuilder<NavigationCubit, int>(
-          builder: (context, selectedIndex) {
-            return Stack(
-              children: [
-                IndexedStack(
-                  index: selectedIndex,
-                  children: _screens,
-                ),
-                Positioned(
-                  left: 15,
-                  right: 15,
-                  bottom: 0,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    child: BottomNavigationBar(
-                      backgroundColor: AppColors.black,
-                      type: BottomNavigationBarType.fixed,
-                      items: _navBarItems,
-                      currentIndex: selectedIndex,
-                      selectedFontSize: 0,
-                      unselectedFontSize: 0,
-                      onTap: (index) =>
-                          BlocProvider.of<NavigationCubit>(context)
-                              .navigateToIndex(index),
-                    ),
+    return Scaffold(
+      body: BlocBuilder<NavigationCubit, int>(
+        builder: (context, selectedIndex) {
+          return Stack(
+            children: [
+              IndexedStack(
+                index: selectedIndex,
+                children: _screens,
+              ),
+              Positioned(
+                left: 15,
+                right: 15,
+                bottom: 0,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  child: BottomNavigationBar(
+                    backgroundColor: AppColors.black,
+                    type: BottomNavigationBarType.fixed,
+                    items: _navBarItems,
+                    currentIndex: selectedIndex,
+                    selectedFontSize: 0,
+                    unselectedFontSize: 0,
+                    onTap: (index) => BlocProvider.of<NavigationCubit>(context)
+                        .navigateToIndex(index),
                   ),
                 ),
-              ],
-            );
-          },
-        ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

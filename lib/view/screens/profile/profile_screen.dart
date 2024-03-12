@@ -6,9 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
-import 'package:ondgo_flutter/utilities/app_bg.dart';
-import 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
-// import 'package:path/path.dart' as path;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -223,21 +220,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: SvgPicture.asset(IconAssets.profilelevels,
                     color: AppColors.black),
               ),
-              Positioned(
-                top: 10,
-                left: 20,
-                child: Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Icon(Icons.arrow_back_outlined,
-                          color: AppColors.white, size: 30),
-                    )
-                  ],
-                ),
-              ),
+              // Positioned(
+              //   top: 10,
+              //   left: 20,
+              //   child: Row(
+              //     children: [
+              //       InkWell(
+              //         onTap: () {
+              //           Navigator.of(context).pop();
+              //         },
+              //         child: const Icon(Icons.arrow_back_outlined,
+              //             color: AppColors.white, size: 30),
+              //       )
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

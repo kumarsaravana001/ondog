@@ -1,4 +1,4 @@
-import 'package:device_preview/device_preview.dart';
+// import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,7 +130,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, orientation, screenType) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => LoginBloc()), 
+            BlocProvider(create: (context) => LoginBloc()),
             BlocProvider(create: (context) => SignInBloc()),
             BlocProvider(create: (context) => NavigationCubit()),
             BlocProvider(create: (context) => QuizVisibilityCubit()),
