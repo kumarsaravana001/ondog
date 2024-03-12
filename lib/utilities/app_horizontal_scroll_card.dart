@@ -88,14 +88,17 @@ class HorizontalScrollableCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    ),
-                    child: AspectRatio(
-                      aspectRatio: 16 / 17.7,
-                      child: imageList[index],
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(15),
+                          bottomRight: Radius.circular(15),
+                        ),
+                        child: imageList[index],
+                      ),
                     ),
                   ),
                 ],
@@ -159,7 +162,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-      height: 30.h,
+      height: 28.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: imageListCount,
@@ -213,14 +216,17 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                       ],
                     ),
                   ),
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    ),
-                    child: AspectRatio(
-                      aspectRatio: 16 / 17.4,
-                      child: imageList[index],
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(15),
+                          bottomRight: Radius.circular(15),
+                        ),
+                        child: imageList[index],
+                      ),
                     ),
                   ),
                 ],
