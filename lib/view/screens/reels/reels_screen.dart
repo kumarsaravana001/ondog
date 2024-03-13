@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_state.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
+import 'package:ondgo_flutter/utilities/app_bg.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import '../../../bloc/homescreen_bloc/banner_bloc/homescreen_banner_bloc.dart';
 import '../../../bloc/homescreen_bloc/banner_bloc/homescreen_banner_event.dart';
@@ -41,7 +42,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                   child: Stack(
                     children: [
                       ClipPath(
-                        clipper: TriangularClipper(),
+                        clipper: Hometopshape(),
                         child:
                             //  CarouselSlider(
                             //   items: [
