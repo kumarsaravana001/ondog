@@ -105,10 +105,16 @@ import 'package:ondgo_flutter/view/screens/profile/profile_screen.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
 import 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
 import '../view/screens/homescreen/home.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 
-class Navbar extends StatelessWidget {
+class Navbar extends StatefulWidget {
   Navbar({super.key});
 
+  @override
+  State<Navbar> createState() => _NavbarState();
+}
+
+class _NavbarState extends State<Navbar> {
   final List<BottomNavigationBarItem> _navBarItems = [
     BottomNavigationBarItem(
       icon: SvgPicture.asset(IconAssets.navbaricon1, height: 25),
@@ -143,6 +149,23 @@ class Navbar extends StatelessWidget {
     // ShortsPage(),
     // ShowCaseScreen(),
   ];
+  @override
+  void initState() {
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    // Access your NavigationCubit or similar logic here to check if you're not on the HomeScreen
+    final NavigationCubit navigationCubit =
+        BlocProvider.of<NavigationCubit>(context);
+    if (navigationCubit.state != 0) {
+      navigationCubit.navigateToIndex(0); // Navigate to HomeScreen
+      return true; // Stop the default back button behavior
+    }
+    // Return false to continue with default back button behavior
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
