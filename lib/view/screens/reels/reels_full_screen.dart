@@ -133,21 +133,24 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
                             ),
                           ),
                           Positioned(
-                              bottom: 60.sp,
-                              left: 15.sp,
-                              child: SvgPicture.asset(
-                                  IconAssets.reelsleftindicator)),
+                            bottom: 60.sp,
+                            left: 15.sp,
+                            child:
+                                SvgPicture.asset(IconAssets.reelsleftindicator),
+                          ),
                           Positioned(
-                              bottom: 43.sp,
-                              left: 0,
-                              right: 0,
-                              child: SvgPicture.asset(
-                                  IconAssets.reelscenterindicator)),
+                            bottom: 43.sp,
+                            left: 0,
+                            right: 0,
+                            child: SvgPicture.asset(
+                                IconAssets.reelscenterindicator),
+                          ),
                           Positioned(
-                              bottom: 60.sp,
-                              right: 15.sp,
-                              child: SvgPicture.asset(
-                                  IconAssets.reelsrightindicator)),
+                            bottom: 60.sp,
+                            right: 15.sp,
+                            child: SvgPicture.asset(
+                                IconAssets.reelsrightindicator),
+                          ),
                           Positioned(
                             bottom: 25.sp,
                             left: 15.sp,
