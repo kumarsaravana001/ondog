@@ -23,12 +23,14 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: 0, keepPage: true)
-      ..addListener(() {
-        setState(() {
-          _handlePageChange(_pageController.page!.round());
-        });
-      });
+    _pageController = PageController(initialPage: 1, keepPage: true);
+    _pageController.addListener(() {
+      // Prevent swipe down to page 0 by checking if the page position is attempting to move below 1.
+      if (_pageController.page! < 1) {
+        _pageController.jumpToPage(
+            1); // Force jump back to page 1 if attempt to go to page 0 is detected
+      }
+    });
     WidgetsBinding.instance.addObserver(this);
     context.read<UserReelsBloc>().add(FetchUserReels());
   }
@@ -93,6 +95,7 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
             return SafeArea(
               child: Scaffold(
                 body: PageView.builder(
+                  physics: const CustomPageViewScrollPhysics(),
                   controller: _pageController,
                   scrollDirection: Axis.vertical,
                   itemCount: state.reels.length,
@@ -130,6 +133,21 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
                                 height: screenHeight,
                                 child: VideoPlayer(_controllers[index]),
                               ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 10,
+                            left: 20,
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Icon(Icons.arrow_back_outlined,
+                                      color: AppColors.white, size: 30),
+                                )
+                              ],
                             ),
                           ),
                           Positioned(
@@ -203,5 +221,27 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
         },
       ),
     );
+  }
+}
+
+class CustomPageViewScrollPhysics extends ScrollPhysics {
+  const CustomPageViewScrollPhysics({ScrollPhysics? parent})
+      : super(parent: parent);
+
+  @override
+  CustomPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return CustomPageViewScrollPhysics(parent: buildParent(ancestor));
+  }
+
+  @override
+  bool shouldAcceptUserOffset(ScrollMetrics position) {
+    // Prevent swiping to the placeholder/loading page at index 0.
+    // This logic assumes the first content page is visually at the start due to initialPage being set to 1.
+    // Adjust the threshold as needed based on your content and scrolling behavior.
+    if (position.pixels <= 1) {
+      return false;
+    }
+    // Allow scrolling in all other directions.
+    return true;
   }
 }
