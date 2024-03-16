@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../bloc/showscreen_bloc/episodeDetails_bloc/epidoseVideoDetail_bloc.dart';
 import '../../../bloc/showscreen_bloc/episodeDetails_bloc/epidoseVideoDetail_state.dart';
 import '../../../bloc/showscreen_bloc/episodeDisplay_cubit.dart';
@@ -88,7 +89,7 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
               children: [
                 Text(
                   showTitle,
-                  style: AppTestStyle.headingBai(
+                  style: GoogleFonts.baiJamjuree(
                     fontSize: 22.sp,
                     color: AppColors.white,
                     fontWeight: FontWeight.w600,

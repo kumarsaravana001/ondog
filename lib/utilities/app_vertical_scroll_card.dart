@@ -47,14 +47,14 @@ class AppVerticalScrollCard extends StatelessWidget {
                       children: [
                         Text(
                           _truncateTitle(titlecard![index]),
-                          style: AppTestStyle.headingint(
+                          style: AppTextStyle.headingint(
                             fontSize: 16.sp,
                             color: AppColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(AppLocalisation.ddmm,
-                            style: AppTestStyle.headingint(
+                            style: AppTextStyle.headingint(
                                 fontSize: 16.sp,
                                 color: AppColors.white,
                                 fontWeight: FontWeight.bold))
@@ -144,12 +144,12 @@ class AppVerticalScrollCard1 extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(titleCard![index],
-                              style: AppTestStyle.headingint(
+                              style: AppTextStyle.headingint(
                                   fontSize: 13.sp,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.bold)),
                           Text(subtitleCard![index],
-                              style: AppTestStyle.headingint(
+                              style: AppTextStyle.headingint(
                                   fontSize: 16.sp,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.bold))
@@ -157,7 +157,7 @@ class AppVerticalScrollCard1 extends StatelessWidget {
                       ),
                       // Assuming you want to show some static text or you can modify it to use list values
                       Text("Coming soon",
-                          style: AppTestStyle.headingint(
+                          style: AppTextStyle.headingint(
                               fontSize: 15.sp,
                               color: AppColors.white,
                               fontWeight: FontWeight.bold)),

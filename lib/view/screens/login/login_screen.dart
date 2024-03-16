@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 padding: EdgeInsets.only(bottom: 5.h),
                                 child: Text(
                                   AppLocalisation.startlearning,
-                                  style: AppTestStyle.headingint(
+                                  style: AppTextStyle.headingint(
                                       fontSize: 22.sp,
                                       color: AppColors.white,
                                       fontWeight: FontWeight.w500),
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: TextButton(
                                           child: Text(
                                             AppLocalisation.registernow,
-                                            style: AppTestStyle.headingint(
+                                            style: AppTextStyle.headingint(
                                                 fontSize: 16.sp,
                                                 color: AppColors.white,
                                                 underline: true,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../config/config_index.dart';
 
 class QuizInitWIdget extends StatefulWidget {
@@ -30,7 +31,7 @@ class _QuizInitWIdgetState extends State<QuizInitWIdget> {
               !showQuizContent
                   ? AppLocalisation.takethenextquiz
                   : AppLocalisation.greatwork,
-              style: AppTestStyle.headingBai(
+              style: GoogleFonts.baiJamjuree(
                   color: Colors.purple,
                   fontSize: 21.sp,
                   fontWeight: FontWeight.w800),
@@ -42,7 +43,7 @@ class _QuizInitWIdgetState extends State<QuizInitWIdget> {
                   !showQuizContent
                       ? AppLocalisation.earnpointstoclaimexistingrewards
                       : AppLocalisation.claimnextreward,
-                  style: AppTestStyle.headingBai(
+                  style: GoogleFonts.baiJamjuree(
                       color: AppColors.white,
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w400),
@@ -75,7 +76,7 @@ class _QuizInitWIdgetState extends State<QuizInitWIdget> {
                           showQuizContent
                               ? AppLocalisation.end
                               : AppLocalisation.start,
-                          style: AppTestStyle.headingint(
+                          style: AppTextStyle.headingint(
                               color: AppColors.white, fontSize: 16.sp)),
                     ),
                   ),

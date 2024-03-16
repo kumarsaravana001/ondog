@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../config/config_index.dart';
 import 'package:ondgo_flutter/models/showscreen_modules/showscreen_modules.dart';
 
@@ -11,7 +12,7 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
       children: [
         Text(
           showDetails.showName ?? 'Show Name Not Available',
-          style: AppTestStyle.headingBai(
+          style: GoogleFonts.baiJamjuree(
             fontSize: 22.sp,
             color: AppColors.black,
             fontWeight: FontWeight.w600,
@@ -21,7 +22,7 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
           padding: EdgeInsets.only(top: 10.sp),
           child: Text(
             showDetails.description ?? 'Description Not Available',
-            style: AppTestStyle.headingint(
+            style: AppTextStyle.headingint(
               fontSize: 17.sp,
               italic: true,
               color: AppColors.black,
@@ -35,7 +36,7 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
               padding: EdgeInsets.only(top: 10.sp),
               child: Text(
                 showDetails.actorArtist ?? 'Description Not Available',
-                style: AppTestStyle.headingint(
+                style: AppTextStyle.headingint(
                   fontSize: 17.sp,
                   italic: true,
                   color: AppColors.black,
@@ -47,7 +48,7 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
               padding: EdgeInsets.only(top: 10.sp, left: 20.sp),
               child: Text(
                 showDetails.director ?? 'Description Not Available',
-                style: AppTestStyle.headingint(
+                style: AppTextStyle.headingint(
                   fontSize: 17.sp,
                   italic: true,
                   color: AppColors.black,

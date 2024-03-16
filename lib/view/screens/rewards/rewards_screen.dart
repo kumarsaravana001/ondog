@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_bloc.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_event.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_state.dart';
@@ -40,7 +41,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 Align(
                     alignment: Alignment.center,
                     child: Text(AppLocalisation.rewards,
-                        style: AppTestStyle.headingBai(fontSize: 28.sp))),
+                        style:GoogleFonts.baiJamjuree(fontSize: 28.sp))),
                 // Expanded(
                 //   child: ElongatedCardWidget(
                 //     cardlength: rewardsimagePaths.length,

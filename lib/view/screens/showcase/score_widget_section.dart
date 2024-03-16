@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../config/config_index.dart';
 
@@ -33,7 +34,7 @@ class ScoreWidget extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalisation.greatwork,
-                      style: AppTestStyle.headingBai(
+                      style:GoogleFonts.baiJamjuree(
                           color: Colors.purple,
                           fontSize: 21.sp,
                           fontWeight: FontWeight.w800),
@@ -45,7 +46,7 @@ class ScoreWidget extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalisation.claimnextreward,
-                      style: AppTestStyle.headingBai(
+                      style: GoogleFonts.baiJamjuree(
                           color: AppColors.white,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w400),
@@ -60,7 +61,7 @@ class ScoreWidget extends StatelessWidget {
                         child: InkWell(
                           onTap: onFinishPressed,
                           child: Text(AppLocalisation.finish,
-                              style: AppTestStyle.headingint(
+                              style: AppTextStyle.headingint(
                                   color: AppColors.white, fontSize: 16.sp)),
                         ),
                       ),
@@ -95,7 +96,7 @@ class ScoreWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(AppLocalisation.checkyourprogress,
-                  style: AppTestStyle.headingint(
+                  style: AppTextStyle.headingint(
                       color: AppColors.black,
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w600)),

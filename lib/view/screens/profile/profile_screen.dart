@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
@@ -150,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           padding: EdgeInsets.only(top: 16.sp),
                                           child: Text(
                                             firstName,
-                                            style: AppTestStyle.headingBai(
+                                            style: GoogleFonts.baiJamjuree(
                                                 color: AppColors.white,
                                                 fontSize: 24.sp,
                                                 fontWeight: FontWeight.bold),
@@ -160,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           padding: EdgeInsets.only(top: 10.sp),
                                           child: Text(
                                             email, // Displaying the email
-                                            style: AppTestStyle.headingint(
+                                            style: AppTextStyle.headingint(
                                                 color: AppColors.white,
                                                 fontSize: 18.sp,
                                                 fontWeight: FontWeight.normal),
@@ -248,7 +249,11 @@ Widget buildClickableText(String text, VoidCallback onPressed) {
     onTap: onPressed,
     child: Padding(
       padding: EdgeInsets.only(left: 25.sp, bottom: 10.sp),
-      child: Text(text, style: AppTestStyle.headingBai(fontSize: 22.sp)),
+      child: Text(text,
+          style: GoogleFonts.baiJamjuree(
+            fontSize: 22.sp,
+            fontWeight: FontWeight.w600,
+          )),
     ),
   );
 }

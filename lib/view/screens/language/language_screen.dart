@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../config/config_index.dart';
 
@@ -46,14 +47,14 @@ class _CheckboxListState extends State<LanguageScreen> {
                 Align(
                     alignment: Alignment.center,
                     child: Text(AppLocalisation.language,
-                        style: AppTestStyle.headingBai(fontSize: 28.sp))),
+                        style: GoogleFonts.baiJamjuree(fontSize: 28.sp))),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
                       padding: EdgeInsets.only(
                           left: 30.sp, top: 20.sp, bottom: 15.sp),
                       child: Text(AppLocalisation.audio,
-                          style: AppTestStyle.headingBai(
+                          style: GoogleFonts.baiJamjuree(
                               color: AppColors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 25))),
@@ -111,7 +112,7 @@ class _CheckboxListState extends State<LanguageScreen> {
                       padding: EdgeInsets.only(
                           left: 30.sp, top: 20.sp, bottom: 15.sp),
                       child: Text(AppLocalisation.subtitle,
-                          style: AppTestStyle.headingBai(
+                          style: GoogleFonts.baiJamjuree(
                               color: AppColors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 25))),

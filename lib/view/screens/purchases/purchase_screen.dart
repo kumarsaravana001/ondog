@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_bloc.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_event.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_state.dart';
@@ -43,7 +44,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 Align(
                     alignment: Alignment.center,
                     child: Text(AppLocalisation.purchase,
-                        style: AppTestStyle.headingBai(fontSize: 28.sp))),
+                        style: GoogleFonts.baiJamjuree(fontSize: 28.sp))),
                 // Expanded(
                 //   child: ElongatedCardWidget(
                 //     cardlength: purchadeimagePaths.length,

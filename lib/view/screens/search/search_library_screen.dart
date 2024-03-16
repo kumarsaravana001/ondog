@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
@@ -311,7 +312,7 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
         return Center(
           child: Text(
             category.categoryName!,
-            style: AppTestStyle.headingBai(fontSize: 26.sp),
+            style:GoogleFonts.baiJamjuree(fontSize: 26.sp),
           ),
         );
       },

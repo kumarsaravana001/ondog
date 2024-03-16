@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeDetails_bloc/epidoseVideoDetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
@@ -68,7 +69,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
             Padding(
                 padding: EdgeInsets.only(left: 18.sp),
                 child: Text(AppLocalisation.episodes,
-                    style: AppTestStyle.headingBai(fontSize: 26.sp))),
+                    style: GoogleFonts.baiJamjuree(fontSize: 26.sp))),
             BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
               builder: (context, state) {
                 String episodesText = "Total episodes";
@@ -83,7 +84,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                   padding: EdgeInsets.only(left: 18.sp),
                   child: Text(
                     episodesText,
-                    style: AppTestStyle.headingBai(fontSize: 16.sp),
+                    style: GoogleFonts.baiJamjuree(fontSize: 16.sp),
                   ),
                 );
               },
@@ -186,7 +187,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
               padding: EdgeInsets.only(left: 18.sp),
               child: Text(
                 AppLocalisation.events,
-                style: AppTestStyle.headingBai(fontSize: 26.sp),
+                style: GoogleFonts.baiJamjuree(fontSize: 26.sp),
               ),
             ),
             Padding(
@@ -204,7 +205,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
               padding: EdgeInsets.only(left: 15.sp, top: 20.sp),
               child: Text(
                 AppLocalisation.shareyourthoughts,
-                style: AppTestStyle.headingint(
+                style: AppTextStyle.headingint(
                     fontSize: 20.sp, fontWeight: FontWeight.w700),
               ),
             ),
@@ -222,14 +223,14 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                         text: TextSpan(children: [
                           TextSpan(
                             text: AppLocalisation.ashwini,
-                            style: AppTestStyle.headingint(
+                            style: AppTextStyle.headingint(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.white),
                           ),
                           TextSpan(
                             text: AppLocalisation.sotrue,
-                            style: AppTestStyle.headingint(
+                            style: AppTextStyle.headingint(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.white),
@@ -253,14 +254,14 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                         text: TextSpan(children: [
                           TextSpan(
                             text: AppLocalisation.glo4life,
-                            style: AppTestStyle.headingint(
+                            style: AppTextStyle.headingint(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.white),
                           ),
                           TextSpan(
                             text: AppLocalisation.thanksforsharring,
-                            style: AppTestStyle.headingint(
+                            style: AppTextStyle.headingint(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.white),

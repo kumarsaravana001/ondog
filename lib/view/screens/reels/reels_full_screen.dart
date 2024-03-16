@@ -95,7 +95,7 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
             return SafeArea(
               child: Scaffold(
                 body: PageView.builder(
-                  physics: const CustomPageViewScrollPhysics(),
+                  physics: CustomPageViewScrollPhysics(),
                   controller: _pageController,
                   scrollDirection: Axis.vertical,
                   itemCount: state.reels.length,
@@ -213,7 +213,10 @@ class _ShortsPageState extends State<ShortsPage> with WidgetsBindingObserver {
             );
           } else if (state is UserReelsError) {
             return const Scaffold(
-                body: Center(child: Text("Error loading videos")));
+                body: Center(
+              child: Text("Error loading videos")
+              // Text("Error loading videos"),
+            ));
           } else {
             return const Scaffold(
                 body: Center(child: Text("No videos to display")));

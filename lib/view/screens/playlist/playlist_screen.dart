@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showid_cubit.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
@@ -47,7 +48,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       AppLocalisation.yourplaylist,
-                      style: AppTestStyle.headingBai(fontSize: 26.sp),
+                      style:GoogleFonts.baiJamjuree(fontSize: 26.sp),
                     ),
                   ),
                   Padding(

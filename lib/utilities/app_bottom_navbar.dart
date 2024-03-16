@@ -156,14 +156,12 @@ class _NavbarState extends State<Navbar> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    // Access your NavigationCubit or similar logic here to check if you're not on the HomeScreen
     final NavigationCubit navigationCubit =
         BlocProvider.of<NavigationCubit>(context);
     if (navigationCubit.state != 0) {
-      navigationCubit.navigateToIndex(0); // Navigate to HomeScreen
-      return true; // Stop the default back button behavior
+      navigationCubit.navigateToIndex(0); 
+      return true;
     }
-    // Return false to continue with default back button behavior
     return false;
   }
 

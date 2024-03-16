@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../config/config_index.dart';
@@ -49,19 +50,19 @@ class ContactUsScreen extends StatelessWidget {
                 Align(
                     alignment: Alignment.center,
                     child: Text(AppLocalisation.contact,
-                        style: AppTestStyle.headingBai(fontSize: 28.sp))),
+                        style: GoogleFonts.baiJamjuree(fontSize: 28.sp))),
                 Column(
                   // crossAxisAlignment: CrsossAxisAlignment.start,
                   children: [
                     Text(AppLocalisation.checkourwebsit,
-                        style: AppTestStyle.headingint(fontSize: 20.sp)),
+                        style: AppTextStyle.headingint(fontSize: 20.sp)),
                     _buildSocialText(
                       text: AppLocalisation.websitlink,
                       url: 'https://www.ondgo.live/',
                     ),
                     SizedBox(height: 2.5.h),
                     Text(AppLocalisation.reachouttouson,
-                        style: AppTestStyle.headingint(fontSize: 20.sp)),
+                        style: AppTextStyle.headingint(fontSize: 20.sp)),
                     _buildSocialText(
                       text: AppLocalisation.infoondgolive,
                       url: 'https://www.ondgo.live/',
@@ -151,7 +152,7 @@ class ContactUsScreen extends StatelessWidget {
         padding: EdgeInsets.only(bottom: 5.sp),
         child: Text(
           text,
-          style: AppTestStyle.headingint(
+          style: AppTextStyle.headingint(
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,
           ),

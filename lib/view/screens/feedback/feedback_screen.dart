@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/feedback_bloc/feedback_event.dart';
 import '../../../bloc/profile_bloc/feedback_bloc/feedback_bloc.dart';
 import '../../../bloc/profile_bloc/feedback_bloc/feedback_state.dart';
@@ -59,7 +60,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     Align(
                         alignment: Alignment.center,
                         child: Text(AppLocalisation.feedback,
-                            style: AppTestStyle.headingBai(fontSize: 28.sp))),
+                            style: GoogleFonts.baiJamjuree(fontSize: 28.sp))),
                     Padding(
                       padding: EdgeInsets.fromLTRB(15.sp, 30.sp, 15.sp, 0),
                       child: Column(
@@ -102,7 +103,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                               children: [
                                 Text(
                                   "Rating",
-                                  style: AppTestStyle.headingint(
+                                  style: AppTextStyle.headingint(
                                       fontSize: 20.sp,
                                       italic: true,
                                       color: Colors.grey),

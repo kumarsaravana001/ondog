@@ -31,6 +31,7 @@ import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -162,13 +163,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Positioned(
                       bottom: 80.sp,
-                      right: 48.sp,
+                      left: 48.sp,
                       child: Text(
                         AppLocalisation.spotlight,
-                        style: AppTestStyle.headingBai(
+                        style: GoogleFonts.baiJamjuree(
                             fontSize: 22.sp,
                             color: AppColors.white,
                             fontWeight: FontWeight.w700),
+                        // (
+                        //     fontSize: 22.sp,
+                        //     color: AppColors.white,
+                        //     fontWeight: FontWeight.w700),
                       ),
                     ),
                     Positioned(
@@ -403,7 +408,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             _currentCarouselIndex]
                                                         : 'Show loading',
                                                     style:
-                                                        AppTestStyle.headingBai(
+                                                        GoogleFonts.baiJamjuree(
                                                       fontSize: 24.sp,
                                                       color: AppColors.black,
                                                       fontWeight:
@@ -421,7 +426,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             Text(
                                               AppLocalisation.newepisodes,
-                                              style: AppTestStyle.headingint(
+                                              style: AppTextStyle.headingint(
                                                 fontSize: 18.sp,
                                                 color: AppColors.black,
                                                 fontWeight: FontWeight.w600,
@@ -483,7 +488,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: SvgPicture.asset(IconAssets.appbackground)),
                     Center(
                       child: Text(AppLocalisation.popularpicks,
-                          style: AppTestStyle.headingBai(
+                          style: GoogleFonts.baiJamjuree(
                               fontSize: 22.sp,
                               color: AppColors.black,
                               fontWeight: FontWeight.w800)),
@@ -578,7 +583,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return Text(
                                     state.categories[0].categoryName ??
                                         'Default Category Name',
-                                    style: AppTestStyle.headingBai(
+                                    style: GoogleFonts.baiJamjuree(
                                         fontSize: 22.sp,
                                         color: AppColors.black,
                                         fontWeight: FontWeight.w800),
@@ -679,7 +684,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return Text(
                                     state.categories[1].categoryName ??
                                         'Default Category Name',
-                                    style: AppTestStyle.headingBai(
+                                    style: GoogleFonts.baiJamjuree(
                                         fontSize: 22.sp,
                                         color: AppColors.black,
                                         fontWeight: FontWeight.w800),
@@ -779,7 +784,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return Text(
                                     state.categories[2].categoryName ??
                                         'Default Category Name',
-                                    style: AppTestStyle.headingBai(
+                                    style: GoogleFonts.baiJamjuree(
                                         fontSize: 22.sp,
                                         color: AppColors.black,
                                         fontWeight: FontWeight.w800),

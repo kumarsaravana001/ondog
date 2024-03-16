@@ -16,7 +16,7 @@ class SigninAssertWidget extends StatelessWidget {
           padding: EdgeInsets.only(top: 25.sp),
           child: Text(
             AppLocalisation.signuptext,
-            style: AppTestStyle.headingint(fontSize: 16.sp, italic: true),
+            style: AppTextStyle.headingint(fontSize: 16.sp, italic: true),
           ),
         ),
         Padding(

@@ -20,6 +20,7 @@ class UserReelsBloc extends Bloc<UserReelsEvent, UserReelsState> {
       final reelsList = await _fetchUserReels();
       emit(UserReelsLoaded(reelsList));
     } catch (e) {
+      print(e.toString());
       emit(UserReelsError(e.toString()));
     }
   }

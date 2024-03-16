@@ -27,7 +27,7 @@ class _QuizQuestionSectionState extends State<QuizQuestionSection> {
           children: [
             Text(
               widget.number,
-              style: AppTestStyle.headingint(
+              style: AppTextStyle.headingint(
                   color: AppColors.black,
                   fontSize: 21.sp,
                   fontWeight: FontWeight.w800),
@@ -36,7 +36,7 @@ class _QuizQuestionSectionState extends State<QuizQuestionSection> {
         ),
         Text(
           widget.question,
-          style: AppTestStyle.headingint(
+          style: AppTextStyle.headingint(
               color: AppColors.black,
               fontSize: 21.sp,
               fontWeight: FontWeight.w800),
@@ -123,7 +123,7 @@ class _GridQuestionsState extends State<GridQuestions> {
               widget.label,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: AppTestStyle.headingint(
+              style: AppTextStyle.headingint(
                 color: AppColors.black,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w600,

@@ -104,7 +104,7 @@ class _SplashScreentwoState extends State<SplashScreentwo> {
                   },
                   child: Text(
                     'Login',
-                    style: AppTestStyle.headingint(
+                    style: AppTextStyle.headingint(
                         fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -129,7 +129,7 @@ class _SplashScreentwoState extends State<SplashScreentwo> {
                     padding: EdgeInsets.symmetric(horizontal: 20.sp),
                     child: Text(
                       'Sign Up',
-                      style: AppTestStyle.headingint(
+                      style: AppTextStyle.headingint(
                           fontSize: 16.sp, fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -139,7 +139,7 @@ class _SplashScreentwoState extends State<SplashScreentwo> {
                 padding: EdgeInsets.only(top: 35.0.sp),
                 child: Text(
                   AppLocalisation.signuptext,
-                  style: AppTestStyle.headingint(fontSize: 16.sp, italic: true),
+                  style: AppTextStyle.headingint(fontSize: 16.sp, italic: true),
                 ),
               ),
             ],

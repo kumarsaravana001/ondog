@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/events_bloc/event_bloc.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/events_bloc/event_event.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/events_bloc/event_state.dart';
@@ -41,7 +42,7 @@ class _EventsScreenState extends State<EventsScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       AppLocalisation.events,
-                      style: AppTestStyle.headingBai(fontSize: 28.sp),
+                      style:GoogleFonts.baiJamjuree(fontSize: 28.sp),
                     ),
                   ),
                   Expanded(

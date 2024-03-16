@@ -76,7 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       padding: EdgeInsets.all(15.0.sp),
                       child: Text(
                         AppLocalisation.signuptext,
-                        style: AppTestStyle.headingint(
+                        style: AppTextStyle.headingint(
                             fontSize: 16.sp, italic: true),
                       ),
                     ),
@@ -112,7 +112,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 padding: EdgeInsets.only(bottom: 5.h),
                                 child: Text(
                                   AppLocalisation.signup,
-                                  style: AppTestStyle.headingint(
+                                  style: AppTextStyle.headingint(
                                       fontSize: 22.sp,
                                       color: AppColors.white,
                                       fontWeight: FontWeight.w500),

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_state.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
@@ -194,7 +195,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                               _currentCarouselIndex < showNames.length
                                   ? showNames[_currentCarouselIndex]
                                   : 'Show loading',
-                              style: AppTestStyle.headingBai(
+                              style: GoogleFonts.baiJamjuree(
                                 fontSize: 24.sp,
                                 color: AppColors.black,
                                 fontWeight: FontWeight.w600,
@@ -214,14 +215,14 @@ class _ReelsScreenState extends State<ReelsScreen> {
                 ),
                 Text(
                   AppLocalisation.newepisodes,
-                  style: AppTestStyle.headingint(
+                  style: AppTextStyle.headingint(
                       fontSize: 18.sp, fontWeight: FontWeight.w500),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 25.sp, bottom: 15.sp),
                   child: Text(
                     AppLocalisation.shareyourthoughts,
-                    style: AppTestStyle.headingint(
+                    style: AppTextStyle.headingint(
                         fontSize: 20.sp, fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -239,14 +240,14 @@ class _ReelsScreenState extends State<ReelsScreen> {
                             text: TextSpan(children: [
                               TextSpan(
                                 text: AppLocalisation.ashwini,
-                                style: AppTestStyle.headingint(
+                                style: AppTextStyle.headingint(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w800,
                                     color: AppColors.white),
                               ),
                               TextSpan(
                                 text: AppLocalisation.sotrue,
-                                style: AppTestStyle.headingint(
+                                style: AppTextStyle.headingint(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.white),
@@ -270,14 +271,14 @@ class _ReelsScreenState extends State<ReelsScreen> {
                             text: TextSpan(children: [
                               TextSpan(
                                 text: AppLocalisation.glo4life,
-                                style: AppTestStyle.headingint(
+                                style: AppTextStyle.headingint(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w800,
                                     color: AppColors.white),
                               ),
                               TextSpan(
                                 text: AppLocalisation.thanksforsharring,
-                                style: AppTestStyle.headingint(
+                                style: AppTextStyle.headingint(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.white),

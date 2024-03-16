@@ -69,7 +69,7 @@ class HorizontalScrollableCard extends StatelessWidget {
                           children: [
                             Text(
                               _truncateTitle(titlecard![index]),
-                              style: AppTestStyle.headingint(
+                              style: AppTextStyle.headingint(
                                 fontSize: 16.sp,
                                 color: textColor,
                                 fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class HorizontalScrollableCard extends StatelessWidget {
                         ),
                         if (subtitle.isNotEmpty)
                           Text(subtitle,
-                              style: AppTestStyle.headingint(
+                              style: AppTextStyle.headingint(
                                   fontSize: 15.sp,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.bold)),
@@ -197,7 +197,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(truncateTitle(subtitle[index]),
-                                style: AppTestStyle.headingint(
+                                style: AppTextStyle.headingint(
                                     fontSize: 16.sp,
                                     color: textColor,
                                     fontWeight: FontWeight.bold)),
@@ -209,7 +209,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                           //titlecard
                           Text(truncateTitle(titlecard[index]),
                               // "${subtitle[index]}",
-                              style: AppTestStyle.headingint(
+                              style: AppTextStyle.headingint(
                                   fontSize: 15.sp,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.bold)),
