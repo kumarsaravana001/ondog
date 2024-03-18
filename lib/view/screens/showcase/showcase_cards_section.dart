@@ -67,9 +67,12 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-                padding: EdgeInsets.only(left: 18.sp),
-                child: Text(AppLocalisation.episodes,
-                    style: GoogleFonts.baiJamjuree(fontSize: 26.sp))),
+              padding: EdgeInsets.only(left: 18.sp),
+              child: Text(
+                AppLocalisation.episodes,
+                style: GoogleFonts.baiJamjuree(fontSize: 26.sp),
+              ),
+            ),
             BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
               builder: (context, state) {
                 String episodesText = "Total episodes";
@@ -131,22 +134,26 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                         final int parsedShowId = int.tryParse(showId) ?? 0;
                         final int parsedEpisodeId =
                             int.tryParse(episodeId) ?? 0;
-
+                        print("id ${parsedShowId}");
+                        print("id ${parsedEpisodeId}");
                         context.read<ShowIdCubit>().updateShowId(parsedShowId);
                         context
                             .read<EpisodeIdCubit>()
                             .updateEpisodeId(parsedEpisodeId);
 
-                        context.read<VideoDetailsBloc>().add(FetchVideoDetails(
-                            episodeId: parsedEpisodeId, showId: parsedShowId));
+                        context.read<VideoDetailsBloc>().add(
+                              FetchVideoDetails(
+                                episodeId: parsedEpisodeId,
+                                showId: parsedShowId,
+                              ),
+                            );
 
-                        context.read<QuizDetailsBloc>().add(FetchQuizDetails(
-                            showId: parsedShowId, episodeId: parsedEpisodeId));
-
-                        // BlocProvider.of<QuizDetailsBloc>(context).add(
-                        //     FetchQuizDetails(
-                        //         showId: int.parse(showId),
-                        //         episodeId: int.parse(episodeId)));
+                        context.read<QuizDetailsBloc>().add(
+                              FetchQuizDetails(
+                                showId: parsedShowId,
+                                episodeId: parsedEpisodeId,
+                              ),
+                            );
 
                         context
                             .read<QuizVisibilityCubit>()

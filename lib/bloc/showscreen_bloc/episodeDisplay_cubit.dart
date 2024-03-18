@@ -7,4 +7,5 @@ class DisplayBloc extends Cubit<DisplayState> {
 
   void showUserDetails() => emit(DisplayState.userDetails);
   void showVideoDetails() => emit(DisplayState.videoDetails);
+  
 }

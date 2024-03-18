@@ -13,14 +13,28 @@ class MediaCoverSection extends StatefulWidget {
   const MediaCoverSection({super.key, this.onWatchNowPressed});
 
   final VoidCallback? onWatchNowPressed;
-  
 
   @override
   State<MediaCoverSection> createState() => _MediaCoverSectionState();
 }
 
 class _MediaCoverSectionState extends State<MediaCoverSection> {
-  
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DisplayBloc, DisplayState>(
+      builder: (context, displayState) {
+        switch (displayState) {
+          case DisplayState.userDetails:
+            return buildUserDetailsSection(context);
+          case DisplayState.videoDetails:
+            return buildVideoDetailsSection(context);
+          default:
+            return const Text("Please select a show.");
+        }
+      },
+    );
+  }
+
   Widget buildUserDetailsSection(BuildContext context) {
     return BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
       builder: (context, state) {
@@ -123,22 +137,6 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
           ),
         ],
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<DisplayBloc, DisplayState>(
-      builder: (context, displayState) {
-        switch (displayState) {
-          case DisplayState.userDetails:
-            return buildUserDetailsSection(context);
-          case DisplayState.videoDetails:
-            return buildVideoDetailsSection(context);
-          default:
-            return const Text("Please select a show.");
-        }
-      },
     );
   }
 }

@@ -11,6 +11,7 @@ import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
+import '../../../bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_bloc.dart';
 import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/episodeVideoDetail_event.dart';
 import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
@@ -29,12 +30,13 @@ class ShowCaseScreen extends StatefulWidget {
 
 class _ShowCaseScreenState extends State<ShowCaseScreen> {
   int correctAnswers = 0;
-  int currentQuestionIndex = 0;
-  int selectedOptionIndex = -1;
+  int totalQuestions = 0;
   bool showQuizContent = false;
   bool showScoreContent = false;
+
+  // int currentQuestionIndex = 0;
+  // int selectedOptionIndex = -1;
   bool showWatchedContent = false;
-  int totalQuestions = 0;
 
   @override
   void initState() {
