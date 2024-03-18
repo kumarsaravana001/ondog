@@ -134,8 +134,9 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                         final int parsedShowId = int.tryParse(showId) ?? 0;
                         final int parsedEpisodeId =
                             int.tryParse(episodeId) ?? 0;
-                        print("id ${parsedShowId}");
-                        print("id ${parsedEpisodeId}");
+                        print("Show id  ${parsedShowId}");
+                        print("Episode id ${parsedEpisodeId}");
+                        print("Episode Card OnTapped");
                         context.read<ShowIdCubit>().updateShowId(parsedShowId);
                         context
                             .read<EpisodeIdCubit>()

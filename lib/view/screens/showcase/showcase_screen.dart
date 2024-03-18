@@ -118,6 +118,8 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                   setState(() {
                                     showWatchedContent = true;
                                   });
+                                  print("${showWatchedContent}");
+                                  print("onWatchNowPressed");
                                 },
                               ),
                             )

@@ -82,7 +82,8 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
           return buildMediaSectionContent(showTitle, imageWidget);
         } else if (state is VideoDetailsError) {
           return const Center(
-              child: Text("Please Check your Network Connectivity."));
+            child: Text("Please Check your Network Connectivity."),
+          );
           //  Text('Error: ${state.message}');
         }
         return const Text("Please select an episode.");

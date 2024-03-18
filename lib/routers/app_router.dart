@@ -59,3 +59,7 @@
 //   static const feedbackscreen = "feedbackscreen";
 //   static const contactscreen = "contactscreen";
 // }
+
+class AppRoute{
+  static const homescreen = "homescreen";
+}
