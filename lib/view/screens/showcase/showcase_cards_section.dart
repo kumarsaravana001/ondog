@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeDetails_bloc/epidoseVideoDetail_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
-import '../../../bloc/showscreen_bloc/episodeDetails_bloc/episodeVideoDetail_event.dart';
+import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/episodeVideoDetail_event.dart';
 import '../../../bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_event.dart';
 import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
@@ -139,40 +139,19 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
 
                         context.read<VideoDetailsBloc>().add(FetchVideoDetails(
                             episodeId: parsedEpisodeId, showId: parsedShowId));
+
                         context.read<QuizDetailsBloc>().add(FetchQuizDetails(
                             showId: parsedShowId, episodeId: parsedEpisodeId));
 
-                        BlocProvider.of<QuizDetailsBloc>(context).add(
-                            FetchQuizDetails(
-                                showId: int.parse(showId),
-                                episodeId: int.parse(episodeId)));
+                        // BlocProvider.of<QuizDetailsBloc>(context).add(
+                        //     FetchQuizDetails(
+                        //         showId: int.parse(showId),
+                        //         episodeId: int.parse(episodeId)));
 
                         context
                             .read<QuizVisibilityCubit>()
                             .toggleQuizVisibility();
                         context.read<DisplayBloc>().showVideoDetails();
-                        // final int parsedShowId = int.tryParse(showId) ?? 0;
-                        // final int parsedEpisodeId =
-                        //     int.tryParse(episodeId) ?? 0;
-
-                        // context.read<ShowIdCubit>().updateShowId(parsedShowId);
-                        // context
-                        //     .read<EpisodeIdCubit>()
-                        //     .updateEpisodeId(parsedEpisodeId);
-                        // BlocProvider.of<QuizDetailsBloc>(context).add(
-                        //     FetchQuizDetails(
-                        //         showId: int.parse(showId),
-                        //         episodeId: int.parse(episodeId)));
-                        // BlocProvider.of<VideoDetailsBloc>(context).add(
-                        //     FetchVideoDetails(
-                        //         showId: int.parse(showId),
-                        //         episodeId: int.parse(episodeId)));
-                        // context.read<VideoDetailsBloc>().add(FetchVideoDetails(
-                        //     episodeId: parsedEpisodeId, showId: parsedShowId));
-                        // context.read<DisplayBloc>().showVideoDetails();
-                        // context
-                        //     .read<QuizVisibilityCubit>()
-                        //     .toggleQuizVisibility();
                       },
                     );
                   } else if (state is UserEpisodeDetailError) {

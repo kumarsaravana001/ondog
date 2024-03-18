@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
-import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeDetails_bloc/episodeVideoDetail_event.dart';
-import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeDetails_bloc/epidoseVideoDetail_state.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/episodeVideoDetail_event.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_state.dart';
 import '../../../models/showscreen_modules/episodeDetail_module.dart';
 import '../../../networkconfig/api_url.dart';
 

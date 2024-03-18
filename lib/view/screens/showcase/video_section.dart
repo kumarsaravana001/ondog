@@ -23,6 +23,7 @@ class _MediaWatchSectionState extends State<MediaWatchSection> {
   void initState() {
     super.initState();
     initializePlayer();
+    
   }
 
   Future<void> initializePlayer() async {

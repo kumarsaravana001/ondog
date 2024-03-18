@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../bloc/showscreen_bloc/episodeDetails_bloc/epidoseVideoDetail_bloc.dart';
-import '../../../bloc/showscreen_bloc/episodeDetails_bloc/epidoseVideoDetail_state.dart';
+import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_bloc.dart';
+import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_state.dart';
 import '../../../bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
@@ -13,12 +13,14 @@ class MediaCoverSection extends StatefulWidget {
   const MediaCoverSection({super.key, this.onWatchNowPressed});
 
   final VoidCallback? onWatchNowPressed;
+  
 
   @override
   State<MediaCoverSection> createState() => _MediaCoverSectionState();
 }
 
 class _MediaCoverSectionState extends State<MediaCoverSection> {
+  
   Widget buildUserDetailsSection(BuildContext context) {
     return BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
       builder: (context, state) {
