@@ -723,7 +723,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             }).toList();
 
                             return HorizontalScrollableCard(
-                              cardStatusColor: Colors.brown,
+                              cardStatusColor: Colors.amberAccent,
                               titlecard: showNames,
                               imageListCount: state.shows.length,
                               imageList: imageWidgets,
@@ -826,7 +826,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             }).toList();
 
                             return HorizontalScrollableCard(
-                              cardStatusColor: Colors.brown,
+                              cardStatusColor: Colors.green,
                               titlecard: showNames,
                               imageListCount: state.shows.length,
                               imageList: imageWidgets,

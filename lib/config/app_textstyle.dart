@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'config_index.dart';
 
 class AppTextStyle {
-  // static TextStyle headingBai(
-  //     {Color color = Colors.black,
-  //     double fontSize = 22,
-  //     FontWeight fontWeight = FontWeight.bold}) {
-  //   return TextStyle(
-  //     fontFamily: 'BaiJamjuree-Regular',
-  //     color: color,
-  //     fontSize: fontSize,
-  //     fontWeight: fontWeight,
-  //   );
-  // }
+  static TextStyle headingBai(
+      {Color color = Colors.black,
+      double fontSize = 22,
+      FontWeight fontWeight = FontWeight.bold}) {
+    return TextStyle(
+      fontFamily: 'BaiJamjuree-Regular',
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+    );
+  }
 
   static TextStyle headingint({
     Color color = Colors.black,

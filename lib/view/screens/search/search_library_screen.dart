@@ -143,14 +143,15 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                     SvgPicture.asset(IconAssets.spotlightbgframe2,
                         height: 35.h, fit: BoxFit.cover),
                     Positioned(
-                      left: 15.sp,
-                      right: 5.sp,
+                      // left: 15.sp,
+                      // right: 5.sp,
                       child: Column(
                         children: [
                           BlocBuilder<SearchBloc, SearchState>(
                             builder: (context, state) {
                               if (state is SearchLoading) {
-                                return const CircularProgressIndicator();
+                                return const Center(
+                                    child: CircularProgressIndicator());
                               } else if (state is SearchLoaded) {
                                 return buildSearchResults(state.categories);
                               } else if (state is SearchError) {
@@ -312,7 +313,7 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
         return Center(
           child: Text(
             category.categoryName!,
-            style:GoogleFonts.baiJamjuree(fontSize: 26.sp),
+            style: GoogleFonts.baiJamjuree(fontSize: 26.sp),
           ),
         );
       },

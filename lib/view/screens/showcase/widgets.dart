@@ -30,12 +30,14 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
             ),
           ),
         ),
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: EdgeInsets.only(top: 10.sp),
               child: Text(
-                showDetails.actorArtist ?? 'Description Not Available',
+                'Artist : ${showDetails.actorArtist}' ??
+                    'Description Not Available',
                 style: AppTextStyle.headingint(
                   fontSize: 17.sp,
                   italic: true,
@@ -44,16 +46,14 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 10.sp, left: 20.sp),
-              child: Text(
-                showDetails.director ?? 'Description Not Available',
-                style: AppTextStyle.headingint(
-                  fontSize: 17.sp,
-                  italic: true,
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w500,
-                ),
+            Text(
+              'Director : ${showDetails.director}' ??
+                  'Description Not Available',
+              style: AppTextStyle.headingint(
+                fontSize: 17.sp,
+                italic: true,
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
