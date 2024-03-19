@@ -88,12 +88,15 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
       ],
       child: Scaffold(
         body: SafeArea(
-          child: BlocListener<ShowIdCubit, int?>(
-            listener: (context, showId) {
-              if (showId != null) {
-                context
-                    .read<UserShowDetailBloc>()
-                    .add(FetchUserShowDetail(showId: showId));
+          child: BlocListener<EpisodeIdCubit, int?>(
+            listener: (context, episodeId) {
+              if (episodeId != null) {
+                setState(() {
+                  showWatchedContent = false;
+                });
+                // context
+                //     .read<UserShowDetailBloc>()
+                //     .add(FetchUserShowDetail(showId: showId));
               }
             },
             child: Stack(
