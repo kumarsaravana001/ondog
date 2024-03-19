@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final router = GoRouter(
-      initialLocation: widget.initialRoute,
+      initialLocation: '/splashIntro',
       routes: [
         GoRoute(
             path: '/', builder: (context, state) => const SplashScreenone()),
@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
             path: '/splash2',
             builder: (context, state) => const SplashScreentwo()),
         GoRoute(
-            path: '/splash2',
+            path: '/splashIntro',
             builder: (context, state) => const SplashScreenIntro()),
         GoRoute(
             path: '/signup', builder: (context, state) => const SignupScreen()),

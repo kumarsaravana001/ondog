@@ -162,16 +162,18 @@ class _SplashScreenIntroState extends State<SplashScreenIntro> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(microseconds: 5), () {
-      navigateToNextScreen();
-    });
+
+    Future.delayed(
+      const Duration(seconds: 2),
+      navigateToNextScreen,
+    );
   }
 
   void navigateToNextScreen() {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
     String nextRoute = userId != null ? '/navbar' : '/login';
-    Navigator.of(context).pushReplacementNamed(nextRoute);
+    GoRouter.of(context).go(nextRoute);
   }
 
   @override
