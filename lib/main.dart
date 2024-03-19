@@ -84,6 +84,9 @@ class _MyAppState extends State<MyApp> {
             path: '/splash2',
             builder: (context, state) => const SplashScreentwo()),
         GoRoute(
+            path: '/splash2',
+            builder: (context, state) => const SplashScreenIntro()),
+        GoRoute(
             path: '/signup', builder: (context, state) => const SignupScreen()),
         GoRoute(
             path: '/login', builder: (context, state) => const LoginScreen()),

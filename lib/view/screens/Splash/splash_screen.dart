@@ -53,6 +53,7 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../../../config/config_index.dart';
 
 class SplashScreentwo extends StatefulWidget {
@@ -144,6 +145,56 @@ class _SplashScreentwoState extends State<SplashScreentwo> {
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class SplashScreenIntro extends StatefulWidget {
+  const SplashScreenIntro({super.key});
+
+  @override
+  _SplashScreenIntroState createState() => _SplashScreenIntroState();
+}
+
+class _SplashScreenIntroState extends State<SplashScreenIntro> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(microseconds: 5), () {
+      navigateToNextScreen();
+    });
+  }
+
+  void navigateToNextScreen() {
+    var box = Hive.box('sessionBox');
+    String? userId = box.get('userId');
+    String nextRoute = userId != null ? '/navbar' : '/login';
+    Navigator.of(context).pushReplacementNamed(nextRoute);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: SvgPicture.asset(
+              IconAssets.ondgoLogo,
+              semanticsLabel: 'Ondgo Logo',
+              color: AppColors.black,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Center(
+            child: SvgPicture.asset(
+              IconAssets.ondgoTextlogo,
+              semanticsLabel: 'Ondgo Logo',
+            ),
+          ),
+          SizedBox(height: 5.h),
         ],
       ),
     );
