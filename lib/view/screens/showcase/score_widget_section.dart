@@ -52,7 +52,7 @@ class ScoreWidget extends StatelessWidget {
                           fontWeight: FontWeight.w400),
                     ),
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: BoxDecoration(  
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: Colors.purple)),
                       child: Padding(
