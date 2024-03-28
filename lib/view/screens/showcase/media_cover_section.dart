@@ -44,6 +44,10 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
             state.userDetails.isNotEmpty) {
           final showDetails = state.userDetails.first;
           final String showTitle = showDetails.showName ?? "Loading ...";
+          final String episodeNo = "";
+          final formattedTitle =
+              "Teaser: $showTitle"; // Adjust according to your logic
+
           final String thumbnailUrl = showDetails.thumbnail?.isNotEmpty == true
               ? showDetails.thumbnail![0]
               : 'assets/images/health_care_banner.png';
@@ -52,7 +56,9 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
                   fit: BoxFit.cover, height: 180, width: double.infinity)
               : Image.asset('assets/images/default_image.png',
                   fit: BoxFit.cover, height: 200);
-          return buildMediaSectionContent(showTitle, imageWidget);
+          return buildMediaSectionContent(
+              formattedTitle, imageWidget, episodeNo,
+              isUserDetail: true);
         } else if (state is UserShowDetailError) {
           return const Center(
               child: Text("Please Check your Network Connectivity."));
@@ -71,6 +77,8 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
         } else if (state is VideoDetailsLoaded) {
           final videoDetail = state.episodevideoDetails.first;
           final String showTitle = videoDetail.title ?? "Loading ...";
+          final String episodeNo = videoDetail.episodeNo ?? "";
+          final formattedTitle = "Epi No $episodeNo : $showTitle";
           final String thumbnailUrl = videoDetail.thumbnail?.isNotEmpty == true
               ? videoDetail.thumbnail![0]
               : 'assets/images/health_care_banner.png';
@@ -79,7 +87,9 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
                   fit: BoxFit.cover, height: 180, width: double.infinity)
               : Image.asset('assets/images/default_image.png',
                   fit: BoxFit.cover, height: 200);
-          return buildMediaSectionContent(showTitle, imageWidget);
+          return buildMediaSectionContent(
+              formattedTitle, imageWidget, episodeNo,
+              isUserDetail: false);
         } else if (state is VideoDetailsError) {
           return const Center(
             child: Text("Please Check your Network Connectivity."),
@@ -91,7 +101,13 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
     );
   }
 
-  Widget buildMediaSectionContent(String showTitle, Widget imageWidget) {
+  Widget buildMediaSectionContent(
+      String showTitle, Widget imageWidget, String episodeNo,
+      {required bool isUserDetail}) {
+    // final String displayEpisodeNo =
+    //     isUserDetail ? "Title: $episodeNo" : episodeNo;
+    // final String displayShowTitle =
+    //     isUserDetail ? "Show Name: $showTitle" : showTitle;
     return Container(
       height: 29.h,
       decoration: BoxDecoration(
@@ -104,13 +120,25 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  showTitle,
-                  style: GoogleFonts.baiJamjuree(
-                    fontSize: 22.sp,
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+                Row(
+                  children: [
+                    // Text(
+                    //   "$displayEpisodeNo: $displayShowTitle",
+                    //   style: GoogleFonts.baiJamjuree(
+                    //     fontSize: 22.sp,
+                    //     color: AppColors.white,
+                    //     fontWeight: FontWeight.w600,
+                    //   ),
+                    // ),
+                    Text(
+                      showTitle,
+                      style: GoogleFonts.baiJamjuree(
+                        fontSize: 22.sp,
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
                 AppIconsWidget.horizontaldiamond(
                     color: AppColors.white, size: 15),

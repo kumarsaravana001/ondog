@@ -26,6 +26,7 @@ class AppLocalisation {
   static const email = "Email";
   static const password = "Password";
   static const registernow = "Register now";
+  static const forgetPassword = "Forget Password";
   static const alreadyhaveanaccount = "Already have an account";
   static const login = "log in";
   static const logout = "log Out";

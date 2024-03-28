@@ -156,17 +156,33 @@ class _LoginScreenState extends State<LoginScreen> {
                                           },
                                         )),
                                     Padding(
-                                      padding: EdgeInsets.only(top: 1.5.h),
-                                      child: CustomElevatedButton(
-                                          fontsize: 16.sp,
-                                          bordercolor: AppColors.white,
-                                          backgroundcolor: AppColors.black,
-                                          labelcolor: AppColors.white,
-                                          text: AppLocalisation.login,
-                                          onPressed: _onLoginButtonPressed),
+                                      padding: EdgeInsets.only(top: 15.sp),
+                                      child: TextButton(
+                                        child: Text(
+                                          AppLocalisation.forgetPassword,
+                                          style: AppTextStyle.headingint(
+                                              fontSize: 16.sp,
+                                              color: AppColors.white,
+                                              underline: true,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        onPressed: () {
+                                          context.go("");
+                                        },
+                                      ),
                                     ),
                                   ],
                                 ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 1.5.h),
+                                child: CustomElevatedButton(
+                                    fontsize: 16.sp,
+                                    bordercolor: AppColors.white,
+                                    backgroundcolor: AppColors.black,
+                                    labelcolor: AppColors.white,
+                                    text: AppLocalisation.login,
+                                    onPressed: _onLoginButtonPressed),
                               ),
                             ],
                           ),

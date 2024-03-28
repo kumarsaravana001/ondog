@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/view/index.dart';
+import 'package:ondgo_flutter/config/config_index.dart';
 import '../config/app_textstyle.dart';
 
 class CustomElevatedButton extends StatelessWidget {

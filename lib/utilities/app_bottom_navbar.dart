@@ -5,57 +5,52 @@ import 'package:ondgo_flutter/config/app_colors.dart';
 import 'package:ondgo_flutter/config/app_icons.dart';
 import 'package:ondgo_flutter/view/screens/profile/profile_screen.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
-import 'package:ondgo_flutter/view/screens/reels/reels_full_screen.dart';
 import 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
-import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
-import 'package:ondgo_flutter/view/screens/showcase/showcase_screen.dart';
 import '../view/screens/homescreen/home.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 
 class Navbar extends StatefulWidget {
-  Navbar({super.key});
+  const Navbar({super.key});
 
   @override
   State<Navbar> createState() => _NavbarState();
 }
 
 class _NavbarState extends State<Navbar> {
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-
   final List<BottomNavigationBarItem> _navBarItems = [
     BottomNavigationBarItem(
       icon: SvgPicture.asset(IconAssets.navbaricon1, height: 25),
       label: '',
     ),
+
+    BottomNavigationBarItem(
+      icon: SvgPicture.asset(IconAssets.navbaricon2, height: 25),
+      label: '',
+    ),
+
+    BottomNavigationBarItem(
+      icon: SvgPicture.asset(IconAssets.badgecloseblack, height: 48),
+      label: '',
+    ),
+
+    // BottomNavigationBarItem(
+    //   icon: SvgPicture.asset(IconAssets.navbaricon3, height: 25),
+    //   label: '',
+    // ),
+
     // BottomNavigationBarItem(
     //   icon: SvgPicture.asset(IconAssets.horizontaldiamond,
     //       height: 20, color: AppColors.white),
     //   label: '',
     // ),
-    BottomNavigationBarItem(
-      icon: SvgPicture.asset(IconAssets.navbaricon2, height: 25),
-      label: '',
-    ),
-    // BottomNavigationBarItem(
-    //   icon: SvgPicture.asset(IconAssets.navbaricon3, height: 25),
-    //   label: '',
-    // ),
-    BottomNavigationBarItem(
-      icon: SvgPicture.asset(IconAssets.badgecloseblack, height: 48),
-      label: '',
-    ),
   ];
 
   final List<Widget> _screens = [
     const HomeScreen(),
     const ReelsScreen(),
     const ProfileScreen(),
-    // const ShowCaseScreen(),
-    // const SearchandLibraryScreen(),
-    // ReelsScreen(),
-    // ReelsFullScreen(),
-    // const ShortsPage(),
   ];
+
   @override
   void initState() {
     super.initState();
