@@ -144,7 +144,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                           child: SvgPicture.asset(IconAssets.ondgoTextlogowhite,
                               semanticsLabel: 'Ondgo Logo')),
                       Positioned(
-                          bottom: 50.sp,
+                          bottom: 40.sp,
                           left: 15.sp,
                           child:
                               SvgPicture.asset(IconAssets.reelsleftindicator)),
@@ -154,7 +154,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                           child: SvgPicture.asset(
                               IconAssets.reelscenterindicator)),
                       Positioned(
-                          bottom: 50.sp,
+                          bottom: 40.sp,
                           right: 15.sp,
                           child:
                               SvgPicture.asset(IconAssets.reelsrightindicator)),
@@ -173,7 +173,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(vertical: 10.sp, horizontal: 16.sp),
+                      EdgeInsets.symmetric(vertical: 10.sp, horizontal: 18.sp),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

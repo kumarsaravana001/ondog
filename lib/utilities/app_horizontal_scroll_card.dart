@@ -39,7 +39,7 @@ class HorizontalScrollableCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-      height: 28.h,
+      height: 25.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: imageListCount,

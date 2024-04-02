@@ -111,28 +111,104 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Positioned(
                         child: Center(
                           child: Padding(
-                            padding: EdgeInsets.only(top: 35.sp),
+                            padding: EdgeInsets.only(top: 30.sp),
                             child: Column(
                               children: [
                                 Center(
                                   child: Stack(
                                     alignment: Alignment.bottomRight,
                                     children: [
-                                      CircleAvatar(
-                                        radius: 70,
-                                        backgroundColor: Colors.grey.shade300,
-                                        backgroundImage: image != null
-                                            ? FileImage(image!)
-                                            : null,
-                                        child: image == null
-                                            ? const Icon(Icons.person, size: 80)
-                                            : null,
+                                      Stack(
+                                        alignment: Alignment
+                                            .center, // Aligns the icon to the center when there's no image
+                                        children: [
+                                          Container(
+                                            width: 50.w,
+                                            height: 50.w,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Colors.grey.shade300,
+                                              image: image != null
+                                                  ? DecorationImage(
+                                                      image: FileImage(image!),
+                                                      fit: BoxFit.cover,
+                                                    )
+                                                  : null,
+                                            ),
+                                            child: image == null
+                                                ? const Icon(Icons.person,
+                                                    size: 80)
+                                                : null,
+                                          ),
+                                          Positioned(
+                                            bottom: 0,
+                                            left: 0,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.black,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8,
+                                                        vertical: 4),
+                                                child: InkWell(
+                                                  onTap: _pickImage,
+                                                  child: const Text(
+                                                    'Edit Profile',
+                                                    style: TextStyle(
+                                                      color: Colors
+                                                          .white, // Text color
+                                                      fontSize:
+                                                          12, // Adjust font size
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      FloatingActionButton(
-                                        mini: true, // Makes the button smaller
-                                        onPressed: _pickImage,
-                                        child: const Icon(Icons.edit),
-                                      ),
+
+                                      // Container(
+                                      //   width: 50.w,
+                                      //   height: 50.w,
+                                      //   decoration: BoxDecoration(
+                                      //     borderRadius:
+                                      //         BorderRadius.circular(20),
+                                      //     color: Colors.grey.shade300,
+                                      //     image: image != null
+                                      //         ? DecorationImage(
+                                      //             image: FileImage(image!),
+                                      //             fit: BoxFit.cover,
+                                      //           )
+                                      //         : null,
+                                      //   ),
+                                      //   child: image == null
+                                      //       ? const Icon(Icons.person, size: 80)
+                                      //       : null,
+                                      // ),
+
+                                      // CircleAvatar(
+                                      //   radius: 70,
+                                      //   backgroundColor: Colors.grey.shade300,
+                                      //   backgroundImage: image != null
+                                      //       ? FileImage(image!)
+                                      //       : null,
+                                      //   child: image == null
+                                      //       ? const Icon(Icons.person, size: 80)
+                                      //       : null,
+                                      // ),
+                                      // FloatingActionButton(
+                                      //   mini: true, // Makes the button smaller
+                                      //   onPressed: _pickImage,
+                                      //   child: const Icon(Icons.edit),
+                                      // ),
                                     ],
                                   ),
                                 ),

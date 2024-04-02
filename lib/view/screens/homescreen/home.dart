@@ -170,10 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 22.sp,
                             color: AppColors.white,
                             fontWeight: FontWeight.w700),
-                        // (
-                        //     fontSize: 22.sp,
-                        //     color: AppColors.white,
-                        //     fontWeight: FontWeight.w700),
+                       
                       ),
                     ),
                     Positioned(
@@ -323,8 +320,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               top: 8,
                               left: 30,
                               child: SvgPicture.asset(
-                                  IconAssets.ondgoTextlogoblackcovered,
-                                  height: 24.sp,
+                                  IconAssets.ondgoTextlogowhite,
+                                  height: 26.sp,
                                   semanticsLabel: 'Ondgo Logo'),
                             ),
                             // Positioned(
@@ -351,10 +348,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         CustomElevatedButton(
                                             backgroundcolor: AppColors.black,
                                             bordercolor: AppColors.white,
-                                            fontsize: 13,
+                                            fontsize: 16.sp,
                                             labelcolor: AppColors.white,
                                             onPressed: () {},
-                                            text: 'streaming soon'),
+                                            text: 'stream now'),
                                         SizedBox(width: 40.w),
                                         Container(
                                             decoration: BoxDecoration(
@@ -446,7 +443,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               left: 60,
                               child: SvgPicture.asset(
                                   IconAssets.diamondstar, //do later
-                                  height: 14,
+                                  height: 15,
                                   color: _currentCarouselIndex == 0
                                       ? Colors.white
                                       : Colors.grey),
@@ -457,7 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               left: 60,
                               child: SvgPicture.asset(
                                 IconAssets.diamondstar,
-                                height: 14,
+                                height: 15,
                                 color: _currentCarouselIndex == 1
                                     ? Colors.white
                                     : Colors.grey,
@@ -469,7 +466,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               left: 1,
                               child: SvgPicture.asset(
                                 IconAssets.diamondstar,
-                                height: 14,
+                                height: 15,
                                 color: _currentCarouselIndex == 2
                                     ? Colors.white
                                     : Colors.grey,
