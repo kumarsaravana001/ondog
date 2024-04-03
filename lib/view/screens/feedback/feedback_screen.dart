@@ -59,10 +59,19 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         IconAssets.profilescreenbgblack),
                     Align(
                         alignment: Alignment.center,
-                        child: Text(AppLocalisation.feedback,
-                            style: GoogleFonts.baiJamjuree(fontSize: 28.sp))),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 15.sp),
+                          child: Text(
+                            AppLocalisation.feedback,
+                            style: GoogleFonts.baiJamjuree(
+                              fontSize: 24.sp,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        )),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(15.sp, 30.sp, 15.sp, 0),
+                      padding: EdgeInsets.fromLTRB(15.sp, 10.sp, 15.sp, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -84,11 +93,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                             ),
                             child: TextField(
                               controller: commentController,
-                              decoration: const InputDecoration(
-                                  hintText: 'Enter Comments',
+                              decoration: InputDecoration(
+                                  hintText: 'Comments',
                                   hintStyle: TextStyle(
+                                    fontSize: 20.sp,
                                     color: Colors.grey,
-                                    fontStyle: FontStyle.italic,
                                   ),
                                   border: InputBorder.none,
                                   contentPadding:
@@ -104,9 +113,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                 Text(
                                   "Rating",
                                   style: AppTextStyle.headingint(
-                                      fontSize: 20.sp,
-                                      italic: true,
-                                      color: Colors.grey),
+                                      fontSize: 20.sp, color: Colors.grey),
                                 ),
                                 SizedBox(width: 2.w),
                                 RatingBar.builder(

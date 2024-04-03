@@ -22,9 +22,8 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
           padding: EdgeInsets.only(top: 10.sp),
           child: Text(
             showDetails.description ?? 'Description Not Available',
-            style: AppTextStyle.headingint(
+            style: GoogleFonts.baiJamjuree(
               fontSize: 17.sp,
-              italic: true,
               color: AppColors.black,
               fontWeight: FontWeight.w500,
             ),
@@ -38,9 +37,8 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
               child: Text(
                 'Artist : ${showDetails.actorArtist}' ??
                     'Description Not Available',
-                style: AppTextStyle.headingint(
+                style: GoogleFonts.baiJamjuree(
                   fontSize: 17.sp,
-                  italic: true,
                   color: AppColors.black,
                   fontWeight: FontWeight.w500,
                 ),
@@ -49,9 +47,8 @@ Widget buildShowDetails(ShowDetailsData? showDetails) {
             Text(
               'Director : ${showDetails.director}' ??
                   'Description Not Available',
-              style: AppTextStyle.headingint(
+              style: GoogleFonts.baiJamjuree(
                 fontSize: 17.sp,
-                italic: true,
                 color: AppColors.black,
                 fontWeight: FontWeight.w500,
               ),

@@ -43,8 +43,17 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                     IconAssets.profilescreenbgblack),
                 Align(
                     alignment: Alignment.center,
-                    child: Text(AppLocalisation.purchase,
-                        style: GoogleFonts.baiJamjuree(fontSize: 28.sp))),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 15.sp),
+                      child: Text(
+                        AppLocalisation.purchase,
+                        style: GoogleFonts.baiJamjuree(
+                          fontSize: 24.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    )),
                 // Expanded(
                 //   child: ElongatedCardWidget(
                 //     cardlength: purchadeimagePaths.length,
@@ -68,7 +77,11 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                           itemCount: state.purchaseUrls.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: EdgeInsets.only(
+                                  left: 18.sp,
+                                  right: 18.sp,
+                                  bottom: 10.sp,
+                                  top: 20.sp),
                               child: Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50)),

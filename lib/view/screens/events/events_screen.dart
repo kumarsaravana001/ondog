@@ -40,15 +40,22 @@ class _EventsScreenState extends State<EventsScreen> {
                       IconAssets.profilescreenbgblack),
                   Align(
                     alignment: Alignment.center,
-                    child: Text(
-                      AppLocalisation.events,
-                      style: GoogleFonts.baiJamjuree(fontSize: 28.sp),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 15.sp),
+                      child: Text(
+                        AppLocalisation.events,
+                        style: GoogleFonts.baiJamjuree(
+                          fontSize: 24.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(
-                          left: 20.0.sp, top: 30.sp, right: 10.sp),
+                          left: 18.0.sp, top: 15.sp, right: 18.sp),
                       child: BlocBuilder<EventDetailsBloc, EventDetailsState>(
                         builder: (context, state) {
                           if (state is EventDetailsLoading) {

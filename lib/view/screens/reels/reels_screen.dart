@@ -173,7 +173,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(vertical: 10.sp, horizontal: 18.sp),
+                      EdgeInsets.symmetric(vertical: 4.sp, horizontal: 18.sp),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -198,7 +198,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                               style: GoogleFonts.baiJamjuree(
                                 fontSize: 24.sp,
                                 color: AppColors.black,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w800,
                               ),
                             );
                           } else if (state is HomeScreenBannerLoading) {
@@ -216,10 +216,10 @@ class _ReelsScreenState extends State<ReelsScreen> {
                 Text(
                   AppLocalisation.newepisodes,
                   style: AppTextStyle.headingint(
-                      fontSize: 18.sp, fontWeight: FontWeight.w500),
+                      fontSize: 16.sp, fontWeight: FontWeight.w500),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 25.sp, bottom: 15.sp),
+                  padding: EdgeInsets.only(top: 25.sp, bottom: 8.sp),
                   child: Text(
                     AppLocalisation.shareyourthoughts,
                     style: AppTextStyle.headingint(

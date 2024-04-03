@@ -40,8 +40,14 @@ class _RewardsScreenState extends State<RewardsScreen> {
                     IconAssets.profilescreenbgblack),
                 Align(
                     alignment: Alignment.center,
-                    child: Text(AppLocalisation.rewards,
-                        style:GoogleFonts.baiJamjuree(fontSize: 28.sp))),
+                    child: Text(
+                      AppLocalisation.rewards,
+                      style: GoogleFonts.baiJamjuree(
+                        fontSize: 24.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    )),
                 // Expanded(
                 //   child: ElongatedCardWidget(
                 //     cardlength: rewardsimagePaths.length,
@@ -61,14 +67,15 @@ class _RewardsScreenState extends State<RewardsScreen> {
                     } else if (state is RewardsLoaded) {
                       return Container(
                         height: 500,
-                        // height: MediaQuery.of(context)
-                        //     .size
-                        //     .height,
                         child: ListView.builder(
                           itemCount: state.rewardsUrls.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: EdgeInsets.only(
+                                  left: 18.sp,
+                                  right: 18.sp,
+                                  bottom: 10.sp,
+                                  top: 20.sp),
                               child: Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50)),

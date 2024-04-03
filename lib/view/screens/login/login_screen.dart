@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(bottom: 5.h),
+                                padding: EdgeInsets.only(bottom: 2.h),
                                 child: Text(
                                   AppLocalisation.startlearning,
                                   style: AppTextStyle.headingint(
@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(bottom: 18.sp),
+                                padding: EdgeInsets.only(bottom: 15.sp),
                                 child: CustomTextField(
                                   controller: emailController,
                                   hintText: "Email",

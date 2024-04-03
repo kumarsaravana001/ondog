@@ -46,8 +46,14 @@ class _CheckboxListState extends State<LanguageScreen> {
                     IconAssets.profilescreenbgblack),
                 Align(
                     alignment: Alignment.center,
-                    child: Text(AppLocalisation.language,
-                        style: GoogleFonts.baiJamjuree(fontSize: 28.sp))),
+                    child: Text(
+                      AppLocalisation.language,
+                      style: GoogleFonts.baiJamjuree(
+                        fontSize: 24.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    )),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
@@ -219,7 +225,10 @@ class CheckboxRow extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           text,
-          style: const TextStyle(fontSize: 16, color: AppColors.black),
+          style: const TextStyle(
+              fontSize: 22,
+              color: AppColors.black,
+              fontWeight: FontWeight.w400),
         ),
       ],
     );
@@ -240,16 +249,16 @@ class CustomSquareCheckbox extends StatelessWidget {
         onChanged?.call(!checked);
       },
       child: Container(
-        width: 20,
-        height: 20,
+        width: 10,
+        height: 10,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black),
-          color: checked ? Colors.blue : Colors.transparent,
+          color: checked ? Colors.black : Colors.transparent,
         ),
         child: checked
             ? const Icon(
                 Icons.check,
-                size: 16,
+                size: 10,
                 color: Colors.white,
               )
             : null,

@@ -51,17 +51,20 @@ class _PlayListScreenState extends State<PlayListScreen> {
                       IconAssets.profilescreenbgblack),
                   Align(
                     alignment: Alignment.center,
-                    child: Text(
-                      AppLocalisation.yourplaylist,
-                      style: GoogleFonts.baiJamjuree(
-                        fontSize: 25.sp,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w800,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 15.sp),
+                      child: Text(
+                        AppLocalisation.yourplaylist,
+                        style: GoogleFonts.baiJamjuree(
+                          fontSize: 24.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 20.0.sp, top: 20.sp),
+                    padding: EdgeInsets.only(left: 12.0.sp, top: 15.sp),
                     child: BlocBuilder<PopularPicksBloc, PopularPicksState>(
                       builder: (context, state) {
                         if (state is PopularPicksLoaded &&
@@ -176,11 +179,11 @@ class _PlayListScreenState extends State<PlayListScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 10.sp),
+                      padding: EdgeInsets.only(top: 20.sp),
                       child: Text(
                         AppLocalisation.videos,
                         style: GoogleFonts.baiJamjuree(
-                          fontSize: 25.sp,
+                          fontSize: 24.sp,
                           color: AppColors.black,
                           fontWeight: FontWeight.w800,
                         ),
@@ -188,7 +191,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 20.0.sp, top: 10.sp),
+                    padding: EdgeInsets.only(left: 12.0.sp, top: 5.sp),
                     child: BlocBuilder<PopularPicksBloc, PopularPicksState>(
                       builder: (context, state) {
                         if (state is PopularPicksLoaded &&
@@ -209,7 +212,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                           }).toList();
 
                           return HorizontalScrollableCard(
-                             subtitle: AppLocalisation.ratingcount,
+                            subtitle: AppLocalisation.ratingcount,
                             cardStatusColor: Colors.indigoAccent,
                             titlecard: showNames,
                             imageListCount: state.popularPicks.length,

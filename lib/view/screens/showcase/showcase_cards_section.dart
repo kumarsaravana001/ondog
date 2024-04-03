@@ -66,13 +66,36 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 18.sp),
-              child: Text(
-                AppLocalisation.episodes,
-                style: GoogleFonts.baiJamjuree(fontSize: 26.sp),
-              ),
+            //
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 18.sp, right: 25.sp),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        child: Text(
+                          AppLocalisation.episodes,
+                          style: GoogleFonts.baiJamjuree(
+                            color: AppColors.white,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
+
             BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
               builder: (context, state) {
                 String episodesText = "Total episodes";
@@ -85,9 +108,13 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
 
                 return Padding(
                   padding: EdgeInsets.only(left: 18.sp),
-                  child: Text(
-                    episodesText,
-                    style: GoogleFonts.baiJamjuree(fontSize: 16.sp),
+                  child: Column(
+                    children: [
+                      Text(
+                        episodesText,
+                        style: GoogleFonts.baiJamjuree(fontSize: 16.sp),
+                      ),
+                    ],
                   ),
                 );
               },
@@ -170,12 +197,42 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                 },
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 18.sp),
-              child: Text(
-                AppLocalisation.events,
-                style: GoogleFonts.baiJamjuree(fontSize: 26.sp),
-              ),
+            // Padding(
+            //   padding: EdgeInsets.only(left: 18.sp),
+            //   child: Text(
+            //     AppLocalisation.events,
+            //     style: GoogleFonts.baiJamjuree(
+            //         fontSize: 26.sp, fontWeight: FontWeight.w700),
+            //   ),
+            // ),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: 18.sp, right: 25.sp, top: 20.sp),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        child: Text(
+                          AppLocalisation.events,
+                          style: GoogleFonts.baiJamjuree(
+                            color: AppColors.white,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: EdgeInsets.only(left: 15.sp),
@@ -189,15 +246,15 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 15.sp, top: 20.sp),
+              padding: EdgeInsets.only(left: 18.sp, top: 20.sp),
               child: Text(
                 AppLocalisation.shareyourthoughts,
-                style: AppTextStyle.headingint(
+                style: GoogleFonts.baiJamjuree(
                     fontSize: 20.sp, fontWeight: FontWeight.w700),
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20.sp, 15.sp, 0, 10.sp),
+              padding: EdgeInsets.fromLTRB(18.sp, 15.sp, 0, 10.sp),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
@@ -228,7 +285,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20.sp, 15.sp, 0, 10.sp),
+              padding: EdgeInsets.fromLTRB(18.sp, 8.sp, 30.sp, 10.sp),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
@@ -259,9 +316,9 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 15.sp),
+              padding: EdgeInsets.only(left: 18.sp, right: 25.sp, top: 15.sp),
               child: Container(
-                height: 6.h,
+                height: 4.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(color: AppColors.black),
@@ -297,9 +354,9 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                             child: Text(
                               "Send",
                               style: TextStyle(
-                                fontSize: 16.sp,
-                                color: AppColors.white,
-                              ),
+                                  fontSize: 16.sp,
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),

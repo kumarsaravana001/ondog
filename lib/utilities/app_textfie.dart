@@ -15,7 +15,7 @@ class CustomTextField extends StatefulWidget {
     this.hintColor = Colors.grey,
     this.borderRadius = 30,
     this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 20.0, vertical: 3.0),
+        const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
     this.suffixIcon,
     this.onSuffixIconPressed,
     this.focusnode,
@@ -96,13 +96,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
               hintStyle: TextStyle(
                   color: widget.hintColor, fontStyle: FontStyle.italic),
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide.none),
               enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(color: widget.borderColor)),
               focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(color: widget.borderColor)),
               contentPadding: widget.contentPadding,
             ),
@@ -128,13 +128,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
               hintStyle: TextStyle(
                   color: widget.hintColor, fontStyle: FontStyle.italic),
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide.none),
               enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(color: widget.borderColor)),
               focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(color: widget.borderColor)),
               contentPadding: widget.contentPadding,
               suffixIcon: widget.isPassword

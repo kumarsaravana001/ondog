@@ -170,7 +170,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 22.sp,
                             color: AppColors.white,
                             fontWeight: FontWeight.w700),
-                       
                       ),
                     ),
                     Positioned(
@@ -377,11 +376,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.white60),
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white70.withOpacity(0.95),
+                                      ),
                                       child: Padding(
-                                        padding: EdgeInsets.all(10.sp),
+                                        padding: EdgeInsets.only(
+                                            left: 10.sp, right: 10.sp),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -491,7 +491,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.w800)),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      padding: EdgeInsets.only(left: 12.0.sp, top: 30.sp),
                       child: BlocBuilder<PopularPicksBloc, PopularPicksState>(
                         builder: (context, state) {
                           if (state is PopularPicksLoaded &&
@@ -595,7 +595,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      padding: EdgeInsets.only(left: 12.0.sp, top: 30.sp),
                       child: BlocBuilder<CategoryWiseShowBloc,
                           CategoryWiseShowState>(
                         builder: (context, state) {
@@ -696,7 +696,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      padding: EdgeInsets.only(left: 12.0.sp, top: 30.sp),
                       child: BlocBuilder<CategoryWiseShowBloc1,
                           CategoryWiseShow1State>(
                         builder: (context, state) {
@@ -796,7 +796,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                      padding: EdgeInsets.only(left: 12.0.sp, top: 30.sp),
                       child: BlocBuilder<CategoryWiseShowBloc2,
                           CategoryWiseShow2State>(
                         builder: (context, state) {
