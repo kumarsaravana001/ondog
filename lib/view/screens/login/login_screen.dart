@@ -72,18 +72,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SigninAssertWidget(),
-                  SizedBox(height: 22.h),
+                  // SizedBox(height: 22.h),
                   Stack(
                     children: [
                       ClipPath(
                         clipper: Hometopshapelogin(),
                         child: Container(
-                            height: 58.h,
+                            height: 60.h,
                             width: double.infinity,
                             color: AppColors.black),
                       ),
                       Positioned(
-                          bottom: -40,
+                          bottom: -22,
                           left: -15,
                           right: -10,
                           child: SvgPicture.asset(
@@ -100,9 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text(
                                   AppLocalisation.startlearning,
                                   style: AppTextStyle.headingint(
-                                      fontSize: 22.sp,
+                                      fontSize: 21.sp,
                                       color: AppColors.white,
-                                      fontWeight: FontWeight.w500),
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                               Padding(

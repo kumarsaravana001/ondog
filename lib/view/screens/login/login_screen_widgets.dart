@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../../config/app_localization.dart';
 import '../../../config/config_index.dart';
 
 class SigninAssertWidget extends StatelessWidget {
@@ -20,7 +18,7 @@ class SigninAssertWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 25.sp),
+          padding: EdgeInsets.only(top: 60.sp, bottom: 25.sp),
           child: SvgPicture.asset(
             IconAssets.ondgoTextlogo,
             semanticsLabel: 'Ondgo Logo',

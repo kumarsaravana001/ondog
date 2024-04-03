@@ -27,7 +27,7 @@ class _SplashScreenoneState extends State<SplashScreenone> {
       backgroundColor: AppColors.black,
       body: Center(
         child: SvgPicture.asset(
-          IconAssets.ondgoLogo,
+          IconAssets.ondgoTextlogowhite,
           semanticsLabel: 'Ondgo Logo',
         ),
       ),

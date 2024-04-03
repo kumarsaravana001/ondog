@@ -99,8 +99,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         bottom: -25,
                         left: -10,
                         right: -10,
-                        child: SvgPicture.asset(IconAssets.signupscreenbgdesign,
-                            fit: BoxFit.fitWidth),
+                        child: SvgPicture.asset(
+                          IconAssets.signupscreenbgdesign,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                       Positioned(
                         child: Padding(
