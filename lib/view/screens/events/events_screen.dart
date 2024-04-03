@@ -42,7 +42,7 @@ class _EventsScreenState extends State<EventsScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       AppLocalisation.events,
-                      style:GoogleFonts.baiJamjuree(fontSize: 28.sp),
+                      style: GoogleFonts.baiJamjuree(fontSize: 28.sp),
                     ),
                   ),
                   Expanded(

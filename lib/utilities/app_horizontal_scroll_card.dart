@@ -82,9 +82,10 @@ class HorizontalScrollableCard extends StatelessWidget {
                         if (subtitle.isNotEmpty)
                           Text(subtitle,
                               style: AppTextStyle.headingint(
+                                  italic: true,
                                   fontSize: 15.sp,
                                   color: AppColors.white,
-                                  fontWeight: FontWeight.bold)),
+                                  fontWeight: FontWeight.normal)),
                       ],
                     ),
                   ),
@@ -228,6 +229,37 @@ class HorizontalScrollableCard1 extends StatelessWidget {
                         child: imageList[index],
                       ),
                     ),
+                    //     Container(
+                    //   width: double.infinity,
+                    //   child: ClipRRect(
+                    //     borderRadius: const BorderRadius.only(
+                    //       bottomLeft: Radius.circular(15),
+                    //       bottomRight: Radius.circular(15),
+                    //     ),
+                    //     child: Stack(
+                    //       alignment: Alignment
+                    //           .center, // Ensures the play button is centered
+                    //       children: [
+                    //         FittedBox(
+                    //           fit: BoxFit
+                    //               .contain, // This makes the image fully cover the area
+                    //           child: imageList[index], // Your existing image
+                    //         ),
+                    //         Container(
+                    //           decoration: BoxDecoration(
+                    //             // Optional: Adds a slightly dark overlay to improve icon visibility
+                    //             color: Colors.black.withOpacity(0.3),
+                    //           ),
+                    //         ),
+                    //         const Icon(
+                    //           Icons.play_circle_outline, // Play button icon
+                    //           size: 50, // Adjust the size as needed
+                    //           color: Colors.white, // Adjust the color as needed
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ),
                 ],
               ),

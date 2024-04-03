@@ -75,7 +75,7 @@ class AppVerticalScrollCard extends StatelessWidget {
                     bottomRight: Radius.circular(15)),
                 child: Container(
                   height: 10,
-                  color: Colors.grey[300],
+                  color: Colors.yellow[300],
                 ),
               ),
             ],

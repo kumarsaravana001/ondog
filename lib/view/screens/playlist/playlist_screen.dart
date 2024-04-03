@@ -53,11 +53,15 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       AppLocalisation.yourplaylist,
-                      style: GoogleFonts.baiJamjuree(fontSize: 26.sp),
+                      style: GoogleFonts.baiJamjuree(
+                        fontSize: 25.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 20.0.sp, top: 30.sp),
+                    padding: EdgeInsets.only(left: 20.0.sp, top: 20.sp),
                     child: BlocBuilder<PopularPicksBloc, PopularPicksState>(
                       builder: (context, state) {
                         if (state is PopularPicksLoaded &&
@@ -78,6 +82,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                           }).toList();
 
                           return HorizontalScrollableCard(
+                            subtitle: AppLocalisation.ratingcount,
                             cardStatusColor: Colors.indigoAccent,
                             titlecard: showNames,
                             imageListCount: state.popularPicks.length,
@@ -168,6 +173,75 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     //   },
                     // ),
                   ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 10.sp),
+                      child: Text(
+                        AppLocalisation.videos,
+                        style: GoogleFonts.baiJamjuree(
+                          fontSize: 25.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0.sp, top: 10.sp),
+                    child: BlocBuilder<PopularPicksBloc, PopularPicksState>(
+                      builder: (context, state) {
+                        if (state is PopularPicksLoaded &&
+                            state.popularPicks.isNotEmpty) {
+                          List<String> showNames = state.popularPicks
+                              .map((show) => show.showName ?? 'No Show Name')
+                              .toList();
+                          List<String> showIds = state.popularPicks
+                              .map((show) => show.showId ?? 'No Show Name')
+                              .toList();
+                          List<Widget> imageWidgets =
+                              state.popularPicks.map((show) {
+                            String imageUrl = show.thumbnail!.isNotEmpty
+                                ? show.thumbnail![0]
+                                : 'default_image_url';
+
+                            return Image.network(imageUrl, fit: BoxFit.cover);
+                          }).toList();
+
+                          return HorizontalScrollableCard(
+                             subtitle: AppLocalisation.ratingcount,
+                            cardStatusColor: Colors.indigoAccent,
+                            titlecard: showNames,
+                            imageListCount: state.popularPicks.length,
+                            imageList: imageWidgets,
+                            textColor: AppColors.white,
+                            onTap: (String showId) {
+                              final int parsedShowId =
+                                  int.tryParse(showId) ?? 0;
+                              context
+                                  .read<ShowIdCubit>()
+                                  .updateShowId(parsedShowId);
+
+                              // BlocProvider.of<NavigationCubit>(context)
+                              //     .navigateToIndex(3);
+                              context.push("/showcase");
+                              BlocProvider.of<UserShowDetailBloc>(context).add(
+                                  FetchUserShowDetail(
+                                      showId: int.parse(showId)));
+                              BlocProvider.of<UserEpisodeDetailBloc>(context)
+                                  .add(FetchUserEpisodeDetail(
+                                      showId: int.parse(showId)));
+                            },
+                            showIds: showIds,
+                          );
+                        } else if (state is PopularPicksLoading) {
+                          return horizontalCardShimmerWidget();
+                        } else {
+                          return horizontalCardShimmerWidget();
+                        }
+                      },
+                    ),
+                  )
                 ],
               ),
               Positioned(

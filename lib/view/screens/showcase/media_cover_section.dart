@@ -104,10 +104,6 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
   Widget buildMediaSectionContent(
       String showTitle, Widget imageWidget, String episodeNo,
       {required bool isUserDetail}) {
-    // final String displayEpisodeNo =
-    //     isUserDetail ? "Title: $episodeNo" : episodeNo;
-    // final String displayShowTitle =
-    //     isUserDetail ? "Show Name: $showTitle" : showTitle;
     return Container(
       height: 29.h,
       decoration: BoxDecoration(

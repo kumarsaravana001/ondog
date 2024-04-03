@@ -16,6 +16,16 @@ class AppIconsWidget {
       SvgPicture.asset("assets/icons/share.svg",
           width: size, height: size, color: color);
 
+ static Widget comment(
+          {double size = _defaultSize, Color color = _defaultColor}) =>
+      SvgPicture.asset("assets/icons/comment.svg",
+          width: size, height: size, color: color);
+
+ static Widget add(
+          {double size = _defaultSize, Color color = _defaultColor}) =>
+      SvgPicture.asset("assets/icons/add.svg",
+          width: size, height: size, color: color);
+
   static Widget horizontaldiamond(
           {double size = _defaultSize, Color color = _defaultColor}) =>
       SvgPicture.asset("assets/icons/horizontal_diamond.svg",
