@@ -183,7 +183,21 @@ class _SignupScreenState extends State<SignupScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 15.sp),
+                                      child: TextButton(
+                                        child: Text(
+                                          AppLocalisation.alreadyhaveanacc,
+                                          style: AppTextStyle.headingint(
+                                              fontSize: 16.sp,
+                                              color: AppColors.white,
+                                              underline: true,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        onPressed: () {
+                                          context.go("/login");
+                                        },
+                                      )),
                                   Padding(
                                     padding: EdgeInsets.only(
                                         top: 3.5.h, right: 10.sp),
