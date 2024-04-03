@@ -29,6 +29,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         emit(SignInFailure(response['message']));
       }
     } catch (e) {
+      print("issue at Register ${e}");
       emit(SignInFailure(e.toString()));
     }
   }

@@ -27,7 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         //   emit(LoginNoInternet());
         // }
         //  else {
-        print(e);
+        print("issue at Login ${e}");
         emit(LoginFailure(e.toString()));
       }
     });
