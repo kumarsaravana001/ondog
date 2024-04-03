@@ -328,7 +328,7 @@ Widget buildClickableText(String text, VoidCallback onPressed) {
       child: Text(text,
           style: GoogleFonts.baiJamjuree(
             fontSize: 22.sp,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w800,
           )),
     ),
   );

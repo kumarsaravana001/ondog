@@ -202,7 +202,7 @@ class _MediaWatchSectionState extends State<MediaWatchSection> {
     return Align(
       alignment: Alignment.topRight,
       child: Padding(
-        padding: EdgeInsets.only(top: 25.sp),
+        padding: EdgeInsets.only(top: 35.sp),
         child: Container(
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
