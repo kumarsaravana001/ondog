@@ -71,7 +71,8 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 18.sp, right: 25.sp),
+                    padding:
+                        EdgeInsets.only(left: 18.sp, right: 25.sp, top: 10.sp),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Container(
@@ -148,46 +149,56 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                       return Image.network(imageUrl, fit: BoxFit.cover);
                     }).toList();
 
-                    return HorizontalScrollableCard1(
-                      cardStatusColor: Colors.red[300]!,
-                      imageListCount: imageWidgets.length,
-                      imageList: imageWidgets,
-                      textColor: AppColors.white,
-                      subtitle: episodeNum,
-                      titlecard: showNames,
-                      showIds: showIds,
-                      episodeId: episodeId,
-                      onTap: (String showId, String episodeId) {
-                        final int parsedShowId = int.tryParse(showId) ?? 0;
-                        final int parsedEpisodeId =
-                            int.tryParse(episodeId) ?? 0;
-                        print("Show id  ${parsedShowId}");
-                        print("Episode id ${parsedEpisodeId}");
-                        print("Episode Card OnTapped");
-                        context.read<ShowIdCubit>().updateShowId(parsedShowId);
-                        context
-                            .read<EpisodeIdCubit>()
-                            .updateEpisodeId(parsedEpisodeId);
+                    return Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 18.sp),
+                          child: SvgPicture.asset(IconAssets.appbackground),
+                        ),
+                        HorizontalScrollableCard1(
+                          cardStatusColor: Colors.red[300]!,
+                          imageListCount: imageWidgets.length,
+                          imageList: imageWidgets,
+                          textColor: AppColors.white,
+                          subtitle: episodeNum,
+                          titlecard: showNames,
+                          showIds: showIds,
+                          episodeId: episodeId,
+                          onTap: (String showId, String episodeId) {
+                            final int parsedShowId = int.tryParse(showId) ?? 0;
+                            final int parsedEpisodeId =
+                                int.tryParse(episodeId) ?? 0;
+                            print("Show id  ${parsedShowId}");
+                            print("Episode id ${parsedEpisodeId}");
+                            print("Episode Card OnTapped");
+                            context
+                                .read<ShowIdCubit>()
+                                .updateShowId(parsedShowId);
+                            context
+                                .read<EpisodeIdCubit>()
+                                .updateEpisodeId(parsedEpisodeId);
 
-                        context.read<VideoDetailsBloc>().add(
-                              FetchVideoDetails(
-                                episodeId: parsedEpisodeId,
-                                showId: parsedShowId,
-                              ),
-                            );
+                            context.read<VideoDetailsBloc>().add(
+                                  FetchVideoDetails(
+                                    episodeId: parsedEpisodeId,
+                                    showId: parsedShowId,
+                                  ),
+                                );
 
-                        context.read<QuizDetailsBloc>().add(
-                              FetchQuizDetails(
-                                showId: parsedShowId,
-                                episodeId: parsedEpisodeId,
-                              ),
-                            );
+                            context.read<QuizDetailsBloc>().add(
+                                  FetchQuizDetails(
+                                    showId: parsedShowId,
+                                    episodeId: parsedEpisodeId,
+                                  ),
+                                );
 
-                        context
-                            .read<QuizVisibilityCubit>()
-                            .toggleQuizVisibility();
-                        context.read<DisplayBloc>().showVideoDetails();
-                      },
+                            context
+                                .read<QuizVisibilityCubit>()
+                                .toggleQuizVisibility();
+                            context.read<DisplayBloc>().showVideoDetails();
+                          },
+                        ),
+                      ],
                     );
                   } else if (state is UserEpisodeDetailError) {
                     return const Center(child: Text("No New Episodes"));
@@ -236,13 +247,21 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 15.sp),
-              child: ScrollableElongatedCardWidget(
-                cardlength: eventsImagepath.length,
-                imageList: eventsImagepath,
-                label: eventimagepathtitle,
-                sublabel: AppLocalisation.registernowex,
-                sublabel1: AppLocalisation.interactwithcreators,
-                onPressed: () {},
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.sp),
+                    child: SvgPicture.asset(IconAssets.appbackground),
+                  ),
+                  ScrollableElongatedCardWidget(
+                    cardlength: eventsImagepath.length,
+                    imageList: eventsImagepath,
+                    label: eventimagepathtitle,
+                    sublabel: AppLocalisation.registernowex,
+                    sublabel1: AppLocalisation.interactwithcreators,
+                    onPressed: () {},
+                  ),
+                ],
               ),
             ),
             Padding(

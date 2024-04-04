@@ -139,10 +139,13 @@ class _ReelsScreenState extends State<ReelsScreen> {
                         ),
                       ),
                       Positioned(
-                          top: 10,
-                          left: 30,
-                          child: SvgPicture.asset(IconAssets.ondgoTextlogowhite,
-                              semanticsLabel: 'Ondgo Logo')),
+                        top: 8,
+                        left: 30,
+                        child: SvgPicture.asset(
+                            IconAssets.ondgoTextlogoblackcovered,
+                            height: 26.sp,
+                            semanticsLabel: 'Ondgo Logo'),
+                      ),
                       Positioned(
                           bottom: 40.sp,
                           left: 15.sp,
@@ -158,16 +161,14 @@ class _ReelsScreenState extends State<ReelsScreen> {
                           right: 15.sp,
                           child:
                               SvgPicture.asset(IconAssets.reelsrightindicator)),
-                      //Positioned(
-                      //top: 0,
-                      //right: 30,
-                      //child: InkWell(
-                      //onTap: () {
-                      //       // context.push("/profile");
-                      //},
-                      //child: SvgPicture.asset(IconAssets.badgecloseblack),
-                      //),
-                      //),
+                      Positioned(
+                        top: 0,
+                        right: 30,
+                        child: InkWell(
+                          onTap: () {},
+                          child: SvgPicture.asset(IconAssets.badgecloseblack),
+                        ),
+                      ),
                     ],
                   ),
                 ),

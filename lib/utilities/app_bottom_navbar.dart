@@ -6,6 +6,7 @@ import 'package:ondgo_flutter/config/app_icons.dart';
 import 'package:ondgo_flutter/view/screens/profile/profile_screen.dart';
 import 'package:ondgo_flutter/bloc/navigation_cubit/navigationbar_cubit.dart';
 import 'package:ondgo_flutter/view/screens/reels/reels_screen.dart';
+import 'package:ondgo_flutter/view/screens/showcase/showcase_screen.dart';
 import '../view/screens/homescreen/home.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 
@@ -49,6 +50,7 @@ class _NavbarState extends State<Navbar> {
     const HomeScreen(),
     const ReelsScreen(),
     const ProfileScreen(),
+    // const ShowCaseScreen(),
   ];
 
   @override

@@ -15,6 +15,7 @@ import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'package:ondgo_flutter/config/app_colors.dart';
+import 'package:ondgo_flutter/view/screens/forgetpassword/forgetpassword_screen.dart';
 import 'bloc/reels_bloc/reels_bloc.dart';
 import 'bloc/search_bloc/search_bloc.dart';
 import 'bloc/showscreen_bloc/episodeDisplay_cubit.dart';
@@ -102,7 +103,10 @@ class _MyAppState extends State<MyApp> {
             path: '/signup', builder: (context, state) => const SignupScreen()),
         GoRoute(
             path: '/login', builder: (context, state) => const LoginScreen()),
-        GoRoute(path: '/navbar', builder: (context, state) => Navbar()),
+        GoRoute(
+            path: '/forgetpassword',
+            builder: (context, state) => const ForgetPasswordScreen()),
+        GoRoute(path: '/navbar', builder: (context, state) => const Navbar()),
         GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
         GoRoute(
             path: '/showcase',

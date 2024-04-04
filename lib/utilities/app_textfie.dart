@@ -94,7 +94,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
               fillColor: Colors.white,
               hintText: widget.hintText,
               hintStyle: TextStyle(
-                  color: widget.hintColor, fontStyle: FontStyle.italic),
+                color: widget.hintColor,
+                fontStyle: FontStyle.italic,
+              ),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide.none),
@@ -126,7 +128,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
               fillColor: Colors.white,
               hintText: widget.hintText,
               hintStyle: TextStyle(
-                  color: widget.hintColor, fontStyle: FontStyle.italic),
+                color: widget.hintColor,
+                fontStyle: FontStyle.italic,
+              ),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide.none),

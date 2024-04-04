@@ -17,6 +17,20 @@ Widget buildbannerShimmerEffect() {
   );
 }
 
+Widget buildbannerTileShimmerEffect() {
+  return Shimmer.fromColors(
+    baseColor: Colors.grey[300]!,
+    highlightColor: Colors.grey[100]!,
+    child: Container(
+      height: 30.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+  );
+}
+
 HorizontalScrollableCard horizontalCardShimmerWidget() {
   int defaultItemCount = 6; // Default item count
   List<String> showNames = List.generate(defaultItemCount, (_) => 'Loading...');

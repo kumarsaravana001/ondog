@@ -108,6 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Padding(
                                 padding: EdgeInsets.only(bottom: 15.sp),
                                 child: CustomTextField(
+                                  
                                   controller: emailController,
                                   hintText: "Email",
                                   borderColor: AppColors.white,
@@ -167,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               fontWeight: FontWeight.w400),
                                         ),
                                         onPressed: () {
-                                          context.go("");
+                                          context.go("/forgetpassword");
                                         },
                                       ),
                                     ),

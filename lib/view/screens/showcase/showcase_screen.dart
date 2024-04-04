@@ -101,11 +101,11 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
             },
             child: Stack(
               children: [
-                Positioned(
-                  child: Center(
-                    child: SvgPicture.asset(IconAssets.appbackground),
-                  ),
-                ),
+                // Positioned(
+                //   child: Center(
+                //     child: SvgPicture.asset(IconAssets.appbackground),
+                //   ),
+                // ),
                 SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,8 +121,6 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                                   setState(() {
                                     showWatchedContent = true;
                                   });
-                                  print("${showWatchedContent}");
-                                  print("onWatchNowPressed");
                                 },
                               ),
                             )
@@ -153,7 +151,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                             final showDetails = state.userDetails.isNotEmpty
                                 ? state.userDetails.first
                                 : null;
-                            return buildShowDetails(showDetails);
+                            return buildShowDetails(showDetails, context);
                           } else if (state is UserShowDetailError) {
                             return Center(
                                 child: Text('Error: ${state.message}'));

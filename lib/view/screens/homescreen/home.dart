@@ -21,6 +21,7 @@ import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_bloc.dart';
 import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show_state.dart';
 import '../../../bloc/homescreen_bloc/spotlight_bloc/spotlight_bloc.dart';
@@ -334,19 +335,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               top: 8,
                               left: 30,
                               child: SvgPicture.asset(
-                                  IconAssets.ondgoTextlogowhite,
+                                  IconAssets.ondgoTextlogoblackcovered,
                                   height: 26.sp,
                                   semanticsLabel: 'Ondgo Logo'),
                             ),
-                            // Positioned(
-                            //   top: 0,
-                            //   right: 30,
-                            //   child: InkWell(
-                            //     onTap: () {},
-                            //     child: SvgPicture.asset(
-                            //         IconAssets.badgecloseblack),
-                            //   ),
-                            // ),
+                            Positioned(
+                              top: 0,
+                              right: 30,
+                              child: InkWell(
+                                onTap: () {},
+                                child: SvgPicture.asset(
+                                    IconAssets.badgecloseblack),
+                              ),
+                            ),
                             Positioned(
                               top: 75.sp,
                               child: Padding(
@@ -368,6 +369,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             text: 'stream now'),
                                         SizedBox(width: 40.w),
                                         Container(
+                                            height: 4.5.h,
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               color: AppColors.black,
@@ -378,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               icon: const Icon(
                                                 Icons.search,
                                                 color: AppColors.white,
-                                                size: 25,
+                                                size: 16,
                                               ),
                                               onPressed: () {
                                                 context.push("/search");
@@ -392,11 +394,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white70.withOpacity(0.95),
+                                        color: Colors.black.withOpacity(0.95),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.only(
-                                            left: 10.sp, right: 10.sp),
+                                            left: 10.sp,
+                                            right: 10.sp,
+                                            bottom: 3.sp),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -422,14 +426,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     style:
                                                         GoogleFonts.baiJamjuree(
                                                       fontSize: 24.sp,
-                                                      color: AppColors.black,
+                                                      color: AppColors.white,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                     ),
                                                   );
                                                 } else if (state
                                                     is HomeScreenBannerLoading) {
-                                                  return buildbannerShimmerEffect();
+                                                  return Shimmer.fromColors(
+                                                      baseColor:
+                                                          Colors.grey[300]!,
+                                                      highlightColor:
+                                                          Colors.grey[100]!,
+                                                      child: Container(
+                                                        height: 6.h,
+                                                      ));
                                                   //buildbannerShimmerEffect();
                                                 } else {
                                                   return Container();
@@ -440,7 +451,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               AppLocalisation.newepisodes,
                                               style: AppTextStyle.headingint(
                                                 fontSize: 18.sp,
-                                                color: AppColors.black,
+                                                color: AppColors.white,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                             ),
