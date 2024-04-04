@@ -162,20 +162,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       clipper: Hometopshape(),
                       child: Container(height: 110.h, color: Colors.black),
                     ),
-                    // Positioned(
-                    //   bottom: 80.sp,
-                    //   left: 48.sp,
-                    //   child: Text(
-                    //     AppLocalisation.spotlight,
-                    //     style: GoogleFonts.baiJamjuree(
-                    //         fontSize: 22.sp,
-                    //         color: AppColors.white,
-                    //         fontWeight: FontWeight.w700),
-                    //   ),
-                    // ),
+                    Positioned(
+                      bottom: 76.sp,
+                      left: 48.sp,
+                      child: Text(
+                        AppLocalisation.spotlight,
+                        style: GoogleFonts.baiJamjuree(
+                            fontSize: 22.sp,
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
                     Positioned(
                       bottom: 45.sp,
-                      left: 20.sp,
+                      left: 15.sp,
                       right: 8.sp,
                       child: SizedBox(
                         child: BlocBuilder<HomeScreenSpotLightBloc,
@@ -200,47 +200,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fit: BoxFit.cover);
                               }).toList();
 
-                              return Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      AppLocalisation.spotlight,
-                                      style: GoogleFonts.baiJamjuree(
-                                          fontSize: 22.sp,
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                  ),
-                                  HorizontalScrollableCard(
-                                    cardStatusColor: Colors.indigoAccent,
-                                    titlecard: showNames,
-                                    imageListCount: state.spotlight.length,
-                                    imageList: imageWidgets,
-                                    textColor: AppColors.black,
-                                    cardbackgroundcolor: AppColors.white,
-                                    onTap: (String showId) {
-                                      final int parsedShowId =
-                                          int.tryParse(showId) ?? 0;
-                                      context
-                                          .read<ShowIdCubit>()
-                                          .updateShowId(parsedShowId);
+                              return HorizontalScrollableCard(
+                                cardStatusColor: Colors.indigoAccent,
+                                titlecard: showNames,
+                                imageListCount: state.spotlight.length,
+                                imageList: imageWidgets,
+                                textColor: AppColors.black,
+                                cardbackgroundcolor: AppColors.white,
+                                onTap: (String showId) {
+                                  final int parsedShowId =
+                                      int.tryParse(showId) ?? 0;
+                                  context
+                                      .read<ShowIdCubit>()
+                                      .updateShowId(parsedShowId);
 
-                                      //BlocProvider.of<NavigationCubit>(context)
-                                      //.navigateToIndex(3);
-                                      context.push("/showcase");
-                                      BlocProvider.of<UserShowDetailBloc>(
-                                              context)
-                                          .add(FetchUserShowDetail(
-                                              showId: int.parse(showId)));
-                                      BlocProvider.of<UserEpisodeDetailBloc>(
-                                              context)
-                                          .add(FetchUserEpisodeDetail(
-                                              showId: int.parse(showId)));
-                                    },
-                                    showIds: showIds,
-                                  ),
-                                ],
+                                  //BlocProvider.of<NavigationCubit>(context)
+                                  //.navigateToIndex(3);
+                                  context.push("/showcase");
+                                  BlocProvider.of<UserShowDetailBloc>(context)
+                                      .add(FetchUserShowDetail(
+                                          showId: int.parse(showId)));
+                                  BlocProvider.of<UserEpisodeDetailBloc>(
+                                          context)
+                                      .add(FetchUserEpisodeDetail(
+                                          showId: int.parse(showId)));
+                                },
+                                showIds: showIds,
                               );
                             } else if (state is HomeScreenSpotlightLoading) {
                               return horizontalCardShimmerWidget();
@@ -363,7 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         CustomElevatedButton(
                                             backgroundcolor: AppColors.black,
                                             bordercolor: AppColors.white,
-                                            fontsize: 18.sp,
+                                            fontsize: 16.sp,
                                             labelcolor: AppColors.white,
                                             onPressed: () {},
                                             text: 'Stream Now'),

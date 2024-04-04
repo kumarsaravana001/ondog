@@ -181,7 +181,7 @@ class HorizontalScrollableCard1 extends StatelessWidget {
               }
             },
             child: Container(
-              width: 40.w,
+              width: 42.w,
               margin: EdgeInsets.all(12.sp),
               decoration: BoxDecoration(
                   color: cardbackgroundcolor,
