@@ -363,10 +363,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         CustomElevatedButton(
                                             backgroundcolor: AppColors.black,
                                             bordercolor: AppColors.white,
-                                            fontsize: 16.sp,
+                                            fontsize: 18.sp,
                                             labelcolor: AppColors.white,
                                             onPressed: () {},
-                                            text: 'stream now'),
+                                            text: 'Stream Now'),
                                         SizedBox(width: 40.w),
                                         Container(
                                             height: 4.5.h,

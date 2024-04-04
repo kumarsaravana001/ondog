@@ -62,15 +62,16 @@ class _HelpScreenState extends State<HelpScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       AppLocalisation.help,
-                       style: GoogleFonts.baiJamjuree(
-                          fontSize: 24.sp,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w800,
-                        ),
+                      style: GoogleFonts.baiJamjuree(
+                        fontSize: 24.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 20.sp, vertical: 10.sp),
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20)),
