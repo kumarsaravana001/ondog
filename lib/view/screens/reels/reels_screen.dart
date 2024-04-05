@@ -105,7 +105,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                                                   showId: int.parse(showId)));
                                         },
                                         child: Image.network(imageUrl,
-                                            fit: BoxFit.cover),
+                                            fit: BoxFit.fill),
                                       );
                                     },
                                   );
@@ -156,18 +156,38 @@ class _ReelsScreenState extends State<ReelsScreen> {
                           left: MediaQuery.of(context).size.width / 2 - 20,
                           child: SvgPicture.asset(
                               IconAssets.reelscenterindicator)),
-                      Positioned(
-                          bottom: 40.sp,
-                          right: 15.sp,
-                          child:
-                              SvgPicture.asset(IconAssets.reelsrightindicator)),
-                      Positioned(
-                        top: 0,
-                        right: 30,
-                        child: InkWell(
-                          onTap: () {},
-                          child: SvgPicture.asset(IconAssets.badgecloseblack),
+                      // Positioned(
+                      //     bottom: 40.sp,
+                      //     right: 15.sp,
+                      //     child:
+                      //         SvgPicture.asset(IconAssets.reelsrightindicator)),
+                      // Positioned(
+                      //   top: 0,
+                      //   right: 30,
+                      //   child: InkWell(
+                      //     onTap: () {},
+                      //     child: SvgPicture.asset(IconAssets.badgecloseblack),
+                      //   ),
+                      // ),
+                      Container(
+                        // height: 5.h,
+                        color: AppColors.black,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: 18.sp, top: 8.sp, bottom: 8.sp),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: SvgPicture.asset(
+                                IconAssets.ondgoTextlogoblackcovered,
+                                height: 26.sp,
+                                semanticsLabel: 'Ondgo Logo'),
+                          ),
                         ),
+                      ),
+                      Positioned(
+                        top: 22.sp,
+                        right: 20.sp,
+                        child: SvgPicture.asset(IconAssets.badgecloseblack),
                       ),
                     ],
                   ),

@@ -105,14 +105,14 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
       String showTitle, Widget imageWidget, String episodeNo,
       {required bool isUserDetail}) {
     return Container(
-      height: 29.h,
+      height: 28.h,
       decoration: BoxDecoration(
           color: AppColors.black, borderRadius: BorderRadius.circular(20)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 15.sp, left: 15.sp, right: 15.sp),
+            padding: EdgeInsets.only(top: 12.sp, left: 15.sp, right: 18.sp),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -129,7 +129,7 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
                     Text(
                       showTitle,
                       style: GoogleFonts.baiJamjuree(
-                        fontSize: 22.sp,
+                        fontSize: 20.sp,
                         color: AppColors.white,
                         fontWeight: FontWeight.w600,
                       ),

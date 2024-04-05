@@ -99,7 +99,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
             ),
             Positioned(
               top: 0,
-              right: 30,
+              right: 18.sp,
               child: Row(
                 children: [
                   SvgPicture.asset(IconAssets.badgeopen),

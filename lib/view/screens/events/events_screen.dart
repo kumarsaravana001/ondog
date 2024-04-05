@@ -119,7 +119,7 @@ class _EventsScreenState extends State<EventsScreen> {
               ),
               Positioned(
                 top: 0,
-                right: 30,
+                right: 18.sp,
                 child: Row(
                   children: [SvgPicture.asset(IconAssets.badgeopen)],
                 ),

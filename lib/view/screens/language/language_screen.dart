@@ -174,7 +174,7 @@ class _CheckboxListState extends State<LanguageScreen> {
             ),
             Positioned(
               top: 0,
-              right: 30,
+              right: 18.sp,
               child: Row(
                 children: [SvgPicture.asset(IconAssets.badgeopen)],
               ),

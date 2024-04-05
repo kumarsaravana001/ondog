@@ -36,7 +36,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           IconAssets.profilescreenbgblack),
                       Positioned(
                         top: 0,
-                        right: 30,
+                        right: 18.sp,
                         child: Row(
                           children: [SvgPicture.asset(IconAssets.badgeopen)],
                         ),

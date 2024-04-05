@@ -22,10 +22,10 @@ Widget buildShowDetails(ShowDetailsData? showDetails, BuildContext context) {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            // Padding(
-            //   padding: EdgeInsets.only(right: 20.sp),
-            //   child: InfoIconOverlay(),
-            // ),
+            //Padding(
+            //padding: EdgeInsets.only(right: 20.sp),
+            //child: InfoIconOverlay(),
+            //),
             Padding(
                 padding: EdgeInsets.only(right: 20.sp),
                 child: IconButton(

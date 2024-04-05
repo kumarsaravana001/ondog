@@ -105,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       //     child: SvgPicture.asset(IconAssets.badgecloseblack)),
                       Positioned(
                         top: 0,
-                        right: 30,
+                        right: 18.sp,
                         child: Row(
                           children: [SvgPicture.asset(IconAssets.badgeopen)],
                         ),

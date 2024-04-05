@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Positioned(
                       bottom: 45.sp,
-                      left: 15.sp,
+                      left: 13.sp,
                       right: 8.sp,
                       child: SizedBox(
                         child: BlocBuilder<HomeScreenSpotLightBloc,
@@ -283,15 +283,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       showId:
                                                           int.parse(showId)));
                                             },
-                                            child: Image.network(imageUrl,
-                                                fit: BoxFit.cover),
+                                            child: Image.network(
+                                              imageUrl,
+                                              fit: BoxFit.fill,
+                                            ),
                                           );
                                         },
                                       );
                                     },
                                   ).toList();
                                   return SizedBox(
-                                    height: 65.h,
+                                    height: 64.h,
                                     child: CarouselSlider(
                                       items: bannerWidgets,
                                       options: CarouselOptions(
@@ -316,23 +318,86 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               },
                             ),
-                            Positioned(
-                              top: 8,
-                              left: 30,
-                              child: SvgPicture.asset(
-                                  IconAssets.ondgoTextlogoblackcovered,
-                                  height: 26.sp,
-                                  semanticsLabel: 'Ondgo Logo'),
-                            ),
-                            Positioned(
-                              top: 0,
-                              right: 30,
-                              child: InkWell(
-                                onTap: () {},
-                                child: SvgPicture.asset(
-                                    IconAssets.badgecloseblack),
+                            Container(
+                              // height: 5.h,
+                              color: AppColors.black,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 18.sp, top: 8.sp, bottom: 8.sp),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: SvgPicture.asset(
+                                      IconAssets.ondgoTextlogoblackcovered,
+                                      height: 26.sp,
+                                      semanticsLabel: 'Ondgo Logo'),
+                                ),
                               ),
                             ),
+                            Positioned(
+                              top: 22.sp,
+                              right: 18.sp,
+                              child:
+                                  SvgPicture.asset(IconAssets.badgecloseblack),
+                            ),
+                            // Row(
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   children: [
+                            //     Expanded(
+                            //       flex: 6,
+                            //       child: Container(
+                            //         height: 5.h,
+                            //         color: AppColors.black,
+                            //         child: Padding(
+                            //           padding: const EdgeInsets.all(8.0),
+                            //           child: Align(
+                            //             alignment: Alignment.topLeft,
+                            //             child: SvgPicture.asset(
+                            //                 IconAssets
+                            //                     .ondgoTextlogoblackcovered,
+                            //                 height: 22.sp,
+                            //                 semanticsLabel: 'Ondgo Logo'),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     Column(
+                            //       children: [
+                            //         Container(
+                            //             color: AppColors.black,
+                            //             height: 2.h,
+                            //             child: Container()),
+                            //         SvgPicture.asset(
+                            //             IconAssets.badgecloseblack),
+                            //       ],
+                            //     ),
+                            //     Expanded(
+                            //       flex: 2,
+                            //       child: Container(
+                            //         height: 5.h,
+                            //         color: AppColors.black,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+
+                            // Positioned(
+                            //   top: 8,
+                            //   left: 30,
+                            //   child: SvgPicture.asset(
+                            //       IconAssets.ondgoTextlogoblackcovered,
+                            //       height: 26.sp,
+                            //       semanticsLabel: 'Ondgo Logo'),
+                            // ),
+                            // Positioned(
+                            //   top: 0,
+                            //   right: 30,
+                            //   child: InkWell(
+                            //     onTap: () {},
+                            //     child: SvgPicture.asset(
+                            //         IconAssets.badgecloseblack),
+                            //   ),
+                            // ),
+
                             Positioned(
                               top: 75.sp,
                               child: Padding(
