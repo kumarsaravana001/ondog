@@ -26,7 +26,7 @@ class EventDetailsBloc extends Bloc<EventDetailsEvent, EventDetailsState> {
   Future<List<EventData>> _fetchEventDetails() async {
     String? userId = Hive.box('sessionBox').get('userId');
 
-    var url = Uri.parse('https://ondgo.in/api/user-event.php');
+    var url = Uri.parse(ApiBase.events);
     var body = json.encode({
       'user_id': userId,
     });

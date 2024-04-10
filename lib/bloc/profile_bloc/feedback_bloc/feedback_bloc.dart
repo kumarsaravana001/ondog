@@ -32,7 +32,7 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
 
   Future<FeedbackModel> _submitFeedback(String comment) async {
     String? userId = Hive.box('sessionBox').get('userId');
-    var url = Uri.parse('https://ondgo.in/api/user-feedback.php');
+    var url = Uri.parse(ApiBase.feedBack);
     var body = json.encode({
       'user_id': userId,
       'comment': comment,

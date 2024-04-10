@@ -28,7 +28,7 @@ class UserReelsBloc extends Bloc<UserReelsEvent, UserReelsState> {
   Future<List<ReelsData>> _fetchUserReels() async {
     String? userId =
         Hive.box('sessionBox').get('userId', defaultValue: "U588583");
-    var url = Uri.parse('https://ondgo.in/api/user-reels.php');
+    var url = Uri.parse(ApiBase.userReelsDetails);
     var body = json.encode({
       'user_id': userId,
     });

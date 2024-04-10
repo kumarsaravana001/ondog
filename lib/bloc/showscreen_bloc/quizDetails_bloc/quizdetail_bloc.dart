@@ -34,7 +34,7 @@ class QuizDetailsBloc extends Bloc<QuizDetailsEvent, QuizDetailsState> {
       int showId, int episodeId) async {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
-    var url = Uri.parse('https://ondgo.in/api/user-quiz-details.php');
+    var url = Uri.parse(ApiBase.quizDetails);
     var body = json.encode({
       'user_id': userId,
       'show_id': showId,

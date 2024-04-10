@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/spotlight_bloc/spotlight_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/spotlight_bloc/spotlight_state.dart';
+import 'package:ondgo_flutter/networkconfig/api_url.dart';
 import '../../../models/homescreen_model/spotlight_module.dart';
 
 class HomeScreenSpotLightBloc
@@ -30,7 +31,7 @@ class HomeScreenSpotLightBloc
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
 
-    final url = Uri.parse('https://ondgo.in/api/user-home-spotlight.php');
+    final url = Uri.parse(ApiBase.spotlight);
 
     if (userId == null) {
       throw Exception('User ID is null home');

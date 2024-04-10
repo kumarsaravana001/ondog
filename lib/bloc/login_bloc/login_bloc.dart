@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:ondgo_flutter/bloc/login_bloc/login_event.dart';
 import 'package:ondgo_flutter/bloc/login_bloc/login_state.dart';
+import 'package:ondgo_flutter/networkconfig/api_url.dart';
 
 // class NoInternetException implements Exception {}
 
@@ -40,7 +41,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (email.isEmpty || password.isEmpty) {
       return false;
     }
-    final url = Uri.parse('https://ondgo.in/api/user-login.php');
+    final url = Uri.parse(ApiBase.login);
     final response = await http.post(
       url,
       headers: {

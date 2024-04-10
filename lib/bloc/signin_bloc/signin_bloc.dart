@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_event.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_state.dart';
+import 'package:ondgo_flutter/networkconfig/api_url.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   SignInBloc() : super(SignInInitial()) {
@@ -36,7 +37,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   Future<Map<String, dynamic>> _signInUser(String email, String password,
       String firstName, String lastName, String mobileNumber) async {
-    var url = Uri.parse('https://ondgo.in/api/user-register.php');
+    var url = Uri.parse(ApiBase.register);
     var headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

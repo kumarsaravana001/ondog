@@ -631,18 +631,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     Center(
                       child: BlocListener<CategoryListBloc, CategoryListState>(
                         listener: (context, state) {
-                          if (state is CategoryListLoaded) {
-                            if (state.categories.isNotEmpty) {
-                              final categoryIdStr =
-                                  state.categories.first.categoryId;
-                              final categoryId =
-                                  int.tryParse(categoryIdStr ?? '0');
-                              if (categoryId != null && categoryId > 0) {
-                                context.read<CategoryWiseShowBloc>().add(
-                                    FetchCategoryWiseShows(
-                                        categoryId: categoryId));
-                              }
-                            }
+                          // if (state is CategoryListLoaded) {
+                          //   if (state.categories.isNotEmpty) {
+                          //     final categoryIdStr =
+                          //         state.categories.first.categoryId;
+                          //     final categoryId =
+                          //         int.tryParse(categoryIdStr ?? '0');
+                          //     if (categoryId != null && categoryId > 0) {
+                          //       context.read<CategoryWiseShowBloc>().add(
+                          //           FetchCategoryWiseShows(
+                          //               categoryId: categoryId));
+                          //     }
+                          //   }
+                          // }
+                          if (state is CategoryListLoaded &&
+                              state.categories.isNotEmpty) {
+                            int categoryId =
+                                int.parse(state.categories[0].categoryId!);
+                            BlocProvider.of<CategoryWiseShowBloc>(context).add(
+                              FetchCategoryWiseShows(categoryId: categoryId),
+                            );
                           }
                         },
                         child: Padding(

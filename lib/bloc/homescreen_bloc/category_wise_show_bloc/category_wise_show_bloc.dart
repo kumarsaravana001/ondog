@@ -16,7 +16,7 @@ class CategoryWiseShowBloc
   Future<List<CategoryWiseListData>> fetchShows(int categoryId) async {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
-    final url = Uri.parse('https://ondgo.in/api/user-category-wise-show.php');
+    final url = Uri.parse(ApiBase.categoryWiseShow);
 
     final body = json.encode({
       'user_id': userId,
@@ -75,7 +75,7 @@ class CategoryWiseShowBloc1
   Future<List<CategoryWiseListData>> fetchShows(int categoryIdd) async {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
-    final url = Uri.parse('https://ondgo.in/api/user-category-wise-show.php');
+    final url = Uri.parse(ApiBase.categoryWiseShow);
 
     final body = json.encode({
       'user_id': userId,
@@ -133,7 +133,7 @@ class CategoryWiseShowBloc2
   Future<List<CategoryWiseListData>> fetchShows(int categoryIddd) async {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
-    final url = Uri.parse('https://ondgo.in/api/user-category-wise-show.php');
+    final url = Uri.parse(ApiBase.categoryWiseShow);
 
     final body = json.encode({
       'user_id': userId,

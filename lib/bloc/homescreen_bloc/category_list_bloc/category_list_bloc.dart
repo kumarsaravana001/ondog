@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/category_list_bloc/category_list_state.dart';
 import 'package:ondgo_flutter/models/homescreen_model/category_list_model.dart';
+import 'package:ondgo_flutter/networkconfig/api_url.dart';
 
 class CategoryListBloc extends Bloc<CategoryListEvent, CategoryListState> {
   CategoryListBloc() : super(CategoryListInitial()) {
@@ -14,7 +15,7 @@ class CategoryListBloc extends Bloc<CategoryListEvent, CategoryListState> {
   Future<List<CategoryListData>> fetchCategoryList() async {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
-    final url = Uri.parse('https://ondgo.in/api/user-home-category-list.php');
+    final url = Uri.parse(ApiBase.categoryWiseList);
 
     if (userId == null) {
       throw Exception('User ID is null');

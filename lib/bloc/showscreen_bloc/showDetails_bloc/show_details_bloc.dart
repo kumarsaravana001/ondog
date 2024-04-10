@@ -28,7 +28,7 @@ class UserShowDetailBloc
   Future<List<ShowDetailsData>> fetchUserShowDetails(int showId) async {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
-    final url = Uri.parse('https://ondgo.in/api/user-show-details.php');
+    final url = Uri.parse(ApiBase.userShowDetails);
     final body = json.encode({
       'show_id': showId,
       'user_id': userId,

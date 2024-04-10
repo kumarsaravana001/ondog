@@ -94,7 +94,7 @@ Widget buildShowDetails(ShowDetailsData? showDetails, BuildContext context) {
           ],
         ),
         Padding(
-          padding: EdgeInsets.only(top: 0.sp),
+          padding: EdgeInsets.only(top: 0.sp, right: 15.sp),
           child: Text(
             showDetails.description ?? 'Description Not Available',
             style: GoogleFonts.baiJamjuree(

@@ -31,7 +31,7 @@ class VideoDetailsBloc extends Bloc<VideoDetailsEvent, VideoDetailsState> {
   Future<List<EpisodeDetailData>> _fetchVideoDetails(
       int showId, int episodeId) async {
     String? userId = Hive.box('sessionBox').get('userId');
-    var url = Uri.parse('https://ondgo.in/api/user-video-details.php');
+    var url = Uri.parse(ApiBase.userVideoDetails);
     var body = json.encode({
       'user_id': userId,
       'show_id': showId,

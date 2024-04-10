@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/banner_bloc/homescreen_banner_state.dart';
 import 'package:ondgo_flutter/models/homescreen_model/banner_model.dart';
+import 'package:ondgo_flutter/networkconfig/api_url.dart';
 
 class HomeScreenBannerBloc
     extends Bloc<HomeScreenBannerEvent, HomeScreenBannerState> {
@@ -29,7 +30,7 @@ class HomeScreenBannerBloc
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
 
-    final url = Uri.parse('https://ondgo.in/api/user-home-screen-banner.php');
+    final url = Uri.parse(ApiBase.homescreenBanner);
 
     if (userId == null) {
       throw Exception('User ID is null home');

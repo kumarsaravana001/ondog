@@ -7,6 +7,7 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_pi
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
 import 'package:ondgo_flutter/models/homescreen_model/popular_picks_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:ondgo_flutter/networkconfig/api_url.dart';
 
 class PopularPicksBloc extends Bloc<PopularPicksEvent, PopularPicksState> {
   PopularPicksBloc() : super(PopularPicksInitial()) {
@@ -29,7 +30,7 @@ class PopularPicksBloc extends Bloc<PopularPicksEvent, PopularPicksState> {
     // String? userId = loginBloc.userId;
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
-    final url = Uri.parse('https://ondgo.in/api/user-home-popular-pickup.php');
+    final url = Uri.parse(ApiBase.popularPicks);
 
     if (userId == null) {
       throw Exception('User ID is null');

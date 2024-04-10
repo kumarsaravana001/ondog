@@ -29,7 +29,7 @@ class CategoryWiseShowSearchBloc
   Future<List<CategoryWiseListData>> _fetchCategoryWiseShows(
       int categoryId) async {
     String? userId = Hive.box('sessionBox').get('userId');
-    final url = Uri.parse('https://ondgo.in/api/user-category-wise-show.php');
+    final url = Uri.parse(ApiBase.categoryWiseShow);
 
     final body = json.encode({
       'user_id': userId,

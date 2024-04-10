@@ -26,7 +26,7 @@ class RewardsBloc extends Bloc<RewardsEvent, RewardsState> {
 
   Future<List<RewardsUrl>> _fetchRewardsUrls() async {
     String? userId = Hive.box('sessionBox').get('userId');
-    var url = Uri.parse('https://ondgo.in/api/user-Rewards.php');
+    var url = Uri.parse(ApiBase.rewards);
     var body = json.encode({
       'user_id': userId,
     });

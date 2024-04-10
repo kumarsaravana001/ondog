@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_event.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_state.dart';
 import 'package:ondgo_flutter/models/profile_model/purchase_model.dart';
+import 'package:ondgo_flutter/networkconfig/api_url.dart';
 
 class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
   PurchaseBloc() : super(PurchaseInitial()) {
@@ -24,7 +25,7 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
 
   Future<List<PurchaseUrl>> _fetchPurchaseUrls() async {
     String? userId = Hive.box('sessionBox').get('userId');
-    var url = Uri.parse('https://ondgo.in/api/user-purchase.php');
+    var url = Uri.parse(ApiBase.purchase);
     var body = json.encode({
       'user_id': userId,
     });

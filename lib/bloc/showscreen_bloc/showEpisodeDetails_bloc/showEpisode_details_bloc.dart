@@ -29,7 +29,7 @@ class UserEpisodeDetailBloc
       int showId) async {
     var box = Hive.box('sessionBox');
     String? userId = box.get('userId');
-    final url = Uri.parse('https://ondgo.in/api/user-episode-details.php');
+    final url = Uri.parse(ApiBase.episodeDetails);
     final body = json.encode({
       'user_id': userId,
       'show_id': showId,
