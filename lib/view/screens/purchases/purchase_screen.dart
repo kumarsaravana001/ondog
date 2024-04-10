@@ -105,7 +105,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
             ),
             Positioned(
               top: 0,
-              right: 18.sp,
+              right: 22.sp,
               child: Row(
                 children: [SvgPicture.asset(IconAssets.badgeopen)],
               ),

@@ -110,9 +110,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18.sp),
-                          child: const CustomeAppBar()),
+                      const CustomeAppBar(),
                       showWatchedContent == false
                           ? Padding(
                               padding: EdgeInsets.all(18.sp),

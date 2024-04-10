@@ -301,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         autoPlayCurve: Curves.decelerate,
                                         autoPlayInterval:
                                             const Duration(seconds: 5),
-                                        height: 71.h,
+                                        height: 64.h,
                                         viewportFraction: 1.0,
                                         onPageChanged: (index, reason) {
                                           setState(() {
@@ -335,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Positioned(
                               top: 22.sp,
-                              right: 18.sp,
+                              right: 22.sp,
                               child:
                                   SvgPicture.asset(IconAssets.badgecloseblack),
                             ),

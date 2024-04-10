@@ -112,7 +112,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                                 },
                               ).toList();
                               return SizedBox(
-                                height: 71.h,
+                                height: 64.h,
                                 child: CarouselSlider(
                                   items: bannerWidgets,
                                   options: CarouselOptions(
@@ -120,7 +120,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                                     autoPlayCurve: Curves.decelerate,
                                     autoPlayInterval:
                                         const Duration(seconds: 5),
-                                    height: 71.h,
+                                    height: 64.h,
                                     viewportFraction: 1.0,
                                     onPageChanged: (index, reason) {
                                       setState(() {
@@ -156,11 +156,11 @@ class _ReelsScreenState extends State<ReelsScreen> {
                           left: MediaQuery.of(context).size.width / 2 - 20,
                           child: SvgPicture.asset(
                               IconAssets.reelscenterindicator)),
-                      // Positioned(
-                      //     bottom: 40.sp,
-                      //     right: 15.sp,
-                      //     child:
-                      //         SvgPicture.asset(IconAssets.reelsrightindicator)),
+                      Positioned(
+                          bottom: 40.sp,
+                          right: 15.sp,
+                          child:
+                              SvgPicture.asset(IconAssets.reelsrightindicator)),
                       // Positioned(
                       //   top: 0,
                       //   right: 30,
@@ -186,7 +186,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                       ),
                       Positioned(
                         top: 22.sp,
-                        right: 20.sp,
+                        right: 22.sp,
                         child: SvgPicture.asset(IconAssets.badgecloseblack),
                       ),
                     ],

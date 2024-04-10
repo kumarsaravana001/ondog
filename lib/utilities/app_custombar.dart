@@ -12,12 +12,18 @@ class CustomeAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SvgPicture.asset(
-          height: 26.sp,
-          IconAssets.ondgoTextlogo,
-          semanticsLabel: 'Ondgo Logo',
+        Padding(
+          padding: EdgeInsets.only(left: 18.sp),
+          child: SvgPicture.asset(
+            height: 26.sp,
+            IconAssets.ondgoTextlogo,
+            semanticsLabel: 'Ondgo Logo',
+          ),
         ),
-        SvgPicture.asset(IconAssets.badgecloseblack),
+        Padding(
+          padding: EdgeInsets.only(right: 22.sp),
+          child: SvgPicture.asset(IconAssets.badgecloseblack),
+        ),
       ],
     );
   }
