@@ -7,7 +7,6 @@ import '../../../bloc/homescreen_bloc/category_wise_show_bloc/category_wise_show
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
-import '../../../bloc/navigation_cubit/navigationbar_cubit.dart';
 import '../../../bloc/search_bloc/catwiseshow_bloc.dart';
 import '../../../bloc/search_bloc/catwiseshow_event.dart';
 import '../../../bloc/search_bloc/catwiseshow_state.dart';
@@ -182,7 +181,7 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                                       state.categoryWise.map((show) {
                                     String imageUrl = show.thumbnail!.isNotEmpty
                                         ? show.thumbnail![0]
-                                        : 'default_image_url';
+                                        : 'health_care_banner';
 
                                     return Image.network(imageUrl,
                                         fit: BoxFit.cover);
@@ -244,7 +243,7 @@ class _SearchandLibraryScreenState extends State<SearchandLibraryScreen> {
                                           String imageUrl =
                                               show.thumbnail!.isNotEmpty
                                                   ? show.thumbnail![0]
-                                                  : 'default_image_url';
+                                                  : 'health_care_banner';
 
                                           return Image.network(imageUrl,
                                               fit: BoxFit.cover);

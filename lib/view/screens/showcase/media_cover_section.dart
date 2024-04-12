@@ -45,8 +45,7 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
           final showDetails = state.userDetails.first;
           final String showTitle = showDetails.showName ?? "Loading ...";
           final String episodeNo = "";
-          final formattedTitle =
-              "Teaser: $showTitle"; // Adjust according to your logic
+          final formattedTitle = "Teaser: $showTitle";
 
           final String thumbnailUrl = showDetails.thumbnail?.isNotEmpty == true
               ? showDetails.thumbnail![0]
@@ -54,15 +53,16 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
           final Widget imageWidget = thumbnailUrl.isNotEmpty
               ? Image.network(thumbnailUrl,
                   fit: BoxFit.cover, height: 180, width: double.infinity)
-              : Image.asset('assets/images/default_image.png',
+              : Image.asset('assets/images/health_care_banner',
                   fit: BoxFit.cover, height: 200);
           return buildMediaSectionContent(
               formattedTitle, imageWidget, episodeNo,
               isUserDetail: true);
         } else if (state is UserShowDetailError) {
-          return const Center(
-              child: Text("Please Check your Network Connectivity."));
-          //Text('Error: ${state.message}');
+          print('Error UserShowDetailError: ${state.message}');
+          return Center(
+            child: Text('Error UserShowDetailError: ${state.message}'),
+          );
         }
         return const Text("Please select a show.");
       },
@@ -74,7 +74,8 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
       builder: (context, state) {
         if (state is VideoDetailsLoading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is VideoDetailsLoaded) {
+        } else if (state is VideoDetailsLoaded &&
+            state.episodevideoDetails.isNotEmpty) {
           final videoDetail = state.episodevideoDetails.first;
           final String showTitle = videoDetail.title ?? "Loading ...";
           final String episodeNo = videoDetail.episodeNo ?? "";
@@ -85,16 +86,23 @@ class _MediaCoverSectionState extends State<MediaCoverSection> {
           final Widget imageWidget = thumbnailUrl.isNotEmpty
               ? Image.network(thumbnailUrl,
                   fit: BoxFit.cover, height: 180, width: double.infinity)
-              : Image.asset('assets/images/default_image.png',
+              : Image.asset('assets/images/health_care_banner.png',
                   fit: BoxFit.cover, height: 200);
           return buildMediaSectionContent(
               formattedTitle, imageWidget, episodeNo,
               isUserDetail: false);
-        } else if (state is VideoDetailsError) {
-          return const Center(
-            child: Text("Please Check your Network Connectivity."),
+        }
+        // else if (state is VideoDetailsError) {
+        //   return const Center(
+        //     child: Text("Please Check your Network Connectivity."),
+        //   );
+        //   //  Text('Error: ${state.message}');
+        // }
+        else if (state is VideoDetailsError) {
+          print('Error VideoDetailsError: ${state.message}');
+          return Center(
+            child: Text('Error VideoDetailsError: ${state.message}'),
           );
-          //  Text('Error: ${state.message}');
         }
         return const Text("Please select an episode.");
       },

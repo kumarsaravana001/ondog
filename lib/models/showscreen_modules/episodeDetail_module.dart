@@ -11,7 +11,7 @@ class EpisodeVideoModule {
     if (json['data'] != null) {
       data = <EpisodeDetailData>[];
       json['data'].forEach((v) {
-        data!.add( EpisodeDetailData.fromJson(v));
+        data!.add(EpisodeDetailData.fromJson(v));
       });
     }
   }
@@ -73,6 +73,8 @@ class EpisodeDetailData {
     showId = json['show_id'];
     duration = json['duration'];
     thumbnail = json['thumbnail'].cast<String>();
+    // thumbnail = json['thumbnail']?.cast<String>() ?? [];
+    // thumbnail = json['thumbnail'] == null ? [] : List<String>.from(json['thumbnail']);
     url = json['url'];
     teaserUrl = json['teaser_url'];
     metaTags = json['meta_tags'];

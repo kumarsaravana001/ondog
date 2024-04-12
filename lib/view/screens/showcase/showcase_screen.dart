@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
-import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import 'package:ondgo_flutter/view/screens/showcase/media_cover_section.dart';
@@ -11,7 +10,6 @@ import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
-import '../../../bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_bloc.dart';
 import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/episodeVideoDetail_event.dart';
 import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';

@@ -145,7 +145,7 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                         state.episodeDetails.map((show) {
                       String imageUrl = show.episodeBanner!.isNotEmpty
                           ? show.episodeBanner![0]
-                          : 'default_image_url';
+                          : 'health_care_banner_url';
                       return Image.network(imageUrl, fit: BoxFit.cover);
                     }).toList();
 

@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   state.spotlight.map((show) {
                                 String imageUrl = show.thumbnail!.isNotEmpty
                                     ? show.thumbnail![0]
-                                    : 'default_image_url';
+                                    : 'health_care_banner';
 
                                 return Image.network(imageUrl,
                                     fit: BoxFit.cover);
@@ -582,7 +582,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 state.popularPicks.map((show) {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
-                                  : 'default_image_url';
+                                  : 'health_care_banner';
 
                               return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();
@@ -697,7 +697,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             List<Widget> imageWidgets = state.shows.map((show) {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
-                                  : 'default_image_url';
+                                  : 'health_care_banner';
 
                               return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();
@@ -798,7 +798,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             List<Widget> imageWidgets = state.shows.map((show) {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
-                                  : 'default_image_url';
+                                  : 'health_care_banner';
 
                               return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();
@@ -901,7 +901,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             List<Widget> imageWidgets = state.shows.map((show) {
                               String imageUrl = show.thumbnail!.isNotEmpty
                                   ? show.thumbnail![0]
-                                  : 'default_image_url';
+                                  : 'health_care_banner';
 
                               return Image.network(imageUrl, fit: BoxFit.cover);
                             }).toList();

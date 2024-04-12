@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../config/config_index.dart';
 
 class ScrollableElongatedCardWidget extends StatelessWidget {

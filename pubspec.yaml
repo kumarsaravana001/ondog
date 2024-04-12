@@ -57,6 +57,8 @@ dependencies:
   back_button_interceptor: ^7.0.2
   google_fonts: ^6.2.1
 
+  http: any
+  shared_preferences: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -7,7 +7,6 @@ import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import '../../../bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
-import '../../../bloc/navigation_cubit/navigationbar_cubit.dart';
 import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import '../../../bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
@@ -79,7 +78,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                               state.popularPicks.map((show) {
                             String imageUrl = show.thumbnail!.isNotEmpty
                                 ? show.thumbnail![0]
-                                : 'default_image_url';
+                                : 'health_care_banner';
 
                             return Image.network(imageUrl, fit: BoxFit.cover);
                           }).toList();
@@ -206,7 +205,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                               state.popularPicks.map((show) {
                             String imageUrl = show.thumbnail!.isNotEmpty
                                 ? show.thumbnail![0]
-                                : 'default_image_url';
+                                : 'health_care_banner';
 
                             return Image.network(imageUrl, fit: BoxFit.cover);
                           }).toList();

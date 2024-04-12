@@ -25,7 +25,6 @@ import 'utilities/index.dart';
 import 'package:ondgo_flutter/view/screens/Signup/signup_screen.dart';
 import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
 import '../view/view_index.dart';
-import 'dart:io';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +34,7 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   String initialRoute = determineInitialRoute();
-  HttpOverrides.global = MyHttpOverrides();
+  // HttpOverrides.global = MyHttpOverrides();
 
   runApp(
     //DevicePreview(
@@ -51,14 +50,14 @@ String determineInitialRoute() {
   return userId != null ? '/navbar' : '/login';
 }
 
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
+// class MyHttpOverrides extends HttpOverrides {
+//   @override
+//   HttpClient createHttpClient(SecurityContext? context) {
+//     return super.createHttpClient(context)
+//       ..badCertificateCallback =
+//           (X509Certificate cert, String host, int port) => true;
+//   }
+// }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key, required this.initialRoute});

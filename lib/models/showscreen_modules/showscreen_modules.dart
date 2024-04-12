@@ -73,6 +73,7 @@ class ShowDetailsData {
     description = json['description'];
     categoryId = json['category_id'];
     thumbnail = json['thumbnail'].cast<String>();
+    
     showTeaser = json['show_teaser'];
     totalEpisodes = json['total_episodes'];
     totalDuration = json['total_duration'];
