@@ -126,8 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     alignment: Alignment.bottomRight,
                                     children: [
                                       Stack(
-                                        alignment: Alignment
-                                            .center, // Aligns the icon to the center when there's no image
+                                        alignment: Alignment.center,
                                         children: [
                                           Container(
                                             width: 50.w,

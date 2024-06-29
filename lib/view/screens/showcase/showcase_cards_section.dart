@@ -171,12 +171,12 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                             print("Show id  ${parsedShowId}");
                             print("Episode id ${parsedEpisodeId}");
                             print("Episode Card OnTapped");
-                            context
-                                .read<ShowIdCubit>()
-                                .updateShowId(parsedShowId);
-                            context
-                                .read<EpisodeIdCubit>()
-                                .updateEpisodeId(parsedEpisodeId);
+                            // context
+                            //     .read<ShowIdCubit>()
+                            //     .updateShowId(parsedShowId);
+                            // context
+                            //     .read<EpisodeIdCubit>()
+                            //     .updateEpisodeId(parsedEpisodeId);
 
                             context.read<VideoDetailsBloc>().add(
                                   FetchVideoDetails(
@@ -185,12 +185,12 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                                   ),
                                 );
 
-                            context.read<QuizDetailsBloc>().add(
-                                  FetchQuizDetails(
-                                    showId: parsedShowId,
-                                    episodeId: parsedEpisodeId,
-                                  ),
-                                );
+                            // context.read<QuizDetailsBloc>().add(
+                            //       FetchQuizDetails(
+                            //         showId: parsedShowId,
+                            //         episodeId: parsedEpisodeId,
+                            //       ),
+                            //     );
 
                             context
                                 .read<QuizVisibilityCubit>()

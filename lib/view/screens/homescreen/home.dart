@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'dart:async';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +32,6 @@ import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
 import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // Internet was reconnected
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Internet Connection Restored')));
-        _loadData();
+        // _loadData();
         connectivityCheckTimer?.cancel(); // Stop checking for connectivity
       } else if (!isOnline && previousStatus) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
       var connectivityResult = await Connectivity().checkConnectivity();
       if (connectivityResult != ConnectivityResult.none) {
         isOnline = true;
-        _loadData();
+        // _loadData();
         connectivityCheckTimer?.cancel();
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Internet Connection Restored')));
@@ -112,12 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _loadData() {
-    BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
-    BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
-    BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
-    BlocProvider.of<HomeScreenSpotLightBloc>(context).add(FetchSpotlight());
-  }
+  // void _loadData() {
+  //   BlocProvider.of<HomeScreenBannerBloc>(context).add(FetchBanners());
+  //   BlocProvider.of<PopularPicksBloc>(context).add(FetchPopularPicks());
+  //   BlocProvider.of<CategoryListBloc>(context).add(FetchCategoryList());
+  //   BlocProvider.of<HomeScreenSpotLightBloc>(context).add(FetchSpotlight());
+  // }
 
   void _loadUserId() async {
     var box = Hive.box('sessionBox');
@@ -210,20 +210,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onTap: (String showId) {
                                   final int parsedShowId =
                                       int.tryParse(showId) ?? 0;
+
                                   context
                                       .read<ShowIdCubit>()
                                       .updateShowId(parsedShowId);
 
-                                  //BlocProvider.of<NavigationCubit>(context)
-                                  //.navigateToIndex(3);
-                                  context.push("/showcase");
                                   BlocProvider.of<UserShowDetailBloc>(context)
                                       .add(FetchUserShowDetail(
                                           showId: int.parse(showId)));
-                                  BlocProvider.of<UserEpisodeDetailBloc>(
-                                          context)
-                                      .add(FetchUserEpisodeDetail(
-                                          showId: int.parse(showId)));
+                                  // BlocProvider.of<UserEpisodeDetailBloc>(
+                                  //         context)
+                                  //     .add(FetchUserEpisodeDetail(
+                                  //         showId: int.parse(showId)));
+                                  context.push("/showcase");
                                 },
                                 showIds: showIds,
                               );

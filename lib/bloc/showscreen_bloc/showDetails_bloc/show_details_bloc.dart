@@ -18,6 +18,7 @@ class UserShowDetailBloc
     try {
       emit(UserShowDetailLoading());
       final userDetails = await fetchUserShowDetails(event.showId);
+
       emit(UserShowDetailLoaded(userDetails, showId: event.showId));
     } catch (e) {
       print("Error fetching user details: $e");
@@ -33,6 +34,8 @@ class UserShowDetailBloc
       'show_id': showId,
       'user_id': userId,
     });
+    print("ShowDetailsData ${body}");
+
     try {
       final response = await http.post(
         url,
@@ -42,8 +45,8 @@ class UserShowDetailBloc
         },
         body: body,
       );
-      // print("Response status show screen: ${response.statusCode}");
-      // print("Response body show screen: ${response.body}");
+      print("Response status ShowDetailsData: ${response.statusCode}");
+      print("Response body ShowDetailsData: ${response.body}");
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);
         if (responseData['status'] == true) {

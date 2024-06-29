@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_event.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_state.dart';
 import 'package:ondgo_flutter/networkconfig/api_url.dart';
@@ -37,6 +36,11 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   Future<Map<String, dynamic>> _signInUser(String email, String password,
       String firstName, String lastName, String mobileNumber) async {
+    print('First Name: $firstName');
+    print('Last Name: $lastName');
+    print('Mobile Number: $mobileNumber');
+    print('Email: $email');
+    print('Password: $password');
     var url = Uri.parse(ApiBase.register);
     var headers = {
       'Content-Type': 'application/json',
@@ -54,8 +58,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
     var response =
         await http.post(url, headers: headers, body: json.encode(userData));
-    // print('Status Code: ${response.statusCode}');
-    // print('Response Body: ${response.body}');
+    print('Status Code: ${response.statusCode}');
+    print('Response Body: ${response.body}');
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
       // print('Response: $responseBody'); // Pri

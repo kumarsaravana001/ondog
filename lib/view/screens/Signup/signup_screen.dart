@@ -20,10 +20,10 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
-  bool isPasswordVisible = false;
   TextEditingController lastNameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isPasswordVisible = false;
 
   @override
   void initState() {
