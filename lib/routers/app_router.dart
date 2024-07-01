@@ -44,21 +44,21 @@
 //   ],
 // );
 
-// class RouteNames {
-//   static const splashscreen1 = "splashscreen1";
-//   static const splashscreen2 = "splashscreen2";
-//   static const signupscreen = "signupscreen";
-//   static const profilescreen = "profilescreen";
-//   static const homescreen = "homescreen";
-//   static const playlistcreen = "playlistcreen";
-//   static const eventsscreen = "eventsscreen";
-//   static const purchasecreen = "purchasecreen";
-//   static const rewardsscreen = "rewardsscreen";
-//   static const languagescreen = "languagescreen";
-//   static const helpscreen = "helpscreen";
-//   static const feedbackscreen = "feedbackscreen";
-//   static const contactscreen = "contactscreen";
-// }
+class RouteNames {
+  static const splashscreenintro = "splashIntro";
+  static const splashscreen2 = "splash2";
+  static const signupscreen = "signupscreen";
+  static const profilescreen = "profilescreen";
+  static const homescreen = "homescreen";
+  static const playlistcreen = "playlistcreen";
+  static const eventsscreen = "eventsscreen";
+  static const purchasecreen = "purchasecreen";
+  static const rewardsscreen = "rewardsscreen";
+  static const languagescreen = "languagescreen";
+  static const helpscreen = "helpscreen";
+  static const feedbackscreen = "feedbackscreen";
+  static const contactscreen = "contactscreen";
+}
 
 class AppRoute{
   static const homescreen = "homescreen";

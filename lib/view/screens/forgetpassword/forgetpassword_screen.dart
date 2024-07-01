@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ondgo_flutter/utilities/app_buttons.dart';
+import 'package:ondgo_flutter/utilities/app_textfie.dart';
 import 'package:ondgo_flutter/view/screens/login/login_screen_widgets.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_bg.dart';
-import '../../../utilities/index.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -53,6 +54,16 @@ class _ForgetPasswordScreen extends State<ForgetPasswordScreen> {
                                 AppLocalisation.forgetPassword,
                                 style: AppTextStyle.headingint(
                                     fontSize: 21.sp,
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 5.h),
+                              child: Text(
+                                AppLocalisation.enterotp,
+                                style: AppTextStyle.headingint(
+                                    fontSize: 15.sp,
                                     color: AppColors.white,
                                     fontWeight: FontWeight.w400),
                               ),

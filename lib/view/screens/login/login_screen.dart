@@ -108,12 +108,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               Padding(
                                 padding: EdgeInsets.only(bottom: 15.sp),
                                 child: CustomTextField(
+                                  inputType: TextInputType.number,
                                   controller: emailController,
                                   hintText: "Mobile Number",
                                   borderColor: AppColors.white,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Please enter your email';
+                                      return 'Please enter your Mobile Number';
                                     }
                                     return null;
                                   },

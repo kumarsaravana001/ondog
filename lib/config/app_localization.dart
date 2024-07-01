@@ -28,6 +28,8 @@ class AppLocalisation {
   static const registernow = "Register now";
   static const alreadyhaveanacc = "Already have an account";
   static const forgetPassword = "Forgot Password?";
+  static const mobilenumberverify = "Mobile Number Verification";
+  static const enterotp = "Please enter the OTP sent to verified Mobile Number";
   static const alreadyhaveanaccount = "Already have an account";
   static const login = "log in";
   static const reset = "Reset";
