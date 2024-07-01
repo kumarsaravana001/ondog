@@ -5,8 +5,10 @@ import 'package:ondgo_flutter/bloc/signin_bloc/signin_bloc.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_event.dart';
 import 'package:ondgo_flutter/bloc/signin_bloc/signin_state.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
+import 'package:ondgo_flutter/main.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
 import 'package:ondgo_flutter/utilities/index.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../utilities/app_validator.dart';
 import 'package:hive/hive.dart';
 
@@ -24,6 +26,7 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController mobileController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
+  final supabase = Supabase.instance.client;
 
   @override
   void initState() {
@@ -138,10 +141,65 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ValidationUtil.validateName(value),
                               ),
                               SizedBox(height: 3.h),
+                              // CustomTextField(
+                              //   controller: mobileController,
+                              //   showCountryCodePicker: true,
+                              //   hintText: "Mobile Number",
+                              //   suffixWidget: TextButton(
+                              //     onPressed: () {
+                              //       context.go(Routes.otpVerification);
+                              //     },
+                              //     child: const Text('Verify'),
+                              //   ),
+                              //   validator: (value) {
+                              //     if (value == null || value.isEmpty) {
+                              //       return 'Mobile Number is required';
+                              //     } else if (!RegExp(r'^[0-9]{10}$')
+                              //         .hasMatch(value)) {
+                              //       return 'Enter a valid 10 digit mobile number';
+                              //     }
+                              //     return null;
+                              //   },
+                              // ),
                               CustomTextField(
                                 controller: mobileController,
                                 showCountryCodePicker: true,
                                 hintText: "Mobile Number",
+                                suffixWidget: TextButton(
+                                  // onPressed: () async {
+
+                                  //   context.go(Routes.otpVerification);
+                                  // },
+                                  onPressed: () async {
+                                    final response =
+                                        await supabase.auth.verifyOTP(
+                                      phone: mobileController.text,
+                                      type: OtpType.sms,
+                                    );
+
+                                    if (response != null) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              'Error verifying OTP: ${response}'),
+                                        ),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                              Text('OTP Verified Successfully'),
+                                        ),
+                                      );
+                                      // Navigate to the OTP verification screen or next step in your app flow
+                                      context.go(Routes.otpVerification);
+                                    }
+                                  },
+
+                                  child: const Text('Verify'),
+                                ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Mobile Number is required';
@@ -152,8 +210,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                   return null;
                                 },
                               ),
+
                               SizedBox(height: 3.h),
                               CustomTextField(
+                                suffixWidget: TextButton(
+                                  onPressed: () {
+                                    // Verify button pressed logic
+                                    print('Verify button pressed');
+                                  },
+                                  child: const Text('Verify'),
+                                ),
                                 controller: emailController,
                                 hintText: "Email",
                                 borderColor: AppColors.white,
