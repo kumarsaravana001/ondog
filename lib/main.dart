@@ -27,22 +27,22 @@ import 'utilities/index.dart';
 import 'package:ondgo_flutter/view/screens/Signup/signup_screen.dart';
 import 'package:ondgo_flutter/view/screens/search/search_library_screen.dart';
 import '../view/view_index.dart';
-// import 'package:supabase/supabase.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: 'https://ffjcllaaepufvjcskdpy.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmamNsbGFhZXB1ZnZqY3NrZHB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk4MTg5NjQsImV4cCI6MjAzNTM5NDk2NH0.VfCxoD918q22kFLavj1NHDQH9YiuVw4pEOjBTOdjjFA',
+  );
   await Hive.initFlutter();
   await Hive.openBox('userBox');
   await Hive.openBox('sessionBox');
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   String initialRoute = determineInitialRoute();
-  // HttpOverrides.global = MyHttpOverrides();
 
   runApp(
-    //DevicePreview(
-    //builder: (context) => MyApp(initialRoute: initialRoute),
-    //));
     MyApp(initialRoute: initialRoute),
   );
 }
@@ -52,15 +52,6 @@ String determineInitialRoute() {
   String? userId = box.get('userId');
   return userId != null ? Routes.navbar : Routes.login;
 }
-
-// class MyHttpOverrides extends HttpOverrides {
-//   @override
-//   HttpClient createHttpClient(SecurityContext? context) {
-//     return super.createHttpClient(context)
-//       ..badCertificateCallback =
-//           (X509Certificate cert, String host, int port) => true;
-//   }
-// }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key, required this.initialRoute});
@@ -87,11 +78,6 @@ class _MyAppState extends State<MyApp> {
       initialRoute = Routes.signup;
     }
   }
-
-  final supabaseUrl = 'https://ffjcllaaepufvjcskdpy.supabase.co';
-  final supabaseKey =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmamNsbGFhZXB1ZnZqY3NrZHB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk4MTg5NjQsImV4cCI6MjAzNTM5NDk2NH0.VfCxoD918q22kFLavj1NHDQH9YiuVw4pEOjBTOdjjFA';
-  final supabase = Supabase.instance.client;
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +201,16 @@ class _MyAppState extends State<MyApp> {
             builder: (context, state) => const ShortsPage()),
         // GoRoute(
         //     path: Routes.otpVerification,
-        //     builder: (context, state) =>  OtpVerificationScreen()),
+        //     builder: (context, state) => OtpVerificationScreen()),
+        GoRoute(
+          path: '/otpVerification',
+          builder: (context, state) {
+            final phoneNumber = state.extra as Map<String, String>?;
+            return OtpVerificationScreen(
+              phoneNumber: phoneNumber?['phoneNumber'] ?? '',
+            );
+          },
+        ),
       ],
     );
     return ResponsiveSizer(
