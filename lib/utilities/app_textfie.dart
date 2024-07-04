@@ -723,7 +723,8 @@ class CustomTextField extends StatefulWidget {
     this.textColor = Colors.black,
     this.hintColor = Colors.grey,
     this.borderRadius = 30,
-    this.contentPadding = const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+    this.contentPadding =
+        const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
     this.suffixIcon,
     this.suffixWidget,
     this.onSuffixIconPressed,
@@ -832,7 +833,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
             initialCountryCode: 'IN',
             onChanged: (phone) {
               widget.controller.text = phone.number;
-              widget.onPhoneNumberChanged?.call(phone.completeNumber); // Call the callback
+              widget.onPhoneNumberChanged
+                  ?.call(phone.completeNumber); // Call the callback
             },
             validator: phoneInputValidator,
           )
@@ -864,9 +866,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   borderSide: BorderSide(color: widget.borderColor)),
               contentPadding: widget.contentPadding,
               suffixIcon: widget.isPassword
+                  // ? IconButton(
+                  //     icon: Icon(
+                  //       _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  //     ),
+                  //     onPressed: _togglePasswordVisibility,
+                  //   )
+                  // : widget.suffixIcon != null
+                  //     ? IconButton(
+                  //         icon: Icon(widget.suffixIcon),
+                  //         onPressed: widget.onSuffixIconPressed,
+                  //       )
+                  //     : (_showSuffixWidget ? widget.suffixWidget : null),
                   ? IconButton(
                       icon: Icon(
-                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        _isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: _togglePasswordVisibility,
                     )
@@ -875,7 +891,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           icon: Icon(widget.suffixIcon),
                           onPressed: widget.onSuffixIconPressed,
                         )
-                      : (_showSuffixWidget ? widget.suffixWidget : null),
+                      : widget.suffixWidget,
             ),
           );
   }
