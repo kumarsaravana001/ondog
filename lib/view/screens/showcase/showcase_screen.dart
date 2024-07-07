@@ -79,9 +79,9 @@ class _ShowCaseScreenState extends State<ShowCaseScreen> {
         BlocProvider<QuizDetailsBloc>(
             create: (context) => QuizDetailsBloc()
               ..add(FetchQuizDetails(showId: showId, episodeId: episodeId))),
-        BlocProvider<VideoDetailsBloc>(
-            create: (context) => VideoDetailsBloc()
-              ..add(FetchVideoDetails(showId: showId, episodeId: episodeId))),
+        BlocProvider<VideoDetailsBloc>(create: (context) => VideoDetailsBloc()
+            // ..add(FetchVideoDetails(showId: showId, episodeId: episodeId)),
+            ),
         BlocProvider(create: (_) => QuizVisibilityCubit()),
       ],
       child: Scaffold(

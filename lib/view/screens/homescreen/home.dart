@@ -215,9 +215,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .read<ShowIdCubit>()
                                       .updateShowId(parsedShowId);
 
-                                  BlocProvider.of<UserShowDetailBloc>(context)
-                                      .add(FetchUserShowDetail(
-                                          showId: int.parse(showId)));
+                                  // BlocProvider.of<UserShowDetailBloc>(context)
+                                  //     .add(FetchUserShowDetail(
+                                  //         showId: int.parse(showId)));
                                   // BlocProvider.of<UserEpisodeDetailBloc>(
                                   //         context)
                                   //     .add(FetchUserEpisodeDetail(
@@ -275,12 +275,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                               //         context)
                                               //     .navigateToIndex(3);
                                               context.push("/showcase");
-                                              BlocProvider.of<
-                                                          UserShowDetailBloc>(
-                                                      context)
-                                                  .add(FetchUserShowDetail(
-                                                      showId:
-                                                          int.parse(showId)));
+                                              // BlocProvider.of<
+                                              //             UserShowDetailBloc>(
+                                              //         context)
+                                              //     .add(FetchUserShowDetail(
+                                              //         showId:
+                                              //             int.parse(showId)));
                                             },
                                             child: Image.network(
                                               imageUrl,
@@ -602,12 +602,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // BlocProvider.of<NavigationCubit>(context)
                                 //     .navigateToIndex(3);
                                 context.push("/showcase");
-                                BlocProvider.of<UserShowDetailBloc>(context)
-                                    .add(FetchUserShowDetail(
-                                        showId: int.parse(showId)));
-                                BlocProvider.of<UserEpisodeDetailBloc>(context)
-                                    .add(FetchUserEpisodeDetail(
-                                        showId: int.parse(showId)));
+                                // BlocProvider.of<UserShowDetailBloc>(context)
+                                //     .add(FetchUserShowDetail(
+                                //         showId: int.parse(showId)));
+                                // BlocProvider.of<UserEpisodeDetailBloc>(context)
+                                //     .add(FetchUserEpisodeDetail(
+                                //         showId: int.parse(showId)));
                               },
                               showIds: showIds,
                             );
@@ -718,14 +718,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // BlocProvider.of<NavigationCubit>(context)
                                 //     .navigateToIndex(3);
                                 context.push("/showcase");
-                                BlocProvider.of<UserShowDetailBloc>(context)
-                                    .add(FetchUserShowDetail(
-                                        showId: int.parse(showId)));
-                                BlocProvider.of<UserEpisodeDetailBloc>(context)
-                                    .add(
-                                  FetchUserEpisodeDetail(
-                                      showId: int.parse(showId)),
-                                );
+                                // BlocProvider.of<UserShowDetailBloc>(context)
+                                //     .add(FetchUserShowDetail(
+                                //         showId: int.parse(showId)));
+                                // BlocProvider.of<UserEpisodeDetailBloc>(context)
+                                //     .add(
+                                //   FetchUserEpisodeDetail(
+                                //       showId: int.parse(showId)),
+                                // );
                               },
                             );
                           } else if (state is CategoryWiseShowError) {
@@ -819,12 +819,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // BlocProvider.of<NavigationCubit>(context)
                                 //     .navigateToIndex(3);
                                 context.push("/showcase");
-                                BlocProvider.of<UserShowDetailBloc>(context)
-                                    .add(FetchUserShowDetail(
-                                        showId: int.parse(showId)));
-                                BlocProvider.of<UserEpisodeDetailBloc>(context)
-                                    .add(FetchUserEpisodeDetail(
-                                        showId: int.parse(showId)));
+                                // BlocProvider.of<UserShowDetailBloc>(context)
+                                //     .add(FetchUserShowDetail(
+                                //         showId: int.parse(showId)));
+                                // BlocProvider.of<UserEpisodeDetailBloc>(context)
+                                //     .add(FetchUserEpisodeDetail(
+                                //         showId: int.parse(showId)));
                               },
                             );
                           } else if (state is CategoryWiseShow1Error) {
@@ -922,12 +922,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // BlocProvider.of<NavigationCubit>(context)
                                 //     .navigateToIndex(3);
                                 context.push("/showcase");
-                                BlocProvider.of<UserShowDetailBloc>(context)
-                                    .add(FetchUserShowDetail(
-                                        showId: int.parse(showId)));
-                                BlocProvider.of<UserEpisodeDetailBloc>(context)
-                                    .add(FetchUserEpisodeDetail(
-                                        showId: int.parse(showId)));
+                                // BlocProvider.of<UserShowDetailBloc>(context)
+                                //     .add(FetchUserShowDetail(
+                                //         showId: int.parse(showId)));
+                                // BlocProvider.of<UserEpisodeDetailBloc>(context)
+                                //     .add(FetchUserEpisodeDetail(
+                                //         showId: int.parse(showId)));
                               },
                             );
                           } else if (state is CategoryWiseShow2Error) {
