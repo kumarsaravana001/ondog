@@ -8,7 +8,7 @@ Widget buildbannerShimmerEffect() {
     baseColor: Colors.grey[300]!,
     highlightColor: Colors.grey[100]!,
     child: Container(
-      height: 71.h,
+      height: 64.h,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
