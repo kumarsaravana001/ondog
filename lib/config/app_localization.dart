@@ -26,7 +26,15 @@ class AppLocalisation {
   static const email = "Email";
   static const password = "Password";
   static const registernow = "Register now";
+  static const alreadyhaveanacc = "Already have an account";
+  static const forgetPassword = "Forgot Password?";
+  static const mobilenumberverify = "Mobile Number Verification";
+  static const enterotp = "Please enter the OTP sent to verified Mobile Number";
+  static const alreadyhaveanaccount = "Already have an account";
   static const login = "log in";
+  static const reset = "Reset";
+  static const logout = "Log Out";
+  static const signup = "Signup";
 
   //Profile
   static const username = "John Doe";
@@ -75,7 +83,7 @@ class AppLocalisation {
   static const french = "French";
   static const german = "German";
   static const spanish = "Spanish";
-  static const subtitle = "Subtitle";
+  static const subtitle = "Subtitles";
 
   //Contacts
   static const checkourwebsit = "Check out our website";
@@ -106,7 +114,7 @@ class AppLocalisation {
 
   static const newepisodes = "New Episodes";
   static const nutritiondaily = "Nutrition Daily";
-  static const shareyourthoughts = "Share your thoughts";
+  static const shareyourthoughts = "Share your thoughts!";
   static const ashwini = "@ashwini";
   static const glo4life = "@glo4life";
   static const sotrue = " So true! will give it a try";

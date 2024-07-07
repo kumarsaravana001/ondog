@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/utilities/app_banner_list.dart';
 import '../config/config_index.dart';
 
 class ScrollableElongatedCardWidget extends StatelessWidget {
@@ -30,7 +29,7 @@ class ScrollableElongatedCardWidget extends StatelessWidget {
             width: 85.w,
             margin: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-              color: Colors.purple,
+              color: Colors.grey[300],
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: ClipRRect(

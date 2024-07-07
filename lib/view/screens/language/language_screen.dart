@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../config/config_index.dart';
 
@@ -45,15 +46,21 @@ class _CheckboxListState extends State<LanguageScreen> {
                     IconAssets.profilescreenbgblack),
                 Align(
                     alignment: Alignment.center,
-                    child: Text(AppLocalisation.language,
-                        style: AppTestStyle.headingBai(fontSize: 28.sp))),
+                    child: Text(
+                      AppLocalisation.language,
+                      style: GoogleFonts.baiJamjuree(
+                        fontSize: 24.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    )),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
                       padding: EdgeInsets.only(
                           left: 30.sp, top: 20.sp, bottom: 15.sp),
                       child: Text(AppLocalisation.audio,
-                          style: AppTestStyle.headingBai(
+                          style: GoogleFonts.baiJamjuree(
                               color: AppColors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 25))),
@@ -111,7 +118,7 @@ class _CheckboxListState extends State<LanguageScreen> {
                       padding: EdgeInsets.only(
                           left: 30.sp, top: 20.sp, bottom: 15.sp),
                       child: Text(AppLocalisation.subtitle,
-                          style: AppTestStyle.headingBai(
+                          style: GoogleFonts.baiJamjuree(
                               color: AppColors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 25))),
@@ -167,7 +174,7 @@ class _CheckboxListState extends State<LanguageScreen> {
             ),
             Positioned(
               top: 0,
-              right: 30,
+              right: 22.sp,
               child: Row(
                 children: [SvgPicture.asset(IconAssets.badgeopen)],
               ),
@@ -218,7 +225,10 @@ class CheckboxRow extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           text,
-          style: const TextStyle(fontSize: 16, color: AppColors.black),
+          style: const TextStyle(
+              fontSize: 22,
+              color: AppColors.black,
+              fontWeight: FontWeight.w400),
         ),
       ],
     );
@@ -239,16 +249,16 @@ class CustomSquareCheckbox extends StatelessWidget {
         onChanged?.call(!checked);
       },
       child: Container(
-        width: 20,
-        height: 20,
+        width: 10,
+        height: 10,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black),
-          color: checked ? Colors.blue : Colors.transparent,
+          color: checked ? Colors.black : Colors.transparent,
         ),
         child: checked
             ? const Icon(
                 Icons.check,
-                size: 16,
+                size: 10,
                 color: Colors.white,
               )
             : null,

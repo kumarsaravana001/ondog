@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/view/index.dart';
+import 'package:ondgo_flutter/config/config_index.dart';
 import '../config/app_textstyle.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -14,12 +14,12 @@ class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     Key? key,
     required this.text,
-     this.onPressed,
+    this.onPressed,
     required this.backgroundcolor,
     required this.labelcolor,
     required this.bordercolor,
     required this.fontsize,
-    this.fontWeight=FontWeight.w600,
+    this.fontWeight = FontWeight.w600,
   }) : super(key: key);
 
   @override
@@ -40,7 +40,7 @@ class CustomElevatedButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: AppTestStyle.headingint(
+        style: AppTextStyle.headingint(
             fontSize: fontsize.sp,
             fontWeight: FontWeight.w600,
             color: labelcolor),

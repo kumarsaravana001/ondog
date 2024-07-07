@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/utilities/app_banner_list.dart';
-import 'package:ondgo_flutter/utilities/app_elongated_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_bloc.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_event.dart';
+import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_state.dart';
+import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import '../../../config/config_index.dart';
 
 class RewardsScreen extends StatefulWidget {
@@ -11,6 +15,12 @@ class RewardsScreen extends StatefulWidget {
 }
 
 class _RewardsScreenState extends State<RewardsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<RewardsBloc>().add(FetchRewardsUrls());
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,24 +40,66 @@ class _RewardsScreenState extends State<RewardsScreen> {
                     IconAssets.profilescreenbgblack),
                 Align(
                     alignment: Alignment.center,
-                    child: Text(AppLocalisation.rewards,
-                        style: AppTestStyle.headingBai(fontSize: 28.sp))),
-                Expanded(
-                  child: ElongatedCardWidget(
-                    cardlength: rewardsimagePaths.length,
-                    imageList: rewardsimagePaths,
-                    sublabel: AppLocalisation.coffeewithcrypto,
-                    label: AppLocalisation.offer,
-                    amount: AppLocalisation.inramount,
-                    date: AppLocalisation.date,
-                    onPressed: () {},
-                  ),
+                    child: Text(
+                      AppLocalisation.rewards,
+                      style: GoogleFonts.baiJamjuree(
+                        fontSize: 24.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    )),
+                // Expanded(
+                //   child: ElongatedCardWidget(
+                //     cardlength: rewardsimagePaths.length,
+                //     imageList: rewardsimagePaths,
+                //     sublabel: AppLocalisation.coffeewithcrypto,
+                //     label: AppLocalisation.offer,
+                //     amount: AppLocalisation.inramount,
+                //     date: AppLocalisation.date,
+                //     onPressed: () {},
+                //   ),
+                // ),
+
+                BlocBuilder<RewardsBloc, RewardsState>(
+                  builder: (context, state) {
+                    if (state is RewardsLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is RewardsLoaded) {
+                      return Container(
+                        height: 500,
+                        child: ListView.builder(
+                          itemCount: state.rewardsUrls.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                  left: 18.sp,
+                                  right: 18.sp,
+                                  bottom: 10.sp,
+                                  top: 20.sp),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.network(
+                                      state.rewardsUrls[index].rewardurl),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    } else if (state is RewardsError) {
+                      return Center(child: Text('Error: ${state.message}'));
+                    }
+                    return horizontalCardShimmerWidget();
+                  },
                 ),
               ],
             ),
             Positioned(
               top: 0,
-              right: 30,
+              right: 22.sp,
               child: Row(
                 children: [
                   SvgPicture.asset(IconAssets.badgeopen),

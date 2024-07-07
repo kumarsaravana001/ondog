@@ -1,6 +1,6 @@
 export 'package:ondgo_flutter/view/screens/Splash/splash_screen.dart';
 export 'package:ondgo_flutter/view/screens/Splash/splash_screen1.dart';
-export 'package:ondgo_flutter/view/screens/Signup/signup_screen.dart';
+export 'package:ondgo_flutter/view/screens/login/login_screen.dart';
 export 'package:ondgo_flutter/view/screens/profile/profile_screen.dart';
 export 'package:ondgo_flutter/view/screens/contact/contacts.dart';
 export 'package:ondgo_flutter/view/screens/feedback/feedback_screen.dart';

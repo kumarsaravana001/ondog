@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:ondgo_flutter/view/screens/showcase/media_section.dart';
-import 'package:ondgo_flutter/view/screens/showcase/quiz_content.dart';
-import 'package:ondgo_flutter/view/screens/showcase/quiz_question_answer_section.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
+import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
+import 'package:ondgo_flutter/view/screens/showcase/media_cover_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/qna_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/quiz_init_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
-import 'package:ondgo_flutter/view/screens/showcase/show_case_card_section.dart';
-import 'package:ondgo_flutter/view/screens/showcase/watch_media_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
+import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_bloc.dart';
+import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/episodeVideoDetail_event.dart';
+import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
+import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
+import '../../../bloc/showscreen_bloc/showId_cubit.dart';
 import '../../../config/config_index.dart';
 import '../../../utilities/app_custombar.dart';
-
-bool showWatchedContent = false;
-bool showQuizContent = false;
-bool showScoreContent = false;
-int score = 0;
+import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_event.dart';
 
 class ShowCaseScreen extends StatefulWidget {
   const ShowCaseScreen({super.key});
@@ -21,245 +27,177 @@ class ShowCaseScreen extends StatefulWidget {
 }
 
 class _ShowCaseScreenState extends State<ShowCaseScreen> {
-  int currentQuestionIndex = 0;
-
-  int totalQuestions = 0;
   int correctAnswers = 0;
+  int totalQuestions = 0;
+  bool showQuizContent = false;
+  bool showScoreContent = false;
 
-  late int _selectedOptionIndex = -1;
+  // int currentQuestionIndex = 0;
+  // int selectedOptionIndex = -1;
+  bool showWatchedContent = false;
 
-  void handleOptionTap(int optionIndex) {
-    // Record the selected answer
+  @override
+  void initState() {
+    super.initState();
+
+    final showId = context.read<ShowIdCubit>().state;
+    final episodeId = context.read<EpisodeIdCubit>().state;
+    if (showId > 0 && episodeId > 0) {
+      context
+          .read<QuizDetailsBloc>()
+          .add(FetchQuizDetails(showId: showId, episodeId: episodeId));
+    }
+  }
+
+  void _handleStartQuiz() {
+    final showId = context.read<ShowIdCubit>().state;
+    final episodeId = context.read<EpisodeIdCubit>().state;
+    if (showId > 0 && episodeId > 0) {
+      context
+          .read<QuizDetailsBloc>()
+          .add(FetchQuizDetails(showId: showId, episodeId: episodeId));
+    }
+
     setState(() {
-      // Save the selected option
-      _selectedOptionIndex = optionIndex;
+      showQuizContent = true;
+    });
+  }
 
-      // Increment the correct answer count if the selected option is correct
-      if (optionIndex == quizData[currentQuestionIndex]['correctAnswerIndex']) {
-        correctAnswers++;
-      }
-
-      // Move to the next question
-      if (currentQuestionIndex < quizData.length - 1) {
-        currentQuestionIndex++;
-        _selectedOptionIndex =
-            -1; // Reset the selected option for the new question
-      } else {
-        // All questions have been answered, set the total questions and show the score
-        totalQuestions = quizData.length;
-        showScoreContent = true;
-      }
+  void _handleEndQuiz() {
+    const Center(child: Text("Quiz Ended"));
+    setState(() {
+      showQuizContent = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned(
-                child:
-                    Center(child: SvgPicture.asset(IconAssets.appbackground))),
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                    child: const CustomeAppBar(),
-                  ),
-                  showWatchedContent == false
-                      ? Padding(
-                          padding: EdgeInsets.all(18.sp),
-                          child: MediaSection(
-                            onWatchNowPressed: () {
-                              setState(() {
-                                showWatchedContent = true;
-                              });
-                            },
-                          ))
-                      : const MediaWatchSection(),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10.sp, left: 18.sp),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalisation.cryptoBeans,
-                          style: AppTestStyle.headingBai(
-                            fontSize: 22.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.sp),
-                          child: Text(
-                            AppLocalisation.ashowabout,
-                            style: AppTestStyle.headingint(
-                              fontSize: 17.sp,
-                              italic: true,
-                              color: AppColors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 18.sp, vertical: 15.sp),
-                    child: Visibility(
-                      visible: !showQuizContent,
-                      child: Container(
-                        padding: EdgeInsets.all(15.sp),
-                        decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: AppColors.black),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              !showQuizContent
-                                  ? AppLocalisation.takethenextquiz
-                                  : AppLocalisation.greatwork,
-                              style: AppTestStyle.headingBai(
-                                  color: Colors.purple,
-                                  fontSize: 21.sp,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  !showQuizContent
-                                      ? AppLocalisation
-                                          .earnpointstoclaimexistingrewards
-                                      : AppLocalisation.claimnextreward,
-                                  style: AppTestStyle.headingBai(
-                                      color: AppColors.white,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(color: Colors.purple)),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16.sp, vertical: 10.sp),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          showQuizContent = !showQuizContent;
-                                        });
-                                      },
-                                      child: Text(
-                                          showQuizContent
-                                              ? AppLocalisation.end
-                                              : AppLocalisation.start,
-                                          style: AppTestStyle.headingint(
-                                              color: AppColors.white,
-                                              fontSize: 16.sp)),
-                                    ),
-                                  ),
-                                ),
-                              ],
+    final showId = context.read<ShowIdCubit>().state;
+    final episodeId = context.read<EpisodeIdCubit>().state;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<QuizDetailsBloc>(
+            create: (context) => QuizDetailsBloc()
+              ..add(FetchQuizDetails(showId: showId, episodeId: episodeId))),
+        BlocProvider<VideoDetailsBloc>(
+            create: (context) => VideoDetailsBloc()
+              ..add(FetchVideoDetails(showId: showId, episodeId: episodeId))),
+        BlocProvider(create: (_) => QuizVisibilityCubit()),
+      ],
+      child: Scaffold(
+        body: SafeArea(
+          child: BlocListener<EpisodeIdCubit, int?>(
+            listener: (context, episodeId) {
+              if (episodeId != null) {
+                setState(() {
+                  showWatchedContent = false;
+                });
+                // context
+                //     .read<UserShowDetailBloc>()
+                //     .add(FetchUserShowDetail(showId: showId));
+              }
+            },
+            child: Stack(
+              children: [
+                // Positioned(
+                //   child: Center(
+                //     child: SvgPicture.asset(IconAssets.appbackground),
+                //   ),
+                // ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CustomeAppBar(),
+                      showWatchedContent == false
+                          ? Padding(
+                              padding: EdgeInsets.all(18.sp),
+                              child: MediaCoverSection(
+                                onWatchNowPressed: () {
+                                  setState(() {
+                                    showWatchedContent = true;
+                                  });
+                                },
+                              ),
                             )
-                          ],
-                        ),
+                          : BlocBuilder<UserShowDetailBloc,
+                              UserShowDetailState>(
+                              builder: (context, state) {
+                                if (state is UserShowDetailLoaded) {
+                                  final showDetails =
+                                      state.userDetails.isNotEmpty
+                                          ? state.userDetails.first
+                                          : null;
+                                  if (showDetails != null) {
+                                    return MediaWatchSection(
+                                      videoUrl: showDetails.showTeaser ??
+                                          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+                                    );
+                                  }
+                                }
+                                return const Center(
+                                    child: Text("Video Not playing"));
+                              },
+                            ),
+                      BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
+                        builder: (context, state) {
+                          if (state is UserShowDetailLoading) {
+                            return buildTextShimmerEffect();
+                          } else if (state is UserShowDetailLoaded) {
+                            final showDetails = state.userDetails.isNotEmpty
+                                ? state.userDetails.first
+                                : null;
+                            return buildShowDetails(showDetails, context);
+                          } else if (state is UserShowDetailError) {
+                            return Center(
+                                child: Text('Error: ${state.message}'));
+                          }
+                          return const Center(
+                              child: Text('Please select a show.'));
+                        },
                       ),
-                    ),
-                  ),
-                  showQuizContent == false
-                      ? const ShowCaseCardSections()
-                      : Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                          child: showScoreContent
-                              ? ScoreWidget(
-                                  totalQuestions: totalQuestions,
-                                  correctAnswers: correctAnswers,
-                                  onFinishPressed: () {
-                                    setState(() {
-                                      showQuizContent = false;
-                                    });
-                                  },
-                                )
-                              : QuizQuestionAnswerSection(
-                                  currentQuestionIndex: currentQuestionIndex,
-                                  quizData: quizData,
-                                  handleOptionTap: handleOptionTap,
-                                ),
+                      BlocBuilder<QuizVisibilityCubit, bool>(
+                          builder: (context, showQuiz) {
+                        return Visibility(
+                          visible: showQuiz,
+                          child: QuizInitWIdget(
+                            onStartQuiz: _handleStartQuiz,
+                            onEndQuiz: _handleEndQuiz,
+                          ),
+                        );
+                      }),
+                      if (showQuizContent)
+                        BlocBuilder<QuizVisibilityCubit, bool>(
+                          builder: (context, showQuiz) {
+                            return Visibility(
+                              visible: showQuiz,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 20.sp),
+                                child: showScoreContent
+                                    ? ScoreWidget(
+                                        totalQuestions: totalQuestions,
+                                        correctAnswers: correctAnswers,
+                                        onFinishPressed: () {
+                                          setState(() {
+                                            showQuizContent = false;
+                                          });
+                                        })
+                                    : const QuizQuestionAnswerSection(),
+                              ),
+                            );
+                          },
                         ),
-                  SizedBox(height: 10.h),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class QuizQuestionAnswerSection extends StatefulWidget {
-  final int currentQuestionIndex;
-  final List<Map<String, dynamic>> quizData;
-  final Function(int) handleOptionTap;
-
-  const QuizQuestionAnswerSection({
-    super.key,
-    required this.currentQuestionIndex,
-    required this.quizData,
-    required this.handleOptionTap,
-  });
-
-  @override
-  State<QuizQuestionAnswerSection> createState() =>
-      _QuizQuestionAnswerSectionState();
-}
-
-class _QuizQuestionAnswerSectionState extends State<QuizQuestionAnswerSection> {
-  late int _selectedOptionIndex = -1;
-  @override
-  Widget build(BuildContext context) {
-    Map<String, dynamic> currentQuestion =
-        widget.quizData[widget.currentQuestionIndex];
-    List<String> options = currentQuestion['options'];
-
-    return Column(
-      children: [
-        QuizQuestionSection(
-          number: '${widget.currentQuestionIndex + 1} / 10 ',
-          question: currentQuestion['question'],
-        ),
-        GridView.count(
-          childAspectRatio: 3,
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          children: List.generate(
-            options.length,
-            (index) => RadioListTile<int>(
-              activeColor: AppColors.black,
-              contentPadding: EdgeInsets.zero,
-              dense: true,
-              title: Text(options[index]),
-              value: index,
-              groupValue: _selectedOptionIndex,
-              onChanged: (int? value) {
-                if (value != null) {
-                  widget.handleOptionTap(value);
-                  setState(() {
-                    _selectedOptionIndex = value;
-                  });
-                }
-              },
+                      const ShowCaseCardSections(),
+                      SizedBox(height: 10.h),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../config/config_index.dart';
@@ -48,60 +49,69 @@ class ContactUsScreen extends StatelessWidget {
                     IconAssets.profilescreenbgblack),
                 Align(
                     alignment: Alignment.center,
-                    child: Text(AppLocalisation.contact,
-                        style: AppTestStyle.headingBai(fontSize: 28.sp))),
-                Column(
-                  // crossAxisAlignment: CrsossAxisAlignment.start,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 15.sp),
+                      child: Text(
+                        AppLocalisation.contact,
+                        style: GoogleFonts.baiJamjuree(
+                          fontSize: 24.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(left: 25.sp, top: 15.sp),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(AppLocalisation.checkourwebsit,
+                            style: AppTextStyle.headingint(fontSize: 20.sp)),
+                      ),
+                      _buildSocialText(
+                        text: AppLocalisation.websitlink,
+                        url: 'https://www.ondgo.live/',
+                      ),
+                      SizedBox(height: 2.5.h),
+                      Text(AppLocalisation.reachouttouson,
+                          style: AppTextStyle.headingint(fontSize: 20.sp)),
+                      _buildSocialText(
+                        text: AppLocalisation.infoondgolive,
+                        url: 'https://www.ondgo.live/',
+                      ),
+                      SizedBox(height: 5.5.h),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(AppLocalisation.checkourwebsit,
-                        style: AppTestStyle.headingint(fontSize: 20.sp)),
-                    _buildSocialText(
-                      text: AppLocalisation.websitlink,
-                      url: 'https://www.ondgo.live/',
+                    _buildSocialIcon(
+                      icon: Image.asset("assets/images/youtube_icon.png",
+                          height: 30, width: 30),
+                      url: 'https://www.youtube.com/@ondgolive',
                     ),
-                    SizedBox(height: 2.5.h),
-                    Text(AppLocalisation.reachouttouson,
-                        style: AppTestStyle.headingint(fontSize: 20.sp)),
-                    _buildSocialText(
-                      text: AppLocalisation.infoondgolive,
-                      url: 'https://www.ondgo.live/',
+                    _buildSocialIcon(
+                      icon: Image.asset("assets/images/instagram_icon.png",
+                          height: 30, width: 30),
+                      url: 'https://www.instagram.com/ondgo.app/',
                     ),
-                    // Text(AppLocalisation.infoondgolive,
-                    //     style: AppTestStyle.headingint(
-                    //         fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                    SizedBox(height: 5.5.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildSocialIcon(
-                          icon: Image.asset("assets/images/youtube_icon.png",
-                              height: 40, width: 40),
-                          url: 'https://www.youtube.com/@ondgolive',
-                        ),
-                        _buildSocialIcon(
-                          icon: Image.asset("assets/images/instagram_icon.png",
-                              height: 50, width: 50),
-                          url: 'https://www.instagram.com/ondgo.app/',
-                        ),
-                        _buildSocialIcon(
-                          icon: Image.asset("assets/images/facebook_icon.png",
-                              height: 40, width: 40),
-                          url: 'https://www.facebook.com/ondgolive/',
-                        ),
-                        _buildSocialIcon(
-                          icon: Image.asset("assets/images/twitter_icon.png",
-                              height: 40, width: 40),
-                          url: 'https://twitter.com/ondgolive',
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 8.0),
-                          child: _buildSocialIcon(
-                            icon: Image.asset("assets/images/linkedin_icon.png",
-                                height: 50, width: 50),
-                            url: 'https://www.linkedin.com/company/ondgolive/',
-                          ),
-                        ),
-                      ],
+                    _buildSocialIcon(
+                      icon: Image.asset("assets/images/facebook_icon.png",
+                          height: 30, width: 30),
+                      url: 'https://www.facebook.com/ondgolive/',
+                    ),
+                    _buildSocialIcon(
+                      icon: Image.asset("assets/images/twitter_icon.png",
+                          height: 30, width: 30),
+                      url: 'https://twitter.com/ondgolive',
+                    ),
+                    _buildSocialIcon(
+                      icon: Image.asset("assets/images/linkedin_icon.png",
+                          height: 30, width: 30),
+                      url: 'https://www.linkedin.com/company/ondgolive/',
                     ),
                   ],
                 ),
@@ -109,7 +119,7 @@ class ContactUsScreen extends StatelessWidget {
             ),
             Positioned(
               top: 0,
-              right: 30,
+              right: 22.sp,
               child: Row(
                 children: [SvgPicture.asset(IconAssets.badgeopen)],
               ),
@@ -157,7 +167,7 @@ class ContactUsScreen extends StatelessWidget {
         padding: EdgeInsets.only(bottom: 5.sp),
         child: Text(
           text,
-          style: AppTestStyle.headingint(
+          style: AppTextStyle.headingint(
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,
           ),

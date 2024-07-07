@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../config/config_index.dart';
 
@@ -35,7 +36,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           IconAssets.profilescreenbgblack),
                       Positioned(
                         top: 0,
-                        right: 30,
+                        right: 22.sp,
                         child: Row(
                           children: [SvgPicture.asset(IconAssets.badgeopen)],
                         ),
@@ -61,11 +62,16 @@ class _HelpScreenState extends State<HelpScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       AppLocalisation.help,
-                      style: AppTestStyle.headingBai(fontSize: 26.sp),
+                      style: GoogleFonts.baiJamjuree(
+                        fontSize: 24.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 20.sp, vertical: 10.sp),
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20)),
@@ -81,7 +87,7 @@ class _HelpScreenState extends State<HelpScreen> {
                       padding: EdgeInsets.only(top: 20.sp, bottom: 8.sp),
                       child: Text(
                         AppLocalisation.faq,
-                        style: AppTestStyle.headingBai(fontSize: 26.sp),
+                        style: GoogleFonts.baiJamjuree(fontSize: 26.sp),
                       ),
                     ),
                   ),
@@ -135,12 +141,12 @@ class FAQSection extends StatelessWidget {
         children: [
           Text(
             questions,
-            style: AppTestStyle.headingBai(fontSize: 18.sp),
+            style: GoogleFonts.baiJamjuree(fontSize: 18.sp),
           ),
           SizedBox(height: 1.5.h),
           Text(
             answers,
-            style: AppTestStyle.headingBai(
+            style: GoogleFonts.baiJamjuree(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.normal,
                 color: Colors.grey[600]!),

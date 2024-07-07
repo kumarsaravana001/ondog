@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 
-List allimagePaths = [
-  AppImages.finance(),
-  AppImages.economy(),
-  AppImages.technology(),
-  AppImages.arts(),
-  AppImages.spirituality(),
-  AppImages.healthcare(),
-  AppImages.sports(),
-  AppImages.wellness(),
-  AppImages.education(),
-  AppImages.impactandSustainability(),
-  AppImages.legal(),
-  AppImages.travel(),
-];
+// List allimagePaths = [
+//   AppImages.finance(),
+//   AppImages.economy(),
+//   AppImages.technology(),
+//   AppImages.arts(),
+//   AppImages.spirituality(),
+//   AppImages.healthcare(),
+//   AppImages.sports(),
+//   AppImages.wellness(),
+//   AppImages.education(),
+//   AppImages.impactandSustainability(),
+//   AppImages.legal(),
+//   AppImages.travel(),
+// ];
 
-List horizontalCard = [
-  AppImages.legal(fit: BoxFit.cover, width: double.infinity),
-  AppImages.travel(fit: BoxFit.cover, width: double.infinity),
-  AppImages.economy(fit: BoxFit.cover, width: double.infinity),
-  AppImages.education(fit: BoxFit.cover, width: double.infinity),
-];
+// List horizontalCard = [
+//   AppImages.legal(fit: BoxFit.cover, width: double.infinity),
+//   AppImages.travel(fit: BoxFit.cover, width: double.infinity),
+//   AppImages.economy(fit: BoxFit.cover, width: double.infinity),
+//   AppImages.education(fit: BoxFit.cover, width: double.infinity),
+// ];
 List<Image> purchadeimagePaths = [
   // AppImages.purchasecard1(fit: BoxFit.cover, width: double.infinity),
   // AppImages.purchasecard2(fit: BoxFit.cover, width: double.infinity),
@@ -320,12 +320,12 @@ List playlistcardnames = [
   // AppLocalisation.finance,
 ];
 
-List scrollableElongatedCardWidgetimagepath = [
-  AppImages.legal(fit: BoxFit.cover, width: double.infinity),
-  AppImages.travel(fit: BoxFit.cover, width: double.infinity),
-  AppImages.economy(fit: BoxFit.cover, width: double.infinity),
-  AppImages.education(fit: BoxFit.cover, width: double.infinity),
-];
+// List scrollableElongatedCardWidgetimagepath = [
+//   AppImages.legal(fit: BoxFit.cover, width: double.infinity),
+//   AppImages.travel(fit: BoxFit.cover, width: double.infinity),
+//   AppImages.economy(fit: BoxFit.cover, width: double.infinity),
+//   AppImages.education(fit: BoxFit.cover, width: double.infinity),
+// ];
 final List<Widget> horizontalCard1 = [
   Image.asset('assets/images/Education.png',
       fit: BoxFit.cover, width: double.infinity),
@@ -340,14 +340,14 @@ final List<Widget> horizontalCard1 = [
   Image.asset('assets/images/Education.png',
       fit: BoxFit.cover, width: double.infinity),
 ];
-List horizontalCard2 = [
-  AppImages.arts(),
-  AppImages.spirituality(),
-  AppImages.healthcare(),
-  AppImages.sports(),
-  AppImages.wellness(),
-  AppImages.education(),
-  AppImages.impactandSustainability(),
-  AppImages.legal(),
-  AppImages.travel(),
-];
+// List horizontalCard2 = [
+//   AppImages.arts(),
+//   AppImages.spirituality(),
+//   AppImages.healthcare(),
+//   AppImages.sports(),
+//   AppImages.wellness(),
+//   AppImages.education(),
+//   AppImages.impactandSustainability(),
+//   AppImages.legal(),
+//   AppImages.travel(),
+// ];
