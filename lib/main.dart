@@ -10,6 +10,7 @@ import 'package:ondgo_flutter/bloc/profile_bloc/feedback_bloc/feedback_bloc.dart
 import 'package:ondgo_flutter/bloc/profile_bloc/purchase_bloc/purchase_bloc.dart';
 import 'package:ondgo_flutter/bloc/profile_bloc/rewards_bloc/rewards_bloc.dart';
 import 'package:ondgo_flutter/bloc/search_bloc/catwiseshow_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
@@ -223,6 +224,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => QuizVisibilityCubit()),
             BlocProvider(create: (context) => ShowIdCubit()),
             BlocProvider(create: (context) => EpisodeIdCubit()),
+            BlocProvider(create: (context) => VideoDetailsBloc()),
             BlocProvider(create: (context) => UserEpisodeDetailBloc()),
             BlocProvider(create: (context) => CategoryWiseShowSearchBloc()),
             BlocProvider(create: (context) => DisplayCubit()),

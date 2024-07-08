@@ -614,11 +614,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_state.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/episodeVideoDetail_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
-import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
 import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
 import 'package:ondgo_flutter/view/screens/showcase/media_cover_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/qna_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/quiz_init_section.dart';
+import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
 import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
@@ -689,6 +692,39 @@ class _ShowCaseScreenState extends State<ShowCaseScreen>
     setState(() {
       showWatchedContent = true;
       showMediaCover = false;
+    });
+  }
+
+  void _handleStartQuiz() {
+    final showId = context.read<ShowIdCubit>().state;
+    final episodeId = context.read<EpisodeIdCubit>().state;
+    print('Start Quiz ${showId}');
+    print('Start Quiz ${episodeId}');
+    setState(() {
+      selectedEpisodeId = episodeId;
+      showWatchedContent = false;
+      showQuizContent = true;
+    });
+
+    // context
+    //     .read<VideoDetailsBloc>()
+    //     .add(FetchVideoDetails(showId: showId, episodeId: episodeId));
+
+    if (showId > 0 && episodeId > 0) {
+      context
+          .read<QuizDetailsBloc>()
+          .add(FetchQuizDetails(showId: showId, episodeId: episodeId));
+    }
+
+    // setState(() {
+    //   showQuizContent = true;
+    // });
+  }
+
+  void _handleEndQuiz() {
+    const Center(child: Text("Quiz Ended"));
+    setState(() {
+      showQuizContent = false;
     });
   }
 
@@ -798,6 +834,38 @@ class _ShowCaseScreenState extends State<ShowCaseScreen>
                               child: Text('Please select a show.'));
                         },
                       ),
+                      BlocBuilder<QuizVisibilityCubit, bool>(
+                          builder: (context, showQuiz) {
+                        return Visibility(
+                          visible: showQuiz,
+                          child: QuizInitWIdget(
+                            onStartQuiz: _handleStartQuiz,
+                            onEndQuiz: _handleEndQuiz,
+                          ),
+                        );
+                      }),
+                      if (showQuizContent)
+                        BlocBuilder<QuizVisibilityCubit, bool>(
+                          builder: (context, showQuiz) {
+                            return Visibility(
+                              visible: showQuiz,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 20.sp),
+                                child: showScoreContent
+                                    ? ScoreWidget(
+                                        totalQuestions: totalQuestions,
+                                        correctAnswers: correctAnswers,
+                                        onFinishPressed: () {
+                                          setState(() {
+                                            showQuizContent = false;
+                                          });
+                                        })
+                                    : const QuizQuestionAnswerSection(),
+                              ),
+                            );
+                          },
+                        ),
                       const ShowCaseCardSections(),
                       SizedBox(height: 10.h),
                     ],

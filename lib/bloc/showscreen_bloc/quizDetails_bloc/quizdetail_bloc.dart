@@ -40,8 +40,9 @@ class QuizDetailsBloc extends Bloc<QuizDetailsEvent, QuizDetailsState> {
       'show_id': showId,
       'episode_id': episodeId,
     });
-    // print("showid from QuizDetailsBloc : ${showId}");
-    // print("episodeid from QuizDetailsBloc : ${episodeId}");
+    print("showid from QuizDetailsBloc : ${showId}");
+    print("episodeid from QuizDetailsBloc : ${episodeId}");
+    print("QuizDetailsBloc ${body}");
 
     var response = await http.post(
       url,
@@ -51,8 +52,8 @@ class QuizDetailsBloc extends Bloc<QuizDetailsEvent, QuizDetailsState> {
       },
       body: body,
     );
-    // print("Response status QuizDetailsBloc: ${response.statusCode}");
-    // print("Response body QuizDetailsBloc: ${response.body}");
+    print("Response status QuizDetailsBloc: ${response.statusCode}");
+    print("Response body QuizDetailsBloc: ${response.body}");
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       if (jsonData['status'] == true) {

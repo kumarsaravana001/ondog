@@ -1,244 +1,247 @@
-
-// import 'dart:io';
 // import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:hive_flutter/hive_flutter.dart';
-// import 'package:image_picker/image_picker.dart';
-// import 'package:ondgo_flutter/config/config_index.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_state.dart';
+// import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
+// import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_state.dart';
+// import 'package:ondgo_flutter/view/screens/homescreen/widgets/widget.dart';
+// import 'package:ondgo_flutter/view/screens/showcase/media_cover_section.dart';
+// import 'package:ondgo_flutter/view/screens/showcase/qna_section.dart';
+// import 'package:ondgo_flutter/view/screens/showcase/quiz_init_section.dart';
+// import 'package:ondgo_flutter/view/screens/showcase/score_widget_section.dart';
+// import 'package:ondgo_flutter/view/screens/showcase/showcase_cards_section.dart';
+// import 'package:ondgo_flutter/view/screens/showcase/video_section.dart';
+// import 'package:ondgo_flutter/view/screens/showcase/widgets.dart';
+// import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_bloc.dart';
+// import '../../../bloc/showscreen_bloc/episodeVideoDetails_bloc/episodeVideoDetail_event.dart';
+// import '../../../bloc/showscreen_bloc/quizDetails_bloc/quizdetail_bloc.dart';
+// import '../../../bloc/showscreen_bloc/quizVisibility_cubit.dart';
+// import '../../../bloc/showscreen_bloc/showId_cubit.dart';
+// import '../../../config/config_index.dart';
+// import '../../../utilities/app_custombar.dart';
+// import 'package:ondgo_flutter/bloc/showscreen_bloc/quizDetails_bloc/quizdetail_event.dart';
 
-// class ProfileScreen extends StatefulWidget {
-//   const ProfileScreen({super.key});
+// class ShowCaseScreen extends StatefulWidget {
+//   const ShowCaseScreen({super.key});
 
 //   @override
-//   State<ProfileScreen> createState() => _ProfileScreenState();
+//   State<ShowCaseScreen> createState() => _ShowCaseScreenState();
 // }
 
-// class _ProfileScreenState extends State<ProfileScreen> {
-//   File? image;
-//   String firstName = '';
-//   String email = '';
+// class _ShowCaseScreenState extends State<ShowCaseScreen> {
+//   int correctAnswers = 0;
+//   int totalQuestions = 0;
+//   bool showQuizContent = false;
+//   bool showScoreContent = false;
+
+//   // int currentQuestionIndex = 0;
+//   // int selectedOptionIndex = -1;
+//   bool showWatchedContent = false;
+//   int selectedEpisodeId = -1;
 
 //   @override
 //   void initState() {
 //     super.initState();
-//     _loadImagePath();
-//     _loadUserData();
+
+//     final showId = context.read<ShowIdCubit>().state;
+//     final episodeId = context.read<EpisodeIdCubit>().state;
+//     if (showId > 0 && episodeId > 0) {
+//       context
+//           .read<QuizDetailsBloc>()
+//           .add(FetchQuizDetails(showId: showId, episodeId: episodeId));
+//     }
 //   }
 
-//   Future<void> _loadUserData() async {
-//     var box = Hive.box('userBox');
-//     String storedFirstName =
-//         box.get('firstName', defaultValue: 'User') as String;
-//     String storedEmail =
-//         box.get('email', defaultValue: 'email@example.com') as String;
-
+//   void _handleWatchNowPressed() {
 //     setState(() {
-//       firstName = storedFirstName;
-//       email = storedEmail;
+//       showWatchedContent = true;
 //     });
 //   }
 
-//   Future<void> _loadImagePath() async {
-//     var box = Hive.box('userBox');
-//     String? imagePath = box.get('profileImagePath');
-//     if (imagePath != null) {
-//       setState(() {
-//         image = File(imagePath);
-//       });
-//     }
+//   void _handleStartQuiz() {
+//     final showId = context.read<ShowIdCubit>().state;
+//     final episodeId = context.read<EpisodeIdCubit>().state;
+//     setState(() {
+//       selectedEpisodeId = episodeId;
+//       showWatchedContent = false;
+//     });
+
+//     context
+//         .read<VideoDetailsBloc>()
+//         .add(FetchVideoDetails(showId: showId, episodeId: episodeId));
+//     // final showId = context.read<ShowIdCubit>().state;
+//     // final episodeId = context.read<EpisodeIdCubit>().state;
+//     // if (showId > 0 && episodeId > 0) {
+//     //   context
+//     //       .read<QuizDetailsBloc>()
+//     //       .add(FetchQuizDetails(showId: showId, episodeId: episodeId));
+//     // }
+
+//     // setState(() {
+//     //   showQuizContent = true;
+//     // });
 //   }
 
-//   Future<void> _pickImage() async {
-//     final pickedFile =
-//         await ImagePicker().pickImage(source: ImageSource.gallery);
-//     if (pickedFile != null) {
-//       Box userBox = await Hive.openBox('userBox');
-
-//       await userBox.put('profileImagePath', pickedFile.path);
-//       setState(() {
-//         image = File(pickedFile.path);
-//       });
-//     }
-//   }
-
-//   Future<void> logout() async {
-//     var box = Hive.box('sessionBox');
-//     await box.delete('userId');
-//     GoRouter.of(context).go('/login');
+//   void _handleEndQuiz() {
+//     const Center(child: Text("Quiz Ended"));
+//     setState(() {
+//       showQuizContent = false;
+//     });
 //   }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SingleChildScrollView(
-//         child: SafeArea(
-//           child: Stack(
-//             children: [
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Stack(
+//     final showId = context.read<ShowIdCubit>().state;
+//     final episodeId = context.read<EpisodeIdCubit>().state;
+//     return MultiBlocProvider(
+//       providers: [
+//         BlocProvider<QuizDetailsBloc>(
+//             create: (context) => QuizDetailsBloc()
+//               ..add(FetchQuizDetails(showId: showId, episodeId: episodeId))),
+//         BlocProvider<VideoDetailsBloc>(create: (context) => VideoDetailsBloc()
+//             // ..add(FetchVideoDetails(showId: showId, episodeId: episodeId)),
+//             ),
+//         BlocProvider(create: (_) => QuizVisibilityCubit()),
+//       ],
+//       child: Scaffold(
+//         body: SafeArea(
+//           child: BlocListener<EpisodeIdCubit, int?>(
+//             listener: (context, episodeId) {
+//               if (episodeId != null) {
+//                 setState(() {
+//                   showWatchedContent = false;
+//                 });
+//                 // context
+//                 //     .read<UserShowDetailBloc>()
+//                 //     .add(FetchUserShowDetail(showId: showId));
+//               }
+//             },
+//             child: Stack(
+//               children: [
+//                 // Positioned(
+//                 //   child: Center(
+//                 //     child: SvgPicture.asset(IconAssets.appbackground),
+//                 //   ),
+//                 // ),
+//                 SingleChildScrollView(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
 //                     children: [
-//                       // ClipPath(
-//                       //   clipper: TriangularClipper(),
-//                       //   child: Container(
-//                       //     height: 54.h,
-//                       //     color: Colors.black,
-//                       //   ),
-//                       // ),
-//                       SvgPicture.asset(
-//                         width: MediaQuery.of(context).size.width,
-//                         IconAssets.profilebg,
-//                       ),
-//                       // Positioned(
-//                       //     top: 0,
-//                       //     right: 30,
-//                       //     child: SvgPicture.asset(IconAssets.badgecloseblack)),
-//                       Positioned(
-//                         top: 0,
-//                         right: 22.sp,
-//                         child: Row(
-//                           children: [SvgPicture.asset(IconAssets.badgeopen)],
-//                         ),
-//                       ),
-//                       Positioned(
-//                           bottom: -15.sp,
-//                           left: MediaQuery.of(context).size.width * 0.5 - 30,
-//                           child: SvgPicture.asset(
-//                               IconAssets.proflestandalonelevel)),
-//                       Positioned(
-//                         child: Center(
-//                           child: Padding(
-//                             padding: EdgeInsets.only(top: 30.sp),
-//                             child: Column(
-//                               children: [
-//                                 Center(
-//                                   child: Stack(
-//                                     alignment: Alignment.bottomRight,
-//                                     children: [
-//                                       Stack(
-//                                         alignment: Alignment.center,
-//                                         children: [
-//                                           Container(
-//                                             width: 50.w,
-//                                             height: 50.w,
-//                                             decoration: BoxDecoration(
-//                                               borderRadius:
-//                                                   BorderRadius.circular(20),
-//                                               color: Colors.grey.shade300,
-//                                               image: image != null
-//                                                   ? DecorationImage(
-//                                                       image: FileImage(image!),
-//                                                       fit: BoxFit.cover,
-//                                                     )
-//                                                   : null,
-//                                             ),
-//                                             child: image == null
-//                                                 ? const Icon(Icons.person,
-//                                                     size: 80)
-//                                                 : null,
-//                                           ),
-//                                           Positioned(
-//                                             bottom: 0,
-//                                             left: 0,
-//                                             child: Padding(
-//                                               padding:
-//                                                   const EdgeInsets.all(8.0),
-//                                               child: Container(
-//                                                 decoration: BoxDecoration(
-//                                                   color: Colors.black,
-//                                                   borderRadius:
-//                                                       BorderRadius.circular(20),
-//                                                 ),
-//                                                 padding:
-//                                                     const EdgeInsets.symmetric(
-//                                                         horizontal: 8,
-//                                                         vertical: 4),
-//                                                 child: InkWell(
-//                                                   onTap: _pickImage,
-//                                                   child: const Text(
-//                                                     'Edit Profile',
-//                                                     style: TextStyle(
-//                                                       color: Colors
-//                                                           .white, // Text color
-//                                                       fontSize:
-//                                                           12, // Adjust font size
-//                                                     ),
-//                                                   ),
-//                                                 ),
-//                                               ),
-//                                             ),
-//                                           ),
-//                                         ],
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 ),
-//                                 Padding(
-//                                   padding: EdgeInsets.only(top: 16.sp),
-//                                   child: Text(
-//                                     firstName,
-//                                     style: GoogleFonts.baiJamjuree(
-//                                         color: AppColors.white,
-//                                         fontSize: 24.sp,
-//                                         fontWeight: FontWeight.bold),
-//                                   ),
-//                                 ),
-//                                 Padding(
-//                                   padding: EdgeInsets.only(top: 10.sp),
-//                                   child: Text(
-//                                     email, // Displaying the email
-//                                     style: AppTextStyle.headingint(
-//                                         color: AppColors.white,
-//                                         fontSize: 18.sp,
-//                                         fontWeight: FontWeight.normal),
-//                                   ),
-//                                 ),
-//                                 SizedBox(height: 32.sp),
-//                                 buildClickableText(AppLocalisation.yourplaylist,
-//                                     () {
-//                                   context.push("/playlist");
-//                                 }),
-//                                 buildClickableText(AppLocalisation.events, () {
-//                                   context.push("/events");
-//                                 }),
-//                                 buildClickableText(AppLocalisation.purchase,
-//                                     () {
-//                                   context.push("/purchase");
-//                                 }),
-//                                 buildClickableText(AppLocalisation.logout, () {
-//                                   logout();
-//                                 }),
-//                               ],
+//                       const CustomeAppBar(),
+//                       showWatchedContent == false
+//                           ? Padding(
+//                               padding: EdgeInsets.all(18.sp),
+//                               child: MediaCoverSection(
+//                                 onWatchNowPressed: () {
+//                                   setState(() {
+//                                     showWatchedContent = true;
+//                                   });
+//                                 },
+//                               ),
+//                             )
+//                           : BlocBuilder<UserShowDetailBloc,
+//                               UserShowDetailState>(
+//                               builder: (context, state) {
+//                                 if (state is UserShowDetailLoaded) {
+//                                   final showDetails =
+//                                       state.userDetails.isNotEmpty
+//                                           ? state.userDetails.first
+//                                           : null;
+//                                   if (showDetails != null) {
+//                                     return MediaWatchSection(
+//                                       videoUrl: showDetails.showTeaser ??
+//                                           'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+//                                     );
+//                                   }
+//                                 }
+//                                 return const Center(
+//                                     child: Text("Video Not playing"));
+//                               },
 //                             ),
-//                           ),
-//                         ),
+//                       // if (!showWatchedContent)
+//                       //   Padding(
+//                       //     padding: EdgeInsets.all(18.sp),
+//                       //     child: MediaCoverSection(
+//                       //       onWatchNowPressed: _handleWatchNowPressed,
+//                       //       selectedEpisodeId: selectedEpisodeId,
+//                       //     ),
+//                       //   )
+//                       // else
+//                       //   BlocBuilder<VideoDetailsBloc, VideoDetailsState>(
+//                       //     builder: (context, state) {
+//                       //       if (state is VideoDetailsLoaded &&
+//                       //           state.episodevideoDetails.isNotEmpty) {
+//                       //         final videoDetail =
+//                       //             state.episodevideoDetails.first;
+//                       //         return MediaWatchSection(
+//                       //           videoUrl: videoDetail.url ?? '',
+//                       //           onVideoStopped: () {
+//                       //             setState(() {
+//                       //               showWatchedContent = false;
+//                       //             });
+//                       //           },
+//                       //         );
+//                       //       }
+//                       //       return const Center(
+//                       //           child: Text("Video Not playing"));
+//                       //     },
+//                       //   ),
+//                       BlocBuilder<UserShowDetailBloc, UserShowDetailState>(
+//                         builder: (context, state) {
+//                           if (state is UserShowDetailLoading) {
+//                             return buildTextShimmerEffect();
+//                           } else if (state is UserShowDetailLoaded) {
+//                             final showDetails = state.userDetails.isNotEmpty
+//                                 ? state.userDetails.first
+//                                 : null;
+//                             return buildShowDetails(showDetails, context);
+//                           } else if (state is UserShowDetailError) {
+//                             return Center(
+//                                 child: Text('Error: ${state.message}'));
+//                           }
+//                           return const Center(
+//                               child: Text('Please select a show.'));
+//                         },
 //                       ),
+//                       BlocBuilder<QuizVisibilityCubit, bool>(
+//                           builder: (context, showQuiz) {
+//                         return Visibility(
+//                           visible: showQuiz,
+//                           child: QuizInitWIdget(
+//                             onStartQuiz: _handleStartQuiz,
+//                             onEndQuiz: _handleEndQuiz,
+//                           ),
+//                         );
+//                       }),
+//                       if (showQuizContent)
+//                         BlocBuilder<QuizVisibilityCubit, bool>(
+//                           builder: (context, showQuiz) {
+//                             return Visibility(
+//                               visible: showQuiz,
+//                               child: Padding(
+//                                 padding:
+//                                     EdgeInsets.symmetric(horizontal: 20.sp),
+//                                 child: showScoreContent
+//                                     ? ScoreWidget(
+//                                         totalQuestions: totalQuestions,
+//                                         correctAnswers: correctAnswers,
+//                                         onFinishPressed: () {
+//                                           setState(() {
+//                                             showQuizContent = false;
+//                                           });
+//                                         })
+//                                     : const QuizQuestionAnswerSection(),
+//                               ),
+//                             );
+//                           },
+//                         ),
+//                       const ShowCaseCardSections(),
+//                       SizedBox(height: 10.h),
 //                     ],
 //                   ),
-//                 ],
-//               ),
-//             ],
+//                 ),
+//               ],
+//             ),
 //           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget buildClickableText(String text, Function onTap) {
-//     return GestureDetector(
-//       onTap: () {
-//         onTap();
-//       },
-//       child: Padding(
-//         padding: EdgeInsets.symmetric(vertical: 10.sp),
-//         child: Text(
-//           text,
-//           style: AppTextStyle.headingint(
-//               color: AppColors.white,
-//               fontSize: 16.sp,
-//               fontWeight: FontWeight.normal),
 //         ),
 //       ),
 //     );

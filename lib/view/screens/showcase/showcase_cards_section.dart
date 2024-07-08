@@ -174,9 +174,9 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                             context
                                 .read<ShowIdCubit>()
                                 .updateShowId(parsedShowId);
-                            // context
-                            //     .read<EpisodeIdCubit>()
-                            //     .updateEpisodeId(parsedEpisodeId);
+                            context
+                                .read<EpisodeIdCubit>()
+                                .updateEpisodeId(parsedEpisodeId);
 
                             context.read<VideoDetailsBloc>().add(
                                   FetchVideoDetails(
@@ -195,9 +195,8 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                             context
                                 .read<QuizVisibilityCubit>()
                                 .toggleQuizVisibility();
-                           
-                            context.read<DisplayCubit>().showVideoDetails();
 
+                            context.read<DisplayCubit>().showVideoDetails();
                           },
                         ),
                       ],
