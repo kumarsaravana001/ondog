@@ -171,9 +171,9 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                             print("Show id  ${parsedShowId}");
                             print("Episode id ${parsedEpisodeId}");
                             print("Episode Card OnTapped");
-                            // context
-                            //     .read<ShowIdCubit>()
-                            //     .updateShowId(parsedShowId);
+                            context
+                                .read<ShowIdCubit>()
+                                .updateShowId(parsedShowId);
                             // context
                             //     .read<EpisodeIdCubit>()
                             //     .updateEpisodeId(parsedEpisodeId);
@@ -195,7 +195,9 @@ class _ShowCaseCardSectionsState extends State<ShowCaseCardSections> {
                             context
                                 .read<QuizVisibilityCubit>()
                                 .toggleQuizVisibility();
-                            context.read<DisplayBloc>().showVideoDetails();
+                           
+                            context.read<DisplayCubit>().showVideoDetails();
+
                           },
                         ),
                       ],

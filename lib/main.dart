@@ -225,7 +225,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => EpisodeIdCubit()),
             BlocProvider(create: (context) => UserEpisodeDetailBloc()),
             BlocProvider(create: (context) => CategoryWiseShowSearchBloc()),
-            BlocProvider(create: (context) => DisplayBloc()),
+            BlocProvider(create: (context) => DisplayCubit()),
             BlocProvider(create: (context) => UserShowDetailBloc()),
             BlocProvider(create: (context) => ShowIdCubit()),
             BlocProvider(create: (context) => EpisodeIdCubit()),

@@ -21,11 +21,11 @@ class MediaCoverSection extends StatefulWidget {
 class _MediaCoverSectionState extends State<MediaCoverSection> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DisplayBloc, DisplayState>(
+    return BlocBuilder<DisplayCubit, DisplayState>(
       builder: (context, displayState) {
         switch (displayState) {
           case DisplayState.userDetails:
-            return buildUserDetailsSection(context);
+            return buildUserDetailsSection(context);  
           case DisplayState.videoDetails:
             return buildVideoDetailsSection(context);
           default:

@@ -16,6 +16,7 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/category_wise_show_bloc/categ
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_bloc.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
@@ -705,6 +706,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .updateShowId(parsedShowId);
 
                                 context.push("/showcase");
+                                context.read<DisplayCubit>().showUserDetails();
                               },
                             );
                           } else if (state is CategoryWiseShow1Error) {

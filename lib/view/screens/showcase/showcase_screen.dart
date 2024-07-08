@@ -611,6 +611,7 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeDisplay_cubit.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_bloc.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/episodeVideoDetails_bloc/epidoseVideoDetail_state.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
@@ -649,7 +650,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-
+    context.read<DisplayCubit>().showUserDetails();
     final showId = context.read<ShowIdCubit>().state;
     final episodeId = context.read<EpisodeIdCubit>().state;
     if (showId > 0 && episodeId > 0) {
@@ -670,6 +671,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+
     super.dispose();
   }
 
@@ -688,20 +690,6 @@ class _ShowCaseScreenState extends State<ShowCaseScreen>
       showWatchedContent = true;
       showMediaCover = false;
     });
-
-    // final showId = context.read<ShowIdCubit>().state;
-
-    // if (selectedEpisodeId > 0) {
-    //   // If an episode is selected, fetch the episode video details
-    //   context
-    //       .read<VideoDetailsBloc>()
-    //       .add(FetchVideoDetails(showId: showId, episodeId: selectedEpisodeId));
-    // } else {
-    //   // If no episode is selected, fetch the teaser video details
-    //   context
-    //       .read<UserShowDetailBloc>()
-    //       .add(FetchUserShowDetail(showId: showId));
-    // }
   }
 
   @override
@@ -724,6 +712,7 @@ class _ShowCaseScreenState extends State<ShowCaseScreen>
                 setState(() {
                   showWatchedContent = false;
                 });
+                context.read<DisplayCubit>().showUserDetails();
               }
             },
             child: Stack(
