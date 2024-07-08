@@ -150,7 +150,8 @@ class CategoryWiseShowBloc2
         },
         body: body,
       );
-
+      // print('Cat 3 Response Status: ${response.statusCode}');
+      // print('Cat 3 Response Body: ${response.body}');
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);
         if (responseData['status'] == true) {

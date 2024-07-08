@@ -148,8 +148,9 @@ import 'package:chewie/chewie.dart';
 
 class MediaWatchSection extends StatefulWidget {
   final String videoUrl;
+  final VoidCallback onVideoStopped;
 
-  const MediaWatchSection({Key? key, required this.videoUrl}) : super(key: key);
+  const MediaWatchSection({Key? key, required this.videoUrl, required this.onVideoStopped}) : super(key: key);
 
   @override
   _MediaWatchSectionState createState() => _MediaWatchSectionState();

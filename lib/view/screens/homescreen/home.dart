@@ -17,7 +17,6 @@ import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_pi
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_event.dart';
 import 'package:ondgo_flutter/bloc/homescreen_bloc/popular_picks_bloc/popular_picks_state.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_bloc.dart';
-import 'package:ondgo_flutter/bloc/showscreen_bloc/showEpisodeDetails_bloc/showEpisode_details_event.dart';
 import 'package:ondgo_flutter/bloc/showscreen_bloc/showId_cubit.dart';
 import 'package:ondgo_flutter/config/config_index.dart';
 import 'package:ondgo_flutter/utilities/app_bg.dart';
@@ -29,7 +28,6 @@ import '../../../bloc/homescreen_bloc/spotlight_bloc/spotlight_bloc.dart';
 import '../../../bloc/homescreen_bloc/spotlight_bloc/spotlight_event.dart';
 import '../../../bloc/homescreen_bloc/spotlight_bloc/spotlight_state.dart';
 import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_bloc.dart';
-import '../../../bloc/showscreen_bloc/showDetails_bloc/show_details_event.dart';
 import '../../../utilities/app_horizontal_scroll_card.dart';
 import '../../../utilities/index.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,15 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int? selectedCategoryId;
   List<String> showNames = [];
   String? userId;
-
   int _currentCarouselIndex = 0;
-
-  @override
-  void dispose() {
-    connectivitySubscription.cancel();
-    connectivityCheckTimer?.cancel();
-    super.dispose();
-  }
 
   @override
   void initState() {
@@ -72,6 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
         const SnackBar(content: Text('No Internet Connection')),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    connectivitySubscription.cancel();
+    connectivityCheckTimer?.cancel();
+    super.dispose();
   }
 
   void monitorNetworkStatus() {
@@ -215,13 +212,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .read<ShowIdCubit>()
                                       .updateShowId(parsedShowId);
 
-                                  // BlocProvider.of<UserShowDetailBloc>(context)
-                                  //     .add(FetchUserShowDetail(
-                                  //         showId: int.parse(showId)));
-                                  // BlocProvider.of<UserEpisodeDetailBloc>(
-                                  //         context)
-                                  //     .add(FetchUserEpisodeDetail(
-                                  //         showId: int.parse(showId)));
                                   context.push("/showcase");
                                 },
                                 showIds: showIds,
@@ -271,16 +261,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               context
                                                   .read<ShowIdCubit>()
                                                   .updateShowId(parsedShowId);
-                                              // BlocProvider.of<NavigationCubit>(
-                                              //         context)
-                                              //     .navigateToIndex(3);
+
                                               context.push("/showcase");
-                                              // BlocProvider.of<
-                                              //             UserShowDetailBloc>(
-                                              //         context)
-                                              //     .add(FetchUserShowDetail(
-                                              //         showId:
-                                              //             int.parse(showId)));
                                             },
                                             child: Image.network(
                                               imageUrl,
@@ -338,65 +320,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               child:
                                   SvgPicture.asset(IconAssets.badgecloseblack),
                             ),
-                            // Row(
-                            //   crossAxisAlignment: CrossAxisAlignment.start,
-                            //   children: [
-                            //     Expanded(
-                            //       flex: 6,
-                            //       child: Container(
-                            //         height: 5.h,
-                            //         color: AppColors.black,
-                            //         child: Padding(
-                            //           padding: const EdgeInsets.all(8.0),
-                            //           child: Align(
-                            //             alignment: Alignment.topLeft,
-                            //             child: SvgPicture.asset(
-                            //                 IconAssets
-                            //                     .ondgoTextlogoblackcovered,
-                            //                 height: 22.sp,
-                            //                 semanticsLabel: 'Ondgo Logo'),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     Column(
-                            //       children: [
-                            //         Container(
-                            //             color: AppColors.black,
-                            //             height: 2.h,
-                            //             child: Container()),
-                            //         SvgPicture.asset(
-                            //             IconAssets.badgecloseblack),
-                            //       ],
-                            //     ),
-                            //     Expanded(
-                            //       flex: 2,
-                            //       child: Container(
-                            //         height: 5.h,
-                            //         color: AppColors.black,
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
-
-                            // Positioned(
-                            //   top: 8,
-                            //   left: 30,
-                            //   child: SvgPicture.asset(
-                            //       IconAssets.ondgoTextlogoblackcovered,
-                            //       height: 26.sp,
-                            //       semanticsLabel: 'Ondgo Logo'),
-                            // ),
-                            // Positioned(
-                            //   top: 0,
-                            //   right: 30,
-                            //   child: InkWell(
-                            //     onTap: () {},
-                            //     child: SvgPicture.asset(
-                            //         IconAssets.badgecloseblack),
-                            //   ),
-                            // ),
-
                             Positioned(
                               top: 75.sp,
                               child: Padding(
@@ -434,10 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               onPressed: () {
                                                 context.push("/search");
                                               },
-                                            )
-                                            // const Icon(Icons.search,
-                                            //     color: AppColors.white),
-                                            )
+                                            ))
                                       ],
                                     ),
                                     Container(
@@ -490,7 +410,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       child: Container(
                                                         height: 6.h,
                                                       ));
-                                                  //buildbannerShimmerEffect();
                                                 } else {
                                                   return Container();
                                                 }
@@ -599,15 +518,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .read<ShowIdCubit>()
                                     .updateShowId(parsedShowId);
 
-                                // BlocProvider.of<NavigationCubit>(context)
-                                //     .navigateToIndex(3);
                                 context.push("/showcase");
-                                // BlocProvider.of<UserShowDetailBloc>(context)
-                                //     .add(FetchUserShowDetail(
-                                //         showId: int.parse(showId)));
-                                // BlocProvider.of<UserEpisodeDetailBloc>(context)
-                                //     .add(FetchUserEpisodeDetail(
-                                //         showId: int.parse(showId)));
                               },
                               showIds: showIds,
                             );
@@ -630,19 +541,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     Center(
                       child: BlocListener<CategoryListBloc, CategoryListState>(
                         listener: (context, state) {
-                          // if (state is CategoryListLoaded) {
-                          //   if (state.categories.isNotEmpty) {
-                          //     final categoryIdStr =
-                          //         state.categories.first.categoryId;
-                          //     final categoryId =
-                          //         int.tryParse(categoryIdStr ?? '0');
-                          //     if (categoryId != null && categoryId > 0) {
-                          //       context.read<CategoryWiseShowBloc>().add(
-                          //           FetchCategoryWiseShows(
-                          //               categoryId: categoryId));
-                          //     }
-                          //   }
-                          // }
                           if (state is CategoryListLoaded &&
                               state.categories.isNotEmpty) {
                             int categoryId =
@@ -715,17 +613,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .read<ShowIdCubit>()
                                     .updateShowId(parsedShowId);
 
-                                // BlocProvider.of<NavigationCubit>(context)
-                                //     .navigateToIndex(3);
                                 context.push("/showcase");
-                                // BlocProvider.of<UserShowDetailBloc>(context)
-                                //     .add(FetchUserShowDetail(
-                                //         showId: int.parse(showId)));
-                                // BlocProvider.of<UserEpisodeDetailBloc>(context)
-                                //     .add(
-                                //   FetchUserEpisodeDetail(
-                                //       showId: int.parse(showId)),
-                                // );
                               },
                             );
                           } else if (state is CategoryWiseShowError) {
@@ -816,15 +704,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .read<ShowIdCubit>()
                                     .updateShowId(parsedShowId);
 
-                                // BlocProvider.of<NavigationCubit>(context)
-                                //     .navigateToIndex(3);
                                 context.push("/showcase");
-                                // BlocProvider.of<UserShowDetailBloc>(context)
-                                //     .add(FetchUserShowDetail(
-                                //         showId: int.parse(showId)));
-                                // BlocProvider.of<UserEpisodeDetailBloc>(context)
-                                //     .add(FetchUserEpisodeDetail(
-                                //         showId: int.parse(showId)));
                               },
                             );
                           } else if (state is CategoryWiseShow1Error) {
@@ -885,12 +765,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context, state) {
                           if (state is CategoryWiseShow2Loading) {
                             return const Center(
-                                child: Center(
-                                    child:
-                                        CircularProgressIndicator())); // Show loading indicator while data is being fetched
+                                child:
+                                    Center(child: CircularProgressIndicator()));
                           } else if (state is CategoryWiseShow2Loaded &&
                               state.shows.isNotEmpty) {
-                            // Extracting show names and thumbnails from the loaded shows
                             List<String> showNames = state.shows
                                 .map((show) => show.showName ?? 'No Show Name')
                                 .toList();
@@ -918,16 +796,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context
                                     .read<ShowIdCubit>()
                                     .updateShowId(parsedShowId);
-
-                                // BlocProvider.of<NavigationCubit>(context)
-                                //     .navigateToIndex(3);
                                 context.push("/showcase");
-                                // BlocProvider.of<UserShowDetailBloc>(context)
-                                //     .add(FetchUserShowDetail(
-                                //         showId: int.parse(showId)));
-                                // BlocProvider.of<UserEpisodeDetailBloc>(context)
-                                //     .add(FetchUserEpisodeDetail(
-                                //         showId: int.parse(showId)));
                               },
                             );
                           } else if (state is CategoryWiseShow2Error) {
